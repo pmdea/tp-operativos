@@ -15,7 +15,6 @@ int crear_conexion(char *ip, char* puerto)
 	connect(socket_cliente, server_info->ai_addr, server_info->ai_addrlen);
 
 	freeaddrinfo(server_info);
-
 	return socket_cliente;
 }
 
@@ -82,6 +81,8 @@ void iniciar_servidor(void)
 
 void init_cpu(t_config* config){
 	log_info(logger, "Initializing CPU process...");
+	// Realizar handshake con memoria
+
 
 	connect_to_service(config, SRV_KERNEL_DISPATCH);
 	connect_to_service(config, SRV_KERNEL_INTERRUPT);
