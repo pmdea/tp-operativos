@@ -18,39 +18,15 @@ int crear_conexion(char *ip, char* puerto)
 	return socket_cliente;
 }
 
-int await_call(void){
-
+void handshake_memoria(){
+	log_info(logger, "Realizing handshake with memory module...");
+	log_info(logger, "Handshake completed successfully!");
 }
 
-void kill_cpu(t_config* config){
+void end_process(t_config* config){
 
 	close(cpu_socket);
-}
-
-void connect_to_service(t_config* config, char* service){
-	int* socket;
-	char* ip;
-	char* port;
-
-	log_info(logger, "Connecting to %s service...", service);
-
-	if(!strcmp(service, SRV_KERNEL_DISPATCH)){
-		ip = config_get_string_value(config, IP_KERNEL);
-		port = config_get_string_value(config, PUERTO_ESCUCHA_DISPATCH);
-		socket = &kernel_disp_socket;
-	}
-	else if(!strcmp(service, SRV_KERNEL_INTERRUPT)){
-		ip = config_get_string_value(config, IP_KERNEL);
-		port = config_get_string_value(config, PUERTO_ESCUCHA_INTERRUPT);
-		socket = &kernel_int_socket;
-	}
-	else if(!strcmp(service, SRV_MEMORY)){
-		ip = config_get_string_value(config, IP_KERNEL);
-		port = config_get_string_value(config, PUERTO_ESCUCHA_INTERRUPT);
-		socket = &mem_socket;
-	}
-	*socket = crear_conexion(ip, port);
-	log_info(logger, "Connected to %s service successfully!", service);
+	close(mem_socket);
 }
 
 t_log* init_logger(void){
@@ -82,11 +58,11 @@ void iniciar_servidor(void)
 void init_cpu(t_config* config){
 	log_info(logger, "Initializing CPU process...");
 	// Realizar handshake con memoria
+	int* socketMemoria = &mem_socket;
+	*socketMemoria= crear_conexion(config_get_string_value(config, IP_MEMORIA), config_get_string_value(config, PUERTO_MEMORIA));
+	log_info(logger, "Memory socket created! %d", mem_socket);
 
-
-	connect_to_service(config, SRV_KERNEL_DISPATCH);
-	connect_to_service(config, SRV_KERNEL_INTERRUPT);
-	connect_to_service(config, SRV_MEMORY);
+	//Escuchar en dispatch e interrupt
 	iniciar_servidor();
 	log_info(logger, "CPU initialized correctly");
 }
@@ -95,6 +71,7 @@ int main(void)
 {
 	logger = init_logger();
 	t_config* config = load_config();
-	init_cpu(config);
+
+
 	return 0;
 }
