@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 	// tomar los elementos por parámetros. Se deben recibir:
 	// 1: nombre archivo
 	// 2: tamaño archivo
-	if(argc < 3){
+	if(argc > 3){
 		log_info(logger, "No se recibieron los param correctos");
 		return EXIT_FAILURE;
 	}
@@ -23,19 +23,22 @@ int main(int argc, char **argv) {
 
 	const char* filename = filePath;
 
-	FILE* input_file = fopen(filename, "r");
+	FILE* input_file = fopen("identificadores.txt", "r");
 	if (!input_file)
 		exit(EXIT_FAILURE);
 
 	char *contents = NULL;
+	char list_a[] = "";
 	size_t len = 0;
 	while (getline(&contents, &len, input_file) != -1){
-		printf("%s", contents); // imprime el contenido (contenido = linea q lee)
+		strcat(list_a ,contents);
 	}
-
 	fclose(input_file);
+	printf("%s", list_a); // enviar a kernel
 	free(contents);
 
 	exit(EXIT_SUCCESS);
+
+
 
 }
