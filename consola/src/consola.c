@@ -30,11 +30,23 @@ int main(int argc, char **argv) {
 	char *contents = NULL;
 	char list_a[] = "";
 	size_t len = 0;
+
 	while (getline(&contents, &len, input_file) != -1){
-		strcat(list_a ,contents);
+		char **identificador;
+		char **paramA;
+		char **paramB;
+		asignar_valores(contents, &identificador, &paramA, &paramB);
+		/*
+		printf("identificador= %s", identificador);
+		printf("numero1= %s", paramA);
+		printf("numero2= %s", paramB);
+		*/
+		printf("RESULTADOS= %i", validar_identificadores(identificador, paramA, paramB));
+
+		//strcat(list_a ,contents);
 	}
 	fclose(input_file);
-	printf("%s", list_a); // enviar a kernel
+	//printf("%s", list_a); // enviar a kernel
 	free(contents);
 
 	exit(EXIT_SUCCESS);
