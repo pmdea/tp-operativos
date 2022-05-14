@@ -53,23 +53,6 @@ t_list* recibir_paquete(int socket_cliente)
 	return valores;
 }
 
-//realiza el handshake
-
-void handshake(int socket_cliente)
-{
-	uint32_t handshake;
-	uint32_t resultOk = 0;
-	uint32_t resultError = -1;
-
-	recv(socket_cliente, &handshake, sizeof(uint32_t), MSG_WAITALL);
-
-	if(handshake == 1)
-	send(socket_cliente, &resultOk, sizeof(uint32_t), NULL);
-
-	else
-	send(socket_cliente, &resultError, sizeof(uint32_t), NULL);
-}
-
 // espera un cliente y lo acepta
 
 int esperar_cliente(int socket_kernel)
@@ -86,7 +69,7 @@ int conectar_kernel()
 {
 	int socket_kernel;
 
-	struct addrinfo hints, *servinfo, *p;
+	struct addrinfo hints, *servinfo;
 
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = AF_UNSPEC;
@@ -111,25 +94,31 @@ void iterador(char* value) {
 	log_info(logger,"%s", value);
 }
 
-int recibirConexion(){
-
-	t_log* logger = log_create("kernel.log", "Kernel", 1, LOG_LEVEL_DEBUG);
+int main(void)
+{
+	logger = log_create("kernel.log", "Kernel", 1, LOG_LEVEL_DEBUG);
 
 	int socket_kernel = conectar_kernel();
 	log_info(logger, "Servidor listo para recibir al cliente");
 	int socket_cliente = esperar_cliente(socket_kernel);
 
 	t_list* lista;
+	char* valor;
+
 	while (1) {
 		int cod_op = recibir_operacion(socket_cliente);
 		switch (cod_op) {
 		case MENSAJE:
-			handshake(socket_cliente);
+			recibir_mensaje(socket_cliente);
 			break;
 		case PAQUETE:
 			lista = recibir_paquete(socket_cliente);
 			log_info(logger, "Me llegaron los siguientes valores:\n");
-			list_iterate(lista, (void*) iterador);
+			for(int i=0; i<list_size(lista); i++)
+			{
+				valor = list_get(lista, i);
+				log_info(logger, valor);
+			}
 			break;
 		case -1:
 			log_error(logger, "El cliente se desconecto. Terminando servidor");
@@ -140,10 +129,4 @@ int recibirConexion(){
 		}
 	}
 	return EXIT_SUCCESS;
-}
-
-int main(void)
-{
-	recibirConexion();
-	log_info(logger, "Exito");
 }

@@ -18,6 +18,8 @@
 #include <stdbool.h>
 #include <sys/types.h>
 
+t_log* logger_consola;
+
 typedef enum
 {
 	MENSAJE,
