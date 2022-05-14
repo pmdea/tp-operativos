@@ -5,22 +5,50 @@
  *      Author: pmdea
  */
 #include "kernel.h"
-#include <commons/string.h>
 
 int main(void)
 {
 	t_log* logger;
-
 	logger = iniciar_logger_kernel();
-	log_info(logger, "Log iniciado");
+	log_info(logger, "Modulo Kernel");
+	iniciar_config_kernel(); // Traer datos del archivo de configuracion
 
-	iniciar_config_kernel();
+	// Listas
+	procesosNew = list_create();
+	procesosReady = list_create();
+	procesosExecute = list_create();
+	procesosBlocked = list_create();
+	procesosSuspendedBlocked = list_create();
+	procesosSuspendedReady = list_create();
+	procesosExit = list_create();
 
-	log_info(logger, "IP_MEMORIA: %s", config_kernel.ip_memoria);
-	log_info(logger, "ALFA: %f", config_kernel.alfa);
-
-	terminar_programa(logger);
+	/*
+	 * while (1){
+	 *
+	 * 	planificador_largo_plazo();
+	 *
+	 * }
+	 */
 }
+//El tamaño y las instrucciones vienen desde consola
+void generar_PCB(int idUltimo, int tamanioProceso, char* instrucciones){ // Funcion para cargar los datos del proceso al PCB
+
+	pcb *nuevoProceso = malloc(sizeof(pcb));
+	nuevoProceso -> id = idUltimo;
+	nuevoProceso -> tamanio = tamanioProceso;
+	nuevoProceso -> instrucciones = instrucciones; // LISTA
+	nuevoProceso ->  program_counter = idUltimo+1;
+	nuevoProceso ->  tabla_paginas = "-"; // LISTA
+	nuevoProceso ->  estimacion_rafaga = config_kernel.estimacion_inicial;
+	nuevoProceso ->  estado = NEW;
+	nuevoProceso ->  finalizar = 0;
+
+	list_add(procesosNew, nuevoProceso);
+
+	free(nuevoProceso);
+	//printf("Proceso creado correctamente");
+}
+
 
 t_log* iniciar_logger_kernel(void)
 {
