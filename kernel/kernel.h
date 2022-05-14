@@ -42,4 +42,5 @@ t_list* procesosSuspendedReady;
 t_list* procesosExit;
 
 t_log* iniciar_logger_kernel(void);
-void terminar_programa(t_log*);
+t_config* iniciar_config_kernel(void);
+void terminar_programa(t_log*, t_config*);

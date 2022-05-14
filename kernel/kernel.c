@@ -9,9 +9,10 @@
 int main(void)
 {
 	t_log* logger;
+	t_config* config;
 	logger = iniciar_logger_kernel();
 	log_info(logger, "Modulo Kernel");
-	iniciar_config_kernel(); // Traer datos del archivo de configuracion
+	config = iniciar_config_kernel(); // Traer datos del archivo de configuracion
 
 	// Listas
 	procesosNew = list_create();
@@ -58,14 +59,13 @@ t_log* iniciar_logger_kernel(void)
 	return nuevo_logger;
 }
 
-void iniciar_config_kernel(void) // CARGO LA INFORMACION DEL CONFIG
+t_config* iniciar_config_kernel(void) // CARGO LA INFORMACION DEL CONFIG
 {
 	t_config* nuevo_config;
 	if((nuevo_config = config_create("./kernel.config")) == NULL){
 		printf("No pude leer la config\n");
 		exit(2);
 	}
-
 
 	config_kernel.ip_memoria = config_get_string_value(nuevo_config, "IP_MEMORIA");
 	config_kernel.puerto_memoria = config_get_int_value(nuevo_config, "PUERTO_MEMORIA");
@@ -79,19 +79,22 @@ void iniciar_config_kernel(void) // CARGO LA INFORMACION DEL CONFIG
 	config_kernel.grado_multiprogramacion = config_get_int_value(nuevo_config, "GRADO_MULTIPROGRAMACION");
 	config_kernel.tiempo_maximo_bloqueado = config_get_int_value(nuevo_config, "TIEMPO_MAXIMO_BLOQUEADO");
 
-// Si destruyo el config los datos se distorcionan
+	return nuevo_config;
+
 }
 
 
 
-void terminar_programa(t_log* logger)
+void terminar_programa(t_log* logger, t_config* config)
 {
-	/* Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config)
-	  con las funciones de las commons y del TP mencionadas en el enunciado */
+
 	if(logger != NULL){
 		log_destroy(logger);
 	}
 
+	if(config != NULL){
+		config_destroy(config);
+	}
 }
 
 
