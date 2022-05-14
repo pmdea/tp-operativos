@@ -1,0 +1,7 @@
+[INFO] 16:04:11:160 console/(8995:8995): No se recibieron los param correctos
+[INFO] 17:07:55:588 console/(15798:15798): NO_OP 5
+I/O 3000
+READ 0
+WRITE 4 42
+COPY 0 4
+EXIT
