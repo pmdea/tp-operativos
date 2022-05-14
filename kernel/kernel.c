@@ -40,8 +40,6 @@ void generar_PCB(int idUltimo, int tamanioProceso, char* instrucciones){ // Func
 	nuevoProceso ->  program_counter = idUltimo+1;
 	nuevoProceso ->  tabla_paginas = "-"; // LISTA
 	nuevoProceso ->  estimacion_rafaga = config_kernel.estimacion_inicial;
-	nuevoProceso ->  estado = NEW;
-	nuevoProceso ->  finalizar = 0;
 
 	list_add(procesosNew, nuevoProceso);
 

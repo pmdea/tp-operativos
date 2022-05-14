@@ -8,14 +8,6 @@
 #include <semaphore.h>
 #include <pthread.h>
 
-#define NOASSIGNED 0;
-#define NEW 1;
-#define READY 2;
-#define BLOCKED 3;
-#define SUSPENDEDBLOCKED 4;
-#define SUSPENDEDREADY 5;
-#define EXIT -1;
-
 typedef struct {
 	int id;
 	int tamanio;
@@ -23,9 +15,6 @@ typedef struct {
 	int program_counter;
 	char* tabla_paginas; // LISTA
 	int estimacion_rafaga;
-	int estado;
-	int finalizar; // 1 - Si 0 - No
-
 } pcb;
 
 typedef struct {
