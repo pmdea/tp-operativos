@@ -19,9 +19,23 @@ void* recibir_buffer(int* size, int socket_cliente)
 	recv(socket_cliente, size, sizeof(int), MSG_WAITALL);
 	buffer = malloc(*size);
 	recv(socket_cliente, buffer, *size, MSG_WAITALL);
+	log_info(logger, "Recibí el buffer");
 
 	return buffer;
 }
+
+t_queue* recibir_buffer_cola(int* size, int socket_cliente)
+{
+	t_queue* buffer;
+
+	recv(socket_cliente, size, sizeof(int), MSG_WAITALL);
+	buffer = malloc(*size);
+	recv(socket_cliente, buffer, *size, MSG_WAITALL);
+	log_info(logger, "Recibí el buffer");
+
+	return buffer;
+}
+
 
 void recibir_mensaje(int socket_cliente)
 {
@@ -31,26 +45,43 @@ void recibir_mensaje(int socket_cliente)
 	free(buffer);
 }
 
-t_list* recibir_paquete(int socket_cliente)
+t_list* queue_pope(t_queue* buffer)
+{
+	t_list* lista = list_remove(buffer->elements, 0);
+
+	return lista;
+}
+
+t_queue* recibir_cola(int socket_cliente)
+{
+	int size;
+	t_queue* buffer = recibir_buffer_cola(&size, socket_cliente);
+	log_info(logger, "Me llego el mensaje");
+	return buffer;
+	free(buffer);
+}
+
+t_queue* recibir_paquete(int socket_cliente)
 {
 	int size;
 	int desplazamiento = 0;
 	void * buffer;
-	t_list* valores = list_create();
+//	t_list* valores = list_create();
 	int tamanio;
+	t_queue* valor;
 
 	buffer = recibir_buffer(&size, socket_cliente);
 	while(desplazamiento < size)
 	{
 		memcpy(&tamanio, buffer + desplazamiento, sizeof(int));
 		desplazamiento+=sizeof(int);
-		char* valor = malloc(tamanio);
+		valor = malloc(tamanio);
 		memcpy(valor, buffer+desplazamiento, tamanio);
 		desplazamiento+=tamanio;
-		list_add(valores, valor);
+//		list_add(valores, valor);
 	}
 	free(buffer);
-	return valores;
+	return valor;
 }
 
 // espera un cliente y lo acepta
@@ -102,8 +133,11 @@ int main(void)
 	log_info(logger, "Servidor listo para recibir al cliente");
 	int socket_cliente = esperar_cliente(socket_kernel);
 
+	t_queue* cola;
 	t_list* lista;
-	char* valor;
+//	char* identificador;
+//	int* paramA;
+//	int* paramB;
 
 	while (1) {
 		int cod_op = recibir_operacion(socket_cliente);
@@ -111,14 +145,18 @@ int main(void)
 		case MENSAJE:
 			recibir_mensaje(socket_cliente);
 			break;
-		case PAQUETE:
-			lista = recibir_paquete(socket_cliente);
-			log_info(logger, "Me llegaron los siguientes valores:\n");
-			for(int i=0; i<list_size(lista); i++)
+		case COLA:
+			cola = recibir_cola(socket_cliente);
+			log_info(logger, "Recibí la cola");
+			while(!queue_is_empty(cola))
 			{
-				valor = list_get(lista, i);
-				log_info(logger, valor);
+				log_info(logger, "im in");
+				lista = queue_pop(cola);
+				log_info(logger, "popie");
 			}
+			break;
+		case PAQUETE:
+			recibir_paquete(socket_cliente);
 			break;
 		case -1:
 			log_error(logger, "El cliente se desconecto. Terminando servidor");

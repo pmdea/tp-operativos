@@ -23,7 +23,22 @@ void terminar(t_config* config, int conexion){
 
 void* serializar_paquete(t_paquete* paquete, int bytes)
 {
-	void * s = malloc(bytes);
+	void* s = malloc(bytes);
+	int desplazamiento = 0;
+
+	memcpy(s + desplazamiento, &(paquete->codigo_operacion), sizeof(int));
+	desplazamiento+= sizeof(int);
+	memcpy(s + desplazamiento, &(paquete->buffer->size), sizeof(int));
+	desplazamiento+= sizeof(int);
+	memcpy(s + desplazamiento, paquete->buffer->stream, paquete->buffer->size);
+	desplazamiento+= paquete->buffer->size;
+
+	return s;
+}
+
+void* serializar_cola(t_paquete* paquete, int bytes)
+{
+	void* s = malloc(bytes);
 	int desplazamiento = 0;
 
 	memcpy(s + desplazamiento, &(paquete->codigo_operacion), sizeof(int));
@@ -64,12 +79,32 @@ void enviar_mensaje(char* mensaje, int socket_cliente)
 	eliminar_paquete(paquete);
 }
 
-void agregar_a_paquete(t_paquete* paquete, char* valor, int tamanio)
+void enviar_cola(t_queue* cola, int socket_cliente)
 {
-	paquete->buffer->stream = realloc(paquete->buffer->stream, paquete->buffer->size + tamanio + sizeof(int));
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+
+	paquete->codigo_operacion = COLA;
+	paquete->buffer = malloc(sizeof(t_buffer));
+	paquete->buffer->size = sizeof(cola);
+	paquete->buffer->stream = malloc(paquete->buffer->size);
+	memcpy(paquete->buffer->stream, cola, paquete->buffer->size);
+
+	int bytes = paquete->buffer->size + 2*sizeof(int);
+
+	void* a_enviar = serializar_cola(paquete, bytes);
+
+	send(socket_cliente, a_enviar, bytes, 0);
+
+	free(a_enviar);
+	eliminar_paquete(paquete);
+}
+
+void agregar_a_paquete(t_paquete* paquete, t_queue* cola, int tamanio)
+{
+	paquete->buffer->stream = realloc(paquete->buffer->stream, paquete->buffer->size + tamanio + sizeof(tamanio));
 
 	memcpy(paquete->buffer->stream + paquete->buffer->size, &tamanio, sizeof(int));
-	memcpy(paquete->buffer->stream + paquete->buffer->size + sizeof(int), valor, tamanio);
+	memcpy(paquete->buffer->stream + paquete->buffer->size + sizeof(int), cola, tamanio);
 
 	paquete->buffer->size += tamanio + sizeof(int);
 }
@@ -84,17 +119,11 @@ void enviar_paquete(t_paquete* paquete, int socket_consola)
 	free(paquete_serializado);
 }
 
-void paquete(t_list* lista, int conexion)
+void paquete(t_queue* cola, int conexion)
 {
 	t_paquete* paquete = crear_paquete();
-	char* valor;
 
-	for(int i=0; i<list_size(lista); i++)
-	{
-		valor = list_get(lista, i);
-		agregar_a_paquete(paquete, valor, sizeof(paquete));
-	}
-
+	agregar_a_paquete(paquete, cola, sizeof(cola));
 
 	enviar_paquete(paquete, conexion);
 
@@ -143,18 +172,19 @@ int main(void)
 	logger_consola = log_create("consola.log", "CONSOLA", 1, LOG_LEVEL_INFO);
 	t_config* config = config_create("consola.config");
 
-	t_list* lista_instrucciones = list_create();
+	t_list* instruccion = list_create();
+	list_add(instruccion, identificador);
+	list_add(instruccion, paramA);
+	list_add(instruccion, paramB);
 
-	// esta lista es de ejemplo, acá iría la lista de intruciones
-	char* elemento = "Hola";
-	list_add(lista_instrucciones, elemento);
-	elemento="Chaucito";
-	list_add(lista_instrucciones, elemento);
+	t_queue* lista_instrucciones = queue_create();
+
+	queue_push(lista_instrucciones, instruccion);
 
 	int conexion = crear_conexion_con_kernel(config);
 	log_info(logger_consola,"Conexion creada con el Kernel");
 
-	paquete(lista_instrucciones, conexion);
+	enviar_cola(lista_instrucciones, conexion);
 	log_info(logger_consola,"Paquete enviado");
 
 	terminar(config, conexion);

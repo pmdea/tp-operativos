@@ -14,16 +14,22 @@
 #include <commons/string.h>
 #include <commons/config.h>
 #include <commons/collections/list.h>
+#include <commons/collections/queue.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <sys/types.h>
 
 t_log* logger_consola;
 
+char* identificador = "WRITE";
+char* paramA = "1";
+char* paramB = "2";
+
 typedef enum
 {
 	MENSAJE,
-	PAQUETE
+	PAQUETE,
+	COLA
 }op_code;
 
 typedef struct
