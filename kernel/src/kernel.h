@@ -22,18 +22,6 @@
 #include <stdlib.h>
 
 /*
-#include <netdb.h>
-#include <commons/collections/list.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-#include <assert.h>
-#include <readline/readline.h>
-#include <commons/collections/list.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <sys/types.h>
 */
 
 typedef enum
