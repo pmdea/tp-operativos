@@ -23,6 +23,8 @@ int main(void)
 	procesosSuspendedReady = list_create();
 	procesosExit = list_create();
 
+
+
 	/*
 	 * while (1){
 	 *
@@ -37,15 +39,60 @@ void generar_PCB(int idUltimo, int tamanioProceso, char* instrucciones){ // Func
 	pcb *nuevoProceso = malloc(sizeof(pcb));
 	nuevoProceso -> id = idUltimo;
 	nuevoProceso -> tamanio = tamanioProceso;
-	nuevoProceso -> instrucciones = instrucciones; // LISTA
-	nuevoProceso ->  program_counter = idUltimo+1;
+	nuevoProceso -> instrucciones = ""; // LISTA
+	nuevoProceso ->  program_counter = 0;
 	nuevoProceso ->  tabla_paginas = "-"; // LISTA
 	nuevoProceso ->  estimacion_rafaga = config_kernel.estimacion_inicial;
 
 	list_add(procesosNew, nuevoProceso);
 
-	free(nuevoProceso);
+	//free(nuevoProceso); Si la libero no me tira bien los datos
+
 	//printf("Proceso creado correctamente");
+}
+
+void planificador_LargoPlazo(){
+
+	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
+	int enReady = list_size(procesosReady); // Procesos en ready
+	int enBlock = list_size(procesosBlocked); // Procesos en blocked
+	int enFinalizacion = list_size(procesosExit);
+
+	int espacio_ocupado_memoria_principal = enEjecucion + enReady + enBlock;
+
+	while (espacio_ocupado_memoria_principal < config_kernel.grado_multiprogramacion) {
+
+		// Obtengo el primero de la lista de procesosNew
+		pcb * unProceso;
+		unProceso = list_get(procesosNew, 0);
+
+		//Envio de mensaje a Modulo de Memoria para generar estructuras
+
+		//enviarMensaje("PCB-Generado", socket_memoria);
+
+		//wait(esperarRespuesta); // el signal lo deberia tener memoria luego de crear las estructuras (Tablas/Paginas)
+
+		//Obtengo tablas de direccion
+
+			//recibirMensaje(socket_memoria);
+
+		// Asigno al PCB y lo guardo en la lista procesosReady
+		unProceso -> tabla_paginas = "reemplazar cuando este la funcion realizada arriba";
+		list_add(procesosReady, unProceso);
+		list_remove(procesosNew, 0);
+
+		free(unProceso); // Ver si se guarda bien la info o no
+
+		// Analizar si tengo procesos en finalizacion
+		if (enFinalizacion != 0){
+			pcb * unProcess = list_get(procesosExit, 0);
+			// Envio Msj a Memoria para liberar
+			// Aviso a consola que termino.
+			list_remove(unProceso, 0);
+			free(unProcess);
+		}
+
+	}
 }
 
 
