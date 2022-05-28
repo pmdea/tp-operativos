@@ -135,9 +135,11 @@ void algoritmo_FIFO(){
 
 		//wait  necesito un sem mutex? sem_wait(agregarAReady) QUIZA
 		unProceso = list_remove(procesosReady, 0);
-		// signal sem_post(agregarAReady) QUIZA
 
 		list_add(procesosExecute, unProceso);
+		// signal sem_post(agregarAReady) QUIZA
+
+
 		// signal(cheTemandoPRoceso) binario
 		// se lo mando al cpu el Proceso
 
@@ -178,7 +180,18 @@ void algoritmo_FIFO(){
 
 
 void algoritmo_SRT(){
+	//sem  mientras la lee no quiero q cambie
+	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
+	int enReady = list_size(procesosReady); // Procesos en ready
+	int enFinalizacion = list_size(procesosExit);
+	int enBlock = list_size(procesosBlocked); // Procesos en blocked
+	//sem
 
+
+}
+
+int estimador(int alfa, int estimado_anterior, int rafaga_ejecutada ){
+	return alfa * rafaga_ejecutada + (1 - alfa) * estimado_anterior ;
 }
 
 t_log* iniciar_logger_kernel(void)
