@@ -25,13 +25,14 @@ int main(void)
 
 
 
-	/*
+	/* HILOS ENTRE LOS PLANI PARA GENERAR PARALELISMO
 	 * while (1){
 	 *
 	 * 	planificador_largo_plazo();
-	 *
+	 *	planificador_corto_plazo(algoritmo);
 	 * }
 	 */
+
 }
 //El tamaño y las instrucciones vienen desde consola
 void generar_PCB(int idUltimo, int tamanioProceso, char* instrucciones){ // Funcion para cargar los datos del proceso al PCB
@@ -52,12 +53,12 @@ void generar_PCB(int idUltimo, int tamanioProceso, char* instrucciones){ // Func
 }
 
 void planificador_LargoPlazo(){
-
+	//sem mientras la lee no quiero q cambie
 	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
 	int enReady = list_size(procesosReady); // Procesos en ready
 	int enBlock = list_size(procesosBlocked); // Procesos en blocked
 	int enFinalizacion = list_size(procesosExit);
-
+	//sem
 	int espacio_ocupado_memoria_principal = enEjecucion + enReady + enBlock;
 
 	while (espacio_ocupado_memoria_principal < config_kernel.grado_multiprogramacion) {
@@ -78,7 +79,12 @@ void planificador_LargoPlazo(){
 
 		// Asigno al PCB y lo guardo en la lista procesosReady
 		unProceso -> tabla_paginas = "reemplazar cuando este la funcion realizada arriba";
+
+
+		// SEMAFORO  CON EL DE LARGO CORTO MUTEX sem_wait(agregarAReady)
 		list_add(procesosReady, unProceso);
+		// SEMAFORO  CON EL DE LARGO CORTO MUTEX sem_post(agregarAReady)
+
 		list_remove(procesosNew, 0);
 
 		free(unProceso); // Ver si se guarda bien la info o no
@@ -94,7 +100,86 @@ void planificador_LargoPlazo(){
 
 	}
 }
+void planificador_CortoPlazo(char algoritmo){
 
+	int ciclosTotales=0;
+
+
+	if(algoritmo == 'FIFO'){
+		algoritmo_FIFO()
+	}else{
+		algoritmo_SRT()
+	}
+
+	//algoritmo
+	while(enReady > 0 && enEjecucion == 0){
+		pcb * unProceso;
+		// unProceso = EL QUE DECIDE EL ALGORITMO
+		// se lo mando a CPU
+	}
+}
+void algoritmo_FIFO(){
+
+	//sem  mientras la lee no quiero q cambie
+	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
+	int enReady = list_size(procesosReady); // Procesos en ready
+	int enFinalizacion = list_size(procesosExit);
+	int enBlock = list_size(procesosBlocked); // Procesos en blocked
+	//sem
+
+	t_list*  tiempoABlockear = list_create();
+	// algoritmo
+	// FIFO PROCESOS READY ==>  [ b, c, d] bloqueado a
+	while(enReady > 0){
+		pcb * unProceso;
+
+		//wait  necesito un sem mutex? sem_wait(agregarAReady) QUIZA
+		unProceso = list_remove(procesosReady, 0);
+		// signal sem_post(agregarAReady) QUIZA
+
+		list_add(procesosExecute, unProceso);
+		// signal(cheTemandoPRoceso) binario
+		// se lo mando al cpu el Proceso
+
+		// wait espero lo q me manda el cpu desp de ejecutar el proceso (un exit, bloqueo, desalojo) binario
+
+		// paquete = recibirPaquete(socket_memoria); SUPONIENDO Q ME MANDA UN MENSAJE EN EL PAQUETE
+		if( paquete->mensaje == 'exit' ){
+			list_add(procesosExit, paquete->pcb);
+		}
+
+		if(paquete->mensaje == 'i/o'){
+			//necesito el tiempo
+			// suponiendo que tengo el tiempo
+			int tiempo =  paquete->tiempo + 1 ; // 2 para q le reste la primera vez
+			list_add(procesosBlocked, paquete->pcb); // lista bloqueados [ a, b ]
+			list_add(tiempoABlockear, tiempo) ;// [ 3 ]
+
+		}
+
+		int tiempoBlockeadoAhora = list_get(tiempoABlockear, 0); // 0
+		if(tiempoBlockeadoAhora){ // si
+			if(tiempoBlockeadoAhora == 0){ // si
+
+				// SEMAFORO  CON EL DE LARGO PLAZO MUTEX sem_wait(agregarAReady)
+				list_add(procesosReady, list_remove(procesosBlocked, 0)); // [ a, c ] => [ c ] ** devuelve un pcb
+				// SEMAFORO  CON EL DE LARGO PLAZO MUTEX sem_post(agregarAReady)
+
+				// se termino el bloqueo por lo tanto lo meto devuelta en la lista de ready
+				list_remove(tiempoABlockear, 0); // [ 0, 4 ] => [ 4 ]
+
+			}
+			list_replace(tiempoABlockear, 0, tiempoBlockeadoAhora--); // [ 3 ]
+		}
+	}
+}
+
+
+
+
+void algoritmo_SRT(){
+
+}
 
 t_log* iniciar_logger_kernel(void)
 {
