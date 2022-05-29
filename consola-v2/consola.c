@@ -29,7 +29,7 @@ int parametros(t_instruccion* instruccion);
 int sumar(int un_numero, int otro_numero);
 int tamanio_identificadores(t_queue* instrucciones);
 int tamanio_identificador(t_instruccion* instruccion);
-void agregar_contenido(t_queue* contenido, void* buffer);
+void agregar_contenido(t_queue* contenido, void* buffer, int tamanio);
 void copiar_parametros(void* buffer, int *desplazamiento, t_queue* parametros);
 void enviar_paquete(t_paquete* paquete, int socket_consola);
 void eliminar_paquete(t_paquete* paquete);
@@ -41,6 +41,11 @@ void finalizar_consola(FILE* archivo, t_config* config, t_queue* instrucciones);
 char* show_parametros(char** instruccion);
 void show_contenido(t_queue* contenido);
 void show_paquete(t_paquete* paquete);
+void deserializar_stream(t_paquete* paquete);
+void deserializar_datos(t_proceso* proceso, t_paquete* stream);
+void show_proceso(t_proceso* proceso);
+void show_instrucciones(t_queue* instrucciones);
+void show_parametros_leidos(t_list* parametros);
 
 #define CLAVE_IP "IP_KERNEL"
 #define CLAVE_PUERTO "PUERTO_KERNEL"
@@ -82,8 +87,9 @@ int main(int argc, char** argv) {
 						config_destroy(consola_config);
 						log_debug(log_consola,"codigo operacion del paquete: %i",paquete->operacion);
 						log_debug(log_consola,"tamaño datos enviados: %i",paquete->buffer->size);
-						log_debug(log_consola,"tamaño del proceso: %i",paquete->tamanio_proceso);
-						log_debug(log_consola,"todo el buffer de nuevo por las dudas jaja: %s",(char*) paquete->buffer->buffer);
+						log_debug(log_consola,"todo el buffer de nuevo por las dudas jaja: %s",(char*) (paquete->buffer->buffer));
+						deserializar_stream(paquete);
+						eliminar_paquete(paquete);
 					}
 					fclose(instrucciones);
 				}
@@ -212,7 +218,7 @@ void agregar_instruccion(t_queue* instrucciones, char** instruccion) {
 
 	t_instruccion* instruccion_validada = malloc(sizeof(t_instruccion));
 	char* identificador = string_duplicate(instruccion[0]);
-	strcat(identificador,"\0");
+	//strcat(identificador,"\0");
 	instruccion_validada->identificador = identificador;
 	instruccion_validada->tamanio_id = string_length(instruccion_validada->identificador);
 	instruccion_validada->parametros = queue_create();
@@ -321,68 +327,60 @@ bool enviar_mensaje(op_code codigo, char* mensaje, int socket_consola) {
 
 t_paquete* serializar_paquete(t_queue* contenido, op_code codigo,
 		int tamanio_proceso) {
-
-	show_contenido(contenido);
-	t_paquete* paquete = malloc(sizeof(t_paquete));
-	paquete->buffer = malloc(sizeof(t_buffer));
-	t_buffer* buffer = malloc(sizeof(t_buffer));
-
-	log_debug(log_consola,"Iniciando serializacion de paquete");
-	paquete->operacion = codigo;
-	log_debug(log_consola,"operacion a realizar: %i",paquete->operacion);
-	paquete->tamanio_proceso = tamanio_proceso;
-	log_debug(log_consola,"Tamaño del proceso: %i",paquete->tamanio_proceso);
-
-	buffer->size = queue_size(contenido) * sizeof(int) + parametros_totales(contenido) * (sizeof(UNSIGNED_INT)) + tamanio_identificadores(contenido) * sizeof(char);
-	buffer->buffer = malloc(buffer->size);
-	log_debug(log_consola,"Tamaño total de datos a enviar: %i",buffer->size);
-	//log_debug(log_consola,"Resultados: %i %i %i",queue_size(contenido) * sizeof(int),parametros_totales(contenido) * (sizeof(UNSIGNED_INT)),tamanio_identificadores(contenido) * sizeof(char));
-	agregar_contenido(contenido, buffer->buffer);
-	paquete->buffer->size = buffer->size;
-	paquete->buffer->buffer = buffer->buffer;
-	show_paquete(paquete);
-	return paquete;
+	t_paquete* paquete_serializado = malloc(sizeof(t_paquete));
+	paquete_serializado->operacion = codigo;
+	paquete_serializado->buffer = malloc(sizeof(t_buffer));
+	log_debug(log_consola,"codigo: %i",paquete_serializado->operacion);
+	paquete_serializado->buffer->size = sizeof(int)+queue_size(contenido)*sizeof(int) + tamanio_identificadores(contenido)*sizeof(char) + parametros_totales(contenido)*sizeof(UNSIGNED_INT);
+	void* buffer = malloc(paquete_serializado->buffer->size);
+	agregar_contenido(contenido,buffer,tamanio_proceso);
+	paquete_serializado->buffer->buffer = buffer;
+	return paquete_serializado;
 }
 
 int parametros_totales(t_queue* contenido) {
-	t_list* tamanios = list_map(contenido->elements, parametros);
-	return (int) list_fold1(tamanios, sumar);
+	t_list* tamanios = list_map(contenido->elements,(void*) parametros);
+	log_debug(log_consola,"Parametros totales: %i",(int) list_fold1(tamanios,(void*) sumar));
+	return (int) list_fold1(tamanios,(void*) sumar);
 }
 
 int parametros(t_instruccion* nodo) {
-	log_debug(log_consola,"Instruccion leida: %s",nodo->identificador);
-	log_debug(log_consola,"cantidad param: %i",cantidad_de_parametros(nodo->identificador));
 	return cantidad_de_parametros(nodo->identificador);
 }
 
-int sumar(int un_numero, int otro_numero) {
-	return un_numero + otro_numero;
+int sumar(int num1, int num2) {
+	return num1 + num2;
 }
 
 int tamanio_identificadores(t_queue* instrucciones) {
 
-	t_list* tamanios = list_map(instrucciones->elements, tamanio_identificador);
-	return (int) list_fold1(tamanios, sumar);
+	t_list* tamanios = list_map(instrucciones->elements,(void*) tamanio_identificador);
+	log_debug(log_consola,"total identificadores: %i",(int) list_fold1(tamanios,(void*) sumar));
+	return (int) list_fold1(tamanios,(void*) sumar);
 }
 
 int tamanio_identificador(t_instruccion* instruccion) {
-	log_debug(log_consola,"Instruccion leida: %s",instruccion->identificador);
-	log_debug(log_consola,"cantidad param: %i",cantidad_de_parametros(instruccion->identificador));
+	//log_debug(log_consola,"Instruccion leida: %s",instruccion->identificador);
+	//log_debug(log_consola,"cantidad param: %i",cantidad_de_parametros(instruccion->identificador));
 	return instruccion->tamanio_id;
 }
 
-void agregar_contenido(t_queue* contenido, void* buffer) {
+void agregar_contenido(t_queue* contenido, void* buffer, int tamanio) {
 	int desplazamiento = 0;
+	memcpy(buffer, &tamanio, sizeof(int));
+	desplazamiento += sizeof(int);
+	log_debug(log_consola,"Desplazamiento actual: %i",desplazamiento);
 	t_instruccion* instruccion = malloc(sizeof(t_instruccion));
 	while (!queue_is_empty(contenido)) {
 		instruccion = queue_peek(contenido);
+		//string_append(instruccion->identificador,"\0");
 		log_debug(log_consola,"Desplazamiento actual: %i",desplazamiento);
-		log_debug(log_consola,"tamanio del id: %i",sizeof(instruccion->tamanio_id));
-		memcpy(buffer + desplazamiento, &instruccion->tamanio_id, sizeof(int));
+		//log_debug(log_consola,"tamanio del id: %i",sizeof(instruccion->tamanio_id + 1));
+		memcpy(buffer + desplazamiento, &(instruccion->tamanio_id), sizeof(int));
 		desplazamiento += sizeof(int);
 		log_debug(log_consola,"Desplazamiento actual: %i",desplazamiento);
 		log_debug(log_consola,"identificador: %s",instruccion->identificador);
-		memcpy(buffer + desplazamiento, &instruccion->identificador,
+		memcpy(buffer + desplazamiento, &(instruccion->identificador),
 				sizeof(char) * instruccion->tamanio_id);
 		desplazamiento += sizeof(char) * instruccion->tamanio_id;
 		log_debug(log_consola,"Desplazamiento actual: %i",desplazamiento);
@@ -391,15 +389,17 @@ void agregar_contenido(t_queue* contenido, void* buffer) {
 		queue_pop(contenido);
 
 	}
-	log_debug(log_consola,"datos grabados (a lo guaso): %s",(char*) buffer);
+	//desplazamiento += sizeof(char);
+	//log_debug(log_consola,"datos grabados (a lo guaso): %i",(int*) buffer);
 	free(instruccion);
 }
 
 void copiar_parametros(void* buffer, int *desplazamiento, t_queue* parametros) {
 	if(queue_size(parametros) > 0) {
-		UNSIGNED_INT parametro_actual = (UNSIGNED_INT) queue_peek(parametros);
-			log_debug(log_consola,"param actual: %i",parametro_actual);
+		UNSIGNED_INT parametro_actual;
 			while (!queue_is_empty(parametros)) {
+				parametro_actual = (UNSIGNED_INT) queue_peek(parametros);
+				log_debug(log_consola,"param actual: %i",parametro_actual);
 				memcpy(buffer + *desplazamiento, &parametro_actual,
 						sizeof(UNSIGNED_INT));
 				*desplazamiento += sizeof(UNSIGNED_INT);
@@ -417,6 +417,7 @@ void enviar_paquete(t_paquete* paquete, int socket_consola) {
 }
 
 void eliminar_paquete(t_paquete* paquete) {
+	free(paquete->buffer->buffer);
 	free(paquete->buffer);
 	free(paquete);
 }
@@ -476,10 +477,92 @@ void show_contenido(t_queue* contenido) {
 	free(aux);
 }
 
+void deserializar_stream(t_paquete* paquete) {
+	t_proceso* proceso = malloc(sizeof(t_proceso));
+	proceso->instrucciones = queue_create();
+	switch(paquete->operacion) {
+	case ENVIO_DATOS:
+		log_debug(log_consola,"Deserializando datos...");
+		deserializar_datos(proceso,paquete); break;
+	case CONFIRMACION:
+		//deserializar_mensaje(paquete_recibido,paquete); break;
+	case HANDSHAKE:
+		//deserializar_handshake(paquete_recibido,paquete); break;
+	default: log_error(log_consola,"La operacion ingresada es desconocida");
+	}
+	show_proceso(proceso);
+}
+
+void deserializar_datos(t_proceso* proceso, t_paquete* stream) {
+	int desplazamiento = 0;
+	t_instruccion* instruccion_actual = malloc(sizeof(t_instruccion));
+	memcpy(&(proceso->tamanio_proceso),stream->buffer->buffer + desplazamiento,sizeof(int));
+	log_debug(log_consola,"Tamaño del proceso: %i",proceso->tamanio_proceso);
+	desplazamiento += sizeof(int);
+	log_debug(log_consola,"Deserializando las instrucciones...");
+	while(desplazamiento < stream->buffer->size) {
+
+		memcpy(&(instruccion_actual->tamanio_id),stream->buffer->buffer + desplazamiento,sizeof(int));
+		log_debug(log_consola,"grabe tamaño id: %i",instruccion_actual->tamanio_id);
+		desplazamiento += sizeof(int);
+		memcpy(&(instruccion_actual->identificador),stream->buffer->buffer + desplazamiento, instruccion_actual->tamanio_id);
+		desplazamiento += instruccion_actual->tamanio_id;
+		log_debug(log_consola,"grabe id: %s",instruccion_actual->identificador);
+		log_debug(log_consola,"leyendo parametros...");
+		int parametro_actual;
+		instruccion_actual->parametros = queue_create();
+		for(int i = 1; i <= cantidad_de_parametros(instruccion_actual->identificador); i++){
+			memcpy(&parametro_actual,stream->buffer->buffer + desplazamiento,sizeof(int));
+			log_debug(log_consola,"grabe param %i: %i",i,parametro_actual);
+			desplazamiento += sizeof(int);
+			queue_push(instruccion_actual->parametros, parametro_actual);
+		}
+		t_instruccion* instruccion_lista = malloc(sizeof(t_instruccion));
+		instruccion_lista->identificador = string_duplicate(instruccion_actual->identificador);
+		instruccion_lista->tamanio_id = instruccion_actual->tamanio_id;
+		instruccion_lista->parametros = instruccion_actual->parametros;
+		//queue_destroy(instruccion_actual->parametros);
+		instruccion_actual->parametros = queue_create();
+		queue_push(proceso->instrucciones,instruccion_lista);
+	}
+
+}
+
+void show_proceso(t_proceso* proceso) {
+	log_info(log_consola,"MOSTRANDO PROCESO DESERIALIZADO");
+	log_info(log_consola,"Tamaño del proceso: %i",proceso->tamanio_proceso);
+	show_instrucciones(proceso->instrucciones);
+}
+
+void show_instrucciones(t_queue* instrucciones) {
+	t_queue* aux = malloc(sizeof(t_queue));
+	t_instruccion* instruccion_actual = malloc(sizeof(t_instruccion));
+	aux->elements = list_duplicate(instrucciones->elements);
+	while(!queue_is_empty(aux)) {
+		instruccion_actual = queue_peek(aux);
+		log_info(log_consola,"Tamaño id: %i",instruccion_actual->tamanio_id);
+		log_info(log_consola,"Identificador: %s",instruccion_actual->identificador);
+		show_parametros_leidos(list_duplicate(instruccion_actual->parametros->elements));
+		queue_pop(aux);
+	}
+	queue_destroy(aux);
+}
+
+void show_parametros_leidos(t_list* parametros) {
+	t_queue* aux = malloc(sizeof(t_queue));
+	aux->elements = parametros;
+	int parametro = 0;
+	while(!queue_is_empty(aux)){
+		parametro = (int) queue_peek(aux);
+		log_info(log_consola,"Parametro: %i",parametro);
+		queue_pop(aux);
+	}
+}
+
 void show_paquete(t_paquete* paquete){
 	log_debug(log_consola,"Mostrando paquete...");
 	log_debug(log_consola,"operacion: %i",paquete->operacion);
-	log_debug(log_consola,"tam proceso: %i",paquete->tamanio_proceso);
 	log_debug(log_consola,"tam datos a enviar: %i",paquete->buffer->size);
-	log_debug(log_consola,"stream: %s", (char*) paquete->buffer->buffer);
+	char* algo = paquete->buffer->buffer;
+	log_debug(log_consola,"stream: %s", algo);
 }

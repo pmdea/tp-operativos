@@ -46,7 +46,6 @@ t_buffer;
 
 typedef struct {
 	op_code operacion;
-	int tamanio_proceso;
 	t_buffer* buffer;
 }  __attribute__((packed))
 t_paquete;
@@ -58,5 +57,9 @@ typedef struct {
 } __attribute__((packed))
 t_mensaje;
 
+typedef struct {
+	t_queue* instrucciones;
+	int tamanio_proceso;
+}t_proceso;
 
 #endif /* CONSOLA_V2_CONSOLA_H_ */
