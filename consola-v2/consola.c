@@ -35,7 +35,6 @@ void enviar_paquete(t_paquete* paquete, int socket_consola);
 void eliminar_paquete(t_paquete* paquete);
 void esperar_confirmacion(int socket_consola);
 
-
 void finalizar_consola(FILE* archivo, t_config* config, t_queue* instrucciones);
 
 char* show_parametros(char** instruccion);
@@ -480,14 +479,15 @@ void show_contenido(t_queue* contenido) {
 void deserializar_stream(t_paquete* paquete) {
 	t_proceso* proceso = malloc(sizeof(t_proceso));
 	proceso->instrucciones = queue_create();
+	char* mensaje;
 	switch(paquete->operacion) {
 	case ENVIO_DATOS:
 		log_debug(log_consola,"Deserializando datos...");
 		deserializar_datos(proceso,paquete); break;
 	case CONFIRMACION:
-		//deserializar_mensaje(paquete_recibido,paquete); break;
+		deserializar_mensaje(mensaje,paquete); break;
 	case HANDSHAKE:
-		//deserializar_handshake(paquete_recibido,paquete); break;
+		//deserializar_handshake(proceso,paquete); break;
 	default: log_error(log_consola,"La operacion ingresada es desconocida");
 	}
 	show_proceso(proceso);
@@ -525,6 +525,11 @@ void deserializar_datos(t_proceso* proceso, t_paquete* stream) {
 		instruccion_actual->parametros = queue_create();
 		queue_push(proceso->instrucciones,instruccion_lista);
 	}
+
+}
+
+void deserializar_mensaje(char* mensaje,t_paquete* paquete) {
+	memcpy(mensaje,paquete->buffer->buffer,paquete->buffer->size);
 
 }
 
