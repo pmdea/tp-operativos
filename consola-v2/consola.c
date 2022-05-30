@@ -21,30 +21,35 @@ void agregar_parametros(t_instruccion* instruccion_validada, char** instruccion)
 int crear_conexion_con_kernel(t_config* config);
 int crear_conexion(char* ip, char* puerto);
 bool se_pudo_hacer_el_handshake(int socket_consola);
+bool confirmacion_handshake(int socket_consola);
+void deserializar_handshake(t_mensaje* recibido,int socket_consola);
+bool se_recibio_el_mensaje_correcto(t_mensaje* recibido, int socket_consola);
 bool enviar_mensaje(op_code codigo, char* mensaje, int socket_consola);
-t_paquete* serializar_paquete(t_queue* contenido, op_code codigo,
+bool enviar_paquete(t_paquete* paquete, int socket_consola);
+void eliminar_paquete(t_paquete* paquete);
+t_paquete* serializar_proceso(t_queue* contenido, op_code codigo,
 		int tamanio_proceso);
-int parametros_totales(t_queue* contenido);
-int parametros(t_instruccion* instruccion);
-int sumar(int un_numero, int otro_numero);
 int tamanio_identificadores(t_queue* instrucciones);
 int tamanio_identificador(t_instruccion* instruccion);
+int sumar(int un_numero, int otro_numero);
+int parametros_totales(t_queue* contenido);
+int parametros(t_instruccion* instruccion);
 void agregar_contenido(t_queue* contenido, void* buffer, int tamanio);
 void copiar_parametros(void* buffer, int *desplazamiento, t_queue* parametros);
-void enviar_paquete(t_paquete* paquete, int socket_consola);
-void eliminar_paquete(t_paquete* paquete);
-void esperar_confirmacion(int socket_consola);
 
-void finalizar_consola(FILE* archivo, t_config* config, t_queue* instrucciones);
+
+bool fue_confirmado_el_envio(int socket_consola);
+
+void destruir_instruccion(t_instruccion* instruccion);
 
 char* show_parametros(char** instruccion);
 void show_contenido(t_queue* contenido);
 void show_paquete(t_paquete* paquete);
-void deserializar_stream(t_paquete* paquete);
 void deserializar_datos(t_proceso* proceso, t_paquete* stream);
 void show_proceso(t_proceso* proceso);
 void show_instrucciones(t_queue* instrucciones);
 void show_parametros_leidos(t_list* parametros);
+void deserializar_mensaje(char* mensaje,t_paquete* paquete);
 
 #define CLAVE_IP "IP_KERNEL"
 #define CLAVE_PUERTO "PUERTO_KERNEL"
@@ -56,10 +61,12 @@ void show_parametros_leidos(t_list* parametros);
 t_log* log_consola;
 
 int main(int argc, char** argv) {
-	//INICIALIZAR LOG
+		//INICIALIZAR LOG
 		log_consola = log_create("consola.log", "CONSOLA", 1, LOG_LEVEL_DEBUG);
 		log_info(log_consola,"Hola, soy el log de la consola");
 		log_debug(log_consola,"recibi los parametros: %s %i",argv[1],atoi(argv[2]));
+		//FIN INICIALIZAR LOG
+
 		//ABRIR ARCHIVOS Y VALIDACIONES
 		if (argc < 3) {
 			log_error(log_consola,
@@ -67,53 +74,62 @@ int main(int argc, char** argv) {
 		} else {
 			//FILE* instrucciones = fopen("../consola-v2/identificadores_correctos.txt","r");
 			FILE* instrucciones = fopen(argv[1], "r");
+
 			if (instrucciones != NULL) {
 				log_info(log_consola,
 						"el archivo de instrucciones en %s fue abierto sin problemas",
 						argv[1]);
-
+			//FIN ABRIR ARCHIVO Y VALIDACIONES
 				t_queue* instrucciones_parseadas = queue_create();
+				//VALIDAR PROCESO
+				//GUARDAR PROCESO
 				if(el_proceso_es_valido(instrucciones, instrucciones_parseadas)) {
-					//mostrar_contenido(instrucciones_parseadas);
+					//ABRIR CONFIGURACION
 					t_config* consola_config = config_create("./consola-v2/consola.config");
 					log_debug(log_consola,"EL IP del config es: %s", config_get_string_value(consola_config, CLAVE_IP));
 					log_debug(log_consola,"El puerto del config es: %s", config_get_string_value(consola_config, CLAVE_PUERTO));
-					//int socket_consola = crear_conexion_con_kernel(consola_config);
-					if (/*socket_consola != -1 && se_pudo_hacer_el_handshake(socket_consola)*/true) {
-						t_paquete* paquete = serializar_paquete(instrucciones_parseadas, ENVIO_DATOS, atoi(argv[2]));
-						//enviar_paquete(paquete, socket_consola);
-						//esperar_confirmacion(socket_consola);
-						config_destroy(consola_config);
-						log_debug(log_consola,"codigo operacion del paquete: %i",paquete->operacion);
-						log_debug(log_consola,"tamaño datos enviados: %i",paquete->buffer->size);
-						log_debug(log_consola,"todo el buffer de nuevo por las dudas jaja: %s",(char*) (paquete->buffer->buffer));
-						deserializar_stream(paquete);
-						eliminar_paquete(paquete);
+					// INICIAR SOCKET Y CONEXTAR CON KERNEL
+					int socket_consola = crear_conexion_con_kernel(consola_config);
+					config_destroy(consola_config);
+					//HANDSHAKE
+					if (socket_consola != -1 && se_pudo_hacer_el_handshake(socket_consola)) {
+						t_paquete* paquete = serializar_proceso(instrucciones_parseadas, ENVIO_DATOS, atoi(argv[2]));
+						enviar_paquete(paquete, socket_consola);
+
+						if(fue_confirmado_el_envio(socket_consola)) {
+							log_info(log_consola,"Se confirmo la entrega del proceso");
+						}
 					}
-					fclose(instrucciones);
 				}
+				queue_destroy_and_destroy_elements(instrucciones_parseadas,(void*) destruir_instruccion);
 			} else {
 				log_error(log_consola,"el archivo en la direccion %s no existe.",argv[1]);
 			}
 		}
+
 		log_info(log_consola,"Consola finalizada");
 		log_destroy(log_consola);
 
 		return 0;
 }
 
-bool el_proceso_es_valido(FILE* instrucciones, t_queue* instrucciones_parseadas) {
+void destruir_instruccion(t_instruccion* instruccion) {
+	queue_destroy(instruccion->parametros);
+	free(instruccion);
+}
 
+bool el_proceso_es_valido(FILE* instrucciones, t_queue* instrucciones_parseadas) {
+	//VALIDAR PROCESO
 	char* linea = string_new();
 	int lineas_leidas = 0;
 	char** instruccion;
 	char* ultimo_identificador = string_new();
-
+	//LEER INSTRUCCIONES
 	while (fgets(linea, 15, instrucciones) != NULL) {
 		lineas_leidas++;
 		instruccion = malloc(string_array_size(string_split(linea," "))*sizeof(char*));
-
 		instruccion = string_split(quitar_eol(linea)," ");
+		//VALIDAR INSTRUCCION
 		if (!es_una_instruccion_valida(instruccion)) {
 			log_error(log_consola,
 					"La instruccion en la linea %i no es correcta.",
@@ -128,6 +144,7 @@ bool el_proceso_es_valido(FILE* instrucciones, t_queue* instrucciones_parseadas)
 		//log_info(log_consola,"Lei la instruccion %s con los parametros: %s",instruccion[0],show_parametros(instruccion));
 	}
 	//show_contenido(instrucciones_parseadas);
+	//VALIDAR QUE TERMINE CON EXIT
 	if (!es_igual_a(ultimo_identificador,"EXIT")) {
 		log_error(log_consola,
 				"El proceso no termina con una instruccion de EXIT");
@@ -141,6 +158,7 @@ bool el_proceso_es_valido(FILE* instrucciones, t_queue* instrucciones_parseadas)
 		//show_contenido(instrucciones_parseadas);
 		string_array_destroy(instruccion);
 		return true;
+	//FIN VALIDAR QUE TERMINE CON EXIT
 }
 
 char* quitar_eol(char* string) {
@@ -151,14 +169,15 @@ char* quitar_eol(char* string) {
 }
 
 bool es_una_instruccion_valida(char** instruccion) {
-
+	//VALIDAR INSTRUCCION
 	t_list* identificadores_validos = list_create();
 	inicializar_identificadores_validos(identificadores_validos);
-
+	//VALIDAR IDENTIFICADOR
 	if (esta_en_la_lista(identificadores_validos, instruccion[0])) {
-
+	//FIN VALIDAR IDENTIFICADOR
+		//VALIDAR PARAMETROS
 		if (tiene_los_parametros_correctos(instruccion)) {
-			//list_destroy_and_destroy_elements(identificadores_validos,free);
+			list_destroy(identificadores_validos);
 			return true;
 		} else {
 			log_error(log_consola,"Faltan parametros");
@@ -166,8 +185,10 @@ bool es_una_instruccion_valida(char** instruccion) {
 	} else {
 		log_error(log_consola,"EL identificador %s es desconocido",instruccion[0]);
 	}
-	//list_destroy_and_destroy_elements(identificadores_validos,free);
+	//FIN VALIDAR PARAMETROS
+	list_destroy(identificadores_validos);
 	return false;
+	//FIN VALIDAR INSTRUCCION
 }
 
 void inicializar_identificadores_validos(t_list* identificadores_validos) {
@@ -188,7 +209,7 @@ bool esta_en_la_lista(t_list* lista, void* elemento_buscado) {
 }
 
 bool es_igual_a(void* un_string, void* otro_string) {
-	return strcmp(un_string, otro_string) == 0;
+	return strcmp((char*) un_string,(char*) otro_string) == 0;
 }
 
 bool tiene_los_parametros_correctos(char** instruccion) {
@@ -280,51 +301,67 @@ int crear_conexion(char* ip, char* puerto) {
 }
 
 bool se_pudo_hacer_el_handshake(int socket_consola) {
-	if (enviar_mensaje(HANDSHAKE, MENSAJE_HANDSHAKE_ENVIADO, socket_consola)) {
-		t_mensaje* recibido = malloc(sizeof(t_mensaje));
 
-		if (recv(socket_consola, &recibido->operacion, sizeof(op_code), 0) == -1
-				|| recibido->operacion != HANDSHAKE) {
-			log_error(log_consola,
-					"No se pudo realizar el handshake, recibida operacion incorrecta");
-			free(recibido);
-			return false;
-		} else {
-			recv(socket_consola, &recibido->tamanio_mensaje, sizeof(int), 0);
-			recv(socket_consola, &recibido->mensaje, recibido->tamanio_mensaje,
-					0);
-			if (strcmp(MENSAJE_HANDSHAKE_ESPERADO, recibido->mensaje) != 0) {
-				log_error(log_consola,
-						"El mensaje de handshake recibido es distinto del esperado");
-				free(recibido);
-				return false;
-			}
-		}
-		free(recibido);
+	if(!enviar_mensaje(HANDSHAKE, MENSAJE_HANDSHAKE_ENVIADO, socket_consola)) {
+		log_error(log_consola,"No se pudo iniciar el handshake");
+		return false;
 	}
-	log_info(log_consola, "El handshake fue exitoso");
+	return confirmacion_handshake(socket_consola);
+}
 
+bool confirmacion_handshake(int socket_consola) {
+
+	t_mensaje* recibido = malloc(sizeof(t_mensaje));
+	op_code *operacion = malloc(sizeof(op_code));
+	recv(socket_consola, operacion, sizeof(op_code),0);
+	if (*operacion != HANDSHAKE) {
+		log_error(log_consola,"La consola no implementa el mismo protocolo handshake que el kernel");
+		free(recibido);
+		return false;
+	}
+	deserializar_handshake(recibido,socket_consola);
+	if(!se_recibio_el_mensaje_correcto(recibido,socket_consola)) {
+		log_error(log_consola,"No se pudo deserializar el paquete");
+		free(recibido);
+		return false;
+	}
+	free(recibido);
+	return true;
+}
+
+void deserializar_handshake(t_mensaje* recibido,int socket_consola) {
+	recv(socket_consola, &(recibido->tamanio_mensaje),sizeof(int),0);
+	recv(socket_consola,recibido->mensaje, recibido->tamanio_mensaje,0);
+	strcat(recibido->mensaje,"\0");
+}
+
+bool se_recibio_el_mensaje_correcto(t_mensaje* recibido, int socket_consola) {
+	if(!es_igual_a(recibido->mensaje, MENSAJE_HANDSHAKE_ESPERADO)) {
+		log_error(log_consola,"No se recibio el mensaje esperado, se recibio: %s y se esperaba %s",recibido->mensaje,MENSAJE_HANDSHAKE_ESPERADO);
+		free(recibido);
+		return false;
+	}
+	free(recibido);
+	log_info(log_consola,"Se recibio el mensaje esperado del handshake");
 	return true;
 }
 
 bool enviar_mensaje(op_code codigo, char* mensaje, int socket_consola) {
-	t_mensaje* envio = malloc(sizeof(t_mensaje));
+	t_paquete* envio = malloc(sizeof(t_paquete));
 	envio->operacion = codigo;
-	envio->tamanio_mensaje = string_length(mensaje);
-	envio->mensaje = mensaje;
-	if (send(socket_consola, envio,
-			envio->tamanio_mensaje + sizeof(envio->operacion)
-					+ sizeof(envio->tamanio_mensaje), 0) == -1) {
-		log_error(log_consola, "el envio del mensaje no pudo ser relizado");
-		free(envio);
-		return false;
-	}
-	log_info(log_consola, "El mensaje %i fue enviado con exito", codigo);
-	free(envio);
-	return true;
+	envio->buffer->size = string_length(mensaje) + sizeof(int);
+	envio->buffer->stream = malloc(envio->buffer->size);
+	int desplazamiento = 0;
+	int *tamanio = malloc(sizeof(int));
+	*tamanio = string_length(mensaje);
+	memcpy(envio->buffer->stream + desplazamiento,tamanio,sizeof(int));
+	desplazamiento += sizeof(int);
+	memcpy(envio->buffer->stream + desplazamiento,mensaje,sizeof(int));
+	free(tamanio);
+	return enviar_paquete(envio,socket_consola);
 }
 
-t_paquete* serializar_paquete(t_queue* contenido, op_code codigo,
+t_paquete* serializar_proceso(t_queue* contenido, op_code codigo,
 		int tamanio_proceso) {
 	t_paquete* paquete_serializado = malloc(sizeof(t_paquete));
 	paquete_serializado->operacion = codigo;
@@ -333,22 +370,8 @@ t_paquete* serializar_paquete(t_queue* contenido, op_code codigo,
 	paquete_serializado->buffer->size = sizeof(int)+queue_size(contenido)*sizeof(int) + tamanio_identificadores(contenido)*sizeof(char) + parametros_totales(contenido)*sizeof(UNSIGNED_INT);
 	void* buffer = malloc(paquete_serializado->buffer->size);
 	agregar_contenido(contenido,buffer,tamanio_proceso);
-	paquete_serializado->buffer->buffer = buffer;
+	paquete_serializado->buffer->stream = buffer;
 	return paquete_serializado;
-}
-
-int parametros_totales(t_queue* contenido) {
-	t_list* tamanios = list_map(contenido->elements,(void*) parametros);
-	log_debug(log_consola,"Parametros totales: %i",(int) list_fold1(tamanios,(void*) sumar));
-	return (int) list_fold1(tamanios,(void*) sumar);
-}
-
-int parametros(t_instruccion* nodo) {
-	return cantidad_de_parametros(nodo->identificador);
-}
-
-int sumar(int num1, int num2) {
-	return num1 + num2;
 }
 
 int tamanio_identificadores(t_queue* instrucciones) {
@@ -364,10 +387,22 @@ int tamanio_identificador(t_instruccion* instruccion) {
 	return instruccion->tamanio_id;
 }
 
+int sumar(int num1, int num2) {
+	return num1 + num2;
+}
+
+int parametros_totales(t_queue* contenido) {
+	t_list* tamanios = list_map(contenido->elements,(void*) parametros);
+	log_debug(log_consola,"Parametros totales: %i",(int) list_fold1(tamanios,(void*) sumar));
+	return (int) list_fold1(tamanios,(void*) sumar);
+}
+
+int parametros(t_instruccion* nodo) {
+	return cantidad_de_parametros(nodo->identificador);
+}
+
 void agregar_contenido(t_queue* contenido, void* buffer, int tamanio) {
 	int desplazamiento = 0;
-	memcpy(buffer, &tamanio, sizeof(int));
-	desplazamiento += sizeof(int);
 	log_debug(log_consola,"Desplazamiento actual: %i",desplazamiento);
 	t_instruccion* instruccion = malloc(sizeof(t_instruccion));
 	while (!queue_is_empty(contenido)) {
@@ -388,6 +423,7 @@ void agregar_contenido(t_queue* contenido, void* buffer, int tamanio) {
 		queue_pop(contenido);
 
 	}
+	memcpy(buffer, &tamanio, sizeof(int));
 	//desplazamiento += sizeof(char);
 	//log_debug(log_consola,"datos grabados (a lo guaso): %i",(int*) buffer);
 	free(instruccion);
@@ -407,48 +443,60 @@ void copiar_parametros(void* buffer, int *desplazamiento, t_queue* parametros) {
 	}
 }
 
-void enviar_paquete(t_paquete* paquete, int socket_consola) {
-	send(socket_consola, paquete,
-			paquete->buffer->size + 2*sizeof(int) + sizeof(op_code), 0);
-	log_info(log_consola,
-			"El paquete fue enviado exitosamente, esperando confirmacion de recepcion...");
+bool enviar_paquete(t_paquete* paquete, int socket_consola) {
+	int *tamanio_datos = malloc(sizeof(int));
+	*tamanio_datos = sizeof(op_code) + paquete->buffer->size + sizeof(int);
+	void* datos_a_enviar = malloc(*tamanio_datos);
+	int desplazamiento = 0;
+	memcpy(datos_a_enviar + desplazamiento,&(paquete->operacion),sizeof(op_code));
+	desplazamiento += sizeof(op_code);
+	memcpy(datos_a_enviar + desplazamiento,&(paquete->buffer->size),sizeof(int));
+	desplazamiento += sizeof(int);
+	memcpy(datos_a_enviar + desplazamiento,paquete->buffer->stream,paquete->buffer->size);
+	if(send(socket_consola,datos_a_enviar,*tamanio_datos,0) == -1) {
+		eliminar_paquete(paquete);
+		free(datos_a_enviar);
+		free(tamanio_datos);
+		log_error(log_consola,"No se pudo enviar el paquete");
+		return false;
+	}
 	eliminar_paquete(paquete);
+	free(datos_a_enviar);
+	free(tamanio_datos);
+	log_info(log_consola,"EL paquete fue enviado con exito");
+	return true;
 }
 
 void eliminar_paquete(t_paquete* paquete) {
-	free(paquete->buffer->buffer);
+	free(paquete->buffer->stream);
 	free(paquete->buffer);
 	free(paquete);
 }
 
-void esperar_confirmacion(int socket_consola) {
+bool fue_confirmado_el_envio(int socket_consola) {
 	// ESPERO RECIBIR "RECIBIDO :)", CUALQUIER OTRA COSA IMPLICA FALLO
 	t_mensaje* recibido = malloc(sizeof(t_mensaje));
-	if (recv(socket_consola, &recibido->operacion, sizeof(op_code), 0) == -1
-			|| recv(socket_consola, &recibido->tamanio_mensaje, sizeof(int), 0)
-					== -1
-			|| recv(socket_consola, &recibido->mensaje,
-					recibido->tamanio_mensaje, 0) == -1) {
-		log_error(log_consola,
-				"No se pudo recibir la confirmacion, error de conexion");
-	} else if (recibido->operacion != CONFIRMACION
-			&& es_igual_a(CONFIRM_ESPERADA,recibido->mensaje)) {
-		log_error(log_consola, "Los datos no fueron correctamente recibidos");
+	char* mensaje_recibido = string_new();
+
+	if(recv(socket_consola, &(recibido->operacion),sizeof(op_code),0) == -1) {
+		log_error(log_consola,"Conexion perdida, no se puede confirmar envio");
+	} else if(recibido->operacion != CONFIRMACION) {
+		log_error(log_consola,"No se recibio el codigo de operacion esperado");
+	} else if (recv(socket_consola, &(recibido->tamanio_mensaje), sizeof(int), 0)
+			== -1) {
+		log_error(log_consola,"Conexion perdida, no se puede confirmar envio");
 	} else {
-		log_info(log_consola, "confirmado el envio del paquete");
+		if(recv(socket_consola,recibido->mensaje,recibido->tamanio_mensaje,0) == -1) {
+			log_error(log_consola,"Conexion perdida, no se puede confirmar envio");
+		} else {
+			strcat(recibido->mensaje,"\0");
+			mensaje_recibido = string_duplicate(recibido->mensaje);
+		}
 	}
 	free(recibido);
+	return es_igual_a(mensaje_recibido,CONFIRM_ESPERADA);
 }
 
-
-
-void finalizar_consola(FILE* archivo, t_config* config, t_queue* instrucciones) {
-	log_info(log_consola, "Cerrando archivos y liberando memoria...");
-
-	//config_destroy(config);
-	//queue_destroy_and_destroy_elements(instrucciones, free);
-	log_info(log_consola, "Consola finalizada");
-}
 
 //PARA TESTEO
 char* show_parametros(char** instruccion) {
@@ -476,46 +524,29 @@ void show_contenido(t_queue* contenido) {
 	free(aux);
 }
 
-void deserializar_stream(t_paquete* paquete) {
-	t_proceso* proceso = malloc(sizeof(t_proceso));
-	proceso->instrucciones = queue_create();
-	char* mensaje;
-	switch(paquete->operacion) {
-	case ENVIO_DATOS:
-		log_debug(log_consola,"Deserializando datos...");
-		deserializar_datos(proceso,paquete); break;
-	case CONFIRMACION:
-		deserializar_mensaje(mensaje,paquete); break;
-	case HANDSHAKE:
-		//deserializar_handshake(proceso,paquete); break;
-	default: log_error(log_consola,"La operacion ingresada es desconocida");
-	}
-	show_proceso(proceso);
-}
-
 void deserializar_datos(t_proceso* proceso, t_paquete* stream) {
 	int desplazamiento = 0;
 	t_instruccion* instruccion_actual = malloc(sizeof(t_instruccion));
-	memcpy(&(proceso->tamanio_proceso),stream->buffer->buffer + desplazamiento,sizeof(int));
+	memcpy(&(proceso->tamanio_proceso),&(stream->buffer->stream) + desplazamiento,sizeof(int));
 	log_debug(log_consola,"Tamaño del proceso: %i",proceso->tamanio_proceso);
 	desplazamiento += sizeof(int);
 	log_debug(log_consola,"Deserializando las instrucciones...");
 	while(desplazamiento < stream->buffer->size) {
 
-		memcpy(&(instruccion_actual->tamanio_id),stream->buffer->buffer + desplazamiento,sizeof(int));
+		memcpy(&(instruccion_actual->tamanio_id),&(stream->buffer->stream) + desplazamiento,sizeof(int));
 		log_debug(log_consola,"grabe tamaño id: %i",instruccion_actual->tamanio_id);
 		desplazamiento += sizeof(int);
-		memcpy(&(instruccion_actual->identificador),stream->buffer->buffer + desplazamiento, instruccion_actual->tamanio_id);
+		memcpy(&(instruccion_actual->identificador),&(stream->buffer->stream) + desplazamiento, instruccion_actual->tamanio_id);
 		desplazamiento += instruccion_actual->tamanio_id;
 		log_debug(log_consola,"grabe id: %s",instruccion_actual->identificador);
 		log_debug(log_consola,"leyendo parametros...");
 		int parametro_actual;
 		instruccion_actual->parametros = queue_create();
 		for(int i = 1; i <= cantidad_de_parametros(instruccion_actual->identificador); i++){
-			memcpy(&parametro_actual,stream->buffer->buffer + desplazamiento,sizeof(int));
+			memcpy(&parametro_actual,stream->buffer->stream + desplazamiento,sizeof(int));
 			log_debug(log_consola,"grabe param %i: %i",i,parametro_actual);
 			desplazamiento += sizeof(int);
-			queue_push(instruccion_actual->parametros, parametro_actual);
+			queue_push(instruccion_actual->parametros,(void*) parametro_actual);
 		}
 		t_instruccion* instruccion_lista = malloc(sizeof(t_instruccion));
 		instruccion_lista->identificador = string_duplicate(instruccion_actual->identificador);
@@ -529,7 +560,7 @@ void deserializar_datos(t_proceso* proceso, t_paquete* stream) {
 }
 
 void deserializar_mensaje(char* mensaje,t_paquete* paquete) {
-	memcpy(mensaje,paquete->buffer->buffer,paquete->buffer->size);
+	memcpy(mensaje,&(paquete->buffer->stream),paquete->buffer->size);
 
 }
 
@@ -568,6 +599,6 @@ void show_paquete(t_paquete* paquete){
 	log_debug(log_consola,"Mostrando paquete...");
 	log_debug(log_consola,"operacion: %i",paquete->operacion);
 	log_debug(log_consola,"tam datos a enviar: %i",paquete->buffer->size);
-	char* algo = paquete->buffer->buffer;
+	char* algo = paquete->buffer->stream;
 	log_debug(log_consola,"stream: %s", algo);
 }

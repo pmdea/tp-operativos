@@ -1,9 +1,3 @@
-/*
- * consola.h
- *
- *  Created on: 27 may. 2022
- *      Author: utnso
- */
 
 #ifndef CONSOLA_V2_CONSOLA_H_
 #define CONSOLA_V2_CONSOLA_H_
@@ -35,12 +29,13 @@ typedef struct {
 typedef enum {
 	HANDSHAKE,
 	ENVIO_DATOS,
+	MENSAJE,
 	CONFIRMACION
 } op_code;
 
 typedef struct {
 	int size;
-	void* buffer;
+	void* stream;
 } __attribute__((packed))
 t_buffer;
 
