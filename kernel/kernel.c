@@ -33,7 +33,8 @@ int main(void)
 	procesosSuspendedReady = list_create();
 	procesosExit = list_create();
 
-	paquetedeCPU = list_create();
+	paquetedeCPU_Desalojo = list_create();
+	paquetedeCPU_Analisis = list_create();
 
 
 /*
@@ -72,7 +73,7 @@ int main(void)
 
 }
 //El tamaño y las instrucciones vienen desde consola
-void generar_PCB(int idUltimo, int tamanioProceso, int instrucciones){ // Funcion para cargar los datos del proceso al PCB
+void generar_PCB(int idUltimo, int tamanioProceso, t_list* instrucciones){ // Funcion para cargar los datos del proceso al PCB
 
 	pcb *nuevoProceso = malloc(sizeof(pcb));
 	nuevoProceso -> id = idUltimo;
@@ -231,56 +232,129 @@ void algoritmo_SRT(){
 	int enFinalizacion = list_size(procesosExit);
 	int enBlock = list_size(procesosBlocked); // Procesos en blocked
 	//sem
+	 *
+	 * join thread desalojo_PCB()
+	 * join thread analizar_PCB()
+}
 
-	if(enReady > 0){
+void desalojo_PCB() {
+	//sem  mientras la lee no quiero q cambie
+	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
+	int enReady = list_size(procesosReady); // Procesos en ready
+	int enFinalizacion = list_size(procesosExit);
+	int enBlock = list_size(procesosBlocked); // Procesos en blocked
+	//sem
+	while(1) {
+		if(enReady > 0){
 
-		list_sort(procesosReady, ordenarSRT);
-		pcb* ready_menorEstimador_PCB;
-		menorEstimador_PCB_Ready = list_get(procesosReady, 0);
+			list_sort(procesosReady, ordenarSRT);
+			pcb* ready_menorEstimador_PCB;
+			menorEstimador_PCB_Ready = list_get(procesosReady, 0);
 
-		if(enEjecucion > 0) {
+			if(enEjecucion > 0) {
 
-			pcb* execute_PCB;
-			execute_PCB = list_get(procesosExecute, 0);
+				pcb* execute_PCB;
+				execute_PCB = list_get(procesosExecute, 0);
 
-			if(menorEstimador_PCB_Ready -> estimacion_rafaga > execute_PCB -> estimacion_rafaga){
+				if(menorEstimador_PCB_Ready -> estimacion_rafaga > execute_PCB -> estimacion_rafaga){
 
-				// Creo conexion interrupt cpu - Mando mensaje de desalojo
-				 * conexion_cpu_interrupt = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_interrupt);
-				 * enviar_mensaje("Desalojo", conexion_cpu_interrupt);
-			//	 * wait(esperarDesalojo); Espero desalojo
-			//	 * paquetedeCPU = recibir_paquete(cpu_dispatch); Vincular con las conexiones realizadas
-				 * semaforo MANEJO_DE_LISTAS // Mantiene el grado de multiprogramacion actual
-				 * pcb * cpu_PCB_Recibido = list_remove(paquetedeCPU, 0);
-				 * list_remove(procesosExecute, 0);
-				 * list_add(procesosReady, cpu_PCB_Recibido);
-				 * free(cpu_PCB_Recibido);
-				 *
-				 * list_remove(procesosReady, 0);
-				 * list_add(procesosExecute, menorEstimador_PCB_Ready)
-				 * semaforo MANEJO_DE_LISTAS
-				 *
-				 * Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
-				 *
-			//	 * Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
-				 * enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
-				 *
+					// Creo conexion interrupt cpu - Mando mensaje de desalojo
+					 * conexion_cpu_interrupt = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_interrupt);
+					 * enviar_mensaje("Desalojo", conexion_cpu_interrupt);
+				//	 * wait(esperarDesalojo); Espero desalojo
+				//	 * paquetedeCPU = recibir_paquete(cpu_dispatch); Vincular con las conexiones realizadas
+					 * semaforo MANEJO_DE_LISTAS // Mantiene el grado de multiprogramacion actual
+					 * pcb * cpu_PCB_Recibido = list_remove(paquetedeCPU, 0);
+					 * list_remove(procesosExecute, 0);
+					 * list_add(procesosReady, cpu_PCB_Recibido);
+					 * free(cpu_PCB_Recibido);
+					 *
+					 * list_remove(procesosReady, 0);
+					 * list_add(procesosExecute, menorEstimador_PCB_Ready)
+					 * semaforo MANEJO_DE_LISTAS
+					 *
+					 * Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
+					 *
+				//	 * Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
+					 * enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
+					 *
+				}
+					 *
+					 *
+				free(execute_PCB);
 			}
-				 *
-				 *
-			free(execute_PCB);
+			SEMAFORO MANEJO_LISTAS
+			list_add(procesosExecute, menorEstimador_PCB_Ready);
+			list_remove(procesosReady, 0);
+			SEMAFORO MANEJO_LISTAS
+
+			Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
+
+			Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
+			enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
 		}
-		SEMAFORO MANEJO_LISTAS
-		list_add(procesosExecute, menorEstimador_PCB_Ready);
-		list_remove(procesosReady, 0);
-		SEMAFORO MANEJO_LISTAS
-
-		Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
-
-		Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
-		enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
 	}
 }
+
+// SRT Analisis
+ *
+ *void analizar_PCB(conexion_dispatch){
+ *	int tiempoBloqueado;
+ *	int indice;
+ *	t_list* tiempo_bloqueado;
+ *	char** string;
+ *
+ *	while(1){
+ *		wait(Esperar_CPU);
+ *		pcb * pcb_actualizado;
+ *		paquetedeCPU_SoloAnalisis = recibir_paquete(conexion_dispatch); // PCB + Tiempo
+ *		pcb_actualizado = list_get(paquetedeCPU_SoloAnalisis, 1);
+ *
+ *		indice = pcb_actualizado -> program_counter - 1;
+ *		if(indice < 0){
+ *			indice = 0;
+ *		}
+ *		string = list_get(pcb_actualizar->instrucciones, indice);
+ *		char** split = string_split(string, " ");
+ *
+ *		if(split[0] == "EXIT"){
+ *			WAIT SEM MANEJO LISTAS
+ *			list_add(procesosExit, pcb_actualizado);
+ *			list_remove(procesosExec, 0);
+ *			SIGNAL SEM MANEJO LISTAS
+ *		}
+ *
+ *		if(split[0] == "I/O"){
+ *			WAIT SEM MANEJO LISTAS
+ *			list_add(procesosBlocked, pcb_actualizado);
+ *			list_remove(procesosExecute, 0);
+ *			SIGNAL SEM MANEJO LISTAS
+ *			tiempoBloqueado = list_get(paquetedeCPU_SoloAnalisis, 1) + 1;
+ *			list_add(tiempo_bloqueado, tiempoBloqueado);
+ *		}
+ *
+ *		tiempoBloqueado = list_get(tiempoABlockear, 0); // 0
+ *		if(tiempoBloqueado){ // si
+ *			if(tiempoBloqueado == 0){ // si
+ *
+ *				// SEMAFORO  CON EL DE LARGO PLAZO MUTEX sem_wait(agregarAReady)
+ *				list_add(procesosReady, list_remove(procesosBlocked, 0)); // [ a, c ] => [ c ] ** devuelve un pcb
+ *				// SEMAFORO  CON EL DE LARGO PLAZO MUTEX sem_post(agregarAReady)
+ *
+ *				// se termino el bloqueo por lo tanto lo meto devuelta en la lista de ready
+ *				list_remove(tiempo_bloqueado, 0); // [ 0, 4 ] => [ 4 ]
+ *
+ *			}
+ *			list_replace(tiempo_bloqueado, 0, tiempoBloqueado--); // [ 3 ]
+ * 		}
+ *
+ *
+ *}
+ *
+
+
+
+
 */
 
 t_log* iniciar_logger_kernel(void)

@@ -11,7 +11,7 @@
 typedef struct {
 	int id;
 	int tamanio;
-	char* instrucciones; // LISTA
+	t_list* instrucciones; // LISTA
 	int program_counter;
 	char* tabla_paginas; // LISTA
 	double estimacion_rafaga;
@@ -40,7 +40,8 @@ t_list* procesosBlocked;
 t_list* procesosSuspendedBlocked;
 t_list* procesosSuspendedReady;
 t_list* procesosExit;
-t_list* paquetedeCPU;
+t_list* paquetedeCPU_Desalojo;
+t_list* paquetedeCPU_SoloAnalisis;
 
 t_log* iniciar_logger_kernel(void);
 t_config* iniciar_config_kernel(void);
