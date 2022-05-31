@@ -6,6 +6,16 @@
  */
 #include "kernel.h"
 
+bool ordenarSTR(pcb* unPCB,pcb* otroPCB){
+	double est1 = unPCB->estimacion_rafaga;
+	double est2 = otroPCB->estimacion_rafaga;
+	return est2 > est1;
+}
+
+void estimador(pcb* unPCB, double alfa, int rafaga_ejecutada){
+	unPCB -> estimacion_rafaga = (alfa * rafaga_ejecutada + (1 - alfa) * unPCB->estimacion_rafaga);
+}
+
 int main(void)
 {
 	t_log* logger;
@@ -23,6 +33,33 @@ int main(void)
 	procesosSuspendedReady = list_create();
 	procesosExit = list_create();
 
+	paquetedeCPU = list_create();
+
+
+/*
+	generar_PCB(10,20,5);
+
+	pcb* unProceso;
+	unProceso = list_get(procesosNew, 0);
+	printf("estimador actual: %f", unProceso->estimacion_rafaga);
+	estimador(unProceso, 0.5, 5);
+	printf("estimador siguiente: %f", unProceso->estimacion_rafaga);
+	list_add(procesosReady, unProceso);
+	list_remove(procesosNew, 0);
+	free(unProceso);
+
+	pcb* mismoProceso;
+	mismoProceso = list_get(procesosReady, 0);
+	printf("estimador siguiente: %f", mismoProceso->estimacion_rafaga);
+
+
+	//printf("Numero de procesos nuevos: %i", list_size(procesosNew));
+	printf("Numero del primero antes de ordenar: %i", unProceso->id);
+	//list_sort(procesosNew, (void*) ordenarSTR);
+	unProceso = list_get(procesosNew, 0);
+	printf("Numero del primero despues de ordenar: %i", unProceso->id);
+	*/
+
 
 
 	/* HILOS ENTRE LOS PLANI PARA GENERAR PARALELISMO
@@ -35,12 +72,12 @@ int main(void)
 
 }
 //El tamaño y las instrucciones vienen desde consola
-void generar_PCB(int idUltimo, int tamanioProceso, char* instrucciones){ // Funcion para cargar los datos del proceso al PCB
+void generar_PCB(int idUltimo, int tamanioProceso, int instrucciones){ // Funcion para cargar los datos del proceso al PCB
 
 	pcb *nuevoProceso = malloc(sizeof(pcb));
 	nuevoProceso -> id = idUltimo;
 	nuevoProceso -> tamanio = tamanioProceso;
-	nuevoProceso -> instrucciones = ""; // LISTA
+	nuevoProceso -> instrucciones = instrucciones; // LISTA
 	nuevoProceso ->  program_counter = 0;
 	nuevoProceso ->  tabla_paginas = "-"; // LISTA
 	nuevoProceso ->  estimacion_rafaga = config_kernel.estimacion_inicial;
@@ -57,49 +94,56 @@ void planificador_LargoPlazo(){
 	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
 	int enReady = list_size(procesosReady); // Procesos en ready
 	int enBlock = list_size(procesosBlocked); // Procesos en blocked
-	int enFinalizacion = list_size(procesosExit);
+	int enFinalizacion = list_size(procesosExit); // Procesos que finalizan
 	//sem
 	int espacio_ocupado_memoria_principal = enEjecucion + enReady + enBlock;
 
 	while (espacio_ocupado_memoria_principal < config_kernel.grado_multiprogramacion) {
+		int enSuspendedReady = list_size(procesosSuspendedReady); // Procesos con más prioridad para acceder a Ready
+		//Doy prioridad al Planificador Mediano Plazo
+		if(enSuspendedReady > 0){
+			//wait(prioridadSuspendedReady);
+		} else {
 
-		// Obtengo el primero de la lista de procesosNew
-		pcb * unProceso;
-		unProceso = list_get(procesosNew, 0);
+			// Obtengo el primero de la lista de procesosNew
+			pcb * unProceso;
+			unProceso = list_get(procesosNew, 0);
 
-		//Envio de mensaje a Modulo de Memoria para generar estructuras
+			//Envio de mensaje a Modulo de Memoria para generar estructuras
 
-		//enviarMensaje("PCB-Generado", socket_memoria);
+			//enviarMensaje("PCB-Generado", socket_memoria);
 
-		//wait(esperarRespuesta); // el signal lo deberia tener memoria luego de crear las estructuras (Tablas/Paginas)
+			//wait(esperarRespuesta); // el signal lo deberia tener memoria luego de crear las estructuras (Tablas/Paginas)
 
-		//Obtengo tablas de direccion
+			//Obtengo tablas de direccion
 
-			//recibirMensaje(socket_memoria);
+				//recibirMensaje(socket_memoria);
 
-		// Asigno al PCB y lo guardo en la lista procesosReady
-		unProceso -> tabla_paginas = "reemplazar cuando este la funcion realizada arriba";
+			// Asigno al PCB y lo guardo en la lista procesosReady
+			unProceso -> tabla_paginas = "reemplazar cuando este la funcion realizada arriba";
 
 
-		// SEMAFORO  CON EL DE LARGO CORTO MUTEX sem_wait(agregarAReady)
-		list_add(procesosReady, unProceso);
-		// SEMAFORO  CON EL DE LARGO CORTO MUTEX sem_post(agregarAReady)
+			// SEMAFORO  CON EL DE LARGO CORTO MUTEX sem_wait(agregarAReady)
+			list_add(procesosReady, unProceso);
+			// SEMAFORO  CON EL DE LARGO CORTO MUTEX sem_post(agregarAReady)
 
-		list_remove(procesosNew, 0);
+			list_remove(procesosNew, 0);
 
-		free(unProceso); // Ver si se guarda bien la info o no
+			free(unProceso); // Ver si se guarda bien la info o no
+		}
 
 		// Analizar si tengo procesos en finalizacion
 		if (enFinalizacion != 0){
-			pcb * unProcess = list_get(procesosExit, 0);
+			pcb * unProceso = list_get(procesosExit, 0);
 			// Envio Msj a Memoria para liberar
 			// Aviso a consola que termino.
 			list_remove(unProceso, 0);
-			free(unProcess);
+			free(unProceso);
 		}
 
 	}
 }
+/*
 void planificador_CortoPlazo(char algoritmo){
 
 	int ciclosTotales=0;
@@ -118,6 +162,7 @@ void planificador_CortoPlazo(char algoritmo){
 		// se lo mando a CPU
 	}
 }
+
 void algoritmo_FIFO(){
 
 	//sem  mientras la lee no quiero q cambie
@@ -187,12 +232,56 @@ void algoritmo_SRT(){
 	int enBlock = list_size(procesosBlocked); // Procesos en blocked
 	//sem
 
+	if(enReady > 0){
 
-}
+		list_sort(procesosReady, ordenarSRT);
+		pcb* ready_menorEstimador_PCB;
+		menorEstimador_PCB_Ready = list_get(procesosReady, 0);
 
-int estimador(int alfa, int estimado_anterior, int rafaga_ejecutada ){
-	return alfa * rafaga_ejecutada + (1 - alfa) * estimado_anterior ;
+		if(enEjecucion > 0) {
+
+			pcb* execute_PCB;
+			execute_PCB = list_get(procesosExecute, 0);
+
+			if(menorEstimador_PCB_Ready -> estimacion_rafaga > execute_PCB -> estimacion_rafaga){
+
+				// Creo conexion interrupt cpu - Mando mensaje de desalojo
+				 * conexion_cpu_interrupt = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_interrupt);
+				 * enviar_mensaje("Desalojo", conexion_cpu_interrupt);
+			//	 * wait(esperarDesalojo); Espero desalojo
+			//	 * paquetedeCPU = recibir_paquete(cpu_dispatch); Vincular con las conexiones realizadas
+				 * semaforo MANEJO_DE_LISTAS // Mantiene el grado de multiprogramacion actual
+				 * pcb * cpu_PCB_Recibido = list_remove(paquetedeCPU, 0);
+				 * list_remove(procesosExecute, 0);
+				 * list_add(procesosReady, cpu_PCB_Recibido);
+				 * free(cpu_PCB_Recibido);
+				 *
+				 * list_remove(procesosReady, 0);
+				 * list_add(procesosExecute, menorEstimador_PCB_Ready)
+				 * semaforo MANEJO_DE_LISTAS
+				 *
+				 * Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
+				 *
+			//	 * Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
+				 * enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
+				 *
+			}
+				 *
+				 *
+			free(execute_PCB);
+		}
+		SEMAFORO MANEJO_LISTAS
+		list_add(procesosExecute, menorEstimador_PCB_Ready);
+		list_remove(procesosReady, 0);
+		SEMAFORO MANEJO_LISTAS
+
+		Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
+
+		Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
+		enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
+	}
 }
+*/
 
 t_log* iniciar_logger_kernel(void)
 {
@@ -227,8 +316,6 @@ t_config* iniciar_config_kernel(void) // CARGO LA INFORMACION DEL CONFIG
 	return nuevo_config;
 
 }
-
-
 
 void terminar_programa(t_log* logger, t_config* config)
 {

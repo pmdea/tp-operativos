@@ -14,7 +14,7 @@ typedef struct {
 	char* instrucciones; // LISTA
 	int program_counter;
 	char* tabla_paginas; // LISTA
-	int estimacion_rafaga;
+	double estimacion_rafaga;
 } pcb;
 
 typedef struct {
@@ -40,6 +40,7 @@ t_list* procesosBlocked;
 t_list* procesosSuspendedBlocked;
 t_list* procesosSuspendedReady;
 t_list* procesosExit;
+t_list* paquetedeCPU;
 
 t_log* iniciar_logger_kernel(void);
 t_config* iniciar_config_kernel(void);
