@@ -238,16 +238,18 @@ void algoritmo_SRT(){
 }
 
 void desalojo_PCB() {
-	//sem  mientras la lee no quiero q cambie
-	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
-	int enReady = list_size(procesosReady); // Procesos en ready
-	int enFinalizacion = list_size(procesosExit);
-	int enBlock = list_size(procesosBlocked); // Procesos en blocked
-	//sem
 	while(1) {
-		if(enReady > 0){
+		//sem  mientras la lee no quiero q cambie
+		int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
+		int enReady = list_size(procesosReady); // Procesos en ready
+		int enFinalizacion = list_size(procesosExit);
+		int enBlock = list_size(procesosBlocked); // Procesos en blocked
+		//sem
+		if(enReady >= 1){
 
-			list_sort(procesosReady, ordenarSRT);
+			if(enReady > 1){
+				list_sort(procesosReady, ordenarSRT);
+			}
 			pcb* ready_menorEstimador_PCB;
 			menorEstimador_PCB_Ready = list_get(procesosReady, 0);
 
@@ -260,19 +262,21 @@ void desalojo_PCB() {
 
 					// Creo conexion interrupt cpu - Mando mensaje de desalojo
 					 * conexion_cpu_interrupt = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_interrupt);
-					 * enviar_mensaje("Desalojo", conexion_cpu_interrupt);
+					 * enviar_mensaje("Desalojo", conexion_cpu_interrupt); O ENVIAR UN SIGNAL
 				//	 * wait(esperarDesalojo); Espero desalojo
-				//	 * paquetedeCPU = recibir_paquete(cpu_dispatch); Vincular con las conexiones realizadas
-					 * semaforo MANEJO_DE_LISTAS // Mantiene el grado de multiprogramacion actual
+				//	 * paquetedeCPU_Desalojo = recibir_paquete(cpu_dispatch); Vincular con las conexiones realizadas
+				 	 *
+					 * sem_wait(agregarAReady) // Mantiene el grado de multiprogramacion actual
 					 * pcb * cpu_PCB_Recibido = list_remove(paquetedeCPU, 0);
 					 * list_remove(procesosExecute, 0);
 					 * list_add(procesosReady, cpu_PCB_Recibido);
-					 * free(cpu_PCB_Recibido);
+					 *
 					 *
 					 * list_remove(procesosReady, 0);
-					 * list_add(procesosExecute, menorEstimador_PCB_Ready)
-					 * semaforo MANEJO_DE_LISTAS
+					 * list_add(procesosExecute, menorEstimador_PCB_Ready);
+					 * sem_post(agregarAReady)
 					 *
+					 * free(cpu_PCB_Recibido);
 					 * Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
 					 *
 				//	 * Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
@@ -282,16 +286,19 @@ void desalojo_PCB() {
 					 *
 					 *
 				free(execute_PCB);
-			}
-			SEMAFORO MANEJO_LISTAS
-			list_add(procesosExecute, menorEstimador_PCB_Ready);
-			list_remove(procesosReady, 0);
-			SEMAFORO MANEJO_LISTAS
+			} else {
 
-			Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
+					sem_wait(agregarAReady);
+					list_add(procesosExecute, menorEstimador_PCB_Ready);
+					list_remove(procesosReady, 0);
+					sem_post(agregarAReady);
 
-			Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
-			enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
+					Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
+
+					Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
+					enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
+
+
 		}
 	}
 }
@@ -309,7 +316,10 @@ void desalojo_PCB() {
  *		pcb * pcb_actualizado;
  *		paquetedeCPU_SoloAnalisis = recibir_paquete(conexion_dispatch); // PCB + Tiempo
  *		pcb_actualizado = list_get(paquetedeCPU_SoloAnalisis, 1);
- *
+ *		lista = [a, b, c]
+ *		#A QUE HACE EXIT - I/O
+ *		#B PCB ACTUALIZADO
+ *		#C TIEMPO
  *		indice = pcb_actualizado -> program_counter - 1;
  *		if(indice < 0){
  *			indice = 0;
