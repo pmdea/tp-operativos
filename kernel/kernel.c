@@ -33,8 +33,8 @@ int main(void)
 	procesosSuspendedReady = list_create();
 	procesosExit = list_create();
 
-	paquetedeCPU_Desalojo = list_create();
-	paquetedeCPU_Analisis = list_create();
+	// lo puse en el de desalojo paquetedeCPU_Desalojo = list_create();
+	// paquetedeCPU_Analisis = list_create();
 
 
 /*
@@ -63,7 +63,7 @@ int main(void)
 
 
 
-	/* HILOS ENTRE LOS PLANI PARA GENERAR PARALELISMO
+	/* HILOS ENTRE LOS PLANI PARA GENERAR PARALELISMO, esta mal el while aca ?
 	 * while (1){
 	 *
 	 * 	planificador_largo_plazo();
@@ -163,7 +163,8 @@ void planificador_CortoPlazo(char algoritmo){
 		// se lo mando a CPU
 	}
 }
-
+*/
+/*
 void algoritmo_FIFO(){
 
 	//sem  mientras la lee no quiero q cambie
@@ -221,50 +222,51 @@ void algoritmo_FIFO(){
 		}
 	}
 }
-
-
-
-
+*/
+/*
 void algoritmo_SRT(){
-	//sem  mientras la lee no quiero q cambie
-	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
-	int enReady = list_size(procesosReady); // Procesos en ready
-	int enFinalizacion = list_size(procesosExit);
-	int enBlock = list_size(procesosBlocked); // Procesos en blocked
-	//sem
+	 *
 	 *
 	 * join thread desalojo_PCB()
-	 * join thread analizar_PCB()
+	 * join thread interrupcion_io_PCB()
+	 * join thread interrupcion_exit_PCB()
+	 *
 }
-
-void desalojo_PCB() {
+*/
+/*
+void desalojo_PCB() { // SI LLEGA UN NUEVO PROCESO
+	paquetedeCPU_Desalojo = list_create();
 	while(1) {
 		//sem  mientras la lee no quiero q cambie
-		int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
-		int enReady = list_size(procesosReady); // Procesos en ready
-		int enFinalizacion = list_size(procesosExit);
-		int enBlock = list_size(procesosBlocked); // Procesos en blocked
+		int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion [ A ]
+		int enReady = list_size(procesosReady); // Procesos en ready [ B , J ]
+		int enFinalizacion = list_size(procesosExit); []
+		int enBlock = list_size(procesosBlocked); // Procesos en blocked []
 		//sem
+
 		if(enReady >= 1){
 
 			if(enReady > 1){
-				list_sort(procesosReady, ordenarSRT);
+				list_sort(procesosReady, ordenarSRT);  ME ORDENA POR MAS CHICO [ J, B]
 			}
 			pcb* ready_menorEstimador_PCB;
-			menorEstimador_PCB_Ready = list_get(procesosReady, 0);
+			menorEstimador_PCB_Ready = list_get(procesosReady, 0); // agarra el pcb mas de rafaga corta [J 3]
 
 			if(enEjecucion > 0) {
 
 				pcb* execute_PCB;
 				execute_PCB = list_get(procesosExecute, 0);
 
-				if(menorEstimador_PCB_Ready -> estimacion_rafaga > execute_PCB -> estimacion_rafaga){
 
+
+				if(menorEstimador_PCB_Ready -> estimacion_rafaga < execute_PCB -> estimacion_rafaga){
+				// *********** EJECUCION DEL PROCESO ***********
+				 *
 					// Creo conexion interrupt cpu - Mando mensaje de desalojo
 					 * conexion_cpu_interrupt = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_interrupt);
 					 * enviar_mensaje("Desalojo", conexion_cpu_interrupt); O ENVIAR UN SIGNAL
-				//	 * wait(esperarDesalojo); Espero desalojo
-				//	 * paquetedeCPU_Desalojo = recibir_paquete(cpu_dispatch); Vincular con las conexiones realizadas
+					 * wait(esperarDesalojo); Espero desalojo
+					 * paquetedeCPU_Desalojo = recibir_paquete(cpu_dispatch); Vincular con las conexiones realizadas
 				 	 *
 					 * sem_wait(agregarAReady) // Mantiene el grado de multiprogramacion actual
 					 * pcb * cpu_PCB_Recibido = list_remove(paquetedeCPU, 0);
@@ -279,33 +281,33 @@ void desalojo_PCB() {
 					 * free(cpu_PCB_Recibido);
 					 * Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
 					 *
-				//	 * Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
+					 * Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
 					 * enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
 					 *
 				}
-					 *
-					 *
 				free(execute_PCB);
 			} else {
+                sem_wait(agregarAReady); REIVSAR OJO
+                list_add(procesosExecute, menorEstimador_PCB_Ready);
+                list_remove(procesosReady, 0);
+                sem_post(agregarAReady);
 
-					sem_wait(agregarAReady);
-					list_add(procesosExecute, menorEstimador_PCB_Ready);
-					list_remove(procesosReady, 0);
-					sem_post(agregarAReady);
-
-					Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
-
-					Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
-					enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
-
+                Este PCB es el que tengo que agregar al paquete -> menorEstimador_PCB_Ready
+                Armar un paquete t_paquete* pcbExecute; (Ver como hacer);
+                enviar_paquete(pcbExecute, cpu_Dispatch); // Se elimina dentro de la funcion luego de ser mandado.
+				EJECUTANDO ...
 
 		}
+	free(menorEstimador_PCB_Ready);
 	}
 }
-
-// SRT Analisis
+*/
+// SRT Analisis // variable global => conexion_dispatch
  *
- *void analizar_PCB(conexion_dispatch){
+ *void interrupcion_io_PCB(){
+	 //
+
+ *	paquetedeCPU_Analisis = list_create();
  *	int tiempoBloqueado;
  *	int indice;
  *	t_list* tiempo_bloqueado;
@@ -316,10 +318,6 @@ void desalojo_PCB() {
  *		pcb * pcb_actualizado;
  *		paquetedeCPU_SoloAnalisis = recibir_paquete(conexion_dispatch); // PCB + Tiempo
  *		pcb_actualizado = list_get(paquetedeCPU_SoloAnalisis, 1);
- *		lista = [a, b, c]
- *		#A QUE HACE EXIT - I/O
- *		#B PCB ACTUALIZADO
- *		#C TIEMPO
  *		indice = pcb_actualizado -> program_counter - 1;
  *		if(indice < 0){
  *			indice = 0;
@@ -361,9 +359,6 @@ void desalojo_PCB() {
  *
  *}
  *
-
-
-
 
 */
 
