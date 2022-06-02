@@ -164,6 +164,65 @@ void planificador_CortoPlazo(char algoritmo){
 	}
 }
 */
+/* ********************************FIFO NUEVO ************************************
+void algoritmo_FIFO(){
+
+	//sem  mientras la lee no quiero q cambie
+	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
+	int enReady = list_size(procesosReady); // Procesos en ready
+	int enFinalizacion = list_size(procesosExit);
+	int enBlock = list_size(procesosBlocked); // Procesos en blocked
+	//sem
+
+	while(enReady > 0){
+		pcb * unProceso;
+
+		//wait  necesito un sem mutex? sem_wait(agregarAReady) QUIZA
+		unProceso = list_remove(procesosReady, 0);
+
+		list_add(procesosExecute, unProceso);
+		// signal sem_post(agregarAReady) QUIZA
+
+
+		MANDO EL PCB POR CONEXION dispatch
+
+		// wait espero lo q me manda el cpu desp de ejecutar el proceso (un exit, bloqueo, desalojo) binario
+
+		// paquete = recibirPaquete(socket_memoria); SUPONIENDO Q ME MANDA UN MENSAJE EN EL PAQUETE
+
+        RECIBO EL PCB POR CONEXION dispatch
+
+		if( paquete->mensaje == 'exit' ){
+			finalizar_pcb();
+		}
+
+		if(paquete->mensaje == 'i/o'){
+            bloquear_pcb(paquete->tiempo);
+		}
+	}
+}
+
+void finalizar_pcb(){
+    //fijarme sem
+    list_add(procesosExit, paquete->pcb);
+    lsit_remove(procesosExecute, paquete->pcb);
+    //fijarme sem
+}
+
+void bloquear_pcb(int tiempo){
+    int enBlock = list_size(procesosBlocked);
+    if(enBlock == 0){
+        //fijarme sem
+        list_add(procesosBlocked, paquete->pcb);
+        lsit_remove(procesosExecute, paquete->pcb);
+        //fijarme sem
+        delay(tiempo);
+        list_add(procesosReady,paquete->pcb);
+    } // ver q pasa con el que espera a bloquear
+}
+
+ **********************************FIN FIFO NUEVO ************************************** */
+
 /*
 void algoritmo_FIFO(){
 
