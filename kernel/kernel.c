@@ -12,6 +12,10 @@ bool ordenarSTR(pcb* unPCB,pcb* otroPCB){
 	return est2 > est1;
 }
 
+bool mismo_ID(pcb* pcbFinalizado, conexion_consola* dataConsola){
+	return pcbFinalizo -> id = dataConsola -> idPBC;
+}
+
 void estimador(pcb* unPCB, double alfa, int rafaga_ejecutada){
 	unPCB -> estimacion_rafaga = (alfa * rafaga_ejecutada + (1 - alfa) * unPCB->estimacion_rafaga);
 }
@@ -89,7 +93,7 @@ void generar_PCB(int idUltimo, int tamanioProceso, t_list* instrucciones){ // Fu
 
 	//printf("Proceso creado correctamente");
 }
-
+/*
 void planificador_LargoPlazo(){
 	//sem mientras la lee no quiero q cambie
 	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
@@ -144,6 +148,48 @@ void planificador_LargoPlazo(){
 
 	}
 }
+
+
+*/
+
+/*
+ * sem ingresoProcesoReady 4
+ * sem prioridad_SuspendedReady 0
+ *
+void planificador_LargoPlazo(){
+
+	while(1){
+
+		wait(ingresoProcesoReady);
+
+		if(list_size(procesosSuspendedReady) > 0){
+
+			wait(prioridad_SuspendedReady);
+
+		} else {
+
+			pcb * nuevoProceso = list_remove(procesosNew, 0);
+			list_add(procesosReady, nuevoProceso);
+			free(nuevoProceso);
+
+		}
+
+		if(list_size(procesosExit) > 0 ){
+
+			pcb * finalizadoProceso = list_remove(procesosExit, 0);
+			//conexion_consola * dataConsola = list_find(consolaPCB, mismo_ID);
+			//enviar_mensaje(dataConsola -> socket);
+			//list_remove_by_condition(consolaPCB, mismo_ID);
+			free(finalizadoProceso);
+			//free(dataConsola);
+			signal(ingresoProcesoReady);
+		}
+
+
+	}
+}
+*/
+
 /*
 void planificador_CortoPlazo(char algoritmo){
 
