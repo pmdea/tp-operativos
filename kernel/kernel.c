@@ -33,10 +33,11 @@ int main(void)
 	procesosReady = list_create();
 	procesosExecute = list_create();
 	procesosBlocked = list_create();
+	tiemposBlocked = list_create();
 	procesosSuspendedBlocked = list_create();
 	procesosSuspendedReady = list_create();
 	procesosExit = list_create();
-
+	bool ejecutando  = 0 ;
 	// lo puse en el de desalojo paquetedeCPU_Desalojo = list_create();
 	// paquetedeCPU_Analisis = list_create();
 
@@ -71,7 +72,7 @@ int main(void)
 	 * while (1){
 	 *
 	 * 	planificador_largo_plazo();
-	 *	planificador_corto_plazo(algoritmo);
+	 *	planificador_corto_plazo('FIFO');
 	 * }
 	 */
 
@@ -153,27 +154,28 @@ void planificador_LargoPlazo(){
 */
 
 /*
- * sem ingresoProcesoReady 4
+ * sem grado_multiprogramacion 4 //  config.kernel->gradomulti
  * sem prioridad_SuspendedReady 0
+ * sem nuevoProcesoReady 0 (binario con cortoplazo)
  *
 void planificador_LargoPlazo(){
 
 	while(1){
-
-		wait(ingresoProcesoReady);
-
 		if(list_size(procesosSuspendedReady) > 0){
 
 			wait(prioridad_SuspendedReady);
 
-		} else {
+		}else if ( list_size(procesoNew) > 0){
+
+			wait(grado_multiprogramacion);
 
 			pcb * nuevoProceso = list_remove(procesosNew, 0);
+			mutex con cortoplazo
 			list_add(procesosReady, nuevoProceso);
+			signal(nuevoProcesoReady)
+			mutex
 			free(nuevoProceso);
-
 		}
-
 		if(list_size(procesosExit) > 0 ){
 
 			pcb * finalizadoProceso = list_remove(procesosExit, 0);
@@ -182,9 +184,8 @@ void planificador_LargoPlazo(){
 			//list_remove_by_condition(consolaPCB, mismo_ID);
 			free(finalizadoProceso);
 			//free(dataConsola);
-			signal(ingresoProcesoReady);
+			signal(grado_multiprogramacion);
 		}
-
 
 	}
 }
@@ -195,155 +196,195 @@ void planificador_CortoPlazo(char algoritmo){
 
 	int ciclosTotales=0;
 
-
 	if(algoritmo == 'FIFO'){
 		algoritmo_FIFO()
 	}else{
 		algoritmo_SRT()
 	}
-
-	//algoritmo
-	while(enReady > 0 && enEjecucion == 0){
-		pcb * unProceso;
-		// unProceso = EL QUE DECIDE EL ALGORITMO
-		// se lo mando a CPU
-	}
 }
 */
 /* ********************************FIFO NUEVO ************************************
 void algoritmo_FIFO(){
-
-	//sem  mientras la lee no quiero q cambie
-	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
-	int enReady = list_size(procesosReady); // Procesos en ready
-	int enFinalizacion = list_size(procesosExit);
-	int enBlock = list_size(procesosBlocked); // Procesos en blocked
-	//sem
-
-	while(enReady > 0){
-		pcb * unProceso;
-
-		//wait  necesito un sem mutex? sem_wait(agregarAReady) QUIZA
-		unProceso = list_remove(procesosReady, 0);
-
-		list_add(procesosExecute, unProceso);
-		// signal sem_post(agregarAReady) QUIZA
+	administrar_bloqueos(); // HILO
+	while(1){
+		//sem  mientras la lee no quiero q cambie
+		int enReady = list_size(procesosReady); // Procesos en ready
+		int enFinalizacion = list_size(procesosExit);
+		int enBlock = list_size(procesosBlocked); // Procesos en blocked
+		//sem
 
 
-		MANDO EL PCB POR CONEXION dispatch
+		wait(nuevoProcesoReady) // a mati pone un proceso en ready
 
-		// wait espero lo q me manda el cpu desp de ejecutar el proceso (un exit, bloqueo, desalojo) binario
+		if(enReady > 0){
+			pcb * unProceso;
 
-		// paquete = recibirPaquete(socket_memoria); SUPONIENDO Q ME MANDA UN MENSAJE EN EL PAQUETE
+			//sem_wait(agregarAReady) QUIZA
+			unProceso = list_remove(procesosReady, 0);
+			//signal sem_post(agregarAReady) QUIZA
 
-        RECIBO EL PCB POR CONEXION dispatch
+			MANDO EL PCB POR CONEXION dispatch unProceso
 
-		if( paquete->mensaje == 'exit' ){
-			finalizar_pcb();
-		}
+			// wait espero lo q me manda el cpu desp de ejecutar el proceso (un exit, bloqueo, desalojo) binario
+			//wait(respuestaCpu)
 
-		if(paquete->mensaje == 'i/o'){
-            bloquear_pcb(paquete->tiempo);
+			// paquete = recibirPaquete(socket_memoria); SUPONIENDO Q ME MANDA UN MENSAJE EN EL PAQUETE
+
+			RECIBO EL PCB POR CONEXION dispatch
+
+			if( paquete->mensaje == 'exit' ){
+				finalizar_pcb(paquete->pcb);
+			}else if(paquete->mensaje == 'i/o'){
+				list_add(procesosBlocked, paquete->pcb); // EL PRIMERO ES EL Q ESTA BLOQUEADO
+				list_add(tiemposBlocked, paquete->tiempo);
+			}
 		}
 	}
 }
 
-void finalizar_pcb(){
+void finalizar_pcb(pcb * pcbFinalizar){ //hilo
     //fijarme sem
-    list_add(procesosExit, paquete->pcb);
-    lsit_remove(procesosExecute, paquete->pcb);
+    list_add(procesosExit, pcbFinalizar);
     //fijarme sem
 }
 
-void bloquear_pcb(int tiempo){
+void administrar_bloqueos(){ // hilo
+
     int enBlock = list_size(procesosBlocked);
-    if(enBlock == 0){
-        //fijarme sem
-        list_add(procesosBlocked, paquete->pcb);
-        lsit_remove(procesosExecute, paquete->pcb);
-        //fijarme sem
-        delay(tiempo);
-        list_add(procesosReady,paquete->pcb);
-    } // ver q pasa con el que espera a bloquear
+    if(enBlock > 0){
+        pcb * pcb = list_remove(procesosBlocked, 0);
+        int tiempo = list_remove(tiemposBlocked, 0);
+
+       	log_info(logger, "Iniciando bloqueo de %d........",tiempo);
+        usleep(tiempo);
+        log_info(logger, "Finalizando bloqueo");
+
+        // QUIZA
+        if(tiempo > config_kernel.tiempo_maximo_bloqueado){
+        	signal(bloqueoMax)
+        }
+        //
+        //mutex
+        list_add(procesosReady,pcb);
+        //mutex
+        free(pcb)
+    }
 }
 
  **********************************FIN FIFO NUEVO ************************************** */
 
 /*
-void algoritmo_FIFO(){
-
-	//sem  mientras la lee no quiero q cambie
-	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
-	int enReady = list_size(procesosReady); // Procesos en ready
-	int enFinalizacion = list_size(procesosExit);
-	int enBlock = list_size(procesosBlocked); // Procesos en blocked
-	//sem
-
-	t_list*  tiempoABlockear = list_create();
-	// algoritmo
-	// FIFO PROCESOS READY ==>  [ b, c, d] bloqueado a
-	while(enReady > 0){
-		pcb * unProceso;
-
-		//wait  necesito un sem mutex? sem_wait(agregarAReady) QUIZA
-		unProceso = list_remove(procesosReady, 0);
-
-		list_add(procesosExecute, unProceso);
-		// signal sem_post(agregarAReady) QUIZA
-
-
-		// signal(cheTemandoPRoceso) binario
-		// se lo mando al cpu el Proceso
-
-		// wait espero lo q me manda el cpu desp de ejecutar el proceso (un exit, bloqueo, desalojo) binario
-
-		// paquete = recibirPaquete(socket_memoria); SUPONIENDO Q ME MANDA UN MENSAJE EN EL PAQUETE
-		if( paquete->mensaje == 'exit' ){
-			list_add(procesosExit, paquete->pcb);
-		}
-
-		if(paquete->mensaje == 'i/o'){
-			//necesito el tiempo
-			// suponiendo que tengo el tiempo
-			int tiempo =  paquete->tiempo + 1 ; // 2 para q le reste la primera vez
-			list_add(procesosBlocked, paquete->pcb); // lista bloqueados [ a, b ]
-			list_add(tiempoABlockear, tiempo) ;// [ 3 ]
-
-		}
-
-		int tiempoBlockeadoAhora = list_get(tiempoABlockear, 0); // 0
-		if(tiempoBlockeadoAhora){ // si
-			if(tiempoBlockeadoAhora == 0){ // si
-
-				// SEMAFORO  CON EL DE LARGO PLAZO MUTEX sem_wait(agregarAReady)
-				list_add(procesosReady, list_remove(procesosBlocked, 0)); // [ a, c ] => [ c ] ** devuelve un pcb
-				// SEMAFORO  CON EL DE LARGO PLAZO MUTEX sem_post(agregarAReady)
-
-				// se termino el bloqueo por lo tanto lo meto devuelta en la lista de ready
-				list_remove(tiempoABlockear, 0); // [ 0, 4 ] => [ 4 ]
-
-			}
-			list_replace(tiempoABlockear, 0, tiempoBlockeadoAhora--); // [ 3 ]
-		}
-	}
-}
-*/
-/*
 void algoritmo_SRT(){
-	 *
-	 *
+
+	 // a mati pone un proceso en ready
+
 	 * join thread desalojo_PCB()
-	 * join thread interrupcion_io_PCB()
-	 * join thread interrupcion_exit_PCB()
-	 *
+	 * join thread respuesta_cpu()
+
 }
 */
+
+
+/* ************************** NUEVO SRT ********************************
+
+void desalojo_PCB() {
+	while(1) {
+        wait(algo) //  Me bloquea si el cpu me manda un mensaje : )
+		//sem  mientras la lee no quiero q cambie
+		int enReady = list_size(procesosReady); // Procesos en ready [ B , J ]
+		int enBlock = list_size(procesosBlocked); // Procesos en blocked []
+		//sem
+
+        //ejecutando variable global un bool  [ a , b]
+         *
+		wait(nuevoProcesoReady) binario
+
+        if(enReady == 1 && ejecutando == 0){ // la primera vez q ejecuta [ ]
+
+            //EJECUTANDO...
+            sem_wait(agregarAReady);
+            pcb *pcbExecute = list_remove(procesosReady, 0);
+            sem_post(agregarAReady);
+
+			// MANDO EL PCB POR CONEXION dispatch unProceso
+            enviar_paquete(pcbExecute, cpu_Dispatch); // serializar
+            ejecutando = 1;
+            //EJECUTANDO... del cpu
+
+            free(pcbExecute);
+
+            signal(algo) // 1
+        }else if (enReady >= 1 && ejecutando == 1){ // si llega un nuevo proceso y esta ejecutando
+
+            enviar_paquete('nuevo proceso', INTERRUP);
+            // wait(respuestaCpu)
+			paquete = recibirPaquete(dispatch); // deserializar
+            int rafagas_executed = paquete->rafagas_executed;
+            pcb *pcbExecuted = paquete->pcb;
+
+            estimador(pcbExecuted, 0,5, rafagas_executed); // actualizo pcb
+
+            sem_wait(agregarAReady);
+            list_add(procesosReady, pcbExecuted);
+            sem_post(agregarAReady);
+
+            list_sort(procesosReady, ordenarSRT); // tomo lista de ready y ordeno con todos los procesos
+
+            free(pcbExecuted);
+
+            //EJECUTANDO...
+            sem_wait(agregarAReady);
+            pcb *pcbExecute = list_remove(procesosReady, 0);
+            sem_post(agregarAReady);
+
+			// MANDO EL PCB POR CONEXION dispatch unProceso
+            enviar_paquete(pcbExecute, cpu_Dispatch); // serializar
+            ejecutando = 1;
+            //EJECUTANDO...
+
+            free(pcbExecute);
+
+            signal(algo)
+        }
+
+        signal(algo)
+    }
+}
+
+void respuesta_cpu(){
+	administrar_bloqueos(); // HILO
+    while(1){
+        wait(Esperar_CPU);
+        wait(algo);
+        pcb * pcb;
+        paquetedeCPU = recibir_paquete(conexion_dispatch); // PCB + Tiempo
+        pcb = list_get(paquetedeCPU, 1);
+        char instruccion =  list_get(paquetedeCPU, 2);
+        int tiempo =  list_get(paquetedeCPU, 3);
+
+        if(instruccion == "EXIT"){
+            finalizar_pcb(paquetedeCPU);
+        }
+
+        if(instruccion == "I/O"){
+
+
+            list_add(procesosBlocked, paquete->pcb); // EL PRIMERO ES EL Q ESTA BLOQUEADO
+			list_add(tiemposBlocked, tiempo);
+        }
+        signal(algo)
+    }
+}
+
+
+************************** NUEVO SRT FIN ******************************** */
+
+
 /*
 void desalojo_PCB() { // SI LLEGA UN NUEVO PROCESO
 	paquetedeCPU_Desalojo = list_create();
 	while(1) {
 		//sem  mientras la lee no quiero q cambie
-		int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion [ A ]
 		int enReady = list_size(procesosReady); // Procesos en ready [ B , J ]
 		int enFinalizacion = list_size(procesosExit); []
 		int enBlock = list_size(procesosBlocked); // Procesos en blocked []
