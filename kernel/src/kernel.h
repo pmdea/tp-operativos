@@ -21,7 +21,8 @@
 #include <commons/collections/queue.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <sys/types.h>
+#include <netdb.h>
 /*
 */
 

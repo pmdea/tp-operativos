@@ -7,12 +7,11 @@
 #include "kernel.h"
 #include <commons/log.h>
 
-#define PUERTO 8000
+#define PUERTO "8080"
 #define IP "127.0.0.1"
 
-void inicializar_direccion_kernel(struct sockaddr_in direccion_kernel);
-
-void bindear_kernel(int kernel, void* direccion_kernel);
+void inicializar_direccion_kernel(struct sockaddr_in *direccion_kernel);
+void bindear_kernel(int kernel, struct sockaddr_in direccion_kernel);
 void escuchar(int kernel);
 void procesar_entradas_de_consolas(int kernel);
 void atender_consola(int consola);
@@ -37,20 +36,18 @@ t_log* log_kernel;
 int main(void) {
 	// INICIAR KERNEL
 	log_kernel = log_create("log_kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
+
 	struct sockaddr_in direccion_kernel;
-	inicializar_direccion_kernel(direccion_kernel);
+	inicializar_direccion_kernel(&direccion_kernel);
 
 	int kernel = socket(AF_INET, SOCK_STREAM, 0);
 	int activado = 1;
 	setsockopt(kernel, SOL_SOCKET, SO_REUSEADDR, &activado, sizeof(activado));
 
 	//LEER ARCHIVO CONFIG
-	t_config* config = config_create("./kernel/kernel.config");
 
-	config_destroy(config);
 	//ESPERAR CONEXION CONSOLA
-
-	bindear_kernel(kernel, &direccion_kernel);
+	bindear_kernel(kernel, direccion_kernel);
 
 	escuchar(kernel);
 
@@ -63,18 +60,17 @@ int main(void) {
 	return 0;
 
 }
-void inicializar_direccion_kernel(struct sockaddr_in direccion_kernel) {
+void inicializar_direccion_kernel(struct sockaddr_in *direccion_kernel) {
 
-	direccion_kernel.sin_family = AF_INET;
-	direccion_kernel.sin_addr.s_addr = INADDR_ANY;
-	direccion_kernel.sin_port = htons(PUERTO);
+	direccion_kernel->sin_family = AF_INET;
+	direccion_kernel->sin_addr.s_addr = INADDR_ANY;
+	direccion_kernel->sin_port = htons(atoi(PUERTO));
 
 }
 
-void bindear_kernel(int kernel, void* direccion_kernel) {
-	if (bind(kernel, (void*) &direccion_kernel, sizeof(direccion_kernel))
-			!= 0) {
-		perror("fallo el bind");
+void bindear_kernel(int kernel, struct sockaddr_in direccion_kernel) {
+	if (bind(kernel, (void*) &(direccion_kernel), sizeof(direccion_kernel))
+			== -1) {
 		log_error(log_kernel, "Fallo el bind\n");
 	} else {
 		log_info(log_kernel, "El kernel fue bindeado con exito\n");
@@ -82,9 +78,13 @@ void bindear_kernel(int kernel, void* direccion_kernel) {
 }
 
 void escuchar(int kernel) {
-	listen(kernel, SOMAXCONN);
-	log_info(log_kernel, "El kernel esta escuchando el puerto: %d\n", PUERTO);
-	log_info(log_kernel, "Esperando conexiones...\n");
+	if(listen(kernel, SOMAXCONN) != 0) {
+		log_error(log_kernel, "No se pudo escuchar el puerto %s",PUERTO);
+	} else {
+		log_info(log_kernel, "El kernel esta escuchando el puerto: %s\n", PUERTO);
+		log_info(log_kernel, "Esperando conexiones...\n");
+	}
+
 }
 
 void procesar_entradas_de_consolas(int kernel) {
