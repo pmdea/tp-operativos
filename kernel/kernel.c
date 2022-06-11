@@ -78,6 +78,8 @@ int main(void)
 
 }
 //El tamaño y las instrucciones vienen desde consola
+
+/* CODIGO ANTERIOR
 void generar_PCB(int idUltimo, int tamanioProceso, t_list* instrucciones){ // Funcion para cargar los datos del proceso al PCB
 
 	pcb *nuevoProceso = malloc(sizeof(pcb));
@@ -94,6 +96,27 @@ void generar_PCB(int idUltimo, int tamanioProceso, t_list* instrucciones){ // Fu
 
 	//printf("Proceso creado correctamente");
 }
+*/
+void generar_PCB(int idPCB, t_proceso* proceso){ // Funcion para cargar los datos del proceso al PCB
+
+	pcb *nuevoProceso = malloc(sizeof(pcb));
+	nuevoProceso -> id = idPCB;
+	nuevoProceso -> tamanio = proceso -> tamanio_proceso;
+	nuevoProceso -> instrucciones = list_create(); // LISTA
+	nuevoProceso ->  program_counter = 0;
+	nuevoProceso ->  tabla_paginas = "-"; // LISTA
+	nuevoProceso ->  estimacion_rafaga = config_kernel.estimacion_inicial;
+
+	list_add_all(nuevoProceso -> instrucciones, proceso -> instrucciones -> elements);
+
+	list_add(procesosNew, nuevoProceso);
+
+	//free(nuevoProceso); Si la libero no me tira bien los datos
+
+	//printf("Proceso creado correctamente");
+}
+
+
 /*
 void planificador_LargoPlazo(){
 	//sem mientras la lee no quiero q cambie
