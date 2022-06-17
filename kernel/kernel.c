@@ -115,67 +115,6 @@ void generar_PCB(int idPCB, t_proceso* proceso){ // Funcion para cargar los dato
 
 	//printf("Proceso creado correctamente");
 }
-
-
-/*
-void planificador_LargoPlazo(){
-	//sem mientras la lee no quiero q cambie
-	int enEjecucion = list_size(procesosExecute); // Procesos en ejecucion
-	int enReady = list_size(procesosReady); // Procesos en ready
-	int enBlock = list_size(procesosBlocked); // Procesos en blocked
-	int enFinalizacion = list_size(procesosExit); // Procesos que finalizan
-	//sem
-	int espacio_ocupado_memoria_principal = enEjecucion + enReady + enBlock;
-
-	while (espacio_ocupado_memoria_principal < config_kernel.grado_multiprogramacion) {
-		int enSuspendedReady = list_size(procesosSuspendedReady); // Procesos con más prioridad para acceder a Ready
-		//Doy prioridad al Planificador Mediano Plazo
-		if(enSuspendedReady > 0){
-			//wait(prioridadSuspendedReady);
-		} else {
-
-			// Obtengo el primero de la lista de procesosNew
-			pcb * unProceso;
-			unProceso = list_get(procesosNew, 0);
-
-			//Envio de mensaje a Modulo de Memoria para generar estructuras
-
-			//enviarMensaje("PCB-Generado", socket_memoria);
-
-			//wait(esperarRespuesta); // el signal lo deberia tener memoria luego de crear las estructuras (Tablas/Paginas)
-
-			//Obtengo tablas de direccion
-
-				//recibirMensaje(socket_memoria);
-
-			// Asigno al PCB y lo guardo en la lista procesosReady
-			unProceso -> tabla_paginas = "reemplazar cuando este la funcion realizada arriba";
-
-
-			// SEMAFORO  CON EL DE LARGO CORTO MUTEX sem_wait(agregarAReady)
-			list_add(procesosReady, unProceso);
-			// SEMAFORO  CON EL DE LARGO CORTO MUTEX sem_post(agregarAReady)
-
-			list_remove(procesosNew, 0);
-
-			free(unProceso); // Ver si se guarda bien la info o no
-		}
-
-		// Analizar si tengo procesos en finalizacion
-		if (enFinalizacion != 0){
-			pcb * unProceso = list_get(procesosExit, 0);
-			// Envio Msj a Memoria para liberar
-			// Aviso a consola que termino.
-			list_remove(unProceso, 0);
-			free(unProceso);
-		}
-
-	}
-}
-
-
-*/
-
 /*
  * sem grado_multiprogramacion 4 //  config.kernel->gradomulti
  * sem prioridad_SuspendedReady 0
@@ -193,20 +132,38 @@ void planificador_LargoPlazo(){
 			wait(grado_multiprogramacion);
 
 			pcb * nuevoProceso = list_remove(procesosNew, 0);
-			mutex con cortoplazo
+			
+			//Envio de mensaje a Modulo de Memoria para generar estructuras
+			enviarYSerializarStringSinHeader("PCB-GENERADO", socket_memoria);
+
+			//Obtengo las estructuras y se las asigno al PCB
+			nuevoProceso -> tabla_paginas = desializarString(socket_memoria);
+
+			wait(nuevoProcesoReady) // binario con cortoplazo
 			list_add(procesosReady, nuevoProceso);
-			signal(nuevoProcesoReady)
-			mutex
+			signal(nuevoProcesoReady) // binario con cortoplazo
+
 			free(nuevoProceso);
 		}
 		if(list_size(procesosExit) > 0 ){
 
-			pcb * finalizadoProceso = list_remove(procesosExit, 0);
-			//conexion_consola * dataConsola = list_find(consolaPCB, mismo_ID);
-			//enviar_mensaje(dataConsola -> socket);
-			//list_remove_by_condition(consolaPCB, mismo_ID);
-			free(finalizadoProceso);
-			//free(dataConsola);
+			// Obtengo el PCB que finalizo
+			pcb * procesoFinalizado = list_remove(procesosExit, 0);
+			
+			// Aviso a memoria para que libere
+			aviso_a_memoria(socket_memoria, procesoFinalizado);
+
+			// Busco el socket_consola asociado al PCB
+			int socket_consola_respuesta = devolverID_CONSOLA(procesoFinalizado);
+
+			// Envio el mensaje de finalización
+			char* mensajeFinalizacion = "El proceso ha terminado su ejecucion";
+			enviarYSerializarStringSinHeader(socket_consola_respuesta, mensajeFinalizacion);
+			
+			// Libero memoria
+			free(procesoFinalizado);
+			
+			// Incremento el grado de multiprogramacion en 1
 			signal(grado_multiprogramacion);
 		}
 
