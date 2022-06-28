@@ -1,23 +1,4 @@
-/*
- * cpu.c
- *
- *  Created on: Apr 23, 2022
- *      Author: pmdea
- */
-
 #include "cpu.h"
-
-void enviar_paquete(int socket, t_paquete* paquete)
-{
-	int tam = sizeof(*paquete->buffer->stream);
-	int tam_buffer = paquete->buffer->size;
-	memcpy(tam,tam_buffer,sizeof(int));
-
-	int bytes = paquete->buffer->size + 2*sizeof(int);
-
-	send(socket, paquete, bytes, 0);
-
-}
 
 void serializarChar(void* buffer, int* desplazamiento, char mensaje){
 	memcpy(buffer + *desplazamiento, &mensaje, sizeof(char));
@@ -47,30 +28,121 @@ void serializarListaString(void* buffer, int* desplazamiento, t_list* listaArchi
 	}
 }
 
-void agregar_pcb(Pcb* proceso, int* desplazamiento, t_paquete* paquete){
-
-	serializarString(paquete->buffer, desplazamiento, proceso->tabla_paginas);
-	serializarInt(paquete->buffer, desplazamiento, proceso->id);
-	serializarInt(paquete->buffer, desplazamiento, proceso->tamanio);
-	serializarInt(paquete->buffer, desplazamiento, proceso->program_counter);
-	serializarListaString(paquete->buffer, desplazamiento, proceso->instrucciones);
-	serializarDouble(paquete->buffer, desplazamiento, proceso->estimacion_rafaga);
+int obtenerTamanioListaStrings(t_list* lista){
+	int respuesta = sizeof(int);
+	for(int i = 0; i < lista->elements_count; i++){
+		respuesta += sizeof(int) + strlen(list_get(lista,i)) + 1;
+	}
+	return respuesta;
 }
 
-void agregar_rafaga(int rafaga, int* desplazamiento, t_paquete* paquete){
-
-	serializarInt(paquete->buffer, desplazamiento, rafaga);
+void serializarPCB(void* buffer, int* desplazamiento, Pcb* proceso)
+{
+	serializarInt(buffer, desplazamiento, proceso->id);
+	serializarInt(buffer, desplazamiento, proceso->tamanio);
+	serializarInt(buffer, desplazamiento, proceso->program_counter);
+	serializarListaString(buffer, desplazamiento, proceso->instrucciones);
+	serializarString(buffer, desplazamiento, proceso->tabla_paginas);
+	serializarDouble(buffer, desplazamiento, proceso->estimacion_rafaga);
 }
 
-void agregar_parametro(int param, int* desplazamiento, t_paquete* paquete){
+void* serializar_paquete(t_paquete* paquete, int tamanio)
+{
+	void* paquete_a_enviar = malloc(tamanio);
+	int desplazamiento = 0;
 
-	serializarInt(paquete->buffer, desplazamiento, param);
+	memcpy(paquete_a_enviar + desplazamiento, &(paquete->operacion), sizeof(paquete->operacion));
+	desplazamiento+= sizeof(paquete->operacion);
+	memcpy(paquete_a_enviar + desplazamiento, &(paquete->buffer->size), sizeof(int));
+	desplazamiento+= sizeof(int);
+	memcpy(paquete_a_enviar + desplazamiento, paquete->buffer->stream, paquete->buffer->size);
+	desplazamiento+= paquete->buffer->size;
+
+	return paquete_a_enviar;
 }
 
 t_paquete* crear_paquete(op_code operacion){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->operacion = operacion;
+	paquete->buffer = malloc(sizeof(t_buffer));
+	paquete->buffer->size = 0;
+	paquete->buffer->stream = NULL;
 	return paquete;
+}
+
+void enviar_exit(Pcb* proceso, int rafaga)
+{
+	t_paquete* paquete = crear_paquete(EXIT);
+
+	int tam = sizeof(int)+sizeof(int)+sizeof(int)+obtenerTamanioListaStrings(proceso->instrucciones)
+			+strlen(proceso->tabla_paginas)+1+sizeof(double)+sizeof(int);
+	void* buffer = malloc(tam);
+
+	int desplazamiento = 0;
+
+	serializarPCB(buffer, &desplazamiento, proceso);
+
+	serializarInt(buffer, &desplazamiento, rafaga);
+
+	realloc(paquete->buffer->stream, tam);
+	paquete->buffer->stream = buffer;
+	paquete->buffer->size=tam;
+
+	int tamanio=sizeof(paquete->operacion)+sizeof(paquete->buffer->size)+paquete->buffer->size;
+	void* paquete_a_enviar = serializar_paquete(paquete, tamanio);
+	//send(conexion, paquete_a_enviar, tamanio, 0);
+
+	free(paquete);
+}
+
+void enviar_IO(Pcb* proceso, int rafaga, int tiempo)
+{
+	t_paquete* paquete = crear_paquete(IO);
+
+		int tam = sizeof(int)+sizeof(int)+sizeof(int)+obtenerTamanioListaStrings(proceso->instrucciones)
+				+strlen(proceso->tabla_paginas)+1+sizeof(double)+sizeof(int)+sizeof(int);
+		void* buffer = malloc(tam);
+
+		int desplazamiento = 0;
+
+		serializarPCB(buffer, &desplazamiento, proceso);
+
+		serializarInt(buffer, &desplazamiento, rafaga);
+
+		serializarInt(buffer, &desplazamiento, tiempo);
+
+		realloc(paquete->buffer->stream, tam);
+		paquete->buffer->stream = buffer;
+		paquete->buffer->size=tam;
+
+		int tamanio=sizeof(paquete->operacion)+sizeof(paquete->buffer->size)+paquete->buffer->size;
+		void* paquete_a_enviar = serializar_paquete(paquete, tamanio);
+		//send(conexion, paquete_a_enviar, tamanio, 0);
+
+		free(paquete);
+}
+
+void enviar_interrupt(Pcb* proceso)
+{
+	t_paquete* paquete = crear_paquete(INTERRUPT);
+
+		int tam = sizeof(int)+sizeof(int)+sizeof(int)+obtenerTamanioListaStrings(proceso->instrucciones)
+				+strlen(proceso->tabla_paginas)+1+sizeof(double);
+		void* buffer = malloc(tam);
+
+		int desplazamiento = 0;
+
+		serializarPCB(buffer, &desplazamiento, proceso);
+
+		realloc(paquete->buffer->stream, tam);
+		paquete->buffer->stream = buffer;
+		paquete->buffer->size=tam;
+
+		int tamanio=sizeof(paquete->operacion)+sizeof(paquete->buffer->size)+paquete->buffer->size;
+		void* paquete_a_enviar = serializar_paquete(paquete, tamanio);
+		//send(conexion, paquete_a_enviar, tamanio, 0);
+
+		free(paquete);
 }
 
 int asignarNumero(char* ident)
@@ -103,12 +175,13 @@ int asignarNumero(char* ident)
 	return n;
 }
 
-void execute(Instruccion* instruccion, Pcb* proceso, int* rafaga)
+void execute(Instruccion* instruccion, Pcb* proceso, int* raf)
 {
-	int* tiempo = 0;
-	t_paquete* paquete;
 	int* num = 0;
+	int tiempo = 0;
+	int rafaga = raf;
 	int ident = asignarNumero(instruccion->identificador);
+
 	switch (ident){
 	case 0:
 		num = queue_peek(instruccion->parametros);
@@ -118,21 +191,15 @@ void execute(Instruccion* instruccion, Pcb* proceso, int* rafaga)
 			rafaga++;
 		}
 		proceso->program_counter++;
+
 		break;
 	case 1:
 		tiempo = queue_peek(instruccion->parametros);
 		proceso->program_counter++;
-
-		paquete = crear_paquete(IO);
-		int desplazamiento = 0;
-
-		agregar_pcb(proceso, &desplazamiento, paquete);
-		agregar_rafaga(*rafaga, &desplazamiento, paquete);
-		agregar_parametro(*tiempo, &desplazamiento, paquete);
-
-		enviar_paquete(conexion, paquete);
-
 		rafaga++;
+
+		enviar_IO(proceso, rafaga, tiempo);
+
 		break;
 	case 2:
 		// luego se implementa
@@ -146,13 +213,8 @@ void execute(Instruccion* instruccion, Pcb* proceso, int* rafaga)
 	case 5:
 		proceso->program_counter++;
 
-		paquete = crear_paquete(EXIT);
-		desplazamiento = 0;
+		enviar_exit(proceso, rafaga);
 
-		agregar_pcb(proceso, &desplazamiento, paquete);
-		agregar_rafaga(*rafaga, &desplazamiento, paquete);
-
-		enviar_paquete(conexion, paquete);
 		break;
 	}
 }
@@ -196,12 +258,9 @@ int hayInterrupcion()
 
 void checkInterrupt(int* rafaga, Pcb* proceso)
 {
-	t_paquete* paquete = crear_paquete(INTERRUPT);
-	int* desplazamiento = 0;
 	if(hayInterrupcion())
 	{
-		agregar_pcb(proceso, desplazamiento, paquete);
-		enviar_paquete(conexion, paquete);
+		enviar_interrupt(proceso);
 	}
 }
 
@@ -214,7 +273,6 @@ int main(void)
 	instrucc->identificador = "EXIT";
 	instrucc->parametros = queue_create();
 	instrucc->tamanio_id = sizeof(instrucc->identificador);
-
 	list_add(proceso->instrucciones,instrucc);
 
 	int* rafaga = 0;
@@ -227,7 +285,6 @@ int main(void)
 
 	// obtiene la instruccion del pcb
 	Instruccion* instruccion = fetch(proceso);
-	printf(instruccion->identificador);
 
 	// se fija si tiene que buscar operandos en memoria
 	decode(instruccion);
