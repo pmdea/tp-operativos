@@ -13,9 +13,8 @@
 #include<commons/config.h>
 #include<stdio.h>
 #include<inttypes.h>
-#include "./includeh/memoria.h"
-#include "./includeh/init_memoria.h"
-#include "./includeh/manejar_memoria.h"
+#include "init_memoria.h"
+#include "manejar_memoria.h"
 
 void config_module(void);
 // Ante un pedido de lectura, devolver el valor que se encuentra en la posición pedida

@@ -22,4 +22,9 @@ typedef struct{
 	uint8_t bit_modified;
 } entrada_tp_2;
 
+typedef struct{
+	t_list* entradas;
+	uint32_t index;
+} tabla_pagina;
+
 #endif /* INCLUDEH_ESTRUCTURAS_H_ */

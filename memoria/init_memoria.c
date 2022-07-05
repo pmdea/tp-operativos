@@ -6,6 +6,8 @@ t_mem_config* config;
 void* memoria_principal;
 
 //paginacion
+t_list* tablas_1er_nivel; //Se dejan como globales para utilizarlas como figura en el issue #2596
+t_list* tablas_2do_nivel; //Cada t_list va a tener una t_list como elemento de entrada_tp1 y tp2 correspondientemente, que representará una tabla de paginas
 
 
 uint8_t init(){
@@ -30,9 +32,16 @@ uint8_t cargar_memoria(){
 		return 0;
 	}
 	memset(memoria_principal, 0, config->tam_memoria); // le escribo 0s a toda la memoria
+	log_info(logger, "Memoria cargada correctamente!");
+	return cargar_tablas_paginas();
+}
 
+uint8_t cargar_tablas_paginas(){
+	tablas_1er_nivel = list_create(); // representa el espacio de memoria donde estaran todas las paginas de todos los procesos
+	tablas_2do_nivel = list_create();
 	return 1;
 }
+
 uint8_t cargar_config(){
 	t_config* file = config_create("memoria.config");
 	if(file == NULL){
@@ -65,7 +74,8 @@ void finalizar_programa(){
 	free(config);
 
 	//matar paginas y frames
-
+	list_destroy(tablas_1er_nivel);
+	list_destroy(tablas_2do_nivel);
 
 	//mato memoria principal
 	free(memoria_principal);

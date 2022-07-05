@@ -15,7 +15,7 @@ int main(void){
 	}
 	// Crear servidor
 
-	//Escuchar para dos clientes: cpu y kernel
+	//Escuchar para dos clientes: cpu y kernel TODO: implementar dos hilos para CPU y KERNEL
 
 	//Devolver mensaje genérico.
 

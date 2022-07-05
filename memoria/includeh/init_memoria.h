@@ -15,6 +15,7 @@
 #include<commons/config.h>
 #include<stdlib.h>
 #include <string.h>
+#include <commons/collections/list.h>
 
 typedef struct {
 	int puerto_escucha;
@@ -49,5 +50,6 @@ uint8_t cargar_memoria();
 uint8_t cargar_config(); // popula el struct de config
 void finalizar_programa(); //Limpia para cerrar el programa
 t_mem_config* crear_config();
+uint8_t cargar_tablas_paginas();
 
 #endif /* INIT_MEMORIA_H_ */

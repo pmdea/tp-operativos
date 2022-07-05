@@ -9,8 +9,10 @@
 #define INCLUDEH_MANEJAR_MEMORIA_H_
 
 #include <stdbool.h>
+#include "init_memoria.h"
 
-void escribir_en_memoria(uint32_t start, void* data, uint32_t size);
+// metodos para manejar el espacio de usuario
+char* escribir_en_memoria(uint32_t start, void* data, uint32_t size);
 void* leer_de_memoria(uint32_t start, uint32_t size);
 bool entra_en_memoria(uint32_t start, uint32_t size);
 void mover_en_memoria(uint32_t start, uint32_t destination, uint32_t size);
