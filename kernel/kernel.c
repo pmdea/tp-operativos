@@ -12,10 +12,6 @@ bool ordenarSTR(pcb* unPCB,pcb* otroPCB){
 	return est2 > est1;
 }
 
-bool mismo_ID(pcb* pcbFinalizado, conexion_consola* dataConsola){
-	return pcbFinalizo -> id = dataConsola -> idPBC;
-}
-
 void estimador(pcb* unPCB, double alfa, int rafaga_ejecutada){
 	unPCB -> estimacion_rafaga = (alfa * rafaga_ejecutada + (1 - alfa) * unPCB->estimacion_rafaga);
 }
