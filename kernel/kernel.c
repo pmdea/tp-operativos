@@ -28,6 +28,11 @@ int main(void)
 	log_info(logger, "Modulo Kernel");
 	config = iniciar_config_kernel(); // Traer datos del archivo de configuracion
 
+	// Semaforos
+	sem_init(&grado_multiprogramacion, 0, config_kernel.grado_multiprogramacion);
+	sem_init(&prioridad_SuspendedReady, 0, 0);
+	sem_init(&nuevoProcesoReady, 0, 0);
+
 	// Listas
 	procesosNew = list_create();
 	procesosReady = list_create();
@@ -41,62 +46,19 @@ int main(void)
 	// lo puse en el de desalojo paquetedeCPU_Desalojo = list_create();
 	// paquetedeCPU_Analisis = list_create();
 
+	// Hilos
+	pthread_create(&planificadorLargoPlazo, NULL, (void *) planificador_LargoPlazo, NULL);
+	//pthread_create(&planificadorMedianoPlazo, NULL, (void *) planificador_MedianoPlazo, NULL);
+	pthread_create(&planificadorCortoPlazo, NULL, (void *) planificador_CortoPlazo, NULL);
 
-/*
-	generar_PCB(10,20,5);
+	pthread_detach(planificadorLargoPlazo);
+	//pthread_detach(planificadorMedianoPlazo);
+	pthread_detach(planificadorCortoPlazo);
 
-	pcb* unProceso;
-	unProceso = list_get(procesosNew, 0);
-	printf("estimador actual: %f", unProceso->estimacion_rafaga);
-	estimador(unProceso, 0.5, 5);
-	printf("estimador siguiente: %f", unProceso->estimacion_rafaga);
-	list_add(procesosReady, unProceso);
-	list_remove(procesosNew, 0);
-	free(unProceso);
-
-	pcb* mismoProceso;
-	mismoProceso = list_get(procesosReady, 0);
-	printf("estimador siguiente: %f", mismoProceso->estimacion_rafaga);
-
-
-	//printf("Numero de procesos nuevos: %i", list_size(procesosNew));
-	printf("Numero del primero antes de ordenar: %i", unProceso->id);
-	//list_sort(procesosNew, (void*) ordenarSTR);
-	unProceso = list_get(procesosNew, 0);
-	printf("Numero del primero despues de ordenar: %i", unProceso->id);
-	*/
-
-
-
-	/* HILOS ENTRE LOS PLANI PARA GENERAR PARALELISMO, esta mal el while aca ?
-	 * while (1){
-	 *
-	 * 	planificador_largo_plazo();
-	 *	planificador_corto_plazo('FIFO');
-	 * }
-	 */
 
 }
 //El tamaño y las instrucciones vienen desde consola
 
-/* CODIGO ANTERIOR
-void generar_PCB(int idUltimo, int tamanioProceso, t_list* instrucciones){ // Funcion para cargar los datos del proceso al PCB
-
-	pcb *nuevoProceso = malloc(sizeof(pcb));
-	nuevoProceso -> id = idUltimo;
-	nuevoProceso -> tamanio = tamanioProceso;
-	nuevoProceso -> instrucciones = instrucciones; // LISTA
-	nuevoProceso ->  program_counter = 0;
-	nuevoProceso ->  tabla_paginas = "-"; // LISTA
-	nuevoProceso ->  estimacion_rafaga = config_kernel.estimacion_inicial;
-
-	list_add(procesosNew, nuevoProceso);
-
-	//free(nuevoProceso); Si la libero no me tira bien los datos
-
-	//printf("Proceso creado correctamente");
-}
-*/
 void generar_PCB(int idPCB, t_proceso* proceso){ // Funcion para cargar los datos del proceso al PCB
 
 	pcb *nuevoProceso = malloc(sizeof(pcb));
@@ -115,17 +77,13 @@ void generar_PCB(int idPCB, t_proceso* proceso){ // Funcion para cargar los dato
 
 	//printf("Proceso creado correctamente");
 }
-/*
- * sem grado_multiprogramacion 4 //  config.kernel->gradomulti
- * sem prioridad_SuspendedReady 0
- * sem nuevoProcesoReady 0 (binario con cortoplazo)
- *
 void planificador_LargoPlazo(){
 
 	while(1){
 		if(list_size(procesosSuspendedReady) > 0){
 
-			wait(prioridad_SuspendedReady);
+			wait(prioridad_SuspendedReady); // Binario P.M.P
+			wait(grado_multiprogramacion); // El signal lo da el Planificador Mediano Plazo
 
 		}else if ( list_size(procesoNew) > 0){
 
@@ -137,11 +95,11 @@ void planificador_LargoPlazo(){
 			enviarYSerializarStringSinHeader("PCB-GENERADO", socket_memoria);
 
 			//Obtengo las estructuras y se las asigno al PCB
-			nuevoProceso -> tabla_paginas = desializarString(socket_memoria);
+			nuevoProceso -> tabla_paginas = deserializarString(socket_memoria);
 
-			wait(nuevoProcesoReady) // binario con cortoplazo
+			wait(nuevoProcesoReady) // Binario P.C.P
 			list_add(procesosReady, nuevoProceso);
-			signal(nuevoProcesoReady) // binario con cortoplazo
+			signal(nuevoProcesoReady) // Binario P.C.P
 
 			free(nuevoProceso);
 		}
@@ -169,7 +127,9 @@ void planificador_LargoPlazo(){
 
 	}
 }
-*/
+
+
+
 
 /*
 void planificador_CortoPlazo(char algoritmo){

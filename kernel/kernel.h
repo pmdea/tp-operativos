@@ -8,6 +8,17 @@
 #include <semaphore.h>
 #include <pthread.h>
 
+
+// DEFINO LOS SEMAFOROS
+sem_t grado_multiprogramacion; // Tiene en cuenta el numero obtenido de la config.
+sem_t prioridad_SuspendedReady; // Binario con P.M.P
+sem_t nuevoProcesoReady; // Binario con P.C.P
+
+// DEFINO HILOS
+pthread_t planificadorLargoPlazo;
+pthread_t planificadorMedianoPlazo;
+pthread_t planificadorCortoPlazo;
+
 typedef struct {
 	int id;
 	int tamanio;
