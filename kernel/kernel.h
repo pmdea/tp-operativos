@@ -4,7 +4,8 @@
 #include<commons/string.h>
 #include<commons/config.h>
 #include<readline/readline.h>
-#include<commons/collections/list.h>
+#include <commons/collections/list.h>
+#include <commons/collections/queue.h>
 #include <semaphore.h>
 #include <pthread.h>
 
@@ -28,9 +29,19 @@ typedef struct {
 	int tamanio;
 	t_list* instrucciones; // LISTA
 	int program_counter;
-	char* tabla_paginas; // LISTA
+	int tabla_paginas; // LISTA
 	double estimacion_rafaga;
 } pcb;
+
+typedef struct {
+	int tamanio_proceso;
+	t_queue* instrucciones;
+}t_proceso;
+
+typedef struct {
+	int socket_consola;
+	int pcbVinculado;
+} consola_pcb;
 
 typedef struct {
 	char* ip_memoria;
@@ -55,6 +66,7 @@ t_list* procesosBlocked;
 t_list* procesosSuspendedBlocked;
 t_list* procesosSuspendedReady;
 t_list* procesosExit;
+t_list* conexiones_pcb;
 
 t_log* iniciar_logger_kernel(void);
 t_config* iniciar_config_kernel(void);

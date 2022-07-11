@@ -1,20 +1,6 @@
-/*
- * kernel.c
- *
- *  Created on: Apr 23, 2022
- *      Author: pmdea
- */
 #include "kernel.h"
+#include "utils.h"
 
-bool ordenarSTR(pcb* unPCB,pcb* otroPCB){
-	double est1 = unPCB->estimacion_rafaga;
-	double est2 = otroPCB->estimacion_rafaga;
-	return est2 > est1;
-}
-
-void estimador(pcb* unPCB, double alfa, int rafaga_ejecutada){
-	unPCB -> estimacion_rafaga = (alfa * rafaga_ejecutada + (1 - alfa) * unPCB->estimacion_rafaga);
-}
 
 int main(void)
 {
@@ -38,6 +24,7 @@ int main(void)
 	procesosSuspendedBlocked = list_create();
 	procesosSuspendedReady = list_create();
 	procesosExit = list_create();
+	conexiones_pcb = list_create();
 	bool ejecutando  = 0 ;
 	// lo puse en el de desalojo paquetedeCPU_Desalojo = list_create();
 	// paquetedeCPU_Analisis = list_create();
@@ -62,7 +49,7 @@ void generar_PCB(int idPCB, t_proceso* proceso){ // Funcion para cargar los dato
 	nuevoProceso -> tamanio = proceso -> tamanio_proceso;
 	nuevoProceso -> instrucciones = list_create(); // LISTA
 	nuevoProceso ->  program_counter = 0;
-	nuevoProceso ->  tabla_paginas = "-"; // LISTA
+	nuevoProceso ->  tabla_paginas = (-1); // LISTA
 	nuevoProceso ->  estimacion_rafaga = config_kernel.estimacion_inicial;
 
 	list_add_all(nuevoProceso -> instrucciones, proceso -> instrucciones -> elements);
@@ -88,10 +75,10 @@ void planificador_LargoPlazo(){
 			pcb * nuevoProceso = list_remove(procesosNew, 0);
 			
 			//Envio de mensaje a Modulo de Memoria para generar estructuras
-			enviarYSerializarStringSinHeader("PCB-GENERADO", socket_memoria);
+			avisar_a_memoria_NuevoPCB(nuevoProceso, socket_memoria);
 
 			//Obtengo las estructuras y se las asigno al PCB
-			nuevoProceso -> tabla_paginas = deserializarString(socket_memoria);
+			nuevoProceso -> tabla_paginas = deserializarInt(socket_memoria);
 
 			wait(nuevoProcesoReady) // Binario P.C.P o mutex ? porque aca parece que fuera un mutex  => si queres un mutex para agrefar a ready uso este sem_wait(agregarAReady);
 			list_add(procesosReady, nuevoProceso);
@@ -106,17 +93,14 @@ void planificador_LargoPlazo(){
 			pcb * procesoFinalizado = list_remove(procesosExit, 0);
 			//sem_post(procesoExit)
 			// Aviso a memoria para que libere
-			aviso_a_memoria(socket_memoria, procesoFinalizado);
-
-			// Busco el socket_consola asociado al PCB
-			int socket_consola_respuesta = devolverID_CONSOLA(procesoFinalizado);
+			aviso_a_memoria_endPCB(procesoFinalizado, socket_memoria);
 
 			// Envio el mensaje de finalización
-			char* mensajeFinalizacion = "El proceso ha terminado su ejecucion";
-			enviarYSerializarStringSinHeader(socket_consola_respuesta, mensajeFinalizacion);
+
+			avisar_a_consola(procesoFinalizado);
 			
 			// Libero memoria
-			free(procesoFinalizado);
+			//free(procesoFinalizado);
 			
 			// Incremento el grado de multiprogramacion en 1
 			signal(grado_multiprogramacion);
