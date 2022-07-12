@@ -8,39 +8,12 @@
 #include <semaphore.h>
 #include <pthread.h>
 
+void avisar_a_consola(pcb* pcbFinalizado);
+void avisar_a_memoria_NuevoPCB(pcb nuevoPCB, int socket_memoria, t_log* logger);
+void aviso_a_memoria_endPCB(pcb* pcbFinalizado, int socket_memoria);
 
-bool ordenarSTR(pcb* unPCB,pcb* otroPCB){
-	double est1 = unPCB->estimacion_rafaga;
-	double est2 = otroPCB->estimacion_rafaga;
-	return est2 > est1;
-}
-
-void estimador(pcb* unPCB, double alfa, int rafaga_ejecutada){
-	unPCB -> estimacion_rafaga = (alfa * rafaga_ejecutada + (1 - alfa) * unPCB->estimacion_rafaga);
-}
-
-int devolverID_PCB (int socket){
-	bool el_ID_es_igual(consola_pcb* unaConexion){
-	    if(unaConexion->socket_consola == socket){
-	        return 1;
-	    }
-	    return 0;
-	}
-	consola_pcb * conexionBuscada = list_find(conexiones_pcb, (void*) el_ID_es_igual);
-	return conexionBuscada -> pcbVinculado;
-}
-
-int devolverID_CONSOLA (pcb* unPCB){
-	bool el_ID_es_igual(consola_pcb* unaConexion){
-	    if(unaConexion->pcbVinculado == unPCB -> id){
-	        return 1;
-	    }
-	    return 0;
-	}
-	consola_pcb * conexionBuscada = list_find(conexiones_pcb, (void*) el_ID_es_igual);
-	return conexionBuscada -> socket_consola;
-}
-
+void enviarStringSerializado(char* mensaje, int socket);
+void enviarIntSerializado(int numero, int socket_memoria);
 
 void avisar_a_consola(pcb* pcbFinalizado){
     int socket_consola = devolverID_CONSOLA(procesoFinalizado);
