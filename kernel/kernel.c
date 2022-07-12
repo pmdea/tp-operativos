@@ -14,6 +14,7 @@ int main(void)
 	sem_init(&grado_multiprogramacion, 0, config_kernel.grado_multiprogramacion);
 	sem_init(&prioridad_SuspendedReady, 0, 0);
 	sem_init(&nuevoProcesoReady, 0, 0);
+    sem_init(&bloqueoMax, 0, 0);
 
 	// Listas
 	procesosNew = list_create();
