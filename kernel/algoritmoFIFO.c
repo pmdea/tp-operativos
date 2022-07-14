@@ -3,45 +3,43 @@
 
 /* ********************************FIFO NUEVO ************************************
 void algoritmo_FIFO(){
-	administrar_bloqueos(); // HILO
+	t_list* respuestaCPU = list_create();
 	while(1){
 
-		sem_wait(nuevoProcesoReady) // a mati pone un proceso en ready
-		//if(enReady > 0){ // es necesario este if ? teniendo el wait arriba ???? si es q sea necesario agregar int enReady = list_size(procesosReady);
+		sem_wait(nuevoProcesoReady) // Espero a que el P.L.P me avise que hay un proceso en Ready
 			pcb * unProceso;
 
-			//sem_wait(agregarAReady) QUIZA
+			//sem_wait(agregarAReady) QUIZA --> Creo q no es necesario
 			unProceso = list_remove(procesosReady, 0);
-			//sem_post(agregarAReady) QUIZA
+			//sem_post(agregarAReady) QUIZA --> Creo q no es necesario
 
 			MANDO EL PCB POR CONEXION dispatch unProceso
-
+			serializar_enviar_pcb(unProceso, socket_cpu_dispatch);
 			//espero mensaje de cpu (un exit, bloqueo, desalojo)
-			//sem_wait(respuestaCpu)
 
-			paqueteCPU = recibirPaquete(socket_memoria);
 
             // lo que me devuelve CPU
-            pcb * pcb;
-            paquetedeCPU = recibir_paquete(conexion_dispatch);
-            pcb = list_get(paquetedeCPU, 1);
-            char instruccion =  list_get(paquetedeCPU, 2);
-            int tiempo =  list_get(paquetedeCPU, 3);
+            respuestaCPU = recibir_paquete(socket_cpu_dispatch);
+            unProceso = list_get(respuestaCPU, 0);
+            char* instruccion =  list_get(respuestaCPU, 1);
 
-			if( instruccion == 'exit' ){
-				finalizar_pcb(paquete->pcb);
-			}else if(instruccion == 'i/o'){
+			if( instruccion == 'EXIT' ){
+				avisar_a_planificador_LP(unProceso);
+				list_clean(respuestaCPU);
+			}else if(instruccion == 'I/O'){
+				int tiempoBloqueo =  list_get(respuestaCPU, 2);
                 // no creo q necesite un mutex porque yo solo uso esto
-				list_add(procesosBlocked, pcb);
-				list_add(tiemposBlocked, tiempo);
+				list_add(procesosBlocked, unProceso);
+				list_add(tiemposBlocked, tiempoBloqueo);
+				list_clean(respuestaCPU);
 			}
 		//}
 	}
 }
 
-void finalizar_pcb(pcb * pcbFinalizar){ //hilo
+void avisar_a_planificador_LP(pcb* pcbFinalizado){ //hilo <--- creo que no seria un hilo sino una funcion auxiliar
     //sem_wait(procesoExit)
-    list_add(procesosExit, pcbFinalizar);
+    list_add(procesosExit, pcbFinalizado);
     //sem_post(procesoExit)
 }
 

@@ -23,9 +23,10 @@ void planificadorLargoPlazo(){
 			//Obtengo las estructuras y se las asigno al PCB
 			nuevoProceso -> tabla_paginas = deserializarInt(socket_memoria);
 
-			wait(nuevoProcesoReady) // Binario P.C.P o mutex ? porque aca parece que fuera un mutex  => si queres un mutex para agrefar a ready uso este sem_wait(agregarAReady);
+			wait(agregarAReady); // Mutex
 			list_add(procesosReady, nuevoProceso);
-			signal(nuevoProcesoReady) // Binario P.C.P
+			signal(agregarAReady); 
+			signal(nuevoProcesoReady); // Binario P.C.P ---> Aviso que hay un nuevo proceso
 
 			//free(nuevoProceso);
 		}
