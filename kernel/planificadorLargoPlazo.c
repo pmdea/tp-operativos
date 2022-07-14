@@ -23,9 +23,9 @@ void planificadorLargoPlazo(){
 			//Obtengo las estructuras y se las asigno al PCB
 			nuevoProceso -> tabla_paginas = deserializarInt(socket_memoria);
 
-			wait(agregarAReady); // Mutex
+			wait(mutexReady); // Mutex
 			list_add(procesosReady, nuevoProceso);
-			signal(agregarAReady); 
+			signal(mutexReady); 
 			signal(nuevoProcesoReady); // Binario P.C.P ---> Aviso que hay un nuevo proceso
 
 			//free(nuevoProceso);
@@ -33,9 +33,9 @@ void planificadorLargoPlazo(){
 		if(list_size(procesosExit) > 0 ){
 
 			// Obtengo el PCB que finalizo
-            //sem_wait(procesoExit)
+            sem_wait(mutexExit);
 			pcb * procesoFinalizado = list_remove(procesosExit, 0);
-			//sem_post(procesoExit)
+			sem_post(mutexExit);
 			// Aviso a memoria para que libere
 			aviso_a_memoria_endPCB(procesoFinalizado, socket_memoria);
 

@@ -16,10 +16,9 @@
 sem_t grado_multiprogramacion; // Tiene en cuenta el numero obtenido de la config.
 sem_t prioridad_SuspendedReady; // Binario con P.M.P
 sem_t nuevoProcesoReady; // Binario con P.C.P
-sem_t agregarAReady; // mutex cuando se agrega a ready o se lee
+sem_t mutexReady; // mutex cuando se agrega a ready o se lee
 sem_t bloqueoMax; // Binario para saber cuando se bloqueo por mas tiempo del q tendria q estar
-sem_t procesoExit ; // cuando se saca o agrega un proceso a exit mutex
-//sem_t respuestaCpu : // binario con el cpu para esperar mensaje
+sem_t mutexExit; // cuando se saca o agrega un proceso a exit mutex
 sem_t algo; // hay un sem q es tiene nombre algo pero no me acuerdo para q era
 // DEFINO HILOS
 pthread_t planificadorLargoPlazo;
