@@ -13,8 +13,8 @@ int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos);
 void enviarMensaje(int socket, void* mensaje, int tamanio);
 
 void avisar_a_consola(pcb* pcbFinalizado);
-void avisar_a_memoria_NuevoPCB(pcb nuevoPCB, int socket_memoria, t_log* logger);
-void aviso_a_memoria_endPCB(pcb* pcbFinalizado, int socket_memoria);
+void avisar_a_memoria(int socket_memoria, char* estado, pcb* unPCB, t_log* logger);
+
 
 void serilizar_enviar_pcb(int socket, pcb* unPCB , t_log* logger);
 void enviarStringSerializado(char* mensaje, int socket);
@@ -71,26 +71,22 @@ void avisar_a_consola(pcb* pcbFinalizado){
     enviarStringSerializado(mensajeFinalizacion, socket_consola);
 }
 
-void avisar_a_memoria_NuevoPCB(pcb nuevoPCB, int socket_memoria, t_log* logger){
-    int tamanioBuffer = sizeof(int), sizeof(int);
+void avisar_a_memoria(int socket_memoria, char* estado, pcb* unPCB, t_log* logger){
+    int tamanioEstado = strlen(estado)+1;
+	int tamanioBuffer = sizeof(int), sizeof(int) + tamanioEstado;
     
     void* buffer = asignarMemoria(tamanioBuffer);
 
     int desplazamiento = 0;
 
-    concatenarInt(buffer, &desplazamiento, pcb.tamanio);
-    concatenarInt(buffer, &desplazamiento, pcb.id);
+    concatenarInt(buffer, &desplazamiento, unPCB->tamanio);
+    concatenarInt(buffer, &desplazamiento, unPCB->id);
+	concatenarString(buffer, &desplazamiento, estado);
 
     enviarMensaje(socket_memoria, buffer, tamanioBuffer);
-	log_info(logger, "Enviando aviso a memoria...");
+	log_info(logger, "Enviando aviso a memoria ' %s ' ...", estado);
     free(buffer);
     
-}
-
-void aviso_a_memoria_endPCB(pcb* pcbFinalizado, int socket_memoria){
-    int numero = pcbFinalizado -> id;
-
-	enviarIntSerializado(numero, socket_memoria)
 }
 
 void enviarStringSerializado(char* mensaje, int socket){

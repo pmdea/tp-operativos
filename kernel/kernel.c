@@ -7,7 +7,7 @@ int main(void)
 	t_log* logger;
 	t_config* config;
 	logger = iniciar_logger_kernel();
-	log_info(logger, "Modulo Kernel");
+	log_info(logger, "Inicializando Modulo Kernel...");
 	config = iniciar_config_kernel(); // Traer datos del archivo de configuracion
 
     //Conexiones

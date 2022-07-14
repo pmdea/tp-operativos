@@ -10,7 +10,7 @@ void planificadorCortoPlazo(){
 	pthread_create(&administradorBloqueos, NULL, (void *) administrar_bloqueos, NULL);
 	pthread_detach(administradorBloqueos);
 
-	if(algoritmo == 'FIFO'){
+	if(algoritmo == "FIFO"){
 		algoritmo_FIFO()
 	}else{
 		algoritmo_SRT()
@@ -26,8 +26,8 @@ void administrar_bloqueos(){ // hilo
 			int tiempo = list_remove(tiemposBlocked, 0);
 
 			if(tiempo > config_kernel.tiempo_maximo_bloqueado){
-				tiemposBlockedSuspended = tiempo - config_kernel.tiempo_maximo_bloqueado
-				tiempo = config_kernel.tiempo_maximo_bloqueado
+				tiemposBlockedSuspended = tiempo - config_kernel.tiempo_maximo_bloqueado;
+				tiempo = config_kernel.tiempo_maximo_bloqueado;
 			}
 
 			log_info(logger, "Iniciando bloqueo de %d........",tiempo);
@@ -35,12 +35,12 @@ void administrar_bloqueos(){ // hilo
 			log_info(logger, "Finalizando bloqueo");
 
 			if(tiemposBlockedSuspended > 0){
-				list_add(procesosSuspendedBlocked, procesoBloqueado)
-				sem_post(bloqueoMax) // le digo al mediano q hay un proceso en procesosSupendedBlocked
+				list_add(procesosSuspendedBlocked, procesoBloqueado);
+				sem_post(bloqueoMax); // le digo al mediano q hay un proceso en procesosSupendedBlocked
 			}else{
-				sem_wait(agregarAReady)
+				sem_wait(mutexReady);
 				list_add(procesosReady,procesoBloqueado);
-				sem_post(agregarAReady);
+				sem_post(mutexAReady);
 			}
 			//free(pcb)
 		}
