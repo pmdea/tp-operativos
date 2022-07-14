@@ -27,7 +27,7 @@ void planificadorLargoPlazo(){
 			list_add(procesosReady, nuevoProceso);
 			signal(nuevoProcesoReady) // Binario P.C.P
 
-			free(nuevoProceso);
+			//free(nuevoProceso);
 		}
 		if(list_size(procesosExit) > 0 ){
 

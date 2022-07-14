@@ -25,6 +25,7 @@ sem_t algo; // hay un sem q es tiene nombre algo pero no me acuerdo para q era
 pthread_t planificadorLargoPlazo;
 pthread_t planificadorMedianoPlazo;
 pthread_t planificadorCortoPlazo;
+pthread_t administradorBloqueos;
 
 typedef struct {
 	int id;
