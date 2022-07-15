@@ -1,10 +1,13 @@
 #include<commons/log.h>
 #include<commons/string.h>
 #include<commons/config.h>
-#include <commons/collections/list.h>
-#include <commons/collections/queue.h>
-#include <semaphore.h>
-#include <pthread.h>
+#include<commons/collections/list.h>
+#include<commons/collections/queue.h>
+#include<semaphore.h>
+#include<pthread.h>
+
+// Defino variable global
+int tiemposBlockedSuspended;
 
 // Defino Sockets
 int socket_memoria;
@@ -30,6 +33,7 @@ pthread_t planificadorLargoPlazoHilo;
 pthread_t planificadorMedianoPlazoHilo;
 pthread_t planificadorCortoPlazoHilo;
 pthread_t administradorBloqueosHilo;
+pthread_t ejecucionAlgoritmoHilo;
 
 // DEFINO LISTAS
 t_list* procesosNew;
@@ -93,3 +97,10 @@ void generar_PCB(int idPCB, t_proceso* proceso);
 
 //Planificadores
 void planificador_LargoPlazo();
+void planificador_CortoPlazo();
+void administrar_bloqueos();
+
+//Algoritmos
+void algoritmo_FIFO();
+void algoritmo_SRT();
+void avisar_a_planificador_LP(pcb* pcbFinalizado);

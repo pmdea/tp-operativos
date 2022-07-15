@@ -86,8 +86,16 @@ int main(void)
     log_info(loggerKernel, "SEMAFOROS INICIAD2222OS");
 
 	pthread_create(&planificadorLargoPlazoHilo, NULL, planificador_LargoPlazo, NULL);
-	//pthread_detach(planificadorLargoPlazoHilo);
+	//pthread_create(&planificadorLargoMedianoHilo, NULL, planificador_MedianoPlazo, NULL);
+	pthread_create(&planificadorCortoPlazoHilo, NULL, planificador_CortoPlazo, NULL);
+
+
+	pthread_join(planificadorCortoPlazoHilo, NULL);
 	pthread_join(planificadorLargoPlazoHilo, NULL);
+
+	//pthread_join(planificadorLargoMedianoHilo, NULL);
+
+
     // FIN PRUEBAS PCB
 
 }

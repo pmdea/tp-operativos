@@ -2,8 +2,9 @@
 
 void planificador_LargoPlazo(){
     char* estado = "";
-    int i = 0;
     while(1){
+    	usleep(1);
+    	log_info(loggerKernel,"INFINITO");
         if(list_size(procesosSuspendedReady) > 0){
 
             sem_wait(&prioridad_SuspendedReady); // Binario P.M.P
@@ -12,7 +13,7 @@ void planificador_LargoPlazo(){
         }else if ( list_size(procesosNew) > 0){
 
             sem_wait(&grado_multiprogramacion);
-
+            log_info(loggerKernel,"ENTRE A NEW");
             pcb * nuevoProceso = list_remove(procesosNew, 0);
 
             //Envio de mensaje a Modulo de Memoria para generar estructuras
@@ -24,14 +25,20 @@ void planificador_LargoPlazo(){
             sem_wait(&mutexReady); // Mutex
             list_add(procesosReady, nuevoProceso);
             sem_post(&mutexReady);
+            log_info(loggerKernel, "Proceso ingreso a LP");
             sem_post(&nuevoProcesoReady); // Binario P.C.P ---> Aviso que hay un nuevo proceso
 
             //free(nuevoProceso);
 
-            log_info(loggerKernel, "Proceso ingreso a LP");
-        }
-        if(list_size(procesosExit) > 0 ){
 
+        }
+        sem_wait(&mutexExit);
+        int tamanioExit = list_size(procesosExit);
+        sem_post(&mutexExit);
+        log_info(loggerKernel, "TAMANIO LISTA LISADSADASD %i ", tamanioExit);
+
+        if(tamanioExit > 0 ){
+        	log_info(loggerKernel, "SALIO UN PROCESO");
             // Obtengo el PCB que finalizo
             sem_wait(&mutexExit);
             pcb * procesoFinalizado = list_remove(procesosExit, 0);
@@ -46,10 +53,10 @@ void planificador_LargoPlazo(){
 
             // Libero memoria
             //free(procesoFinalizado);
-
             // Incremento el grado de multiprogramacion en 1
             sem_post(&grado_multiprogramacion);
         }
     }
+    log_info(loggerKernel,"TERMINE DE EJECUTAR");
 
 }
