@@ -1,12 +1,6 @@
 #include "kernel.h"
 #include "utils.h"
 
-void generar_PCB(int idPCB, t_proceso* proceso);
-bool ordenarSTR(pcb* unPCB,pcb* otroPCB);
-void estimador(pcb* unPCB, double alfa, int rafaga_ejecutada);
-int devolverID_PCB (int socket);
-int devolverID_CONSOLA (pcb* unPCB);
-
 //El tamaño y las instrucciones vienen desde consola
 
 void generar_PCB(int idPCB, t_proceso* proceso){ // Funcion para cargar los datos del proceso al PCB

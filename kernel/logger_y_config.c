@@ -1,10 +1,6 @@
 #include "kernel.h"
 #include "utils.h"
 
-t_log* iniciar_logger_kernel(void);
-t_config* iniciar_config_kernel(void);
-void terminar_programa(t_log* logger, t_config* config);
-
 t_log* iniciar_logger_kernel(void)
 {
 	t_log* nuevo_logger;

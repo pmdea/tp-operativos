@@ -1,8 +1,6 @@
 #include "kernel.h"
 #include "utils.h"
 
-void planificadorLargoPlazo();
-
 void planificadorLargoPlazo(){
 	char* estado = "";
 	while(1){

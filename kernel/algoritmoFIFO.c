@@ -5,11 +5,11 @@ void algoritmo_FIFO(){
 	t_list* respuestaCPU = list_create();
 	while(1){
 
-		sem_wait(nuevoProcesoReady) // Espero a que el P.L.P me avise que hay un proceso en Ready
+		sem_wait(nuevoProcesoReady); // Espero a que el P.L.P me avise que hay un proceso en Ready
 
-		sem_wait(mutexReady); //QUIZA --> Creo q no es necesario
+		sem_wait(mutexReady); 
 		pcb * unProceso = list_remove(procesosReady, 0);
-		sem_post(mutexReady); //QUIZA --> Creo q no es necesario
+		sem_post(mutexReady); 
 
 		//Enviar proceso a CPU
 		serilizar_enviar_pcb(socket_cpu_dispatch, unProceso, logger);
@@ -27,6 +27,8 @@ void algoritmo_FIFO(){
 			list_add(procesosBlocked, unProceso);
 			list_add(tiemposBlocked, tiempoBloqueo);
 			list_clean(respuestaCPU);
+
+			signal(procesoBloqueado);
 		}
 	}
 }

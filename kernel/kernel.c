@@ -22,6 +22,8 @@ int main(void)
 	sem_init(&mutexReady, 0, 1);
     sem_init(&bloqueoMax, 0, 0);
 	sem_init(&mutexExit, 0, 1);
+	sem_init(&mutexBloqueo, 0, 1);
+	sem_init(&procesoBloqueado, 0, 0);
 	
 	// Listas
 	procesosNew = list_create();
@@ -38,9 +40,9 @@ int main(void)
 	// paquetedeCPU_Analisis = list_create();
 
 	// Hilos
-	pthread_create(&planificadorLargoPlazo, NULL, (void *) planificador_LargoPlazo, NULL);
-	pthread_create(&planificadorMedianoPlazo, NULL, (void *) planificador_MedianoPlazo, NULL);
-	pthread_create(&planificadorCortoPlazo, NULL, (void *) planificador_CortoPlazo, NULL);
+	pthread_create(&planificadorLargoPlazo, NULL, (void *) planificadorLargoPlazo, NULL);
+	pthread_create(&planificadorMedianoPlazo, NULL, (void *) planificadorMedianoPlazo, NULL);
+	pthread_create(&planificadorCortoPlazo, NULL, (void *) planificadorCortoPlazo, NULL);
 
 	pthread_detach(planificadorLargoPlazo);
 	pthread_detach(planificadorMedianoPlazo);

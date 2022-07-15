@@ -19,7 +19,8 @@ sem_t nuevoProcesoReady; // Binario con P.C.P
 sem_t mutexReady; // mutex cuando se agrega a ready o se lee
 sem_t bloqueoMax; // Binario para saber cuando se bloqueo por mas tiempo del q tendria q estar
 sem_t mutexExit; // cuando se saca o agrega un proceso a exit mutex
-sem_t algo; // hay un sem q es tiene nombre algo pero no me acuerdo para q era
+sem_t mutexBloqueo // Adm bloqueos con SRT
+sem_t procesoBloqueado; // hay un sem q es tiene nombre algo pero no me acuerdo para q era
 // DEFINO HILOS
 pthread_t planificadorLargoPlazo;
 pthread_t planificadorMedianoPlazo;
@@ -73,3 +74,15 @@ t_list* conexiones_pcb;
 t_log* iniciar_logger_kernel(void);
 t_config* iniciar_config_kernel(void);
 void terminar_programa(t_log*, t_config*);
+void algoritmo_FIFO();
+void algoritmo_SRT();
+void avisar_a_planificador_LP(pcb* pcbFinalizado);
+void planificadorCortoPlazo();
+void planificadorLargoPlazo();
+void administrar_bloqueos();
+void generar_PCB(int idPCB, t_proceso* proceso);
+bool ordenarSTR(pcb* unPCB,pcb* otroPCB);
+void estimador(pcb* unPCB, double alfa, int rafaga_ejecutada);
+int devolverID_PCB (int socket);
+int devolverID_CONSOLA (pcb* unPCB);
+void planificadorMedianoPlazo ();

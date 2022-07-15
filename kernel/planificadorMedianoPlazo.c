@@ -1,8 +1,6 @@
 #include "kernel.h"
 #include "utils.h"
 
-void planificadorMedianoPlazo ();
-
 void planificadorMedianoPlazo(){
     char* estadoSuspend = "Suspende";
     while(1){

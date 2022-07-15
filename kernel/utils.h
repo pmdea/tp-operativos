@@ -14,7 +14,7 @@ void enviarMensaje(int socket, void* mensaje, int tamanio);
 
 void avisar_a_consola(pcb* pcbFinalizado);
 void avisar_a_memoria(int socket_memoria, char* estado, pcb* unPCB, t_log* logger);
-
+void avisar_a_cpu_interrupt();
 
 void serilizar_enviar_pcb(int socket, pcb* unPCB , t_log* logger);
 void enviarStringSerializado(char* mensaje, int socket);
@@ -62,6 +62,13 @@ int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos){
 	}
 	}
 	return bytesRecibidos;
+}
+
+void avisar_a_cpu_interrupt(){
+	char* mensaje = "Interrupcion";
+	
+	enviarStringSerializado(mensaje, socket_cpu_interrupt);
+
 }
 
 void avisar_a_consola(pcb* pcbFinalizado){
