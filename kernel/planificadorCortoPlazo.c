@@ -16,18 +16,18 @@ void planificador_CortoPlazo(){
     }
 
 
-    pthread_detach(administradorBloqueosHilo);
-    pthread_detach(ejecucionAlgoritmoHilo);
+    pthread_join(administradorBloqueosHilo, NULL);
+    pthread_join(ejecucionAlgoritmoHilo, NULL);
 }
 
 void administrar_bloqueos(){ // hilo
     while(1){
         sem_wait(&procesoBloqueado);
 
-        sem_wait(&mutexBloqueo);
+        pthread_mutex_lock(&mutexBloqueo);
         pcb* procesoBloqueado = list_remove(procesosBlocked, 0);
         int tiempo = list_remove(tiemposBlocked, 0);
-        sem_post(&mutexBloqueo);
+        pthread_mutex_unlock(&mutexBloqueo);
 
         if(tiempo > config_kernel.tiempo_maximo_bloqueado){
             tiemposBlockedSuspended = tiempo - config_kernel.tiempo_maximo_bloqueado;
@@ -42,9 +42,9 @@ void administrar_bloqueos(){ // hilo
             list_add(procesosSuspendedBlocked, procesoBloqueado);
             sem_post(&bloqueoMax); // le digo al mediano q hay un proceso en procesosSupendedBlocked
         }else{
-            sem_wait(&mutexReady);
+        	pthread_mutex_lock(&mutexReady);
             list_add(procesosReady,procesoBloqueado);
-            sem_post(&mutexReady);
+            pthread_mutex_unlock(&mutexReady);
         }
 
     }

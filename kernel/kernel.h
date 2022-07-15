@@ -22,14 +22,18 @@ t_config* configKernel;
 sem_t grado_multiprogramacion; // Tiene en cuenta el numero obtenido de la config.
 sem_t prioridad_SuspendedReady; // Binario con P.M.P
 sem_t nuevoProcesoReady; // Binario con P.C.P
-sem_t mutexReady; // mutex cuando se agrega a ready o se lee
+pthread_mutex_t mutexReady; // mutex cuando se agrega a ready o se lee
 sem_t bloqueoMax; // Binario para saber cuando se bloqueo por mas tiempo del q tendria q estar
-sem_t mutexExit; // cuando se saca o agrega un proceso a exit mutex
-sem_t mutexBloqueo; // Adm bloqueos con SRT
+pthread_mutex_t mutexExit; // cuando se saca o agrega un proceso a exit mutex
+pthread_mutex_t mutexBloqueo; // Adm bloqueos con SRT
 sem_t procesoBloqueado; // hay un sem q es tiene nombre algo pero no me acuerdo para q era
 
 // DEFINO HILOS
+// P.L.P
 pthread_t planificadorLargoPlazoHilo;
+pthread_t estadoReadyHilo;
+pthread_t estadoExitHilo;
+// P.M.P
 pthread_t planificadorMedianoPlazoHilo;
 pthread_t planificadorCortoPlazoHilo;
 pthread_t administradorBloqueosHilo;
@@ -98,6 +102,8 @@ void generar_PCB(int idPCB, t_proceso* proceso);
 //Planificadores
 void planificador_LargoPlazo();
 void planificador_CortoPlazo();
+void estadoReady();
+void estadoExit();
 void administrar_bloqueos();
 
 //Algoritmos

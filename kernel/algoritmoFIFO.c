@@ -5,9 +5,9 @@ void algoritmo_FIFO(){
     	usleep(1);
         sem_wait(&nuevoProcesoReady); // Espero a que el P.L.P me avise que hay un proceso en Ready
 
-        sem_wait(&mutexReady);
+        pthread_mutex_lock(&mutexReady);
         pcb * unProceso = list_remove(procesosReady, 0);
-        sem_post(&mutexReady);
+        pthread_mutex_unlock(&mutexReady);
 
         //Enviar proceso a CPU
         //serilizar_enviar_pcb(socket_cpu_dispatch, unProceso, loggerKernel);
@@ -18,10 +18,7 @@ void algoritmo_FIFO(){
         //char* motivoDeRegreso =  list_get(respuestaCPU, 2);
         char* motivoDeRegreso = "EXIT";
         if( motivoDeRegreso == "EXIT" ){
-        	log_info(loggerKernel, "ESTOY EN FIFO - EXIT");
-        	log_info(loggerKernel,"PCB ID %i ", unProceso -> id);
             avisar_a_planificador_LP(unProceso);
-            log_info(loggerKernel,"TOTAL LISTA %i ", list_size(procesosExit));
             list_clean(respuestaCPU);
         }else if(motivoDeRegreso == "I/O"){
             int tiempoBloqueo =  list_get(respuestaCPU, 3);
@@ -36,8 +33,7 @@ void algoritmo_FIFO(){
 }
 
 void avisar_a_planificador_LP(pcb* pcbFinalizado){ //hilo <--- creo que no seria un hilo sino una funcion auxiliar
-    sem_wait(&mutexExit);
+	pthread_mutex_lock(&mutexExit);
     list_add(procesosExit, pcbFinalizado);
-    sem_post(&mutexExit);
-    log_info(loggerKernel, "AGREGUE PCB A EXIT");
+    pthread_mutex_unlock(&mutexExit);
 }

@@ -23,13 +23,13 @@ int main(void)
 	log_info(loggerKernel, "LISTAS INICIADAS");
 
     // Semaforos
-    sem_init(&mutexExit, 0, 1);
+	pthread_mutex_init(&mutexExit, NULL);
 	sem_init(&grado_multiprogramacion, 0, config_kernel.grado_multiprogramacion);
     sem_init(&prioridad_SuspendedReady, 0, 0);
     sem_init(&nuevoProcesoReady, 0, 0);
-    sem_init(&mutexReady, 0, 1);
+    pthread_mutex_init(&mutexReady, NULL);
     sem_init(&bloqueoMax, 0, 0);
-    sem_init(&mutexBloqueo, 0, 1);
+    pthread_mutex_init(&mutexBloqueo, NULL);
     sem_init(&procesoBloqueado, 0, 0);
 
 	log_info(loggerKernel, "SEMAFOROS INICIADOS");
@@ -83,15 +83,17 @@ int main(void)
     generar_PCB(3, proceso2);
     generar_PCB(4, proceso2);
 
-    log_info(loggerKernel, "SEMAFOROS INICIAD2222OS");
 
 	pthread_create(&planificadorLargoPlazoHilo, NULL, planificador_LargoPlazo, NULL);
 	//pthread_create(&planificadorLargoMedianoHilo, NULL, planificador_MedianoPlazo, NULL);
 	pthread_create(&planificadorCortoPlazoHilo, NULL, planificador_CortoPlazo, NULL);
 
-
-	pthread_join(planificadorCortoPlazoHilo, NULL);
 	pthread_join(planificadorLargoPlazoHilo, NULL);
+	pthread_join(planificadorCortoPlazoHilo, NULL);
+
+
+	//pthread_detach(planificadorLargoPlazoHilo);
+	//pthread_detach(planificadorCortoPlazoHilo);
 
 	//pthread_join(planificadorLargoMedianoHilo, NULL);
 
