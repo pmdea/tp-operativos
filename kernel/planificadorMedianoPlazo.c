@@ -4,10 +4,10 @@
 void planificadorMedianoPlazo(){
     char* estadoSuspend = "Suspende";
     while(1){
-        sem_wait(bloqueoMax)
+        sem_wait(bloqueoMax);
         pcb* procesoBloqueadoSuspendido = list_remove(procesosSuspendedBlocked, 0);
         avisar_a_memoria(socket_memoria, estadoSuspend, procesoBloqueadoSuspendido, logger);
-
+        signal(grado_multiprogramacion);
         log_info(logger, "Iniciando bloqueo de %d........",tiemposBlockedSuspended;);
         usleep(tiemposBlockedSuspended);
         log_info(logger, "Finalizando bloqueo");

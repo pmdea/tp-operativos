@@ -16,7 +16,7 @@ void planificadorLargoPlazo(){
 			pcb * nuevoProceso = list_remove(procesosNew, 0);
 			
 			//Envio de mensaje a Modulo de Memoria para generar estructuras
-			char* estado = "Inicializa";
+			estado = "Inicializa";
 			avisar_a_memoria(socket_memoria, estado, nuevoProceso, logger);
 			//Obtengo las estructuras y se las asigno al PCB
 			nuevoProceso -> tabla_paginas = deserializarInt(socket_memoria);
@@ -35,7 +35,7 @@ void planificadorLargoPlazo(){
 			pcb * procesoFinalizado = list_remove(procesosExit, 0);
 			sem_post(mutexExit);
 			// Aviso a memoria para que libere
-			char* estado = "Finaliza";
+			estado = "Finaliza";
 			avisar_a_memoria(socket_memoria, estado, nuevoProceso, logger);
 
 			// Envio el mensaje de finalización
