@@ -75,6 +75,8 @@ void administradorRespuestaCPU(){
             unProceso = list_get(procesosReady, 0);
             signal(mutexReady);
 
+            list_clean(respuestaCPU);
+
             void serilizar_enviar_pcb(socket_cpu_dispatch, unProceso, logger);
 
         }
