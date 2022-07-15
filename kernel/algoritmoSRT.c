@@ -1,6 +1,7 @@
 #include "kernel.h"
 #include "utils.h"
 
+
 void algoritmo_SRT(){
     pthread_t administradorRespuestasCPU;
     pthread_create(&administradorRespuestaCPU, NULL, (void *) administradorRespuestaCPU(), NULL);

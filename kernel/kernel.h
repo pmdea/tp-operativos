@@ -1,16 +1,4 @@
-#include "conexion.h"
-#include "utlis.h"
-#include<stdio.h>
-#include<stdlib.h>
-#include<commons/log.h>
-#include<commons/string.h>
-#include<commons/config.h>
-#include<readline/readline.h>
-#include <commons/collections/list.h>
-#include <commons/collections/queue.h>
-#include <semaphore.h>
-#include <pthread.h>
-
+#include "utils.h"
 
 // DEFINO LOS SEMAFOROS
 sem_t grado_multiprogramacion; // Tiene en cuenta el numero obtenido de la config.
@@ -19,13 +7,19 @@ sem_t nuevoProcesoReady; // Binario con P.C.P
 sem_t mutexReady; // mutex cuando se agrega a ready o se lee
 sem_t bloqueoMax; // Binario para saber cuando se bloqueo por mas tiempo del q tendria q estar
 sem_t mutexExit; // cuando se saca o agrega un proceso a exit mutex
-sem_t mutexBloqueo // Adm bloqueos con SRT
+sem_t mutexBloqueo; // Adm bloqueos con SRT
 sem_t procesoBloqueado; // hay un sem q es tiene nombre algo pero no me acuerdo para q era
 // DEFINO HILOS
-pthread_t planificadorLargoPlazo;
-pthread_t planificadorMedianoPlazo;
-pthread_t planificadorCortoPlazo;
-pthread_t administradorBloqueos;
+pthread_t planificadorLargoPlazoHilo;
+pthread_t planificadorMedianoPlazoHilo;
+pthread_t planificadorCortoPlazoHilo;
+pthread_t administradorBloqueosHilo;
+
+typedef struct {
+    int tamanio_id;
+    char* identificador;
+    t_queue* parametros;
+} t_instruccion;
 
 typedef struct {
 	int id;
@@ -70,9 +64,16 @@ t_list* procesosSuspendedBlocked;
 t_list* procesosSuspendedReady;
 t_list* procesosExit;
 t_list* conexiones_pcb;
+t_list* tiemposBlocked;
+
 
 t_log* iniciar_logger_kernel(void);
 t_config* iniciar_config_kernel(void);
+t_log* logger;
+t_config* config;
+int socket_memoria;
+int socket_cpu_dispatch;
+int socket_cpu_interrupt;
 void terminar_programa(t_log*, t_config*);
 void algoritmo_FIFO();
 void algoritmo_SRT();

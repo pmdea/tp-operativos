@@ -1,5 +1,5 @@
 #include "kernel.h"
-#include "utils.h"
+#include "utils.c"
 
 void planificadorLargoPlazo(){
 	char* estado = "";
@@ -9,7 +9,7 @@ void planificadorLargoPlazo(){
 			wait(prioridad_SuspendedReady); // Binario P.M.P
 			wait(grado_multiprogramacion); // El signal lo da el Planificador Mediano Plazo
 
-		}else if ( list_size(procesoNew) > 0){
+		}else if ( list_size(procesosNew) > 0){
 
 			wait(grado_multiprogramacion);
 
@@ -36,12 +36,12 @@ void planificadorLargoPlazo(){
 			sem_post(mutexExit);
 			// Aviso a memoria para que libere
 			estado = "Finaliza";
-			avisar_a_memoria(socket_memoria, estado, nuevoProceso, logger);
+			//  COMENT avisar_a_memoria(socket_memoria, estado, nuevoProceso, logger);
 
 			// Envio el mensaje de finalización
 
-			avisar_a_consola(procesoFinalizado);
-			
+			//  COMENT   avisar_a_consola(procesoFinalizado);
+			log_info(logger, "TERMINEEEEEEEEEEEEEEE");
 			// Libero memoria
 			//free(procesoFinalizado);
 			

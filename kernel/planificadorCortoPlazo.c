@@ -1,5 +1,6 @@
 #include "kernel.h"
-#include "utils.h"
+#include "utils.c"
+#include "algoritmoFIFO.c"
 
 void planificadorCortoPlazo(){
     char* algoritmo = config_kernel.algoritmo_planificacion;

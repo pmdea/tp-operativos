@@ -1,15 +1,16 @@
 #include "kernel.h"
-#include "utils.h"
+#include "utils.c"
+
 
 void algoritmo_FIFO(){
 	t_list* respuestaCPU = list_create();
 	while(1){
 
-		sem_wait(nuevoProcesoReady); // Espero a que el P.L.P me avise que hay un proceso en Ready
+		sem_wait(&nuevoProcesoReady); // Espero a que el P.L.P me avise que hay un proceso en Ready
 
-		sem_wait(mutexReady); 
+		sem_wait(&mutexReady);
 		pcb * unProceso = list_remove(procesosReady, 0);
-		sem_post(mutexReady); 
+		sem_post(&mutexReady);
 
 		//Enviar proceso a CPU
 		serilizar_enviar_pcb(socket_cpu_dispatch, unProceso, logger);
@@ -28,13 +29,13 @@ void algoritmo_FIFO(){
 			list_add(tiemposBlocked, tiempoBloqueo);
 			list_clean(respuestaCPU);
 
-			signal(procesoBloqueado);
+			sem_post(&procesoBloqueado);
 		}
 	}
 }
 
 void avisar_a_planificador_LP(pcb* pcbFinalizado){ //hilo <--- creo que no seria un hilo sino una funcion auxiliar
-    sem_wait(mutexExit);
+    sem_wait(&mutexExit);
     list_add(procesosExit, pcbFinalizado);
-    sem_post(mutexExit);
+    sem_post(&mutexExit);
 }
