@@ -1,7 +1,6 @@
 /*
  * manejar_swap.h
  *
- *  Created on: Jul 4, 2022
  *      Author: pmdea
  */
 

@@ -1,7 +1,6 @@
 /*
  * init_memoria.h
  *
- *  Created on: Jul 3, 2022
  *      Author: pmdea
  */
 
@@ -16,6 +15,9 @@
 #include<stdlib.h>
 #include <string.h>
 #include <commons/collections/list.h>
+#include <commons/collections/queue.h>
+#include <commons/string.h>
+#include "estructuras.h"
 
 typedef struct {
 	int puerto_escucha;
@@ -51,5 +53,8 @@ uint8_t cargar_config(); // popula el struct de config
 void finalizar_programa(); //Limpia para cerrar el programa
 t_mem_config* crear_config();
 uint8_t cargar_tablas_paginas();
+uint8_t cargar_frames_auxiliares();
+uint8_t cargar_queue_pags();
+uint8_t cargar_lista_swaps();
 
 #endif /* INIT_MEMORIA_H_ */

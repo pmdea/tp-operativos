@@ -1,7 +1,6 @@
 /*
  * manejar_swap.c
  *
- *  Created on: Jul 4, 2022
  *      Author: pmdea
  */
 
@@ -17,6 +16,7 @@ void* crear_swap(uint32_t size, uint32_t pid){
 	void* swap_process_mem = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, swap, 0);
 	close(swap);
 	free(swap_name);
+	memset(swap_process_mem, 0, size); //Inicializo en 0 el archivo de swap
 	log_info(logger, "Espacio swap creado correctamente!");
 	return swap_process_mem;
 }
@@ -42,10 +42,16 @@ char* generar_filename(uint32_t pid){
 void escribir_swap(void* swap, void* data, uint32_t size, uint32_t start){
 	memcpy(swap+start, data, size);
 	free(data);
+	retardo_swap();
 }
 
 void* leer_swap(void* swap, uint32_t size, uint32_t start){
 	void* data = malloc(size);
 	memcpy(data, swap+start, size);
+	retardo_swap();
 	return data;
+}
+
+void retardo_swap(){
+	usleep(config->retardo_swap*1000); // Espero el tiempo dado por configuracion
 }

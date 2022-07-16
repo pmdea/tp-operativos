@@ -1,7 +1,6 @@
 /*
  * memoria.h
  *
- *  Created on: Jun 3, 2022
  *      Author: pmdea
  */
 
@@ -13,38 +12,20 @@
 #include<commons/config.h>
 #include<stdio.h>
 #include<inttypes.h>
+#include<unistd.h>
 #include "init_memoria.h"
 #include "manejar_memoria.h"
+#include "manejar_paginacion.h"
+#include "manejar_swap.h"
 
-void config_module(void);
-// Ante un pedido de lectura, devolver el valor que se encuentra en la posición pedida
-void* read_request(void* posicion);
-// Ante un pedido de escritura, escribir lo indicado en la posición pedida. En caso satisfactorio se responderá un mensaje de ‘OK’ o, de lo contrario, un mensaje de error.
-char* write_request(void* posicion);
-
-void module_swap(void);
-
-// Los archivos deben tener el formato [pid].swap
-void create_swap(int pid, void* process);
-
-void init_mem(void);
-
-t_mem_config *create_config_struct(t_config* config);
-
-void delete_swap(int pid);
-
-void kill_module(t_config* config, t_log* logger);
-
-void alg_clock_mod();
-
-void alg_clock();
-
-//Deberia enviar los datos pertinentes al CPU
-void handshake_cpu(t_mem_config* config, int* socket_cpu);
-
-void crear_tp(uint32_t id);
-
-
+uint32_t iniciar_proc();
+void suspender_proc();
+void finalizar_proc();
+uint32_t get_tabla_2do_lvl(uint32_t id_tabla_1, uint32_t entrada);
+uint32_t get_nro_marco(uint32_t pid, uint32_t id_tabla_2, uint32_t entrada);
+uint32_t leer_en_memoria(uint32_t id_2do_nivel, uint32_t id_entrada, uint32_t offset);
+char* escribir_memoria(uint32_t id_2do_nivel, uint32_t id_entrada, uint32_t offset, void* data);
+void esperar_response_cpu();
 
 
 #endif /* MEMORIA_H_ */
