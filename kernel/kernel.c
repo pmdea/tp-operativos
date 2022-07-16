@@ -1,5 +1,4 @@
 #include "kernel.h"
-#include <semaphore.h>
 
 int main(void)
 {
@@ -15,6 +14,7 @@ int main(void)
 	procesosExecute = list_create();
 	procesosBlocked = list_create();
 	tiemposBlocked = list_create();
+	tiemposBlockedSuspendMax = list_create();
 	procesosSuspendedBlocked = list_create();
 	procesosSuspendedReady = list_create();
 	procesosExit = list_create();
@@ -85,17 +85,18 @@ int main(void)
 
 
 	pthread_create(&planificadorLargoPlazoHilo, NULL, planificador_LargoPlazo, NULL);
-	//pthread_create(&planificadorLargoMedianoHilo, NULL, planificador_MedianoPlazo, NULL);
+	pthread_create(&planificadorMedianoPlazoHilo, NULL, planificador_MedianoPlazo, NULL);
 	pthread_create(&planificadorCortoPlazoHilo, NULL, planificador_CortoPlazo, NULL);
 
 	pthread_join(planificadorLargoPlazoHilo, NULL);
+	pthread_join(planificadorMedianoPlazoHilo, NULL);
 	pthread_join(planificadorCortoPlazoHilo, NULL);
 
 
 	//pthread_detach(planificadorLargoPlazoHilo);
 	//pthread_detach(planificadorCortoPlazoHilo);
 
-	//pthread_join(planificadorLargoMedianoHilo, NULL);
+
 
 
     // FIN PRUEBAS PCB
