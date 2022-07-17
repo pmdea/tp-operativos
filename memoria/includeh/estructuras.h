@@ -39,4 +39,32 @@ typedef struct{
 	uint32_t size;
 } proc_swap;
 
+typedef enum{
+	KERNEL = 1,
+	CPU = 0
+} id_mod;
+
+typedef enum{
+	HANDSHAKE = 1,
+	READ = 2,
+	WRITE = 3,
+	COPY = 4,
+	GET_PAG_NVL_2 = 5,
+	GET_MARCO = 6
+} oper_cpu;
+typedef struct{
+	int socket_cliente;
+} args_thread;
+
+typedef struct{
+	uint32_t estado;
+	uint32_t tamanio_pcb;
+	uint32_t id_pcb;
+} message_kernel;
+
+typedef struct{
+	uint32_t operacion;
+	void* data;
+} message_cpu;
+
 #endif /* INCLUDEH_ESTRUCTURAS_H_ */

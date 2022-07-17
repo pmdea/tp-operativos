@@ -22,8 +22,8 @@ uint32_t iniciar_proc(uint32_t proc_mem, uint32_t pid){
 	log_info(logger, "Inicializacion finalizada para proceso pid %d!", pid);
 	return id_tabla;
 }
-void suspender_proc(uint32_t id_tabla){
-	tabla_pagina* tp1 = buscar_tabla_por_id(tablas_1er_nivel, id_tabla);
+void suspender_proc(uint32_t pid){
+	tabla_pagina* tp1 = buscar_tabla_por_pid(tablas_1er_nivel, pid);
 	log_info(logger, "Incializando suspension del pid %d", tp1->pid);
 	t_list_iterator* tp1_iter = list_iterator_create(tp1->entradas);
 	while(list_iterator_has_next(tp1_iter)){
