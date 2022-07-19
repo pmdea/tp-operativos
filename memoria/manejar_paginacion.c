@@ -66,11 +66,11 @@ entrada_tp_2* crear_pagina_2do_nivel(uint32_t index, uint32_t index_swap){
 	return pag;
 }
 
-uint32_t obtener_nro_marco(uint32_t pid, uint32_t id_table, uint32_t entrada){
+uint32_t obtener_nro_marco(uint32_t id_tabla_1, uint32_t id_table, uint32_t entrada){
 
 	tabla_pagina* tabla2 = buscar_tabla_por_id(tablas_2do_nivel, id_table);
 	entrada_tp_2* entr = buscar_entrada_2(tabla2->entradas, entrada);
-	tabla_pagina* tabla1 = buscar_tabla_por_pid(tablas_1er_nivel, pid);
+	tabla_pagina* tabla1 = buscar_tabla_por_id(tablas_1er_nivel, id_tabla_1);
 	if(!entr->bit_presencia || entr->frame == -1){
 		cargar_pag_marco(tabla1, entr);
 	}

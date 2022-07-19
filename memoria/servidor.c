@@ -71,8 +71,6 @@ int esperar_cliente(){
     struct sockaddr_in dir_cliente;
     socklen_t tam_direccion = sizeof(struct sockaddr_in);
 	int socket_cliente = accept(socket_mem, (void*) &dir_cliente, &tam_direccion);
-	perror("accept");
-	int tmp = errno;
 	if(socket_cliente == -1){
 		log_error(logger, "Ha ocurrido un error con la conexión");
 	}
@@ -119,7 +117,7 @@ void* escuchar_cpu(void* arg){
 	while (cliente != -1) {
 		message_cpu* request = parsear_message_cpu(cliente);
 		switch(request->operacion){
-			case HANDSHAKE:
+			case HANDSHAKE:{
 				log_info(logger, "Realizando handshake con CPU");
 				uint32_t size_pag = config->tam_pag;
 				uint32_t nro_entradas = config->entradas_por_tabla;
@@ -131,30 +129,51 @@ void* escuchar_cpu(void* arg){
 				enviar_mensaje_cliente(cliente, buffer, size);
 				free(buffer);
 				free(request);
+			}
 			break;
-			case READ:
+			case READ:{
 				log_info(logger, "Recibido request de READ");
+				uint32_t direc_fisica;
+				get_values_from_data(request->data, &direc_fisica, NULL, NULL);
 				//leer_en_memoria(id_2do_nivel, id_entrada, offset);
+				uint32_t valor;
+				enviar_mensaje_cliente(cliente, &valor, sizeof(uint32_t));
 				free(request);
+			}
 			break;
-			case WRITE:
+			case WRITE:{
 				log_info(logger, "Recibido request de WRITE");
+				uint32_t direc_fisica, valor;
+				get_values_from_data(request->data, &direc_fisica, &valor, NULL);
 				//escribir_memoria(id_2do_nivel, id_entrada, offset, data);
+				enviar_mensaje_cliente(cliente, "OK", sizeof(uint32_t));
+
 				free(request);
+			}
 			break;
 			case COPY:
 				log_info(logger, "Recibido request de COPY");
+				uint32_t direc_fisica1, direc_fisica2;
+				get_values_from_data(request->data, &direc_fisica1, &direc_fisica2, NULL);
 				free(request);
 			break;
-			case GET_PAG_NVL_2:
+			case GET_PAG_NVL_2:{
 				log_info(logger, "Recibido request de GET_PAG_NVL_2");
-				//get_tabla_2do_lvl(uint32_t id_tabla_1, uint32_t entrada);
+				uint32_t id_tabla_1, entrada;
+				get_values_from_data(request->data, &id_tabla_1, &entrada, NULL);
+				uint32_t id_tabla_2 = get_tabla_2do_lvl(id_tabla_1, entrada);
+				enviar_mensaje_cliente(cliente, &id_tabla_2, sizeof(uint32_t));
 				free(request);
+			}
 			break;
-			case GET_MARCO:
+			case GET_MARCO:{
 				log_info(logger, "Recibido request de GET_MARCO");
-				//get_nro_marco(uint32_t pid, uint32_t id_tabla_2, uint32_t entrada);
+				uint32_t id_tabla_1, id_tabla_2, entrada;
+				get_values_from_data(request->data, &id_tabla_1, &id_tabla_2, &entrada);
+				uint32_t valor_en_mem = get_nro_marco(id_tabla_1, id_tabla_2, entrada);
+				enviar_mensaje_cliente(cliente, &valor_en_mem, sizeof(uint32_t));
 				free(request);
+			}
 			break;
 		}
 
@@ -195,6 +214,15 @@ message_cpu* parsear_message_cpu(int cliente){
     memcpy(&(request->data), stream + sizeof(request->operacion), 100 - sizeof(request->operacion));
     free(stream);
 	return request;
+}
+
+void get_values_from_data(void* data, uint32_t* primer, uint32_t* segundo, uint32_t* tercero){
+	int size = sizeof(uint32_t);
+	memcpy(primer, data, size);
+	if(segundo != NULL)
+		memcpy(primer, data + size, size);
+	if(tercero != NULL)
+		memcpy(primer, data + size*2, size);
 }
 
 void finalizar_servidor(){

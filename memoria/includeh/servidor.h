@@ -23,4 +23,5 @@ message_kernel* parsear_message_kernel(int cliente);
 message_cpu* parsear_message_cpu(int cliente);
 int esperar_cliente();
 int enviar_mensaje_cliente(int cliente, void* data, int size);
+void get_values_from_data(void* data, uint32_t* primer, uint32_t* segundo, uint32_t* tercero);
 #endif /* INCLUDEH_SERVIDOR_H_ */

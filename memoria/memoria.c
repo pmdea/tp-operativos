@@ -54,13 +54,13 @@ void finalizar_proc(uint32_t pid){
 }
 uint32_t get_tabla_2do_lvl(uint32_t id_tabla_1, uint32_t entrada){
 
-	uint32_t id_tabla_2 = 0;
+	uint32_t id_tabla_2 = obtener_id_tabla_2do(id_tabla_1, entrada);
 	esperar_response_cpu();
 	return id_tabla_2;
 }
-uint32_t get_nro_marco(uint32_t pid, uint32_t id_tabla_2, uint32_t entrada){
-	log_info(logger, "Buscando nro de marco para pid %d en tabla de 2nivel %d y entrada %d", pid, id_tabla_2, entrada);
-	uint32_t marco = obtener_nro_marco(pid, id_tabla_2, entrada);
+uint32_t get_nro_marco(uint32_t id_tabla_1, uint32_t id_tabla_2, uint32_t entrada){
+	log_info(logger, "Buscando nro de marco para pid %d en tabla de 2nivel %d y entrada %d", id_tabla_2, entrada);
+	uint32_t marco = obtener_nro_marco(id_tabla_1, id_tabla_2, entrada);
 	log_info(logger, "Marco %d obtenido!", marco);
 	esperar_response_cpu();
 	return marco;
