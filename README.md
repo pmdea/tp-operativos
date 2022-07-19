@@ -1,6 +1,6 @@
 # tp-2022-1c-Los-Domadores-de-SO
 
-##KERNEL
+## KERNEL
 
 Gestiona la ejecución de los diferentes procesos que se ingresan al sistema mediante las consolas, planificando su ejecución en la cpu del sistema
 
@@ -22,14 +22,14 @@ Debe incluir
 * tabla_paginas: identificador de la tabla de paginas del proceso en memoria.
 * estimacion_rafaga: valor inicial en el archivo config y es recalculada con promedio ponderado.
 
-##PLANIFICADOR LARGO PLAZO
+## PLANIFICADOR LARGO PLAZO
 Al conectarse una consola al kernel, se genera la estructura PCB y asigna este proceso al estado new.
 
 Cuando un proceso pasa a READY, se envia un mensaje al módulo memoria para que inicialice las estructuras necesarias y obtenga el valor de la tabla de paginas para el PCB
 
 Cuando se recibe un PCB con motivo de finalizarlo, se pasa el proceso a EXIT y se avisa a la memoria para que libere las estructuras. Cuando se libera la memoria, se avisa a la consola la finalizacion.
 
-##PLANIFICADOR CORTO PLAZO
+## PLANIFICADOR CORTO PLAZO
 
 Los procesos en READY son planificados por:
 FIFO y SRT (SJF con desalojo)
@@ -40,7 +40,7 @@ Al recibir el PCB del proceso en ejecución, se calcularán las estimaciones cor
 
 Cabe  aclarar  que  en  todos  los casos el PCB será recibido a través de la conexión de dispatch, quedando la conexión de interrupt dedicada solamente a enviar mensajes de interrupción.
 
-##PLANIFICADOR MEDIANO PLAZO
+## PLANIFICADOR MEDIANO PLAZO
 
 Se encarga de las transiciones BLOCKED
 
