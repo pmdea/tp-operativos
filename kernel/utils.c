@@ -42,22 +42,27 @@ void avisar_a_consola(pcb* pcbFinalizado){
     enviarStringSerializado(mensajeFinalizacion, socket_consola);
 }
 
-void avisar_a_memoria(int socket_memoria, char* estado, pcb* unPCB, t_log* logger){
-    int tamanioEstado = strlen(estado)+1;
-	int tamanioBuffer = sizeof(int) + sizeof(int) + tamanioEstado;
+void aviso_a_memoria(int socket, uint32_t estado, pcb* unProceso, t_log* logger){
+	int tamanioBuffer = sizeof(uint32_t)*4;
+	void* buffer = asignarMemoria(tamanioBuffer);
 
-    void* buffer = asignarMemoria(tamanioBuffer);
+	int desplazamiento = 0;
 
-    int desplazamiento = 0;
+	concatenarInt32(buffer, &desplazamiento, (uint32_t) 1);
+	concatenarInt32(buffer, &desplazamiento, estado);
+	concatenarInt32(buffer, &desplazamiento, (uint32_t) unProceso -> tamanio);
+	concatenarInt32(buffer, &desplazamiento, (uint32_t) unProceso -> id);
 
-    concatenarInt(buffer, &desplazamiento, 1); // Int para indicar que viene de kernel
-    concatenarInt(buffer, &desplazamiento, unPCB->tamanio);
-    concatenarInt(buffer, &desplazamiento, unPCB->id);
-	concatenarString(buffer, &desplazamiento, estado);
-
-    enviarMensaje(socket_memoria, buffer, tamanioBuffer);
-	log_info(logger, "Enviando aviso a memoria ' %s ' ...", estado);
-    free(buffer);
+	enviarMensaje(socket, buffer, tamanioBuffer);
+	if(estado == INICIALIZA){
+		log_info(logger, "Enviando aviso de Inicializacion a memoria...");
+	}
+	if(estado == SUSPENDE){
+		log_info(logger, "Enviando aviso de Suspension a memoria...");
+	}
+	if(estado == FINALIZA){
+		log_info(logger, "Enviando aviso de Finalizacion a memoria...");
+	}
 
 }
 
@@ -169,6 +174,11 @@ void concatenarInt(void* buffer, int* desplazamiento, int numero){
 	*desplazamiento = *desplazamiento + sizeof(int);
 }
 
+void concatenarInt32(void* buffer, int* desplazamiento, uint32_t numero){
+	memcpy(buffer + *desplazamiento, &numero, sizeof(uint32_t));
+	*desplazamiento = *desplazamiento + sizeof(uint32_t);
+}
+
 void concatenarDouble(void* buffer, int* desplazamiento, double numero){
 	memcpy(buffer + *desplazamiento, &numero, sizeof(double));
 	*desplazamiento = *desplazamiento + sizeof(double);
@@ -271,5 +281,29 @@ int tamanio_listaInst(t_list* listaInst){
 		int cantidadParametros = inst -> parametros -> elements -> elements_count;
 		respuesta += sizeof(int) +  strlen(inst -> identificador) + 1 + sizeof(int)*cantidadParametros;
 	}
+	return respuesta;
+}
+
+
+// Funciones para memoria
+// Copiar funciones: recibirMensaje, deseriulizarInt32, deserializarAvisoDeKernel
+uint32_t deserializarInt32(int emisor){
+	uint32_t mensaje;
+	recibirMensaje(emisor, &mensaje, sizeof(uint32_t));
+	return mensaje;
+}
+
+t_list* deserializarAvisoDeKernel(int emisor){
+	t_list* respuesta = list_create();
+	uint32_t kernel = deserializarInt32(emisor);
+	uint32_t estado = deserializarInt32(emisor);
+	uint32_t tamanio = deserializarInt32(emisor);
+	uint32_t id = deserializarInt32(emisor);
+
+	list_add(respuesta, kernel);
+	list_add(respuesta, estado);
+	list_add(respuesta, tamanio);
+	list_add(respuesta, id);
+
 	return respuesta;
 }
