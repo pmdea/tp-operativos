@@ -12,7 +12,7 @@ Gestiona la planificacion con el PCB y los tres planificadores distintos.
 
 Solo habra una cola de procesos bloqueados, con planificacion FIFO
 
-##PCB
+## PCB
 Debe incluir
 
 * id: identificador del proceso
