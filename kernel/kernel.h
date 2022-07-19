@@ -138,7 +138,7 @@ int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos);
 void enviarMensaje(int socket, void* mensaje, int tamanio);
 
 void avisar_a_consola(pcb* pcbFinalizado);
-void avisar_a_memoria(int socket_memoria, char* estado, pcb* unPCB, t_log* logger);
+void avisar_a_memoria(int socket, uint32_t estado, pcb* unProceso, t_log* logger);
 void avisar_a_cpu_interrupt();
 
 void serilizar_enviar_pcb(int socket, pcb* unPCB , t_log* logger);
@@ -148,6 +148,7 @@ void enviar_respuesta_kernel(int socket, pcb* unPCB, int rafagaCPU , char* motiv
 
 void concatenarInstruccion(void* buffer, int* desplazamiento, t_instruccion* unaInstruccion);
 void concatenarInt(void* buffer, int* desplazamiento, int numero);
+void concatenarInt32(void* buffer, int* desplazamiento, uint32_t numero);
 void concatenarDouble(void* buffer, int* desplazamiento, double numero);
 void concatenarString(void* buffer, int* desplazamiento, char* mensaje);
 void concatenarListaInt(void* buffer, int* desplazamiento, t_list* listaArchivos);
