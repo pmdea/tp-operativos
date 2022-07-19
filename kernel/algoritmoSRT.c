@@ -17,6 +17,7 @@ void ejecucionProcesoSRT(){
 
         	pthread_mutex_lock(&mutexReady);
             if(list_size(procesosReady) > 1){
+                log_info(loggerKernel, "Planifico por estimador");
                 list_sort(procesosReady, ordenarSRT);
                 pcb * unProceso = list_remove(procesosReady, 0);
             } else {
@@ -79,6 +80,7 @@ void administradorRespuestaCPU(){
 		}
 
         if(motivoDeRegreso == DESALOJO){
+            log_info(loggerKernel, "Replanificacion por desalojo");
             estimador(unProceso, 0.5, rafagaEjecutada);
 
             wait(mutexReady);

@@ -36,9 +36,9 @@ void administrar_bloqueos(){ // hilo
             tiempo = config_kernel.tiempo_maximo_bloqueado;
         }
 
-        log_info(loggerKernel, "Iniciando bloqueo de %d........",tiempo);
+        log_info(loggerKernel, "Iniciando bloqueo del Proceso de ID %i por un tiempo de %d........",procesoBloqueado -> id,tiempo);
         usleep(tiempo);
-        log_info(loggerKernel, "Finalizando bloqueo");
+        log_info(loggerKernel, "Finalizando bloqueo del Proceso de ID %i", procesoBloqueado -> id);
 
         if(tiemposBlockedSuspended > 0){
         	pthread_mutex_lock(&mutexBloqueoSuspendido);

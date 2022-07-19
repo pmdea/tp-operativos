@@ -23,7 +23,6 @@ void algoritmo_FIFO(){
             list_clean(respuestaCPU);
         }else if(motivoDeRegreso == IO){
             //int tiempoBloqueo =  list_get(respuestaCPU, 3);
-        	int tiempoBloqueo = 2000000;
             // no creo q necesite un mutex porque yo solo uso esto
             pthread_mutex_lock(&mutexBloqueo);
             list_add(procesosBlocked, unProceso);

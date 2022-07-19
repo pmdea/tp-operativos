@@ -9,9 +9,9 @@ void planificador_MedianoPlazo(){
         pthread_mutex_unlock(&mutexBloqueoSuspendido);
         //avisar_a_memoria(socket_memoria, SUSPENDE, procesoBloqueadoSuspendido, loggerKernel);
         sem_post(&grado_multiprogramacion);
-        log_info(loggerKernel, "Iniciando bloqueo en suspendido de %d........", tiemposBlockedSuspended);
+        log_info(loggerKernel, "Iniciando bloqueo en suspendido del Proceso de ID %i por un tiempo de %d........",procesoBloqueadoSuspendido -> id, tiemposBlockedSuspended);
         usleep(tiemposBlockedSuspended);
-        log_info(loggerKernel, "Finalizando en suspendido bloqueo");
+        log_info(loggerKernel, "Finalizando en suspendido bloqueo del Proceso de ID %i", procesoBloqueadoSuspendido -> id);
 
         // no necesito mutex porque soy elunico q agrego nadie puede sacar sin el signal
         pthread_mutex_lock(&mutexSuspendido)

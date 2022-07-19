@@ -31,6 +31,7 @@ void estadoReady(){
             pcb* procesoSuspendido = list_get(procesosSuspendedReady, 0);
             list_add(procesosReady, procesoSuspendido);
             pthread_mutex_unlock(&mutexSuspendido);
+            log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
 
         }else if ( tamanioReady > 0){
 
@@ -48,6 +49,7 @@ void estadoReady(){
                 pcb* procesoSuspendido = list_get(procesosSuspendedReady, 0);
                 list_add(procesosReady, procesoSuspendido);
                 pthread_mutex_unlock(&mutexSuspendido);
+                log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
 
             } else {
                 pthread_mutex_lock(&mutexNew);
@@ -61,7 +63,7 @@ void estadoReady(){
                 pthread_mutex_lock(&mutexReady); // Mutex
                 list_add(procesosReady, nuevoProceso);
                 pthread_mutex_unlock(&mutexReady);
-                log_info(loggerKernel, "Proceso ingreso a LP...");
+                log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready", nuevoProceso -> id);
                 sem_post(&nuevoProcesoReady); // Binario P.C.P ---> Aviso que hay un nuevo proceso
 
                 //free(nuevoProceso);
@@ -94,7 +96,7 @@ void estadoExit(){
             // Libero memoria
             //free(procesoFinalizado);
             // Incremento el grado de multiprogramacion en 1
-            log_info(loggerKernel, "Proceso salio de LP....");
+            log_info(loggerKernel, "Finalizo correctamente el Proceso de ID: %i", procesoFinalizado -> id);
             sem_post(&grado_multiprogramacion);
         }
 	}
