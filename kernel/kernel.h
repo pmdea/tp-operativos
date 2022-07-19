@@ -37,6 +37,7 @@ pthread_mutex_t mutexExit; // cuando se saca o agrega un proceso a exit mutex
 pthread_mutex_t mutexBloqueo; // Adm bloqueos con SRT
 pthread_mutex_t mutexBloqueoSuspendido; // Mutex Bloqueos entre C.P y M.P
 pthread_mutex_t mutexSuspendido; // M.P y L.P
+pthread_mutex_t mutexNew;
 pthread_mutex_t variableEjecutando; // Mutex para la variable compartida de SRT
 sem_t procesoBloqueado; // hay un sem q es tiene nombre algo pero no me acuerdo para q era
 sem_t finalizoProceso; // Corto Plazo avisa a Largo Plazo FIN PROCESO
@@ -67,6 +68,18 @@ t_list* tiemposBlocked;
 t_list* tiemposBlockedSuspendMax;
 
 // DEFINO ESTRUCTURAS
+typedef enum {
+    INICIALIZA,
+    SUSPENDE,
+    FINALIZA,
+}OP_MEMORIA;
+
+typedef enum {
+    EXIT,
+    IO,
+    DESALOJO,
+}OP_CPU;
+
 typedef struct {
     char* ip_memoria;
     int puerto_memoria;
