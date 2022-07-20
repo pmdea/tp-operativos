@@ -11,7 +11,9 @@ void generar_PCB(int idPCB, t_proceso* proceso){ // Funcion para cargar los dato
 
     list_add_all(nuevoProceso -> instrucciones, proceso -> instrucciones -> elements);
 
+	pthread_mutex_lock(&mutexNew);
     list_add(procesosNew, nuevoProceso);
+	pthread_mutex_unlock(&mutexNew);
 
     log_info(loggerKernel, "Se agrego correctamente el Proceso de ID: %i", nuevoProceso -> id);
     //free(nuevoProceso); Si lo descomento rompe la funcion y altera los valores

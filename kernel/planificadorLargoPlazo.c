@@ -10,9 +10,19 @@ void planificador_LargoPlazo(){
 
 
 void estadoReady(){
-	char* estadoReady = "Inicializa";
+    int tamanioReady = 0;
+    int tamanioSuspendido = 0;
     while(1){
-        if(list_size(procesosSuspendedReady) > 0){
+
+        pthread_mutex_lock(&mutexSuspendido);
+        tamanioSuspendido = list_size(procesosSuspendedReady);
+        pthread_mutex_unlock(&mutexSuspendido);
+
+        pthread_mutex_lock(&mutexReady);
+        tamanioReady = list_size(procesosReady);
+        pthread_mutex_unlock(&mutexReady);
+
+        if(tamanioSuspendido > 0){
 
             sem_wait(&prioridad_SuspendedReady); // Binario P.M.P
             sem_wait(&grado_multiprogramacion); // El signal lo da el Planificador Mediano Plazo
@@ -21,13 +31,17 @@ void estadoReady(){
             pcb* procesoSuspendido = list_get(procesosSuspendedReady, 0);
             list_add(procesosReady, procesoSuspendido);
             pthread_mutex_unlock(&mutexSuspendido);
+            log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
 
-        }else if ( list_size(procesosNew) > 0){
+        }else if ( tamanioReady > 0){
 
             sem_wait(&grado_multiprogramacion);
             // AGREGO ESTA VALIDACION POR SI JUSTO SE TRABA EN EL SEMAFORO
             // LLEGA UN PROCESO A NEW Y SEGUNDOS DESPUES UN SUSPENDIDO
             // PERO COMO YA HABIA VALUADO QUE HABIA UNO EN NEW
+            pthread_mutex_lock(&mutexSuspendido);
+            tamanioSuspendido = list_size(procesosSuspendedReady);
+            pthread_mutex_unlock(&mutexSuspendido);
             if(list_size(procesosSuspendedReady) > 0){
                 sem_wait(&prioridad_SuspendedReady); // Binario P.M.P
 
@@ -35,19 +49,21 @@ void estadoReady(){
                 pcb* procesoSuspendido = list_get(procesosSuspendedReady, 0);
                 list_add(procesosReady, procesoSuspendido);
                 pthread_mutex_unlock(&mutexSuspendido);
+                log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
 
             } else {
+                pthread_mutex_lock(&mutexNew);
                 pcb * nuevoProceso = list_remove(procesosNew, 0);
-
+                pthread_mutex_unlock(&mutexNew);
                 //Envio de mensaje a Modulo de Memoria para generar estructuras
-                //avisar_a_memoria(socket_memoria, estado, nuevoProceso, loggerKernel);
+                //avisar_a_memoria(socket_memoria, INICIALIZA, nuevoProceso, loggerKernel);
                 //Obtengo las estructuras y se las asigno al PCB
-               //nuevoProceso -> tabla_paginas = deserializarInt(socket_memoria);
+                //nuevoProceso -> tabla_paginas = deserializarInt32(socket_memoria);
 
                 pthread_mutex_lock(&mutexReady); // Mutex
                 list_add(procesosReady, nuevoProceso);
                 pthread_mutex_unlock(&mutexReady);
-                log_info(loggerKernel, "Proceso ingreso a LP...");
+                log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready", nuevoProceso -> id);
                 sem_post(&nuevoProcesoReady); // Binario P.C.P ---> Aviso que hay un nuevo proceso
 
                 //free(nuevoProceso);
@@ -58,7 +74,6 @@ void estadoReady(){
 
 
 void estadoExit(){
-	char* estadoExit = "Finaliza";
 	pcb* procesoFinalizado;
 	while (1){
 		sem_wait(&finalizoProceso);
@@ -69,10 +84,10 @@ void estadoExit(){
         if(tamanioExit > 0 ){
             // Obtengo el PCB que finalizo
         	pthread_mutex_lock(&mutexExit);
-            pcb * procesoFinalizado = list_remove(procesosExit, 0);
+            procesoFinalizado = list_remove(procesosExit, 0);
             pthread_mutex_unlock(&mutexExit);
             // Aviso a memoria para que libere
-            //avisar_a_memoria(socket_memoria, estado, procesoFinalizado, loggerKernel);
+            //avisar_a_memoria(socket_memoria, FINALIZA, procesoFinalizado, loggerKernel);
 
             // Envio el mensaje de finalización
 
@@ -81,7 +96,7 @@ void estadoExit(){
             // Libero memoria
             //free(procesoFinalizado);
             // Incremento el grado de multiprogramacion en 1
-            log_info(loggerKernel, "Proceso salio de LP....");
+            log_info(loggerKernel, "Finalizo correctamente el Proceso de ID: %i", procesoFinalizado -> id);
             sem_post(&grado_multiprogramacion);
         }
 	}
