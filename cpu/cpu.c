@@ -1,16 +1,10 @@
-/*
- * cpu.c
- *
- *  Created on: Apr 23, 2022
- *      Author: pmdea
- */
-
-
-#include<commons/log.h>
-#include<commons/string.h>
-#include<commons/config.h>
+#include "cpu.h"
 
 int main(void)
 {
+	loggerCpu = iniciar_logger_cpu();
+	configCpu = iniciar_config_cpu();
+
+	tlb = list_create();
 
 }
