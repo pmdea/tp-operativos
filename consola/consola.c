@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
 		//INICIALIZAR LOG
 		log_consola = log_create("consola.log", "CONSOLA", 1, LOG_LEVEL_DEBUG);
 		log_info(log_consola,"Hola, soy el log de la consola");
-		log_debug(log_consola,"recibi los parametros: %s %i",argv[1],atoi(argv[2]));
+		log_debug(log_consola,"recibi los parametros: %s , %i",argv[1],atoi(argv[2]));
 		//FIN INICIALIZAR LOG
 
 		//ABRIR ARCHIVOS Y VALIDACIONES
@@ -90,7 +90,6 @@ int main(int argc, char** argv) {
 					log_debug(log_consola,"El puerto del config es: %s", config_get_string_value(consola_config, CLAVE_PUERTO));
 					// INICIAR SOCKET Y CONEXTAR CON KERNEL
 					int socket_consola = crear_conexion_con_kernel(consola_config);
-					config_destroy(consola_config);
 					//HANDSHAKE
 					if (socket_consola != -1 && se_pudo_hacer_el_handshake(socket_consola)) {
 						t_paquete* paquete = serializar_proceso(instrucciones_parseadas, ENVIO_DATOS, atoi(argv[2]));
@@ -268,7 +267,7 @@ int crear_conexion_con_kernel(t_config* config) {
 		char* ip = config_get_string_value(config, CLAVE_IP);
 		char* puerto = config_get_string_value(config, CLAVE_PUERTO);
 
-		log_info(log_consola, "Lei la IP: %i y el PUERTO: %s", *ip, puerto);
+		log_info(log_consola, "Lei la IP: %i y el PUERTO: %s", ip, puerto);
 
 		int conexion = crear_conexion(ip, puerto);
 		log_info(log_consola, "Conexion creada: %i", conexion);
@@ -349,6 +348,7 @@ bool se_recibio_el_mensaje_correcto(t_mensaje* recibido, int socket_consola) {
 bool enviar_mensaje(op_code codigo, char* mensaje, int socket_consola) {
 	t_paquete* envio = malloc(sizeof(t_paquete));
 	envio->operacion = codigo;
+	envio->buffer = malloc(sizeof(t_buffer));
 	envio->buffer->size = string_length(mensaje) + sizeof(int);
 	envio->buffer->stream = malloc(envio->buffer->size);
 	int desplazamiento = 0;
