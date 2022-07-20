@@ -29,9 +29,10 @@ int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos){
 }
 
 void avisar_a_cpu_interrupt(){
-	char* mensaje = "Interrupcion";
 
-	enviarStringSerializado(mensaje, socket_cpu_interrupt);
+	enviarIntSerializado(1, socket_cpu_interrupt);
+
+	log_info(loggerKernel, "Enviando aviso de interrupcion a CPU...");
 
 }
 
@@ -55,13 +56,13 @@ void aviso_a_memoria(int socket, uint32_t estado, pcb* unProceso, t_log* logger)
 
 	enviarMensaje(socket, buffer, tamanioBuffer);
 	if(estado == INICIALIZA){
-		log_info(logger, "Enviando aviso de Inicializacion a memoria...");
+		log_info(logger, "Enviando aviso de Inicializacion a Memoria...");
 	}
 	if(estado == SUSPENDE){
-		log_info(logger, "Enviando aviso de Suspension a memoria...");
+		log_info(logger, "Enviando aviso de Suspension a Memoria...");
 	}
 	if(estado == FINALIZA){
-		log_info(logger, "Enviando aviso de Finalizacion a memoria...");
+		log_info(logger, "Enviando aviso de Finalizacion a Memoria...");
 	}
 
 }
@@ -115,7 +116,7 @@ void serilizar_enviar_pcb(int socket, pcb* unPCB , t_log* logger){
 
 	enviarMensaje(socket, buffer, tamanioBuffer);
 
-	log_info(logger, "Enviando PCB....");
+	log_info(logger, "Enviando PCB de ID %i ....", unPCB -> id);
 
 	free(buffer);
 }
