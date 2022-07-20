@@ -24,7 +24,7 @@ void decode(t_instruccion* instruccion, pcb* unPCB)
 
 int fetchOperands(direccion_logica* direccion_logica, pcb* unPcb)
 {
-	direccion_fisica* direccion_fisica = MMU(direccion_logica, unPcb);
+	direccion_fisica* direccion_fisica = mmu(direccion_logica, unPcb);
 	int valor = leer(direccion_fisica);
 
 	return valor;
@@ -60,7 +60,7 @@ void execute(t_instruccion* instruccion, pcb* proceso, int raf)
 		proceso->program_counter++;
 		rafaga++;
 
-		enviar_respuesta_kernel(socket_kernel, proceso, rafaga , IO, tiempoBloqueo, loggerCpu);
+		enviar_respuesta_kernel(kernel_disp_socket, proceso, rafaga , IO, tiempoBloqueo, loggerCpu);
 		log_info(loggerCpu, "Ejecute Instruccion IO %i", tiempoBloqueo);
 		break;
 
@@ -69,7 +69,7 @@ void execute(t_instruccion* instruccion, pcb* proceso, int raf)
 	case 2:
 		direccion = list_get(instruccion -> parametros -> elements, 0);
 		obtener_direccion_logica(direccion, direccion_logica);
-		direccion_fisica = MMU(direccion_logica, proceso);
+		direccion_fisica = mmu(direccion_logica, proceso);
 		int leido = leer(direccion_fisica);
 		log_info(loggerCpu, "Ejecute Instruccion Read: %i", leido);
 
@@ -85,7 +85,7 @@ void execute(t_instruccion* instruccion, pcb* proceso, int raf)
 	case 3:
 		direccion = list_get(instruccion -> parametros -> elements, 0);
 		obtener_direccion_logica(direccion, direccion_logica);
-		direccion_fisica = MMU(direccion_logica, proceso);
+		direccion_fisica = mmu(direccion_logica, proceso);
 
 		valor = list_get(instruccion -> parametros -> elements, 1);
 		escribir(valor, direccion_fisica);
@@ -98,17 +98,20 @@ void execute(t_instruccion* instruccion, pcb* proceso, int raf)
 
 	case 4:
 		proceso->program_counter++;
-		enviar_respuesta_kernel(socket_kernel, proceso, 0, EXIT, 0, loggerCpu);
+		enviar_respuesta_kernel(kernel_disp_socket, proceso, 0, EXIT, 0, loggerCpu);
 		log_info(loggerCpu, "Ejecute Instruccion EXIT");
 		break;
 	}
 }
 
-void checkInterrupt(int rafaga, pcb* proceso)
+void checkInterrupt(int rafaga, pcb* proceso, int cortarEjecucion)
 {
-	if(0==1) /// int interruption() implementado en otra rama
+	pthread_mutex_lock(&interrupcionVariable);
+	if(interrupcion==1) /// int interruption() implementado en otra rama
 	{
-		enviar_respuesta_kernel(socket_kernel, proceso, rafaga, DESALOJO, 0, loggerCpu);
+		enviar_respuesta_kernel(kernel_disp_socket, proceso, rafaga, DESALOJO, 0, loggerCpu);
+		interrupcion = 0;
 	}
+	pthread_mutex_unlock(&interrupcionVariable);
 }
 
