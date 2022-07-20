@@ -1,0 +1,4 @@
+NO_OP 2
+COPY 10 200
+E/S 20
+EXIT
