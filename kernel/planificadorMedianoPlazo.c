@@ -14,9 +14,9 @@ void planificador_MedianoPlazo(){
         log_info(loggerKernel, "Finalizando en suspendido bloqueo del Proceso de ID %i", procesoBloqueadoSuspendido -> id);
 
         // no necesito mutex porque soy elunico q agrego nadie puede sacar sin el signal
-        pthread_mutex_lock(&mutexSuspendido)
+        pthread_mutex_lock(&mutexSuspendido);
         list_add(procesosSuspendedReady,procesoBloqueadoSuspendido);
-        pthread_mutex_unlock(&mutexSuspendido)
+        pthread_mutex_unlock(&mutexSuspendido);
         sem_post(&prioridad_SuspendedReady);
     }
 }

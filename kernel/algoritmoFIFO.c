@@ -16,13 +16,13 @@ void algoritmo_FIFO(){
         // Espero respuesta del CPU con PCB/Motivo/Bloqueo
        // respuestaCPU = recibir_devolucion_cpu(socket_cpu_dispatch);
         //unProceso = list_get(respuestaCPU, 0);
-        //int motivoDeRegreso =  list_get(respuestaCPU, 2);
+        int motivoDeRegreso =  list_get(respuestaCPU, 2);
         //char* motivoDeRegreso = "I/O"; ESTE NO VA ERA DE PRUEBA
         if( motivoDeRegreso == EXIT ){
             avisar_a_planificador_LP(unProceso);
             list_clean(respuestaCPU);
         }else if(motivoDeRegreso == IO){
-            //int tiempoBloqueo =  list_get(respuestaCPU, 3);
+            int tiempoBloqueo =  list_get(respuestaCPU, 3);
             // no creo q necesite un mutex porque yo solo uso esto
             pthread_mutex_lock(&mutexBloqueo);
             list_add(procesosBlocked, unProceso);

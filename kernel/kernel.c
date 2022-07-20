@@ -5,8 +5,8 @@ int main(void)
 	// Logger y Config
 	loggerKernel = iniciar_logger_kernel();
 	configKernel = iniciar_config_kernel();
-
-	log_info(loggerKernel, "CONFIGURACION Y LOGGER CARGADOS", config_kernel.puerto_memoria);
+	iniciar_conexiones();
+	log_info(loggerKernel, "CONFIGURACION, LOGGER Y CONEXIONES CARGADOS", config_kernel.puerto_memoria);
 
 	// Listas
 	procesosNew = list_create();
