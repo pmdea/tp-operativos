@@ -12,11 +12,24 @@
 #include <netdb.h>
 #include <string.h>
 #include <math.h>
+#include <pthread.h>
 
+#define IP_CPU "127.0.0.1"
+
+// Sockets para conservar referencia en todo el programa
+int kernel_int_socket;
+int kernel_disp_socket;
+int socket_memoria;
+
+// ServiceNames
+#define SRV_KERNEL_DISPATCH "KERNEL_DISPATCH"
+#define SRV_KERNEL_INTERRUPT "KERNEL_INTERRUPT"
+#define SRV_MEMORY "SRV_MEMORY"
 
 // Var globales
-int socket_memoria;
-int socket_kernel;
+int* interrupcion;
+
+pthread_mutex_t interrupcionVariable;
 
 // DEFINO LOG Y CONFIG
 t_log* loggerCpu;
@@ -68,6 +81,20 @@ typedef struct {
 	uint32_t desplazamiento;
 } direccion_fisica;
 
+typedef struct {
+	int pagina;
+	int marco;
+} entrada_tlb;
+
+//Conexiones
+void init_cpu();
+int crear_conexion(char *ip, char* puerto);
+void handshake_memoria(int socket);
+int create_socket(char* port);
+int esperar_cliente(int socket_servidor);
+void *interruption(void *arg);
+
+
 // Log y Config
 t_log* iniciar_logger_cpu(void);
 t_config* iniciar_config_cpu(void);
@@ -77,7 +104,7 @@ t_instruccion* fetch(pcb* unPcb);
 void decode(t_instruccion* instruccion, pcb* unPCB);
 int fetchOperands(direccion_logica* direccion_logica, pcb* unPcb);
 void execute(t_instruccion* instruccion, pcb* proceso, int raf);
-void checkInterrupt(int rafaga, pcb* proceso);
+void checkInterrupt(int rafaga, pcb* proceso, int cortarEjecucion);
 
 int TLB(int pag);
 int estaEnTLB(int pag);
@@ -92,6 +119,12 @@ void obtener_tamanioPag_Entradas(int tamanio_pagina, int cant_entradas_por_tabla
 uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint32_t entrada_2do_nivel);
 int asignarNumero(char* ident);
 
+int comparar_elementos_tlb(entrada_tlb* elem, int pag);
+int esta_en_tlb(int pag);
+int tlb_cache(int pag);
+void reemplazo_tlb(entrada_tlb* entrada);
+void agregar_a_TLB(int pagina, int marco);
+direccion_fisica* mmu(direccion_logica* direccion_logica, pcb* proceso);
 // Utils
 void* asignarMemoria(int cantidad);
 int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos);

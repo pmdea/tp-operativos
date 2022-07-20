@@ -158,36 +158,93 @@ int asignarNumero(char* ident)
 }
 
 //traduce direciones logicas en direcciones fisicas
-direccion_fisica* MMU(direccion_logica* direccion_logica, pcb* proceso)
+int comparar_elementos_tlb(entrada_tlb* elem, int pag)
 {
-	direccion_fisica* direccion_fisica;
-	uint32_t tabla_2do = obtener_tabla_2do_nivel(proceso->tabla_paginas, direccion_logica->entrada_tabla_1er_nivel);
+	int i=0;
 
-	if(estaEnTLB(tabla_2do))
+	if(elem->pagina==pag)
 	{
-		direccion_fisica->marco = TLB(tabla_2do);
-	}
-	else
-	{
-		direccion_fisica->marco = obtener_marco(proceso->tabla_paginas, tabla_2do, direccion_logica->entrada_tabla_2do_nivel);
+		i=1;
 	}
 
-	direccion_fisica->desplazamiento = direccion_logica->desplazamiento;
-	return direccion_fisica;
+	return i;
 }
 
-int TLB(int pag)
+int esta_en_tlb(int pag)
 {
-	int marco = 0;
+	int i=0;
+	entrada_tlb* entrada;
+	for(int j=0;j<list_size(tlb);j++)
+	{
+		entrada = list_get(tlb, j);
+		if(entrada->pagina==pag)
+		{
+			i=1;
+		}
+	}
+	return i;
+}
 
-	//implementar
+int tlb_cache(int pag)
+{
+	int marco;
+	entrada_tlb* entrada;
+	for(int j=0;j<list_size(tlb);j++)
+	{
+		entrada = list_get(tlb, j);
+		if(entrada->pagina==pag)
+		{
+			marco=entrada->marco;
+			if(string_equals_ignore_case(config_cpu.reemplazo_tlb, "LRU"))
+			{
+				list_remove(tlb,j);
+				list_add(tlb,entrada);
+			}
+		}
+	}
 
 	return marco;
 }
 
-int estaEnTLB(int pag)
+void reemplazo_tlb(entrada_tlb* entrada)
 {
-	//implementar
+	list_remove(tlb, 0);
+	list_add(tlb, entrada);
+}
 
-	return 0;
+void agregar_a_TLB(int pagina, int marco)
+{
+	entrada_tlb* entrada;
+	entrada->marco=marco;
+	entrada->pagina=pagina;
+
+	if (list_size(tlb)<config_cpu.entradas_tlb)
+	{
+		list_add(tlb, entrada);
+	}
+	else
+	{
+		reemplazo_tlb(entrada);
+	}
+}
+
+//traduce direciones logicas en direcciones fisicas
+direccion_fisica* mmu(direccion_logica* direccion_logica, pcb* proceso)
+{
+	direccion_fisica* direccion_fisica;
+
+	uint32_t id_2do_nivel = obtener_tabla_2do_nivel(proceso->tabla_paginas, direccion_logica->entrada_tabla_1er_nivel);
+
+	if(esta_en_tlb(id_2do_nivel))
+	{
+		direccion_fisica->marco = tlb_cache(id_2do_nivel);
+	}
+	else
+	{
+		direccion_fisica->marco = obtener_marco(proceso->tabla_paginas, id_2do_nivel, direccion_logica->entrada_tabla_2do_nivel);
+		agregar_a_TLB(id_2do_nivel, direccion_fisica->marco);
+	}
+
+	direccion_fisica->desplazamiento = direccion_logica->desplazamiento;
+	return direccion_fisica;
 }

@@ -121,6 +121,11 @@ typedef struct {
     int pcbVinculado;
 } consola_pcb;
 
+// Conexiones
+int crear_conexion(char *ip, char* puerto);
+void iniciar_conexiones();
+
+
 //log_config.c
 t_log* iniciar_logger_kernel(void);
 t_config* iniciar_config_kernel(void);
