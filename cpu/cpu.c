@@ -42,7 +42,7 @@ void serializarPCB(void* buffer, int* desplazamiento, Pcb* proceso)
 	serializarInt(buffer, desplazamiento, proceso->tamanio);
 	serializarInt(buffer, desplazamiento, proceso->program_counter);
 	serializarListaString(buffer, desplazamiento, proceso->instrucciones);
-	serializarString(buffer, desplazamiento, proceso->tabla_paginas);
+	serializarInt(buffer, desplazamiento, proceso->tabla_paginas);
 	serializarDouble(buffer, desplazamiento, proceso->estimacion_rafaga);
 }
 
@@ -74,8 +74,7 @@ void enviar_exit(Pcb* proceso, int rafaga)
 {
 	t_paquete* paquete = crear_paquete(EXIT);
 
-	int tam = sizeof(int)+sizeof(int)+sizeof(int)+obtenerTamanioListaStrings(proceso->instrucciones)
-			+strlen(proceso->tabla_paginas)+1+sizeof(double)+sizeof(int);
+	int tam = (5*sizeof(int))+obtenerTamanioListaStrings(proceso->instrucciones)+1+sizeof(double);
 	void* buffer = malloc(tam);
 
 	int desplazamiento = 0;
@@ -90,44 +89,46 @@ void enviar_exit(Pcb* proceso, int rafaga)
 
 	int tamanio=sizeof(paquete->operacion)+sizeof(paquete->buffer->size)+paquete->buffer->size;
 	void* paquete_a_enviar = serializar_paquete(paquete, tamanio);
-	//send(conexion, paquete_a_enviar, tamanio, 0);
+	send(conexion, paquete_a_enviar, tamanio, 0);
 
 	free(paquete);
+	free(buffer);
+	free(paquete_a_enviar);
 }
 
 void enviar_IO(Pcb* proceso, int rafaga, int tiempo)
 {
 	t_paquete* paquete = crear_paquete(IO);
 
-		int tam = sizeof(int)+sizeof(int)+sizeof(int)+obtenerTamanioListaStrings(proceso->instrucciones)
-				+strlen(proceso->tabla_paginas)+1+sizeof(double)+sizeof(int)+sizeof(int);
-		void* buffer = malloc(tam);
+	int tam = (6*sizeof(int))+obtenerTamanioListaStrings(proceso->instrucciones)+1+sizeof(double);
+	void* buffer = malloc(tam);
 
-		int desplazamiento = 0;
+	int desplazamiento = 0;
 
-		serializarPCB(buffer, &desplazamiento, proceso);
+	serializarPCB(buffer, &desplazamiento, proceso);
 
-		serializarInt(buffer, &desplazamiento, rafaga);
+	serializarInt(buffer, &desplazamiento, rafaga);
 
-		serializarInt(buffer, &desplazamiento, tiempo);
+	serializarInt(buffer, &desplazamiento, tiempo);
 
-		realloc(paquete->buffer->stream, tam);
-		paquete->buffer->stream = buffer;
-		paquete->buffer->size=tam;
+	realloc(paquete->buffer->stream, tam);
+	paquete->buffer->stream = buffer;
+	paquete->buffer->size=tam;
 
-		int tamanio=sizeof(paquete->operacion)+sizeof(paquete->buffer->size)+paquete->buffer->size;
-		void* paquete_a_enviar = serializar_paquete(paquete, tamanio);
-		//send(conexion, paquete_a_enviar, tamanio, 0);
+	int tamanio=sizeof(paquete->operacion)+sizeof(paquete->buffer->size)+paquete->buffer->size;
+	void* paquete_a_enviar = serializar_paquete(paquete, tamanio);
+	send(conexion, paquete_a_enviar, tamanio, 0);
 
-		free(paquete);
+	free(paquete);
+	free(paquete_a_enviar);
+	free(buffer);
 }
 
 void enviar_interrupt(Pcb* proceso)
 {
 	t_paquete* paquete = crear_paquete(INTERRUPT);
 
-		int tam = sizeof(int)+sizeof(int)+sizeof(int)+obtenerTamanioListaStrings(proceso->instrucciones)
-				+strlen(proceso->tabla_paginas)+1+sizeof(double);
+		int tam = (4*sizeof(int))+obtenerTamanioListaStrings(proceso->instrucciones)+1+sizeof(double);
 		void* buffer = malloc(tam);
 
 		int desplazamiento = 0;
@@ -140,7 +141,7 @@ void enviar_interrupt(Pcb* proceso)
 
 		int tamanio=sizeof(paquete->operacion)+sizeof(paquete->buffer->size)+paquete->buffer->size;
 		void* paquete_a_enviar = serializar_paquete(paquete, tamanio);
-		//send(conexion, paquete_a_enviar, tamanio, 0);
+		send(conexion, paquete_a_enviar, tamanio, 0);
 
 		free(paquete);
 }
@@ -166,13 +167,184 @@ int asignarNumero(char* ident)
 	}
 	if(string_equals_ignore_case(ident, "COPY"))
 	{
-		n=4;
+		n=3;
 	}
 	if(string_equals_ignore_case(ident, "EXIT"))
 	{
-		n=5;
+		n=4;
 	}
 	return n;
+}
+
+int leer(Direccion_fisica* direccion_fisica)
+{
+	uint32_t tam = sizeof(uint32_t) * 3;
+	void* buffer = malloc(tam);
+
+	int desplazamiento = 0;
+
+	serializarInt(buffer, &desplazamiento, 2);
+	serializarInt(buffer, &desplazamiento, direccion_fisica->marco);
+	serializarInt(buffer, &desplazamiento, direccion_fisica->desplazamiento);
+
+	send(socket_memoria, buffer, tam, 0);
+
+	uint32_t* stream=0;
+	recv(socket_memoria, stream, sizeof(uint32_t), MSG_WAITALL);
+
+	int valor=*stream;
+
+	free(buffer);
+	free(stream);
+	return valor;
+}
+
+//mando la direccion fisica seguida del numero a escribir
+void escribir(int valor, Direccion_fisica* direccion_fisica)
+{
+	uint32_t tam = sizeof(uint32_t) * 4;
+	void* buffer = malloc(tam);
+
+	int desplazamiento = 0;
+
+	serializarInt(buffer, &desplazamiento, 3);
+	serializarInt(buffer, &desplazamiento, direccion_fisica->marco);
+	serializarInt(buffer, &desplazamiento, direccion_fisica->desplazamiento);
+	serializarInt(buffer, &desplazamiento, valor);
+
+	send(socket_memoria, buffer, tam, 0);
+
+	char* stream = malloc(string_length("OK"));
+
+	recv(socket_memoria, stream, string_length("OK"), MSG_WAITALL);
+
+	if(string_equals_ignore_case(stream, "OK"))
+	{
+		printf("Valor escirto en memoria con exito.");
+	}
+	else
+	{
+		printf("Error en escribir el valor en memoria.");
+	}
+
+	free(buffer);
+	free(stream);
+}
+
+void obtener_config(int* tam_pagina, int* nro_entradas)
+{
+	uint32_t tam = 2 * sizeof(uint32_t);
+	int desplazamiento = 0;
+	void* buffer = malloc(tam);
+	serializarInt(buffer, &desplazamiento, 0);
+	serializarInt(buffer, &desplazamiento, 1);
+
+	send(socket_memoria, buffer, tam, 0);
+
+	void* stream = malloc(tam);
+
+	recv(socket_memoria, stream, tam, MSG_WAITALL);
+
+	desplazamiento = 0;
+
+	memcpy(tam_pagina, stream + desplazamiento, sizeof(uint32_t));
+	desplazamiento+=sizeof(uint32_t);
+	memcpy(nro_entradas, stream + desplazamiento, sizeof(uint32_t));
+
+	free(buffer);
+	free(stream);
+}
+
+uint32_t obtener_tabla_2do_nivel(int tabla_paginas_1er_nivel, int entrada_pagina_1er_nivel)
+{
+	uint32_t tam = sizeof(uint32_t) * 3;
+	void* buffer = malloc(tam);
+
+	int desplazamiento = 0;
+
+	serializarInt(buffer, &desplazamiento, 5);
+	serializarInt(buffer, &desplazamiento, tabla_paginas_1er_nivel);
+	serializarInt(buffer, &desplazamiento, entrada_pagina_1er_nivel);
+
+	send(socket_memoria, buffer, tam, 0);
+
+	uint32_t* stream=0;
+
+	recv(socket_memoria, stream, sizeof(uint32_t), MSG_WAITALL);
+
+	uint32_t valor = *stream;
+
+	free(stream);
+	free(buffer);
+	return valor;
+}
+
+uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint32_t entrada_2do_nivel)
+{
+	uint32_t tam = sizeof(uint32_t) * 4;
+	void* buffer = malloc(tam);
+
+	int desplazamiento = 0;
+
+	serializarInt(buffer, &desplazamiento, 6);
+	serializarInt(buffer, &desplazamiento, tabla_1er_nivel);
+	serializarInt(buffer, &desplazamiento, tabla_2do_nivel);
+	serializarInt(buffer, &desplazamiento, entrada_2do_nivel);
+
+	send(socket_memoria, buffer, tam, 0);
+
+	uint32_t* stream=0;
+
+	recv(socket_memoria, stream, sizeof(uint32_t), MSG_WAITALL);
+
+	return *stream;
+}
+
+void obtener_direccion_logica(int* direccion, Direccion_logica* direccion_logica)
+{
+	int* tamanio_pagina=0;
+	int* cant_entradas_por_tabla=0;
+	obtener_config(tamanio_pagina,cant_entradas_por_tabla);
+
+	int numero_pagina = floor(*direccion / *tamanio_pagina);
+	direccion_logica->entrada_tabla_1er_nivel = floor(numero_pagina / *cant_entradas_por_tabla);
+	direccion_logica->entrada_tabla_2do_nivel = numero_pagina % (*cant_entradas_por_tabla);
+	direccion_logica->desplazamiento = *direccion - numero_pagina * *tamanio_pagina;
+}
+
+int TLB(int pag)
+{
+	int marco = 0;
+
+	//implementar
+
+	return marco;
+}
+
+int estaEnTLB(int pag)
+{
+	//implementar
+
+	return 0;
+}
+
+//traduce direciones logicas en direcciones fisicas
+Direccion_fisica* MMU(Direccion_logica* direccion_logica, Pcb* proceso)
+{
+	Direccion_fisica* direccion_fisica = malloc(sizeof(Direccion_fisica*));
+	uint32_t tabla_2do = obtener_tabla_2do_nivel(proceso->tabla_paginas, direccion_logica->entrada_tabla_1er_nivel);
+
+	if(estaEnTLB(tabla_2do))
+	{
+		direccion_fisica->marco = TLB(tabla_2do);
+	}
+	else
+	{
+		direccion_fisica->marco = obtener_marco(proceso->tabla_paginas, tabla_2do, direccion_logica->entrada_tabla_2do_nivel);
+	}
+
+	direccion_fisica->desplazamiento = direccion_logica->desplazamiento;
+	return direccion_fisica;
 }
 
 void execute(Instruccion* instruccion, Pcb* proceso, int* raf)
@@ -181,6 +353,10 @@ void execute(Instruccion* instruccion, Pcb* proceso, int* raf)
 	int tiempo = 0;
 	int rafaga = raf;
 	int ident = asignarNumero(instruccion->identificador);
+	Direccion_fisica* direccion_fisica = malloc(sizeof(Direccion_fisica*));
+	Direccion_logica* direccion_logica = malloc(sizeof(Direccion_logica*));
+	int* direccion = 0;
+	int valor = 0;
 
 	switch (ident){
 	case 0:
@@ -201,36 +377,80 @@ void execute(Instruccion* instruccion, Pcb* proceso, int* raf)
 		enviar_IO(proceso, rafaga, tiempo);
 
 		break;
+
+//READ(dirección_lógica)
+
 	case 2:
-		// luego se implementa
+		direccion = queue_peek(instruccion->parametros);
+		obtener_direccion_logica(direccion, direccion_logica);
+		direccion_fisica = MMU(direccion_logica, proceso);
+		int leido = leer(direccion_fisica);
+		printf("%i", leido);
+
+		rafaga++;
+		proceso->program_counter++;
+
 		break;
+
+//WRITE(dirección_lógica, valor)
+
+//COPY(dirección_lógica_destino, dirección_lógica_origen)
+
 	case 3:
-		// luego se implementa
+		direccion = queue_pop(instruccion->parametros);
+		obtener_direccion_logica(direccion, direccion_logica);
+		direccion_fisica = MMU(direccion_logica, proceso);
+
+		valor = queue_pop(instruccion->parametros);
+		escribir(valor, direccion_fisica);
+
+		rafaga++;
+		proceso->program_counter++;
+
 		break;
+
 	case 4:
-		// luego se implementa
-		break;
-	case 5:
 		proceso->program_counter++;
 
 		enviar_exit(proceso, rafaga);
 
 		break;
 	}
+	free(num);
+	free(direccion_fisica);
+	free(direccion_logica);
+	free(direccion);
 }
 
-//luego se implementa
-void* fetchOperands()
+int* fetchOperands(Direccion_logica* direccion_logica, Pcb* proceso)
 {
-	return 0;
+	Direccion_fisica* direccion_fisica = MMU(direccion_logica, proceso);
+	int valor = leer(direccion_fisica);
+
+	free(direccion_fisica);
+	return valor;
 }
 
-void decode(Instruccion* instruccion)
+void decode(Instruccion* instruccion, Pcb* proceso)
 {
+	Direccion_logica* direccion_logica = malloc(sizeof(Direccion_logica*));
+
 	if(string_equals_ignore_case(instruccion->identificador, "COPY"))
 	{
-		instruccion->parametros = fetchOperands();
+		int* aux = queue_pop(instruccion->parametros);
+		int* direccion = queue_pop(instruccion->parametros);
+		obtener_direccion_logica(direccion, direccion_logica);
+
+		queue_push(instruccion->parametros,aux);
+		int* valor = fetchOperands(direccion_logica, proceso);
+		queue_push(instruccion->parametros, valor);
+
+		free(aux);
+		free(direccion);
+		free(valor);
 	}
+
+	free(direccion_logica);
 }
 
 Instruccion* fetch(Pcb* proceso)
@@ -241,24 +461,34 @@ Instruccion* fetch(Pcb* proceso)
 	return instruccion;
 }
 
-void *interruption(){
+//solo para probar
+int interruption()
+{
 	return 0;
 }
 
-//implementar con quien hizo interruption
-int hayInterrupcion()
+//solo para probar
+Pcb* dispatch()
 {
-	int n = 0;
-	if(interruption())
-	{
-		n = 1;
-	}
-	return n;
+	Pcb* proceso = malloc(sizeof(Pcb*));
+	proceso->instrucciones = list_create();
+	proceso->program_counter = 0;
+	Instruccion* instrucc = malloc(sizeof(Instruccion*));
+	instrucc->identificador = "READ";
+	instrucc->parametros = queue_create();
+	int* num = malloc(sizeof(int));
+	*num = 200;
+	queue_push(instrucc->parametros, num);
+	instrucc->tamanio_id = sizeof(instrucc->identificador);
+	list_add(proceso->instrucciones,instrucc);
+	num = queue_pop(instrucc->parametros);
+
+	return proceso;
 }
 
 void checkInterrupt(int* rafaga, Pcb* proceso)
 {
-	if(hayInterrupcion())
+	if(interruption()==1)
 	{
 		enviar_interrupt(proceso);
 	}
@@ -266,14 +496,7 @@ void checkInterrupt(int* rafaga, Pcb* proceso)
 
 int main(void)
 {
-	Pcb* proceso = malloc(sizeof(Pcb*));
-	proceso->instrucciones=list_create();
-	proceso->program_counter=0;
-	Instruccion* instrucc = malloc(sizeof(Instruccion*));
-	instrucc->identificador = "EXIT";
-	instrucc->parametros = queue_create();
-	instrucc->tamanio_id = sizeof(instrucc->identificador);
-	list_add(proceso->instrucciones,instrucc);
+	Pcb* proceso = dispatch();
 
 	int* rafaga = 0;
 	int tamanio = 0;
@@ -287,7 +510,7 @@ int main(void)
 	Instruccion* instruccion = fetch(proceso);
 
 	// se fija si tiene que buscar operandos en memoria
-	decode(instruccion);
+	decode(instruccion, proceso);
 
 	//ejecuta la instruccion
 	execute(instruccion, proceso, rafaga);
@@ -295,8 +518,12 @@ int main(void)
 	checkInterrupt(rafaga, proceso);
 
 	i++;
+
+	free(instruccion);
 	}
-	printf("Sali del while");
 	rafaga = 0;
+
+	free(proceso);
+	free(rafaga);
 	return 0;
 }

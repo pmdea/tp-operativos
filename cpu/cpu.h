@@ -11,15 +11,25 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <string.h>
+#include <math.h>
 
 typedef struct {
 	int id;
 	int tamanio;
 	t_list* instrucciones; // LISTA
 	int program_counter;
-	char* tabla_paginas; // LISTA
+	int tabla_paginas; // LISTA
 	double estimacion_rafaga;
 } Pcb;
+
+typedef struct {
+	int pagina;
+	int marco;
+} Elemento;
+
+typedef struct {
+	t_list* entradas; //del tipo Elemento
+} Tlb;
 
 typedef struct {
 	int tamanio_id;
@@ -45,4 +55,27 @@ typedef struct {
 }  __attribute__((packed))
 t_paquete;
 
+typedef struct {
+	int entrada_tabla_1er_nivel;
+	int entrada_tabla_2do_nivel;
+	int desplazamiento;
+} __attribute__((packed))
+Direccion_logica
+;
+
+typedef struct {
+	int marco;
+	int desplazamiento;
+} __attribute__((packed))
+Direccion_fisica
+;
+
+typedef struct {
+	int tam_pag;
+	int nro_entradas;
+}__attribute__((packed))
+Config
+;
+
 int conexion;
+int socket_memoria;
