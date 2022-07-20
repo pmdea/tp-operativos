@@ -12,10 +12,28 @@ t_list* frames_auxiliares;
 t_queue* cola_reemplazo;
 t_list* lista_swaps;
 
+// Mutex
+pthread_mutex_t mutex_swap;
+pthread_mutex_t mutex_memoria;
+pthread_mutex_t mutex_frames;
+pthread_mutex_t mutex_pagina_1;
+pthread_mutex_t mutex_pagina_2;
+pthread_mutex_t mutex_cola_reemplazo;
+
 uint8_t init(){
 	config = crear_config();
 	logger = log_create("memoria.log", "MEM", true, LOG_LEVEL_INFO);
 	log_info(logger, "Logger creado!");
+	return init_semaforos();
+}
+
+uint8_t init_semaforos(){
+	pthread_mutex_init(&mutex_swap, NULL);
+	pthread_mutex_init(&mutex_memoria, NULL);
+	pthread_mutex_init(&mutex_frames, NULL);
+	pthread_mutex_init(&mutex_pagina_1, NULL);
+	pthread_mutex_init(&mutex_pagina_2, NULL);
+	pthread_mutex_init(&mutex_cola_reemplazo, NULL);
 	return 1;
 }
 
@@ -108,6 +126,13 @@ static void frame_destroyer(frame_auxiliar *self){
 void finalizar_programa(){
 	log_info(logger, "Finalizando programa...");
 	log_destroy(logger);
+	//Mato mutex
+	pthread_mutex_destroy(&mutex_swap);
+	pthread_mutex_destroy(&mutex_memoria);
+	pthread_mutex_destroy(&mutex_frames);
+	pthread_mutex_destroy(&mutex_pagina_1);
+	pthread_mutex_destroy(&mutex_pagina_2);
+	pthread_mutex_destroy(&mutex_cola_reemplazo);
 
 	//mato config
 	free(config->algoritmo_reemplazo);

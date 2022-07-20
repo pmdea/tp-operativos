@@ -54,13 +54,13 @@ int escuchar_server(){
 		case KERNEL:
 			log_info(logger, "Recibido mensaje de KERNEL, create y detach thread correspondiente");
 			pthread_create(&thread, NULL, (void*) escuchar_kernel, (void*) args);
-			pthread_detach(thread);
+			pthread_join(thread, NULL);
 			return 1;
 		break;
 		case CPU:
 			log_info(logger, "Recibido mensaje de CPU, create y detach thread correspondiente");
 			pthread_create(&thread, NULL, (void*) escuchar_cpu, (void*) args);
-			pthread_detach(thread);
+			pthread_join(thread, NULL);
 			return 1;
 		break;
 	}
@@ -133,9 +133,9 @@ void* escuchar_cpu(void* arg){
 			break;
 			case READ:{
 				log_info(logger, "Recibido request de READ");
-				uint32_t direc_fisica;
-				get_values_from_data(request->data, &direc_fisica, NULL, NULL);
-				//leer_en_memoria(id_2do_nivel, id_entrada, offset);
+				uint32_t direc_fisica, id_2do_nivel, id_entrada;
+				get_values_from_data(request->data, &id_2do_nivel, &id_entrada, &direc_fisica, NULL);
+				leer_en_memoria(id_2do_nivel, id_entrada, direc_fisica);
 				uint32_t valor;
 				enviar_mensaje_cliente(cliente, &valor, sizeof(uint32_t));
 				free(request);
@@ -143,24 +143,23 @@ void* escuchar_cpu(void* arg){
 			break;
 			case WRITE:{
 				log_info(logger, "Recibido request de WRITE");
-				uint32_t direc_fisica, valor;
-				get_values_from_data(request->data, &direc_fisica, &valor, NULL);
-				//escribir_memoria(id_2do_nivel, id_entrada, offset, data);
-				enviar_mensaje_cliente(cliente, "OK", sizeof(uint32_t));
-
+				uint32_t direc_fisica, valor, id_2do_nivel, id_entrada;
+				get_values_from_data(request->data, &id_2do_nivel, &id_entrada, &direc_fisica, &valor);
+				char* response = escribir_memoria(id_2do_nivel, id_entrada, direc_fisica, &valor);
+				enviar_mensaje_cliente(cliente, response, sizeof(uint32_t));
 				free(request);
 			}
 			break;
 			case COPY:
 				log_info(logger, "Recibido request de COPY");
 				uint32_t direc_fisica1, direc_fisica2;
-				get_values_from_data(request->data, &direc_fisica1, &direc_fisica2, NULL);
+				get_values_from_data(request->data, &direc_fisica1, &direc_fisica2, NULL, NULL);
 				free(request);
 			break;
 			case GET_PAG_NVL_2:{
 				log_info(logger, "Recibido request de GET_PAG_NVL_2");
 				uint32_t id_tabla_1, entrada;
-				get_values_from_data(request->data, &id_tabla_1, &entrada, NULL);
+				get_values_from_data(request->data, &id_tabla_1, &entrada, NULL, NULL);
 				uint32_t id_tabla_2 = get_tabla_2do_lvl(id_tabla_1, entrada);
 				enviar_mensaje_cliente(cliente, &id_tabla_2, sizeof(uint32_t));
 				free(request);
@@ -169,7 +168,7 @@ void* escuchar_cpu(void* arg){
 			case GET_MARCO:{
 				log_info(logger, "Recibido request de GET_MARCO");
 				uint32_t id_tabla_1, id_tabla_2, entrada;
-				get_values_from_data(request->data, &id_tabla_1, &id_tabla_2, &entrada);
+				get_values_from_data(request->data, &id_tabla_1, &id_tabla_2, &entrada, NULL);
 				uint32_t valor_en_mem = get_nro_marco(id_tabla_1, id_tabla_2, entrada);
 				enviar_mensaje_cliente(cliente, &valor_en_mem, sizeof(uint32_t));
 				free(request);
@@ -216,13 +215,15 @@ message_cpu* parsear_message_cpu(int cliente){
 	return request;
 }
 
-void get_values_from_data(void* data, uint32_t* primer, uint32_t* segundo, uint32_t* tercero){
+void get_values_from_data(void* data, uint32_t* primer, uint32_t* segundo, uint32_t* tercero, uint32_t* cuarto){
 	int size = sizeof(uint32_t);
 	memcpy(primer, data, size);
 	if(segundo != NULL)
 		memcpy(primer, data + size, size);
 	if(tercero != NULL)
 		memcpy(primer, data + size*2, size);
+	if(cuarto != NULL)
+		memcpy(primer, data + size*3, size);
 }
 
 void finalizar_servidor(){

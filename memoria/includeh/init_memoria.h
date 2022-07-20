@@ -18,6 +18,7 @@
 #include <commons/collections/queue.h>
 #include <commons/string.h>
 #include "estructuras.h"
+#include <pthread.h>
 
 typedef struct {
 	int puerto_escucha;
@@ -56,5 +57,6 @@ uint8_t cargar_tablas_paginas();
 uint8_t cargar_frames_auxiliares();
 uint8_t cargar_queue_pags();
 uint8_t cargar_lista_swaps();
+uint8_t init_semaforos(); // inicializar mutex
 
 #endif /* INIT_MEMORIA_H_ */
