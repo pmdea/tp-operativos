@@ -29,6 +29,6 @@ tabla_pagina* buscar_tabla_por_id(t_list* tablas, uint32_t id);
 tabla_pagina* buscar_tabla_por_pid(t_list* tablas, uint32_t pid);
 entrada_tp_2* buscar_entrada_2(t_list* entradas, uint32_t id);
 entrada_tp_1* buscar_entrada_1(t_list* entradas, uint32_t id);
-void marcar_pag_mod_uso(uint32_t id_2do_nivel, uint32_t id_entrada);
+void marcar_pag_mod_uso(uint32_t id_2do_nivel, uint32_t id_entrada, uint8_t modificada);
 proc_swap* obtener_swap_por_pid(uint32_t pid);
 #endif /* INCLUDEH_MANEJAR_PAGINACION_H_ */

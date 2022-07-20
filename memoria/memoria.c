@@ -68,14 +68,14 @@ uint32_t get_nro_marco(uint32_t id_tabla_1, uint32_t id_tabla_2, uint32_t entrad
 uint32_t leer_en_memoria(uint32_t id_2do_nivel, uint32_t id_entrada, uint32_t offset){
 	uint32_t data = *((uint32_t*)leer_de_memoria(offset, sizeof(uint32_t)));
 	log_info(logger, "Leido de memoria: %d", data);
-	marcar_pag_mod_uso(id_2do_nivel, id_entrada);
+	marcar_pag_mod_uso(id_2do_nivel, id_entrada, 0);
 	esperar_response_cpu();
 	return data;
 }
 char* escribir_memoria(uint32_t id_2do_nivel, uint32_t id_entrada, uint32_t offset, void* data){
 	log_info(logger, "Escribiendo en dirección física %d data: %d", offset, *((uint32_t*)data));
 	char* response = escribir_en_memoria(offset, data, sizeof(uint32_t));
-	marcar_pag_mod_uso(id_2do_nivel, id_entrada);
+	marcar_pag_mod_uso(id_2do_nivel, id_entrada, 1);
 	esperar_response_cpu();
 	return response;
 }

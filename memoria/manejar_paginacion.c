@@ -347,13 +347,14 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		return list_find(entradas, (void*) _is_entrada);
 	}
 
-	void marcar_pag_mod_uso(uint32_t id_2do_nivel, uint32_t id_entrada){
+	void marcar_pag_mod_uso(uint32_t id_2do_nivel, uint32_t id_entrada, uint8_t modificada){
 		log_info(logger, "Marcando pag %d de tabla 2do nivel %d como modificada y en uso", id_2do_nivel, id_entrada);
 		pthread_mutex_lock(&mutex_pagina_2);
 		tabla_pagina* segundo = buscar_tabla_por_id(tablas_2do_nivel, id_2do_nivel);
 		entrada_tp_2* pag = buscar_entrada_2(segundo->entradas, id_entrada);
-		pag->bit_modified = 1;
+		pag->bit_modified = (modificada)? modificada : pag->bit_modified;
 		pag->bit_uso = 1;
+
 		pthread_mutex_lock(&mutex_pagina_2);
 	}
 
