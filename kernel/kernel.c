@@ -101,6 +101,7 @@ int main(void)
 
     // FIN PRUEBAS PCB
 
+	//printf("Proceso creado correctamente");
 }
 
 
