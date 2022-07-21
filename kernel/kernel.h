@@ -63,12 +63,6 @@ t_list* procesosBlocked;
 t_list* procesosSuspendedBlocked;
 t_list* procesosSuspendedReady;
 t_list* procesosExit;
-<<<<<<< HEAD
-
-t_log* iniciar_logger_kernel(void);
-t_config* iniciar_config_kernel(void);
-void terminar_programa(t_log*, t_config*);
-=======
 t_list* conexiones_pcb;
 t_list* tiemposBlocked;
 t_list* tiemposBlockedSuspendMax;
@@ -187,4 +181,4 @@ t_list* deserializarListaInst(int emisor);
 t_instruccion* deserializarInst(int emisor);
 t_list* recibir_devolucion_cpu(int socket);
 int tamanio_listaInst(t_list* listaInst);
->>>>>>> 36d71d195916ee6d561c221c9cf5d7b644457c82
+
