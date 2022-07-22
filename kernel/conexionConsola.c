@@ -28,24 +28,35 @@ void escuchar(int kernel) {
 }
 
 void procesar_entradas_de_consolas(int kernel) {
+    int id_ultimo_pcb = 0;
+    while (1) {
+        pthread_t hilo;
+        int *consola = malloc(sizeof(int));
+        *consola = accept(kernel, NULL,NULL);
 
-	while (1) {
-		pthread_t hilo;
-		int *consola = malloc(sizeof(int));
-		*consola = accept(kernel, NULL,NULL);
+        if (*consola == -1) {
+            log_error(loggerKernel,"No se pudo aceptar a la consola\n");
+        } else {
+            log_info(loggerKernel, "SOCKET CONSOLA ACTUAL: %i", *consola);
+            log_info(loggerKernel, "ID PCB ACTUAL: %i", id_ultimo_pcb);
 
-		if (*consola == -1) {
-			log_error(loggerKernel,"No se pudo aceptar a la consola\n");
-		} else {
-			pthread_create(&hilo, NULL, (void*) atender_consola,(void*) *consola);
-			pthread_detach(hilo);
-			free(consola);
-		}
+            consola_pcb * nuevaConexion;
+            nuevaConexion -> socket_consola = *consola;
+            nuevaConexion -> pcbVinculado = id_ultimo_pcb;
+            list_add(conexiones_pcb, nuevaConexion);
+            free(nuevaConexion);
 
-		log_info(loggerKernel, "Esperando nueva conexion...\n");
-	}
+            pthread_create(&hilo, NULL, (void*) atender_consola,(void*) *consola);
+            pthread_detach(hilo);
+            free(consola);
+        }
+
+        log_info(loggerKernel, "Esperando nueva conexion...\n");
+        id_ultimo_pcb++;
+    }
 
 }
+
 
 bool protocolo_handshake(int consola) {
 	op_code *operacion = malloc(sizeof(op_code));
@@ -77,21 +88,23 @@ bool es_igual_a(char* un_string, char* otro_string) {
 	return strcmp(un_string, otro_string) == 0;
 }
 
-
 void atender_consola(int consola) {
-	log_info(loggerKernel, "preparado para recibir datos de la consola...\n");
-	log_info(loggerKernel,"Iniciando protocolo handshake...");
-	t_proceso* proceso = malloc(sizeof(t_proceso));
-	proceso->instrucciones = queue_create();
-	if(!protocolo_handshake(consola)) {
-		log_error(loggerKernel,"La consola no implementa el mismo protocolo habdshake que el kernel");
-	} else if(!se_pudo_recibir_el_proceso(proceso, consola)) {
-		log_error(loggerKernel,"No se pudo recibir el proceso");
-	} else {
-		enviar_confirmacion(consola);
-	}
+    log_info(loggerKernel, "preparado para recibir datos de la consola...\n");
+    log_info(loggerKernel,"Iniciando protocolo handshake...");
+    t_proceso* proceso = malloc(sizeof(t_proceso));
+    proceso->instrucciones = queue_create();
+    if(!protocolo_handshake(consola)) {
+        log_error(loggerKernel,"La consola no implementa el mismo protocolo habdshake que el kernel");
+    } else if(!se_pudo_recibir_el_proceso(proceso, consola)) {
+        log_error(loggerKernel,"No se pudo recibir el proceso");
+    } else {
+        int idPCB = devolverID_PCB(consola);
+        generar_PCB(idPCB, proceso);
+        enviar_confirmacion(consola);
+    }
 
 }
+
 
 bool se_pudo_recibir_el_proceso(t_proceso* proceso,int consola) {
 	int *tamanio_recibido = malloc(sizeof(int));
