@@ -40,12 +40,11 @@ void procesar_entradas_de_consolas(int kernel) {
             log_info(loggerKernel, "SOCKET CONSOLA ACTUAL: %i", *consola);
             log_info(loggerKernel, "ID PCB ACTUAL: %i", id_ultimo_pcb);
 
-            consola_pcb * nuevaConexion;
+            consola_pcb * nuevaConexion = malloc(sizeof(consola_pcb));
             nuevaConexion -> socket_consola = *consola;
             nuevaConexion -> pcbVinculado = id_ultimo_pcb;
             list_add(conexiones_pcb, nuevaConexion);
-            free(nuevaConexion);
-
+            //TODO: devolver a kernel que termino
             pthread_create(&hilo, NULL, (void*) atender_consola,(void*) *consola);
             pthread_detach(hilo);
             free(consola);
@@ -69,23 +68,32 @@ bool protocolo_handshake(int consola) {
 	free(operacion);
 	t_mensaje* recibido = malloc(sizeof(t_mensaje));
 	recv(consola,&(recibido->tamanio_mensaje), sizeof(int),0);
-	recv(consola,recibido->mensaje,recibido->tamanio_mensaje,0);
-	strcat(recibido->mensaje,"\0");
-	if(!es_igual_a(recibido->mensaje,MENSAJE_HANDSHAKE_ESPERADO)) {
+	int* sizeMensaje = malloc(sizeof(int));
+	int* charTest = malloc(sizeof(int));
+	recv(consola,sizeMensaje, sizeof(int),0);
+	void* tst = malloc(*sizeMensaje);
+	recv(consola,tst,*sizeMensaje,0);
+	recibido->mensaje = tst;
+	string_append(&recibido->mensaje, "\0");
+	free(charTest);
+	free(sizeMensaje);
+	if(!es_igual_a(recibido->mensaje, "HOLA DON PEPITO")) {
 		log_error(loggerKernel,"EL mensaje recibido no era el esperado: recibido: %s, esperado: %s",recibido->mensaje,MENSAJE_HANDSHAKE_ESPERADO);
 	} else if (!enviar_mensaje(HANDSHAKE,MENSAJE_HANDSHAKE_ENVIADO,consola)) {
 		log_error(loggerKernel,"No se pudo enviar el mensaje de handshake");
 	} else {
 		log_info(loggerKernel,"El protocolo handshake fue aprobado");
+		free(recibido->mensaje);
 		free(recibido);
 		return true;
 	}
+	free(recibido->mensaje);
 	free(recibido);
 	return false;
 }
 
 bool es_igual_a(char* un_string, char* otro_string) {
-	return strcmp(un_string, otro_string) == 0;
+	return string_equals_ignore_case(un_string, otro_string);
 }
 
 void atender_consola(int consola) {
@@ -109,12 +117,12 @@ void atender_consola(int consola) {
 bool se_pudo_recibir_el_proceso(t_proceso* proceso,int consola) {
 	int *tamanio_recibido = malloc(sizeof(int));
 	if(recv(consola,tamanio_recibido,sizeof(int),0) == 0) {
-		log_error(loggerKernel,"La consola se desconexto.");
+		log_error(loggerKernel,"La consola se desconecto.");
 		free(tamanio_recibido);
 		return false;
 	} else {
+		proceso->tamanio_proceso = *tamanio_recibido;
 		recibir_instrucciones(proceso,consola);
-		recv(consola,&(proceso->tamanio_proceso),sizeof(int),0);
 		free(tamanio_recibido);
 		return true;
 	}
@@ -128,7 +136,9 @@ bool se_pueden_recibir_instrucciones(t_proceso* proceso, int consola) {
 	t_instruccion* instruccion = malloc(sizeof(t_instruccion));
 	instruccion->parametros = queue_create();
 	recv(consola,&(instruccion->tamanio_id),sizeof(int),0);
-	recv(consola,&(instruccion->identificador),instruccion->tamanio_id,0);
+	void* string = malloc(instruccion->tamanio_id);
+	recv(consola,string,instruccion->tamanio_id,0);
+	instruccion->identificador = string;
 	recibir_parametros(instruccion, consola);
 	queue_push(proceso->instrucciones,instruccion);
 	return es_igual_a(instruccion->identificador,"EXIT");
@@ -140,7 +150,6 @@ void recibir_parametros(t_instruccion* instruccion, int consola) {
 		int *parametro = malloc(sizeof(int));
 		recv(consola,parametro,sizeof(int),0);
 		queue_push(instruccion->parametros,(void*) *parametro);
-		free(parametro);
 	}
 }
 
@@ -171,14 +180,16 @@ void enviar_confirmacion(int consola) {
 bool enviar_mensaje(op_code codigo, char* mensaje, int socket_consola) {
 	t_paquete* envio = malloc(sizeof(t_paquete));
 	envio->codigo_operacion = codigo;
-	envio->buffer->size = string_length(mensaje) + sizeof(int);
+	envio->buffer = malloc(sizeof(t_buffer));
+	envio->buffer->size = string_length(mensaje) +1  + sizeof(int);
 	envio->buffer->stream = malloc(envio->buffer->size);
 	int desplazamiento = 0;
-	int *tamanio_mensaje = malloc(sizeof(int));
-	*tamanio_mensaje = string_length(mensaje);
-	memcpy(envio->buffer->stream + desplazamiento,tamanio_mensaje,sizeof(int));
+	int *tamanio = malloc(sizeof(int));
+	*tamanio = strlen(mensaje)+1;
+	memcpy(envio->buffer->stream + desplazamiento,tamanio,sizeof(int));
 	desplazamiento += sizeof(int);
-	memcpy(envio->buffer->stream + desplazamiento,mensaje,sizeof(int));
+	memcpy(envio->buffer->stream + desplazamiento,mensaje, *tamanio);
+	free(tamanio);
 	return enviar_paquete(envio,socket_consola);
 }
 
@@ -191,9 +202,10 @@ bool enviar_paquete(t_paquete* paquete, int socket_consola) {
 	desplazamiento += sizeof(op_code);
 	memcpy(datos_a_enviar + desplazamiento,&(paquete->buffer->size),sizeof(int));
 	desplazamiento += sizeof(int);
-	memcpy(datos_a_enviar + desplazamiento,&(paquete->buffer->stream),paquete->buffer->size);
+	int sizeChar = *tamanio_datos - sizeof(op_code) - sizeof(int);
+	memcpy(datos_a_enviar + desplazamiento,paquete->buffer->stream, sizeChar);
 
-	if(send(socket_consola,datos_a_enviar,*tamanio_datos,0) != -1) {
+	if(send(socket_consola,datos_a_enviar,*tamanio_datos,0) == -1) {
 		eliminar_paquete(paquete);
 		free(datos_a_enviar);
 		free(tamanio_datos);
@@ -203,7 +215,7 @@ bool enviar_paquete(t_paquete* paquete, int socket_consola) {
 	eliminar_paquete(paquete);
 	free(datos_a_enviar);
 	free(tamanio_datos);
-	log_info(loggerKernel,"El paquete fue enviado con exito");
+	log_info(loggerKernel,"EL paquete fue enviado con exito");
 	return true;
 }
 

@@ -7,7 +7,7 @@ int main(void)
 	configCpu = iniciar_config_cpu();
 	tlb = list_create();
 
-	void init_cpu();
+	init_cpu();
 
 	pthread_t thread_dispath, thread_interrupt;
 	pthread_mutex_init(&interrupcionVariable, NULL);

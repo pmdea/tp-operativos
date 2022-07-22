@@ -106,6 +106,15 @@ void deserializar_mensaje(char* mensaje,t_paquete* paquete);
 #define MENSAJE_HANDSHAKE_ENVIADO "HOLA DON PEPITO"
 #define MENSAJE_HANDSHAKE_ESPERADO "HOLA DON JOSE"
 
+typedef enum {
+	NO_OP = 0,
+	IO = 1,
+	READ = 2,
+	WRITE = 3,
+	COPY = 4,
+	EXIT = 5
+} OPERACIONES;
+
 t_log* log_consola;
 
 #endif /* CONSOLA_H_ */

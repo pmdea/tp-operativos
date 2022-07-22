@@ -3,12 +3,12 @@
 void init_cpu(){
 	log_info(loggerCpu, "Initializing CPU process...");
 	// Realizar handshake con memoria
-	socket_memoria = crear_conexion(config_cpu.ip_memoria, config_cpu.puerto_memoria);
+	socket_memoria = crear_conexion(config_cpu.ip_memoria, string_itoa(config_cpu.puerto_memoria));
 	log_info(loggerCpu, "Memory socket created! %d", socket_memoria);
 	handshake_memoria(socket_memoria);
 	//Escuchar en dispatch e interrupt
-	kernel_int_socket = create_socket(config_cpu.puerto_cpu_interrupt);
-	kernel_disp_socket = create_socket(config_cpu.puerto_cpu_dispatch);
+	kernel_int_socket = create_socket(string_itoa(config_cpu.puerto_cpu_interrupt));
+	kernel_disp_socket = create_socket(string_itoa(config_cpu.puerto_cpu_dispatch));
 	log_info(loggerCpu, "CPU initialized correctly");
 }
 
@@ -33,6 +33,7 @@ int crear_conexion(char *ip, char* puerto)
 void handshake_memoria(int socket){
 	log_info(loggerCpu, "Realizing handshake with memory module...");
 	log_info(loggerCpu, "Handshake completed successfully!");
+	//TODO: handshake
 }
 
 int create_socket(char* port)
@@ -55,8 +56,6 @@ int create_socket(char* port)
 int esperar_cliente(int socket_servidor)
 {
 	int socket_cliente = accept(socket_servidor, NULL, NULL);
-	//log_info(loggerCpu, "Se conecto un cliente!");
-
 	return socket_cliente;
 }
 

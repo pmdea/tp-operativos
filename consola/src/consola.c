@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 				//GUARDAR PROCESO
 				if(el_proceso_es_valido(instrucciones, instrucciones_parseadas)) {
 					//ABRIR CONFIGURACION
-					t_config* consola_config = config_create("./consola-v2/consola.config");
+					t_config* consola_config = config_create("consola.config");
 					log_debug(log_consola,"EL IP del config es: %s", config_get_string_value(consola_config, CLAVE_IP));
 					log_debug(log_consola,"El puerto del config es: %s", config_get_string_value(consola_config, CLAVE_PUERTO));
 					// INICIAR SOCKET Y CONEXTAR CON KERNEL
@@ -149,7 +149,7 @@ bool esta_en_la_lista(t_list* lista, void* elemento_buscado) {
 }
 
 bool es_igual_a(void* un_string, void* otro_string) {
-	return strcmp((char*) un_string,(char*) otro_string) == 0;
+	return string_equals_ignore_case((char*) un_string, (char*)otro_string);
 }
 
 bool tiene_los_parametros_correctos(char** instruccion) {
@@ -265,14 +265,16 @@ bool confirmacion_handshake(int socket_consola) {
 		free(recibido);
 		return false;
 	}
-	free(recibido);
 	return true;
 }
 
 void deserializar_handshake(t_mensaje* recibido,int socket_consola) {
 	recv(socket_consola, &(recibido->tamanio_mensaje),sizeof(int),0);
-	recv(socket_consola,recibido->mensaje, recibido->tamanio_mensaje,0);
-	strcat(recibido->mensaje,"\0");
+	uint32_t *size_string = malloc(sizeof(uint32_t));
+	recv(socket_consola, size_string,sizeof(uint32_t),0);
+	void* data = malloc(*size_string);
+	recv(socket_consola, data, *size_string,0);
+	recibido->mensaje = data;
 }
 
 bool se_recibio_el_mensaje_correcto(t_mensaje* recibido, int socket_consola) {
@@ -290,14 +292,14 @@ bool enviar_mensaje(op_code codigo, char* mensaje, int socket_consola) {
 	t_paquete* envio = malloc(sizeof(t_paquete));
 	envio->operacion = codigo;
 	envio->buffer = malloc(sizeof(t_buffer));
-	envio->buffer->size = string_length(mensaje) + sizeof(int);
+	envio->buffer->size = string_length(mensaje) +1  + sizeof(int);
 	envio->buffer->stream = malloc(envio->buffer->size);
 	int desplazamiento = 0;
 	int *tamanio = malloc(sizeof(int));
-	*tamanio = string_length(mensaje);
+	*tamanio = strlen(mensaje)+1;
 	memcpy(envio->buffer->stream + desplazamiento,tamanio,sizeof(int));
 	desplazamiento += sizeof(int);
-	memcpy(envio->buffer->stream + desplazamiento,mensaje,sizeof(int));
+	memcpy(envio->buffer->stream + desplazamiento,mensaje, *tamanio);
 	free(tamanio);
 	return enviar_paquete(envio,socket_consola);
 }
@@ -308,7 +310,11 @@ t_paquete* serializar_proceso(t_queue* contenido, op_code codigo,
 	paquete_serializado->operacion = codigo;
 	paquete_serializado->buffer = malloc(sizeof(t_buffer));
 	log_debug(log_consola,"codigo: %i",paquete_serializado->operacion);
-	paquete_serializado->buffer->size = sizeof(int)+queue_size(contenido)*sizeof(int) + tamanio_identificadores(contenido)*sizeof(char) + parametros_totales(contenido)*sizeof(UNSIGNED_INT);
+	paquete_serializado->buffer->size = sizeof(int) //Codigo
+			+ sizeof(tamanio_proceso) // TAMAÑO PROCESO
+			+ queue_size(contenido)*sizeof(int)
+			+ tamanio_identificadores(contenido)*sizeof(char)
+			+ parametros_totales(contenido)*sizeof(UNSIGNED_INT);
 	void* buffer = malloc(paquete_serializado->buffer->size);
 	agregar_contenido(contenido,buffer,tamanio_proceso);
 	paquete_serializado->buffer->stream = buffer;
@@ -393,7 +399,9 @@ bool enviar_paquete(t_paquete* paquete, int socket_consola) {
 	desplazamiento += sizeof(op_code);
 	memcpy(datos_a_enviar + desplazamiento,&(paquete->buffer->size),sizeof(int));
 	desplazamiento += sizeof(int);
-	memcpy(datos_a_enviar + desplazamiento,paquete->buffer->stream,paquete->buffer->size);
+	int sizeChar = *tamanio_datos - sizeof(op_code) - sizeof(int);
+	memcpy(datos_a_enviar + desplazamiento,paquete->buffer->stream, sizeChar);
+
 	if(send(socket_consola,datos_a_enviar,*tamanio_datos,0) == -1) {
 		eliminar_paquete(paquete);
 		free(datos_a_enviar);
