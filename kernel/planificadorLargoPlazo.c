@@ -10,16 +10,15 @@ void planificador_LargoPlazo(){
 
 
 void estadoReady(){
-    int tamanioReady = 0;
+    int tamanioNew = 0;
     int tamanioSuspendido = 0;
     while(1){
-
         pthread_mutex_lock(&mutexSuspendido);
         tamanioSuspendido = list_size(procesosSuspendedReady);
         pthread_mutex_unlock(&mutexSuspendido);
 
         pthread_mutex_lock(&mutexReady);
-        tamanioReady = list_size(procesosReady);
+        tamanioNew = list_size(procesosNew);
         pthread_mutex_unlock(&mutexReady);
 
         if(tamanioSuspendido > 0){
@@ -33,8 +32,7 @@ void estadoReady(){
             pthread_mutex_unlock(&mutexSuspendido);
             log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
 
-        }else if ( tamanioReady > 0){
-
+        }else if ( tamanioNew > 0){
             sem_wait(&grado_multiprogramacion);
             // AGREGO ESTA VALIDACION POR SI JUSTO SE TRABA EN EL SEMAFORO
             // LLEGA UN PROCESO A NEW Y SEGUNDOS DESPUES UN SUSPENDIDO

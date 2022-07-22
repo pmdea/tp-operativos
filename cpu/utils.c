@@ -53,18 +53,15 @@ void enviarIntSerializado(int numero, int socket_memoria){
 
 	free(mensaje);
 }
-
 void enviar_respuesta_kernel(int socket, pcb* unPCB, int rafagaCPU , int motivoRetorno, int tiempoBloqueo, t_log* logger){
 	//Asigno tamanio al buffer
 	int tamanioInstrucciones = tamanio_listaInst(unPCB -> instrucciones);
-	int tamanioLista = unPCB -> instrucciones -> elements_count;
-	int tamanioBuffer = sizeof(int)*5 + sizeof(double) + tamanioInstrucciones + sizeof(int)*tamanioLista + sizeof(int) + sizeof(int)*2;
+	int tamanioLista = list_size(unPCB -> instrucciones);
+	int tamanioBuffer = sizeof(int)*5 + sizeof(double) + tamanioInstrucciones + sizeof(int)*tamanioLista + sizeof(int)*3;
 	void* buffer = asignarMemoria(tamanioBuffer);
-
 	//Lleno el buffer
 	int desplazamiento = 0;
 
-	//Orden de serializacion // PCB
 	concatenarInt(buffer, &desplazamiento, unPCB -> id);
 	concatenarInt(buffer, &desplazamiento, unPCB -> tamanio);
 	concatenarInt(buffer, &desplazamiento, unPCB -> program_counter);
@@ -90,6 +87,8 @@ void enviar_respuesta_kernel(int socket, pcb* unPCB, int rafagaCPU , int motivoR
 	enviarMensaje(socket, buffer, tamanioBuffer);
 
 	log_info(loggerCpu, "Enviando PCB ID %i a Kernel....", unPCB -> id);
+	log_info(loggerCpu, "Recibi PCB EST %i de CPU ", unPCB -> estimacion_rafaga);
+	log_info(loggerCpu, "Recibi PCB TAB %i de CPU ", unPCB -> tabla_paginas);
 
 	free(buffer);
 }
@@ -129,17 +128,19 @@ void concatenarListaInt(void* buffer, int* desplazamiento, t_list* listaArchivos
 
 pcb* deserializarPCB(int socket_kernel){
 	pcb* unPCB = asignarMemoria(sizeof(pcb));
+	log_info(loggerCpu, "ESTOY EN DESERIALIZAR1");
 	t_list* instrucciones = list_create();
 	unPCB -> id = deserializarInt(socket_kernel);
 	unPCB -> tamanio = deserializarInt(socket_kernel);
 	unPCB -> program_counter = deserializarInt(socket_kernel);
 	unPCB -> tabla_paginas = deserializarInt(socket_kernel);
 	unPCB -> estimacion_rafaga = deserializarDouble(socket_kernel);
-
 	unPCB -> instrucciones = list_create();
 	instrucciones = deserializarListaInst(socket_kernel);
 	list_add_all(unPCB -> instrucciones, instrucciones );
-	log_info(loggerCpu, "He recibido un proceso");
+	log_info(loggerCpu, "He recibido un proceso ID %i", unPCB -> id);
+	log_info(loggerCpu, "RAFAGA PCB %f", unPCB -> estimacion_rafaga);
+	log_info(loggerCpu, "PAGINAS PCB %i", unPCB -> tabla_paginas);
 	return unPCB;
 }
 

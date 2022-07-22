@@ -3,9 +3,9 @@
 void init_cpu(){
 	log_info(loggerCpu, "Initializing CPU process...");
 	// Realizar handshake con memoria
-	socket_memoria = crear_conexion(config_cpu.ip_memoria, string_itoa(config_cpu.puerto_memoria));
-	log_info(loggerCpu, "Memory socket created! %d", socket_memoria);
-	handshake_memoria(socket_memoria);
+	//socket_memoria = crear_conexion(config_cpu.ip_memoria, string_itoa(config_cpu.puerto_memoria));
+	//log_info(loggerCpu, "Memory socket created! %d", socket_memoria);
+	//handshake_memoria(socket_memoria);
 	//Escuchar en dispatch e interrupt
 	kernel_int_socket = create_socket(string_itoa(config_cpu.puerto_cpu_interrupt));
 	kernel_disp_socket = create_socket(string_itoa(config_cpu.puerto_cpu_dispatch));
@@ -64,11 +64,13 @@ void *interruption(void *arg){
 	int socket_cliente = esperar_cliente(kernel_int_socket);
 	log_info(loggerCpu, "Kernel Interrupt connected %d", socket_cliente);
 	while(true){
+
 		int esperarValor = deserializarInt(socket_cliente);
 
 		pthread_mutex_lock(&interrupcionVariable);
 		interrupcion = esperarValor;
 		pthread_mutex_unlock(&interrupcionVariable);
+
 	}
 
 	log_info(loggerCpu, "Interrupt thread finish!");
@@ -80,30 +82,45 @@ void *dispatch(void *arg){
 	int socket_cliente = esperar_cliente(kernel_disp_socket);
 	log_info(loggerCpu, "Kernel Dispatch connected %d", socket_cliente);
 	while(true){
+		log_info(loggerCpu, "ESPERANDO PROCESO");
+		//pcb* proceso = malloc(sizeof(pcb));
+		//proceso = deserializarPCB(socket_cliente);
 
-		pcb* proceso = deserializarPCB(socket_cliente);
-		log_info(loggerCpu, "Ingreso un proceso");
+		pcb* proceso = asignarMemoria(sizeof(pcb));
+		log_info(loggerCpu, "ESTOY EN DESERIALIZAR1");
+		t_list* instrucciones = list_create();
+		proceso -> id = deserializarInt(socket_cliente);
+		proceso -> tamanio = deserializarInt(socket_cliente);
+		proceso -> program_counter = deserializarInt(socket_cliente);
+		proceso -> tabla_paginas = deserializarInt(socket_cliente);
+		proceso -> estimacion_rafaga = deserializarDouble(socket_cliente);
+		//proceso -> instrucciones = list_create();
+		//instrucciones = deserializarListaInst(socket_cliente);
+		//list_add_all(proceso -> instrucciones, instrucciones );
+
+		log_info(loggerCpu, "66PCB ID %i a Kernel....", proceso -> id);
+		log_info(loggerCpu, "66PCB EST %f de CPU ", proceso -> estimacion_rafaga);
+		log_info(loggerCpu, "66PCB TAB %i de CPU ", proceso -> tabla_paginas);
+
 		int* rafaga = 0;
-		int* i = 0;
 		int tamanio = list_size(proceso->instrucciones);
+		log_info(loggerCpu, " TAMANIO INST %i", tamanio);
 
-		while(i < tamanio){
+
+		for(j = 0; j < tamanio; j++){
 
 		// obtiene la instruccion del pcb
 		t_instruccion* instruccion = fetch(proceso);
-
+		log_info(loggerCpu, "INSTRUCCION %s", instruccion -> identificador);
 		// se fija si tiene que buscar operandos en memoria
 		decode(instruccion, proceso);
 
 		//ejecuta la instruccion
-		execute(instruccion, proceso, rafaga);
+		execute(instruccion, proceso, rafaga, socket_cliente);
 
-		checkInterrupt(rafaga, proceso, i);
-
-		i++;
+		checkInterrupt(rafaga, proceso, j, socket_cliente);
 
 		}
-
 	}
 
 	log_info(loggerCpu, "Dispatch thread finish!");

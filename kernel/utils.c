@@ -95,10 +95,9 @@ void enviarIntSerializado(int numero, int socket_memoria){
 void serilizar_enviar_pcb(int socket, pcb* unPCB , t_log* logger){
 	//Asigno tamanio al buffer
 	int tamanioInstrucciones = tamanio_listaInst(unPCB -> instrucciones);
-	int tamanioLista = unPCB -> instrucciones -> elements_count;
+	int tamanioLista = list_size(unPCB -> instrucciones);
 	int tamanioBuffer = sizeof(int)*5 + sizeof(double) + tamanioInstrucciones + sizeof(int)*tamanioLista;
 	void* buffer = asignarMemoria(tamanioBuffer);
-
 	//Lleno el buffer
 	int desplazamiento = 0;
 
@@ -117,6 +116,8 @@ void serilizar_enviar_pcb(int socket, pcb* unPCB , t_log* logger){
 	enviarMensaje(socket, buffer, tamanioBuffer);
 
 	log_info(logger, "Enviando PCB de ID %i ....", unPCB -> id);
+	log_info(logger, "PCB PAGINAS %i ....", unPCB -> tabla_paginas);
+	log_info(loggerKernel, "PCB RAFAGA %f  ", unPCB -> estimacion_rafaga);
 
 	free(buffer);
 }
@@ -210,7 +211,9 @@ pcb* deserializarPCB(int socket_kernel){
 	unPCB -> instrucciones = list_create();
 	instrucciones = deserializarListaInst(socket_kernel);
 	list_add_all(unPCB -> instrucciones, instrucciones );
-	log_info(loggerKernel, "He recibido un proceso");
+	log_info(loggerKernel, "Recibi PCB ID %i de CPU ", unPCB -> id);
+	log_info(loggerKernel, "Recibi PCB EST %i de CPU ", unPCB -> estimacion_rafaga);
+	log_info(loggerKernel, "Recibi PCB TAB %i de CPU ", unPCB -> tabla_paginas);
 	return unPCB;
 }
 
@@ -266,12 +269,16 @@ t_list* recibir_devolucion_cpu(int socket){
 	t_list* respuesta = list_create();
 	pcb* procesoActualizado = deserializarPCB(socket);
 	int rafagaCPU = deserializarInt(socket);
-	char* motivoRetorno = deserializarString(socket);
+	int motivoRetorno = deserializarInt(socket);
 	int tiempoBloqueo = deserializarInt(socket);
 	list_add(respuesta, procesoActualizado);
 	list_add(respuesta, rafagaCPU);
 	list_add(respuesta, motivoRetorno);
 	list_add(respuesta, tiempoBloqueo);
+	log_info(loggerKernel, "Recibi PCB ID %i de CPU ", procesoActualizado -> id);
+	log_info(loggerKernel, "Recibi PCB EST %i de CPU ", procesoActualizado -> estimacion_rafaga);
+	log_info(loggerKernel, "Recibi PCB TAB %i de CPU ", procesoActualizado -> tabla_paginas);
+	log_info(loggerKernel, "Recibi MOTIV %i de CPU ", motivoRetorno);
 	return respuesta;
 }
 

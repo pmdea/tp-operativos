@@ -26,6 +26,7 @@ void administrar_bloqueos(){ // hilo
 
         pthread_mutex_lock(&mutexBloqueo);
         pcb* procesoBloqueado = list_remove(procesosBlocked, 0);
+        log_info(loggerKernel, "PCB ESTIMACION BLOQUE %f", procesoBloqueado -> estimacion_rafaga);
         int tiempo = list_remove(tiemposBlocked, 0);
         pthread_mutex_unlock(&mutexBloqueo);
 

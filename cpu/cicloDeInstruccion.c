@@ -2,7 +2,6 @@
 
 t_instruccion* fetch(pcb* unPcb){
 	t_instruccion* instruccion = list_get(unPcb->instrucciones,unPcb->program_counter);
-
 	return instruccion;
 }
 
@@ -30,8 +29,13 @@ int fetchOperands(direccion_logica* direccion_logica, pcb* unPcb)
 	return valor;
 }
 
-void execute(t_instruccion* instruccion, pcb* proceso, int raf)
+void execute(t_instruccion* instruccion, pcb* proceso, int raf, int socketA)
 {
+
+	log_info(loggerCpu, "55PCB ID %i a Kernel....", proceso -> id);
+	log_info(loggerCpu, "55PCB EST %i de CPU ", proceso -> estimacion_rafaga);
+	log_info(loggerCpu, "55PCB TAB %i de CPU ", proceso -> tabla_paginas);
+
 	int num = 0;
 	int tiempoBloqueo = 0;
 	int rafaga = raf;
@@ -47,20 +51,24 @@ void execute(t_instruccion* instruccion, pcb* proceso, int raf)
 		for(int i=0; i<num; i++)
 		{
 			usleep(config_cpu.retardo_noop);
-			i++;
-			rafaga++;
 			log_info(loggerCpu, "Ejecute Instruccion NO_OP %i", num);
+			rafaga++;
 		}
-		log_info(loggerCpu, "Ejecute Instruccion NO_OP %i", num);
-		proceso->program_counter++;
 
+		proceso->program_counter++;
 		break;
 	case 1:
 		tiempoBloqueo = list_get(instruccion->parametros->elements, 0);
+		log_info(loggerCpu, "TIEMPO BLOQUEO %i", tiempoBloqueo);
 		proceso->program_counter++;
 		rafaga++;
 
-		enviar_respuesta_kernel(kernel_disp_socket, proceso, rafaga , IO, tiempoBloqueo, loggerCpu);
+		log_info(loggerCpu, "4444444PCB ID %i a Kernel....", proceso -> id);
+		log_info(loggerCpu, "4444444PCB EST %i de CPU ", proceso -> estimacion_rafaga);
+		log_info(loggerCpu, "4444444PCB TAB %i de CPU ", proceso -> tabla_paginas);
+
+		enviar_respuesta_kernel(socketA, proceso, rafaga , IO, tiempoBloqueo, loggerCpu);
+		j = 99;
 		log_info(loggerCpu, "Ejecute Instruccion IO %i", tiempoBloqueo);
 		break;
 
@@ -98,18 +106,19 @@ void execute(t_instruccion* instruccion, pcb* proceso, int raf)
 
 	case 4:
 		proceso->program_counter++;
-		enviar_respuesta_kernel(kernel_disp_socket, proceso, 0, EXIT, 0, loggerCpu);
+		enviar_respuesta_kernel(socketA, proceso, 0, EXIT, 0, loggerCpu);
+		j = 99;
 		log_info(loggerCpu, "Ejecute Instruccion EXIT");
 		break;
 	}
 }
 
-void checkInterrupt(int rafaga, pcb* proceso, int cortarEjecucion)
+void checkInterrupt(int rafaga, pcb* proceso, int cortarEjecucion, int socketA)
 {
 	pthread_mutex_lock(&interrupcionVariable);
 	if(interrupcion==1) /// int interruption() implementado en otra rama
 	{
-		enviar_respuesta_kernel(kernel_disp_socket, proceso, rafaga, DESALOJO, 0, loggerCpu);
+		enviar_respuesta_kernel(socketA, proceso, rafaga, DESALOJO, 0, loggerCpu);
 		interrupcion = 0;
 	}
 	pthread_mutex_unlock(&interrupcionVariable);

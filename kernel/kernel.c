@@ -5,7 +5,7 @@ int main(void)
 	// Logger y Config
 	loggerKernel = iniciar_logger_kernel();
 	configKernel = iniciar_config_kernel();
-	//iniciar_conexiones();
+	iniciar_conexiones();
 	log_info(loggerKernel, "CONFIGURACION, LOGGER Y CONEXIONES CARGADOS", config_kernel.puerto_memoria);
 
 	// Listas
@@ -19,7 +19,7 @@ int main(void)
 	procesosSuspendedReady = list_create();
 	procesosExit = list_create();
 	conexiones_pcb = list_create();
-
+/*
 	struct sockaddr_in direccion_kernel;
 	inicializar_direccion_kernel(&direccion_kernel);
 
@@ -41,8 +41,8 @@ int main(void)
 	//FINALIZAR KERNEL
 
 	return 0;
-
-/*	log_info(loggerKernel, "LISTAS INICIADAS");
+*/
+	log_info(loggerKernel, "LISTAS INICIADAS");
 
     // Semaforos
 	pthread_mutex_init(&mutexExit, NULL);
@@ -89,21 +89,21 @@ int main(void)
     proceso2-> tamanio_proceso = 10;
     proceso2-> instrucciones = queue_create();
 
-
+    // PLANI_1
     list_add(proceso-> instrucciones -> elements, inst1);
     list_add(proceso-> instrucciones -> elements, inst3);
     list_add(proceso-> instrucciones -> elements, inst1);
     list_add(proceso-> instrucciones -> elements, inst2);
-
+    // PLANI_2
     list_add(proceso2-> instrucciones -> elements, inst4);
     list_add(proceso2-> instrucciones -> elements, inst2);
 
 
-    generar_PCB(0, proceso);
-    generar_PCB(1, proceso);
-    generar_PCB(2, proceso2);
-    generar_PCB(3, proceso2);
-    generar_PCB(4, proceso2);
+    generar_PCB(0, proceso); // P1
+//    generar_PCB(1, proceso);	// P1
+//    generar_PCB(2, proceso2); 	// P2
+//    generar_PCB(3, proceso2);
+//    generar_PCB(4, proceso2);
 
 
 	pthread_create(&planificadorLargoPlazoHilo, NULL, planificador_LargoPlazo, NULL);
@@ -124,6 +124,5 @@ int main(void)
     // FIN PRUEBAS PCB
 
 	//printf("Proceso creado correctamente");
-	 *
-	 */
+
 }

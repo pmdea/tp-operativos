@@ -28,7 +28,7 @@ int socket_memoria;
 
 // Var globales
 int* interrupcion;
-
+int j;
 pthread_mutex_t interrupcionVariable;
 
 // DEFINO LOG Y CONFIG
@@ -103,8 +103,8 @@ t_config* iniciar_config_cpu(void);
 t_instruccion* fetch(pcb* unPcb);
 void decode(t_instruccion* instruccion, pcb* unPCB);
 int fetchOperands(direccion_logica* direccion_logica, pcb* unPcb);
-void execute(t_instruccion* instruccion, pcb* proceso, int raf);
-void checkInterrupt(int rafaga, pcb* proceso, int cortarEjecucion);
+void execute(t_instruccion* instruccion, pcb* proceso, int raf, int socketA);
+void checkInterrupt(int rafaga, pcb* proceso, int cortarEjecucion, int socketA);
 
 int TLB(int pag);
 int estaEnTLB(int pag);

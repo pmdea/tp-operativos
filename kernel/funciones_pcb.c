@@ -6,7 +6,7 @@ void generar_PCB(int idPCB, t_proceso* proceso){ // Funcion para cargar los dato
     nuevoProceso -> tamanio = proceso -> tamanio_proceso;
     nuevoProceso -> instrucciones = list_create(); // Lista proveniente de consola
     nuevoProceso ->  program_counter = 0;
-    nuevoProceso ->  tabla_paginas = (-1); // Esta como (-1) por no tener una tabla asignada.
+    nuevoProceso ->  tabla_paginas = 0; // Esta como (0) por no tener una tabla asignada.
     nuevoProceso ->  estimacion_rafaga = config_kernel.estimacion_inicial;
 
     list_add_all(nuevoProceso -> instrucciones, proceso -> instrucciones -> elements);
@@ -14,6 +14,8 @@ void generar_PCB(int idPCB, t_proceso* proceso){ // Funcion para cargar los dato
 	pthread_mutex_lock(&mutexNew);
     list_add(procesosNew, nuevoProceso);
 	pthread_mutex_unlock(&mutexNew);
+
+	log_info(loggerKernel,"TAMANIO INST %i ", list_size(nuevoProceso -> instrucciones));
 
     log_info(loggerKernel, "Se agrego correctamente el Proceso de ID: %i", nuevoProceso -> id);
     //free(nuevoProceso); Si lo descomento rompe la funcion y altera los valores
