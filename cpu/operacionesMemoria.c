@@ -229,7 +229,7 @@ void agregar_a_TLB(int pagina, int marco)
 }
 
 //traduce direciones logicas en direcciones fisicas
-direccion_fisica* mmu(direccion_logica* direccion_logica, pcb* proceso)
+direccion_fisica* mmu(direccion_logica* direccion_logica, PCB* proceso)
 {
 	direccion_fisica* direccion_fisica;
 

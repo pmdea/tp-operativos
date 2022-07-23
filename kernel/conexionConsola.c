@@ -107,7 +107,7 @@ void atender_consola(int consola) {
         log_error(loggerKernel,"No se pudo recibir el proceso");
     } else {
         int idPCB = devolverID_PCB(consola);
-        generar_PCB(idPCB, proceso);
+        //generar_PCB(idPCB, proceso);
         enviar_confirmacion(consola);
     }
 

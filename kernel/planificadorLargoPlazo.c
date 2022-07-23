@@ -27,7 +27,7 @@ void estadoReady(){
             sem_wait(&grado_multiprogramacion); // El signal lo da el Planificador Mediano Plazo
 
             pthread_mutex_lock(&mutexSuspendido);
-            pcb* procesoSuspendido = list_get(procesosSuspendedReady, 0);
+            PCB* procesoSuspendido = list_get(procesosSuspendedReady, 0);
             list_add(procesosReady, procesoSuspendido);
             pthread_mutex_unlock(&mutexSuspendido);
             log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
@@ -44,14 +44,14 @@ void estadoReady(){
                 sem_wait(&prioridad_SuspendedReady); // Binario P.M.P
 
                 pthread_mutex_lock(&mutexSuspendido);
-                pcb* procesoSuspendido = list_get(procesosSuspendedReady, 0);
+                PCB* procesoSuspendido = list_get(procesosSuspendedReady, 0);
                 list_add(procesosReady, procesoSuspendido);
                 pthread_mutex_unlock(&mutexSuspendido);
                 log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
 
             } else {
                 pthread_mutex_lock(&mutexNew);
-                pcb * nuevoProceso = list_remove(procesosNew, 0);
+                PCB* nuevoProceso = list_remove(procesosNew, 0);
                 pthread_mutex_unlock(&mutexNew);
                 //Envio de mensaje a Modulo de Memoria para generar estructuras
                 //avisar_a_memoria(socket_memoria, INICIALIZA, nuevoProceso, loggerKernel);
@@ -72,7 +72,7 @@ void estadoReady(){
 
 
 void estadoExit(){
-	pcb* procesoFinalizado;
+	PCB* procesoFinalizado;
 	while (1){
 		sem_wait(&finalizoProceso);
         pthread_mutex_lock(&mutexExit);

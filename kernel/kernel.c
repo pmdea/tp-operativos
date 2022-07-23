@@ -6,7 +6,6 @@ int main(void)
 	loggerKernel = iniciar_logger_kernel();
 	configKernel = iniciar_config_kernel();
 	iniciar_conexiones();
-	log_info(loggerKernel, "CONFIGURACION, LOGGER Y CONEXIONES CARGADOS", config_kernel.puerto_memoria);
 
 	// Listas
 	procesosNew = list_create();
@@ -42,7 +41,6 @@ int main(void)
 
 	return 0;
 */
-	log_info(loggerKernel, "LISTAS INICIADAS");
 
     // Semaforos
 	pthread_mutex_init(&mutexExit, NULL);
@@ -54,56 +52,36 @@ int main(void)
     pthread_mutex_init(&mutexBloqueo, NULL);
     sem_init(&procesoBloqueado, 0, 0);
 
-	log_info(loggerKernel, "SEMAFOROS INICIADOS");
+	log_info(loggerKernel, "CONFIGURACION, LOGGER, CONEXIONES, SEMAFOROS, LISTAS: Generadas....");
 
-	// GENERO PRUEBA DEL PCB
-	t_proceso* proceso = malloc(sizeof(t_proceso));
-	t_proceso* proceso2 = malloc(sizeof(t_proceso));
+	t_instruccion* instrucc1 = asignarMemoria(sizeof(t_instruccion));
+	instrucc1 -> identificador = "NO_OP";
+	instrucc1 -> parametros = queue_create();
 
-	t_instruccion* inst1 = malloc(sizeof(t_instruccion));
-	t_instruccion* inst2= malloc(sizeof(t_instruccion));
-	t_instruccion* inst3= malloc(sizeof(t_instruccion));
-	t_instruccion* inst4= malloc(sizeof(t_instruccion));
+	list_add(instrucc1 -> parametros -> elements, 3);
 
+	t_instruccion* instrucc2 = asignarMemoria(sizeof(t_instruccion));
+	instrucc2 -> identificador = "I/O";
+	instrucc2 -> parametros = queue_create();
 
-	inst1 -> identificador = "NO_OP";
-	inst1 -> parametros = queue_create();
-	list_add(inst1 -> parametros -> elements, 3);
+	list_add(instrucc2 -> parametros -> elements, 5000);
 
-	inst2 -> identificador = "EXIT";
-	inst2 -> parametros = queue_create();
+	t_instruccion* instrucc3 = asignarMemoria(sizeof(t_instruccion));
+	instrucc3 -> identificador = "EXIT";
+	instrucc3 -> parametros = queue_create();
 
-	inst3 -> identificador = "I/O";
-	inst3 -> parametros = queue_create();
-	list_add(inst3 -> parametros -> elements, 5000);
+//	list_add(instrucc3 -> parametros -> elements, 0);
 
-	inst4 -> identificador = "NO_OP";
-	inst4 -> parametros = queue_create();
-	list_add(inst4 -> parametros -> elements, 10);
-
-	log_info(loggerKernel, "ANDAN INSTRUCCIONES");
-
-    proceso-> tamanio_proceso = 10;
-    proceso-> instrucciones = queue_create();
-
-    proceso2-> tamanio_proceso = 10;
-    proceso2-> instrucciones = queue_create();
-
-    // PLANI_1
-    list_add(proceso-> instrucciones -> elements, inst1);
-    list_add(proceso-> instrucciones -> elements, inst3);
-    list_add(proceso-> instrucciones -> elements, inst1);
-    list_add(proceso-> instrucciones -> elements, inst2);
-    // PLANI_2
-    list_add(proceso2-> instrucciones -> elements, inst4);
-    list_add(proceso2-> instrucciones -> elements, inst2);
+	t_proceso* proceso = asignarMemoria(sizeof(t_proceso));
+	proceso -> tamanio_proceso = 15;
+	proceso -> instrucciones = queue_create();
+	list_add(proceso -> instrucciones -> elements, instrucc3);
+//	list_add(proceso -> instrucciones -> elements, instrucc1);
+//	list_add(proceso -> instrucciones -> elements, instrucc2);
+//	list_add(proceso -> instrucciones -> elements, instrucc3);
 
 
-    generar_PCB(0, proceso); // P1
-//    generar_PCB(1, proceso);	// P1
-//    generar_PCB(2, proceso2); 	// P2
-//    generar_PCB(3, proceso2);
-//    generar_PCB(4, proceso2);
+	generarEstructuraPCB(23, proceso);
 
 
 	pthread_create(&planificadorLargoPlazoHilo, NULL, planificador_LargoPlazo, NULL);

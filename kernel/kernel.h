@@ -124,14 +124,14 @@ typedef struct {
 } KERNEL_CONFIG;
 KERNEL_CONFIG config_kernel;
 
-typedef struct {
-    int id;
-    int tamanio;
-    t_list* instrucciones; // LISTA
-    int program_counter;
-    int tabla_paginas; // LISTA
-    double estimacion_rafaga;
-} pcb;
+typedef struct{
+	uint32_t id;
+	uint32_t tamanio;
+	t_list* instrucciones;
+	uint32_t program_counter;
+	uint32_t tabla_paginas;
+	double estimacion_rafaga;
+}PCB;
 
 typedef struct {
 	int tamanio_id;
@@ -159,11 +159,16 @@ t_log* iniciar_logger_kernel(void);
 t_config* iniciar_config_kernel(void);
 void terminar_programa(t_log* logger, t_config* config);
 //funciones_pcb.c
-void generar_PCB(int idPCB, t_proceso* proceso);
-void estimador(pcb* unPCB, double alfa, int rafaga_ejecutada);
-bool ordenarSRT(pcb* unPCB,pcb* otroPCB);
-int devolverID_CONSOLA(pcb* unPCB);
+void estimador(PCB* unPCB, double alfa, int rafaga_ejecutada);
+bool ordenarSRT(PCB* unPCB,PCB* otroPCB);
+int devolverID_CONSOLA(PCB* unPCB);
 int devolverID_PCB(int socket);
+PCB crearPCB(int idPCB, t_proceso* proceso);
+void agregarEstadoNew(PCB* unPCB );
+void generarEstructuraPCB(int idPCB, t_proceso* proceso);
+void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger);
+t_list* recibirRespuestaCPU(int socket_emisor);
+void mostrarDatosPCB(PCB unPCB, t_log* log);
 //Planificadores
 void planificador_LargoPlazo();
 void planificador_CortoPlazo();
@@ -176,13 +181,24 @@ void ejecucionProcesoSRT();
 //Algoritmos
 void algoritmo_FIFO();
 void algoritmo_SRT();
-void avisar_a_planificador_LP(pcb* pcbFinalizado);
+void avisar_a_planificador_LP(PCB* pcbFinalizado);
 
-// Utils
+// Utils funciones para deserializar
 void* asignarMemoria(int cantidad);
 int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos);
 void enviarMensaje(int socket, void* mensaje, int tamanio);
 
+void concatenarInt32(void* buffer, int* desplazamiento, uint32_t numero);
+void concatenarDouble(void* buffer, int* desplazamiento, double numero);
+void concatenarString(void* buffer, int* desplazamiento, char* mensaje);
+void concatenarListaInt32(void* buffer, int* desplazamiento, t_list* listaArchivos);
+uint32_t tamanio_listaInst(t_list* listaInst);
+PCB* deserializarPCB(int socket_emisor, t_log* logger);
+uint32_t deserializarInt32(int emisor);
+t_list* deserializarListaInt32(int emisor);
+double deserializarDouble(int emisor);
+char* deserializarString(int emisor);
+/*
 void avisar_a_consola(pcb* pcbFinalizado);
 void avisar_a_memoria(int socket, uint32_t estado, pcb* unProceso, t_log* logger);
 void avisar_a_cpu_interrupt();
@@ -209,7 +225,7 @@ t_list* deserializarListaInst(int emisor);
 t_instruccion* deserializarInst(int emisor);
 t_list* recibir_devolucion_cpu(int socket);
 int tamanio_listaInst(t_list* listaInst);
-
+*/
 // conexionConsola
 #define PUERTO "8080"
 #define IP "127.0.0.1"

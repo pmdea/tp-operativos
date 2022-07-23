@@ -4,7 +4,7 @@ void planificador_MedianoPlazo(){
     while(1){
         sem_wait(&bloqueoMax);
         pthread_mutex_lock(&mutexBloqueoSuspendido);
-        pcb* procesoBloqueadoSuspendido = list_remove(procesosSuspendedBlocked, 0);
+        PCB* procesoBloqueadoSuspendido = list_remove(procesosSuspendedBlocked, 0);
         int tiemposBlockedSuspended = list_remove(tiemposBlockedSuspendMax, 0);
         pthread_mutex_unlock(&mutexBloqueoSuspendido);
         //avisar_a_memoria(socket_memoria, SUSPENDE, procesoBloqueadoSuspendido, loggerKernel);

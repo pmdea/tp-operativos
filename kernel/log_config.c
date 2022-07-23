@@ -3,7 +3,7 @@
 t_log* iniciar_logger_kernel(void)
 {
 	t_log* nuevo_logger;
-	if ((nuevo_logger = log_create("kernel.log", "Kernel", 1, LOG_LEVEL_INFO)) == NULL){
+	if ((nuevo_logger = log_create("kernel.log", "Kernel", 1, LOG_LEVEL_DEBUG)) == NULL){
 		printf("No pude crear el logger");
 		exit(1);
 	}

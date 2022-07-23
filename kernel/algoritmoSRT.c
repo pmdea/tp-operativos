@@ -19,9 +19,9 @@ void ejecucionProcesoSRT(){
             if(list_size(procesosReady) > 1){
                 log_info(loggerKernel, "Planifico por estimador");
                 list_sort(procesosReady, ordenarSRT);
-                pcb * unProceso = list_remove(procesosReady, 0);
+                PCB * unProceso = list_remove(procesosReady, 0);
             } else {
-                pcb * unProceso = list_remove(procesosReady, 0);
+            	PCB * unProceso = list_remove(procesosReady, 0);
             }
 		    pthread_mutex_unlock(&mutexReady);
 
@@ -48,7 +48,7 @@ void administradorRespuestaCPU(){
     	pthread_mutex_lock(&variableEjecutando);
     	ejecutando = 0;
     	pthread_mutex_unlock(&variableEjecutando);
-        pcb * unProceso = list_get(respuestaCPU, 0);
+    	PCB * unProceso = list_get(respuestaCPU, 0);
         char* motivoDeRegreso =  list_get(respuestaCPU, 2);
         int rafagaEjecutada = list_get(respuestaCPU, 1); // Si viene EXIT deberia representarse con (-1)
 

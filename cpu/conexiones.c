@@ -65,10 +65,10 @@ void *interruption(void *arg){
 	log_info(loggerCpu, "Kernel Interrupt connected %d", socket_cliente);
 	while(true){
 
-		int esperarValor = deserializarInt(socket_cliente);
+//		int esperarValor = deserializarInt(socket_cliente);
 
 		pthread_mutex_lock(&interrupcionVariable);
-		interrupcion = esperarValor;
+//		interrupcion = esperarValor;
 		pthread_mutex_unlock(&interrupcionVariable);
 
 	}
@@ -78,47 +78,31 @@ void *interruption(void *arg){
 }
 
 void *dispatch(void *arg){
+	t_instruccion* unaInstruccion;
 	log_info(loggerCpu, "Dispatch listening for calls...");
 	int socket_cliente = esperar_cliente(kernel_disp_socket);
 	log_info(loggerCpu, "Kernel Dispatch connected %d", socket_cliente);
 	while(true){
-		log_info(loggerCpu, "ESPERANDO PROCESO");
-		//pcb* proceso = malloc(sizeof(pcb));
-		//proceso = deserializarPCB(socket_cliente);
+		PCB* unPCB = deserializarPCB(socket_cliente, loggerCpu);
 
-		pcb* proceso = asignarMemoria(sizeof(pcb));
-		log_info(loggerCpu, "ESTOY EN DESERIALIZAR1");
-		t_list* instrucciones = list_create();
-		proceso -> id = deserializarInt(socket_cliente);
-		proceso -> tamanio = deserializarInt(socket_cliente);
-		proceso -> program_counter = deserializarInt(socket_cliente);
-		proceso -> tabla_paginas = deserializarInt(socket_cliente);
-		proceso -> estimacion_rafaga = deserializarDouble(socket_cliente);
-		//proceso -> instrucciones = list_create();
-		//instrucciones = deserializarListaInst(socket_cliente);
-		//list_add_all(proceso -> instrucciones, instrucciones );
-
-		log_info(loggerCpu, "66PCB ID %i a Kernel....", proceso -> id);
-		log_info(loggerCpu, "66PCB EST %f de CPU ", proceso -> estimacion_rafaga);
-		log_info(loggerCpu, "66PCB TAB %i de CPU ", proceso -> tabla_paginas);
 
 		int* rafaga = 0;
-		int tamanio = list_size(proceso->instrucciones);
-		log_info(loggerCpu, " TAMANIO INST %i", tamanio);
+		int tamanio = list_size(unPCB->instrucciones);
 
+		mostrarDatosPCB(*unPCB, loggerCpu);
+
+//		enviarRespuestaKernel(socket_cliente, *unPCB, IO, 10, 15, loggerCpu);
 
 		for(j = 0; j < tamanio; j++){
-
 		// obtiene la instruccion del pcb
-		t_instruccion* instruccion = fetch(proceso);
-		log_info(loggerCpu, "INSTRUCCION %s", instruccion -> identificador);
+		t_instruccion* unaInstruccion = fetch(*unPCB);
 		// se fija si tiene que buscar operandos en memoria
-		decode(instruccion, proceso);
+		decode(unaInstruccion, *unPCB);
 
 		//ejecuta la instruccion
-		execute(instruccion, proceso, rafaga, socket_cliente);
+		execute(unaInstruccion, *unPCB, rafaga, socket_cliente);
 
-		checkInterrupt(rafaga, proceso, j, socket_cliente);
+		checkInterrupt(rafaga, *unPCB, j, socket_cliente);
 
 		}
 	}
