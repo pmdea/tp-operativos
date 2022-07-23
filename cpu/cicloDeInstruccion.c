@@ -32,9 +32,7 @@ int fetchOperands(direccion_logica* direccion_logica, pcb* unPcb)
 void execute(t_instruccion* instruccion, pcb* proceso, int raf, int socketA)
 {
 
-	log_info(loggerCpu, "55PCB ID %i a Kernel....", proceso -> id);
-	log_info(loggerCpu, "55PCB EST %i de CPU ", proceso -> estimacion_rafaga);
-	log_info(loggerCpu, "55PCB TAB %i de CPU ", proceso -> tabla_paginas);
+	log_info(loggerCpu, "EN EXE ID PCB : %i....", proceso -> id);
 
 	int num = 0;
 	int tiempoBloqueo = 0;
@@ -62,14 +60,9 @@ void execute(t_instruccion* instruccion, pcb* proceso, int raf, int socketA)
 		log_info(loggerCpu, "TIEMPO BLOQUEO %i", tiempoBloqueo);
 		proceso->program_counter++;
 		rafaga++;
-
-		log_info(loggerCpu, "4444444PCB ID %i a Kernel....", proceso -> id);
-		log_info(loggerCpu, "4444444PCB EST %i de CPU ", proceso -> estimacion_rafaga);
-		log_info(loggerCpu, "4444444PCB TAB %i de CPU ", proceso -> tabla_paginas);
-
 		enviar_respuesta_kernel(socketA, proceso, rafaga , IO, tiempoBloqueo, loggerCpu);
+		log_info(loggerCpu, "Ejecute Instruccion IO por el tiempo de :  %i", tiempoBloqueo);
 		j = 99;
-		log_info(loggerCpu, "Ejecute Instruccion IO %i", tiempoBloqueo);
 		break;
 
 //READ(dirección_lógica)

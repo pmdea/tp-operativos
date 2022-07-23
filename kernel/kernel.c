@@ -91,12 +91,12 @@ int main(void)
 
     // PLANI_1
     list_add(proceso-> instrucciones -> elements, inst1);
+    list_add(proceso-> instrucciones -> elements, inst4);
     list_add(proceso-> instrucciones -> elements, inst3);
-    list_add(proceso-> instrucciones -> elements, inst1);
     list_add(proceso-> instrucciones -> elements, inst2);
     // PLANI_2
-    list_add(proceso2-> instrucciones -> elements, inst4);
-    list_add(proceso2-> instrucciones -> elements, inst2);
+   // list_add(proceso2-> instrucciones -> elements, inst4);
+    //list_add(proceso2-> instrucciones -> elements, inst2);
 
 
     generar_PCB(0, proceso); // P1

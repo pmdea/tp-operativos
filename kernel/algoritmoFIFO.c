@@ -10,13 +10,13 @@ void algoritmo_FIFO(){
 
         //Enviar proceso a CPU
         serilizar_enviar_pcb(socket_cpu_dispatch, unProceso, loggerKernel);
-
+        log_info(loggerKernel, "ENVIO PROCESO ***");
         // Espero respuesta del CPU con PCB/Motivo/Bloqueo
         respuestaCPU = recibir_devolucion_cpu(socket_cpu_dispatch);
         unProceso = list_get(respuestaCPU, 0);
         int motivoDeRegreso =  list_get(respuestaCPU, 2);
         log_info(loggerKernel, "MOTIVO REGRESO %i", motivoDeRegreso);
-        log_info(loggerKernel, "ID PCB %i, RAFAGA %i, PAG %i, MOTIVO %i", unProceso -> id, unProceso -> estimacion_rafaga, unProceso -> tabla_paginas, motivoDeRegreso);
+        log_info(loggerKernel, "ID PCB %i, RAFAGA %f, PAG %i", unProceso -> id, unProceso -> estimacion_rafaga, unProceso -> tabla_paginas);
         if( motivoDeRegreso == EXIT ){
             avisar_a_planificador_LP(unProceso);
             list_clean(respuestaCPU);
@@ -29,7 +29,6 @@ void algoritmo_FIFO(){
             list_add(tiemposBlocked, tiempoBloqueo);
             pthread_mutex_unlock(&mutexBloqueo);
             list_clean(respuestaCPU);
-
             sem_post(&procesoBloqueado);
         }
     }

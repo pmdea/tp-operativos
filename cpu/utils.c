@@ -86,10 +86,8 @@ void enviar_respuesta_kernel(int socket, pcb* unPCB, int rafagaCPU , int motivoR
 
 	enviarMensaje(socket, buffer, tamanioBuffer);
 
-	log_info(loggerCpu, "Enviando PCB ID %i a Kernel....", unPCB -> id);
-	log_info(loggerCpu, "Recibi PCB EST %i de CPU ", unPCB -> estimacion_rafaga);
-	log_info(loggerCpu, "Recibi PCB TAB %i de CPU ", unPCB -> tabla_paginas);
-
+	log_info(loggerCpu, "***Envie el PCB DE ID : %i", unPCB -> id);
+	log_info(loggerCpu, "***RAFAGA EJECUTADA : %f", rafagaCPU);
 	free(buffer);
 }
 
@@ -128,19 +126,23 @@ void concatenarListaInt(void* buffer, int* desplazamiento, t_list* listaArchivos
 
 pcb* deserializarPCB(int socket_kernel){
 	pcb* unPCB = asignarMemoria(sizeof(pcb));
-	log_info(loggerCpu, "ESTOY EN DESERIALIZAR1");
+	log_info(loggerCpu, "ME LLEGO PROCESO PARA DESEREALIZAR");
 	t_list* instrucciones = list_create();
 	unPCB -> id = deserializarInt(socket_kernel);
+	log_info(loggerCpu, "ME LLEGO PROCESO");
 	unPCB -> tamanio = deserializarInt(socket_kernel);
 	unPCB -> program_counter = deserializarInt(socket_kernel);
+	log_info(loggerCpu, "ESPERO PROGRAM COUNTER = 2 Y OBTENGO = %i", unPCB -> program_counter);
 	unPCB -> tabla_paginas = deserializarInt(socket_kernel);
+	log_info(loggerCpu, "ESPERO tabla paginas = 0 Y OBTENGO = %i", unPCB -> tabla_paginas);
 	unPCB -> estimacion_rafaga = deserializarDouble(socket_kernel);
+	log_info(loggerCpu, "ESPERO rafagas = 10000 Y OBTENGO = %f", unPCB -> estimacion_rafaga);
 	unPCB -> instrucciones = list_create();
+	log_info(loggerCpu, "******ANTES DE RIPEAR*******");
 	instrucciones = deserializarListaInst(socket_kernel);
+	/* HASTA ACA */
+	log_info(loggerCpu, "No rompi");
 	list_add_all(unPCB -> instrucciones, instrucciones );
-	log_info(loggerCpu, "He recibido un proceso ID %i", unPCB -> id);
-	log_info(loggerCpu, "RAFAGA PCB %f", unPCB -> estimacion_rafaga);
-	log_info(loggerCpu, "PAGINAS PCB %i", unPCB -> tabla_paginas);
 	return unPCB;
 }
 
