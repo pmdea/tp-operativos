@@ -1,9 +1,8 @@
 #include "cpu.h"
 
 void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegreso, uint32_t rafagaEjecutada, uint32_t tiempoBloqueo, t_log* logger){
-	int tamanioInstruccionesTotal = tamanio_listaInst(unPCB.instrucciones);
-	uint32_t cantidadInstrucciones = list_size(unPCB.instrucciones);
-	int tamanioBuffer = sizeof(uint32_t)*4 + sizeof(double) + sizeof(uint32_t) + tamanioInstruccionesTotal + sizeof(uint32_t)*3;
+	uint32_t cantidadInstrucciones = list_size(unPCB . instrucciones);
+	int tamanioBuffer = sizeof(uint32_t)*4 + sizeof(double) + tamanioParametros(unPCB . instrucciones) + cantidadInstrucciones*sizeof(ID_INSTRUCCION) + sizeof(uint32_t)*3;
 
 	void* buffer = asignarMemoria(tamanioBuffer);
 
@@ -14,11 +13,25 @@ void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegres
 	concatenarInt32(buffer, &desplazamiento, unPCB . program_counter);
 	concatenarInt32(buffer, &desplazamiento, unPCB . tabla_paginas);
 	concatenarDouble(buffer, &desplazamiento, unPCB . estimacion_rafaga);
+
+	// Concatenar Instrucciones
 	concatenarInt32(buffer, &desplazamiento, cantidadInstrucciones);
-	for(int i = 0; i < cantidadInstrucciones; i++){
-		t_instruccion* unaInstruccion = list_get(unPCB . instrucciones, i);
-		concatenarString(buffer, &desplazamiento, unaInstruccion -> identificador);
-		concatenarListaInt32(buffer, &desplazamiento, unaInstruccion -> parametros -> elements);
+
+	for(int k = 0; k < cantidadInstrucciones; k++){
+		t_instruccion* instruccion = list_get(unPCB . instrucciones, k);
+		int parametros = cantidad_de_parametros(instruccion -> identificador);
+		concatenarInt32(buffer, &desplazamiento, (uint32_t) instruccion -> identificador);
+		switch(parametros){
+			case 1:
+				concatenarInt32(buffer, &desplazamiento, list_get(instruccion -> parametros -> elements,0));
+				break;
+			case 2:
+				concatenarInt32(buffer, &desplazamiento, list_get(instruccion -> parametros -> elements,0));
+				concatenarInt32(buffer, &desplazamiento, list_get(instruccion -> parametros -> elements,1));
+				break;
+			case 0:
+				break;
+		}
 	}
 
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) motivoRegreso);
@@ -28,15 +41,11 @@ void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegres
 
 	enviarMensaje(socket_receptor, buffer, tamanioBuffer);
 	free(buffer);
-//	log_info(logger, "********Enviando PCB ID %i a CPU********", unPCB.id);
-	log_debug(logger, "********Enviando respuesta a Kernel - PCB ID %i********", unPCB.id);
-//	log_error(logger, "********Enviando PCB ID %i a CPU********", unPCB.id);
-//	log_trace(logger, "********Enviando PCB ID %i a CPU********", unPCB.id);
-//	log_warning(logger, "********Enviando PCB ID %i a CPU********", unPCB.id);
+	log_debug(logger, "********Enviando PCB ID %i a KERNEL********", unPCB.id);
 }
 
 
-PCB* deserializarPCB(int socket_emisor, t_log* logger){
+PCB* deserializarPCB(int socket_emisor){
 	PCB* unPCB = asignarMemoria(sizeof(PCB));
 	unPCB -> id = deserializarInt32(socket_emisor);
 	unPCB -> tamanio = deserializarInt32(socket_emisor);
@@ -44,31 +53,71 @@ PCB* deserializarPCB(int socket_emisor, t_log* logger){
 	unPCB -> tabla_paginas = deserializarInt32(socket_emisor);
 	unPCB -> estimacion_rafaga = deserializarDouble(socket_emisor);
 	unPCB -> instrucciones = list_create();
-	uint32_t cantidadInstrucciones = deserializarInt32(socket_emisor);
-	for (int i = 0; i < cantidadInstrucciones; i++){
-		t_instruccion* unaInstruccion = asignarMemoria(sizeof(t_instruccion));
-		unaInstruccion -> identificador = deserializarString(socket_emisor);
-		unaInstruccion -> parametros = queue_create();
-		unaInstruccion -> parametros -> elements = deserializarListaInt32(socket_emisor);
-		list_add(unPCB -> instrucciones, unaInstruccion);
-	}
-
-	//unPCB -> instrucciones = list_create();
-	//t_list* recibirInstrucciones = list_create();
-
-	//recibirInstrucciones = deserializarListaInstrucciones(socket_emisor);
-	//list_add_all(unPCB -> instrucciones, recibirInstrucciones);
+	t_list* recibirInstrucciones = list_create();
+	recibirInstrucciones = deserializarListaInstruccionesK(socket_emisor);
+	list_add_all(unPCB -> instrucciones, recibirInstrucciones);
 	return unPCB;
 }
 
-void mostrarDatosPCB(PCB unPCB, t_log* log){
-	log_info(log, "ID PCB: %i", unPCB . id);
-	log_info(log, "TAMANIO PCB: %i", unPCB . tamanio);
-	log_info(log, "PC PCB: %i", unPCB . program_counter);
-	log_info(log, "TP PCB: %i", unPCB . tabla_paginas);
-	log_info(log, "ESTIMACION PCB: %f", unPCB . estimacion_rafaga);
-	log_info(log, "CANTIDAD INST: %i", list_size(unPCB . instrucciones));
+t_list* deserializarListaInstruccionesK(int emisor){
+	uint32_t tamanioLista = deserializarInt32(emisor);
+	t_list* lista = list_create();
+	for(int k = 0; k < tamanioLista; k++){
+		t_instruccion* instruccion = asignarMemoria(sizeof(instruccion));
+		instruccion -> identificador = deserializarInt32(emisor);
+		instruccion -> parametros = queue_create();
+		int param = cantidad_de_parametros(instruccion -> identificador);
+		switch(param){
+			case 1:
+				list_add(instruccion -> parametros -> elements, deserializarInt32(emisor));
+				break;
+			case 2:
+				list_add(instruccion -> parametros -> elements, deserializarInt32(emisor));
+				list_add(instruccion -> parametros -> elements, deserializarInt32(emisor));
+				break;
+			case 99:
+				break;
+		}
+		list_add(lista, instruccion);
+	}
+	return lista;
+}
 
+uint32_t tamanioParametros(t_list* lista){
+	uint32_t cantidadInstrucciones = list_size(lista);
+	uint32_t tamanio = sizeof(uint32_t);
+	for(int i = 0; i<cantidadInstrucciones; i++){
+		t_instruccion* instruccion = list_get(lista, i);
+		tamanio += (list_size(instruccion -> parametros -> elements) * sizeof(uint32_t));
+	}
+	return tamanio;
+}
+
+
+int cantidad_de_parametros(ID_INSTRUCCION identificador) {
+
+	switch (identificador) {
+
+		case IO:
+			return 1;
+			break;
+		case NO_OP:
+			return 1;
+			break;
+		case READ:
+			return 1;
+			break;
+		case EXIT:
+			return 0;
+			break;
+		case COPY:
+			return 2;
+			break;
+		case WRITE:
+			return 2;
+		}
+
+		return 0;
 }
 
 

@@ -37,6 +37,15 @@ t_config* configCpu;
 t_list* tlb;
 
 // DEFINO ESTRUCTURAS
+typedef enum{
+	NO_OP,
+	IO,
+	READ,
+	WRITE,
+	COPY,
+	EXIT,
+} ID_INSTRUCCION;
+
 typedef struct {
     int entradas_tlb;
     char* reemplazo_tlb;
@@ -50,9 +59,9 @@ CPU_CONFIG config_cpu;
 
 
 typedef enum {
-    EXIT,
-    IO,
-    DESALOJO,
+    EXIT_PCB,
+    IO_PCB,
+    DESALOJO_PCB,
 }OP_CPU;
 
 typedef struct{
@@ -65,8 +74,7 @@ typedef struct{
 }PCB;
 
 typedef struct {
-	int tamanio_id;
-	char* identificador;
+	ID_INSTRUCCION identificador;
 	t_queue* parametros;
 }t_instruccion;
 
@@ -103,8 +111,8 @@ t_config* iniciar_config_cpu(void);
 t_instruccion* fetch(PCB unPcb);
 void decode(t_instruccion* instruccion, PCB unPCB);
 int fetchOperands(direccion_logica* direccion_logica, PCB unPcb);
-void execute(t_instruccion* instruccion, PCB proceso, int raf, int socketA);
-void checkInterrupt(int rafaga, PCB proceso, int cortarEjecucion, int socketA);
+void execute(t_instruccion* instruccion, PCB* proceso, int raf, int socketA);
+void checkInterrupt(int rafaga, PCB proceso, int socketA);
 int TLB(int pag);
 int estaEnTLB(int pag);
 
@@ -115,7 +123,7 @@ void escribir(int valor, direccion_fisica* direccion_fisica);
 void obtener_direccion_logica(int direccion, direccion_logica* direccion_logica);
 void obtener_tamanioPag_Entradas(int tamanio_pagina, int cant_entradas_por_tabla);
 uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint32_t entrada_2do_nivel);
-int asignarNumero(char* ident);
+int asignarNumero(ID_INSTRUCCION ident);
 
 int comparar_elementos_tlb(entrada_tlb* elem, int pag);
 int esta_en_tlb(int pag);
@@ -125,7 +133,6 @@ void agregar_a_TLB(int pagina, int marco);
 direccion_fisica* mmu(direccion_logica* direccion_logica, PCB* proceso);
 // Utils
 void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegreso, uint32_t rafagaEjecutada, uint32_t tiempoBloqueo, t_log* logger);
-void mostrarDatosPCB(PCB unPCB, t_log* log);
 void* asignarMemoria(int cantidad);
 int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos);
 void enviarMensaje(int socket, void* mensaje, int tamanio);
@@ -133,32 +140,12 @@ void enviarMensaje(int socket, void* mensaje, int tamanio);
 void concatenarInt32(void* buffer, int* desplazamiento, uint32_t numero);
 void concatenarDouble(void* buffer, int* desplazamiento, double numero);
 void concatenarString(void* buffer, int* desplazamiento, char* mensaje);
-void concatenarListaInt32(void* buffer, int* desplazamiento, t_list* listaArchivos);
-uint32_t tamanio_listaInst(t_list* listaInst);
-PCB* deserializarPCB(int socket_emisor, t_log* logger);
+PCB* deserializarPCB(int socket_emisor);
 uint32_t deserializarInt32(int emisor);
-t_list* deserializarListaInt32(int emisor);
 double deserializarDouble(int emisor);
 char* deserializarString(int emisor);
-/*
-void enviarStringSerializado(char* mensaje, int socket);
-void enviarIntSerializado(int numero, int socket_memoria);
-void enviar_respuesta_kernel(int socket, pcb* unPCB, int rafagaCPU , int motivoRetorno, int tiempoBloqueo, t_log* logger);
 
-void concatenarInstruccion(void* buffer, int* desplazamiento, t_instruccion* unaInstruccion);
-void concatenarInt(void* buffer, int* desplazamiento, int numero);
-void concatenarInt32(void* buffer, int* desplazamiento, uint32_t numero);
-void concatenarDouble(void* buffer, int* desplazamiento, double numero);
-void concatenarString(void* buffer, int* desplazamiento, char* mensaje);
-void concatenarListaInt(void* buffer, int* desplazamiento, t_list* listaArchivos);
+t_list* deserializarListaInstruccionesK(int emisor);
+uint32_t tamanioParametros(t_list* lista);
+int cantidad_de_parametros(ID_INSTRUCCION identificador);
 
-char* deserializarString(int emisor);
-int deserializarInt(int emisor);
-char deserializarChar(int emisor);
-double deserializarDouble(int emisor);
-t_list* deserializarListaInt(int emisor);
-t_list* deserializarListaInstrucciones(int emisor);
-t_list* deserializarListaInst(int emisor);
-t_instruccion* deserializarInst(int emisor);
-int tamanio_listaInst(t_list* listaInst);
-*/

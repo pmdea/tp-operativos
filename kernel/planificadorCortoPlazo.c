@@ -37,7 +37,7 @@ void administrar_bloqueos(){ // hilo
         }
 
         log_info(loggerKernel, "Iniciando bloqueo del Proceso de ID %i por un tiempo de %d........",procesoBloqueado -> id,tiempo);
-        usleep(tiempo);
+        sleep(tiempo/1000);
         log_info(loggerKernel, "Finalizando bloqueo del Proceso de ID %i", procesoBloqueado -> id);
 
         if(tiemposBlockedSuspended > 0){

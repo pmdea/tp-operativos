@@ -52,12 +52,12 @@ void administradorRespuestaCPU(){
         char* motivoDeRegreso =  list_get(respuestaCPU, 2);
         int rafagaEjecutada = list_get(respuestaCPU, 1); // Si viene EXIT deberia representarse con (-1)
 
-		if( motivoDeRegreso == EXIT ){
+		if( motivoDeRegreso == EXIT_PCB){
 			avisar_a_planificador_LP(unProceso);
 			list_clean(respuestaCPU);
         }
 
-        if(motivoDeRegreso == IO){
+        if(motivoDeRegreso == IO_PCB){
 			int tiempoBloqueo =  list_get(respuestaCPU, 3);
             estimador(unProceso, 0.5, rafagaEjecutada);
 
@@ -79,7 +79,7 @@ void administradorRespuestaCPU(){
 
 		}
 
-        if(motivoDeRegreso == DESALOJO){
+        if(motivoDeRegreso == DESALOJO_PCB){
             log_info(loggerKernel, "Replanificacion por desalojo");
             estimador(unProceso, 0.5, rafagaEjecutada);
 

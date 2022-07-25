@@ -7,10 +7,10 @@ void algoritmo_FIFO(){
         pthread_mutex_lock(&mutexReady);
         PCB * unProceso = list_remove(procesosReady, 0);
         pthread_mutex_unlock(&mutexReady);
-
         //Enviar proceso a CPU
         enviarPCB(socket_cpu_dispatch, *unProceso, loggerKernel);
 
+        log_info(loggerKernel, "ESPERANDO RESPUESTA");
         // Espero respuesta del CPU con PCB/Motivo/Bloqueo
         respuestaCPU = recibirRespuestaCPU(socket_cpu_dispatch);
         unProceso = list_get(respuestaCPU, 0);
@@ -20,21 +20,20 @@ void algoritmo_FIFO(){
 
         log_warning(loggerKernel, "MOT: %i - RAF: %i - TB: %i", motivoRegreso, raf, tb);
 
- //       mostrarDatosPCB(*unProceso, loggerKernel);
-        if( motivoRegreso == EXIT ){
-            avisar_a_planificador_LP(unProceso);
-            list_clean(respuestaCPU);
-        }
-        if(motivoRegreso == IO){
-            int tiempoBloqueo =  list_get(respuestaCPU, 3);
-            // no creo q necesite un mutex porque yo solo uso esto
-            pthread_mutex_lock(&mutexBloqueo);
-            list_add(procesosBlocked, unProceso);
-            list_add(tiemposBlocked, tiempoBloqueo);
-            pthread_mutex_unlock(&mutexBloqueo);
-            list_clean(respuestaCPU);
-
-            sem_post(&procesoBloqueado);
+        switch(motivoRegreso){
+        	case EXIT_PCB:;
+        		avisar_a_planificador_LP(unProceso);
+        		break;
+        	case IO_PCB:;
+        		int tiempoBloqueo =  list_get(respuestaCPU, 3);
+        	    pthread_mutex_lock(&mutexBloqueo);
+        	    list_add(procesosBlocked, unProceso);
+        	    list_add(tiemposBlocked, tiempoBloqueo);
+        	    pthread_mutex_unlock(&mutexBloqueo);
+    	        sem_post(&procesoBloqueado);
+    	        break;
+        	default:;
+        		break;
         }
     }
 }

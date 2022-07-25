@@ -55,30 +55,28 @@ int main(void)
 	log_info(loggerKernel, "CONFIGURACION, LOGGER, CONEXIONES, SEMAFOROS, LISTAS: Generadas....");
 
 	t_instruccion* instrucc1 = asignarMemoria(sizeof(t_instruccion));
-	instrucc1 -> identificador = "NO_OP";
+	instrucc1 -> identificador = NO_OP;
 	instrucc1 -> parametros = queue_create();
 
 	list_add(instrucc1 -> parametros -> elements, 3);
 
 	t_instruccion* instrucc2 = asignarMemoria(sizeof(t_instruccion));
-	instrucc2 -> identificador = "I/O";
+	instrucc2 -> identificador = IO;
 	instrucc2 -> parametros = queue_create();
 
 	list_add(instrucc2 -> parametros -> elements, 5000);
 
 	t_instruccion* instrucc3 = asignarMemoria(sizeof(t_instruccion));
-	instrucc3 -> identificador = "EXIT";
-	instrucc3 -> parametros = queue_create();
+	instrucc3 -> identificador = EXIT;
 
-//	list_add(instrucc3 -> parametros -> elements, 0);
 
 	t_proceso* proceso = asignarMemoria(sizeof(t_proceso));
 	proceso -> tamanio_proceso = 15;
 	proceso -> instrucciones = queue_create();
+	list_add(proceso -> instrucciones -> elements, instrucc1);
+	list_add(proceso -> instrucciones -> elements, instrucc2);
+	list_add(proceso -> instrucciones -> elements, instrucc1);
 	list_add(proceso -> instrucciones -> elements, instrucc3);
-//	list_add(proceso -> instrucciones -> elements, instrucc1);
-//	list_add(proceso -> instrucciones -> elements, instrucc2);
-//	list_add(proceso -> instrucciones -> elements, instrucc3);
 
 
 	generarEstructuraPCB(23, proceso);

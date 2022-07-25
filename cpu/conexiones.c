@@ -78,31 +78,34 @@ void *interruption(void *arg){
 }
 
 void *dispatch(void *arg){
-	t_instruccion* unaInstruccion;
+	PCB* unPCB;
 	log_info(loggerCpu, "Dispatch listening for calls...");
 	int socket_cliente = esperar_cliente(kernel_disp_socket);
 	log_info(loggerCpu, "Kernel Dispatch connected %d", socket_cliente);
 	while(true){
-		PCB* unPCB = deserializarPCB(socket_cliente, loggerCpu);
+		log_info(loggerCpu, "Esperando PCB.....");
+		unPCB = deserializarPCB(socket_cliente);
 
 
 		int* rafaga = 0;
 		int tamanio = list_size(unPCB->instrucciones);
 
-		mostrarDatosPCB(*unPCB, loggerCpu);
+//		mostrarDatosPCB(*unPCB, loggerCpu);
 
 //		enviarRespuestaKernel(socket_cliente, *unPCB, IO, 10, 15, loggerCpu);
 
 		for(j = 0; j < tamanio; j++){
 		// obtiene la instruccion del pcb
+		log_warning(loggerCpu, "PC %i", unPCB->program_counter);
 		t_instruccion* unaInstruccion = fetch(*unPCB);
+
 		// se fija si tiene que buscar operandos en memoria
 		decode(unaInstruccion, *unPCB);
 
 		//ejecuta la instruccion
-		execute(unaInstruccion, *unPCB, rafaga, socket_cliente);
+		execute(unaInstruccion, unPCB, rafaga, socket_cliente);
 
-		checkInterrupt(rafaga, *unPCB, j, socket_cliente);
+		checkInterrupt(rafaga, *unPCB, socket_cliente);
 
 		}
 	}

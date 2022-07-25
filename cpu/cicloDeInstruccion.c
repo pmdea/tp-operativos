@@ -9,7 +9,7 @@ void decode(t_instruccion* instruccion, PCB unPCB)
 {
 	//direccion_logica* direccion_logica = malloc(sizeof(direccion_logica));
 
-	if(string_equals_ignore_case(instruccion->identificador, "COPY"))
+	if(instruccion->identificador == COPY)
 	{
 		direccion_logica* direccion_logica;
 		int direccion = list_remove(instruccion -> parametros -> elements, 1);
@@ -30,7 +30,7 @@ int fetchOperands(direccion_logica* direccion_logica, PCB unPcb)
 	return 0;
 }
 
-void execute(t_instruccion* instruccion, PCB proceso, int raf, int socketA)
+void execute(t_instruccion* instruccion, PCB* proceso, int raf, int socketA)
 {
 	int num = 0;
 	int tiempoBloqueo = 0;
@@ -40,7 +40,7 @@ void execute(t_instruccion* instruccion, PCB proceso, int raf, int socketA)
 	direccion_logica* direccion_logica;
 	int direccion = 0;
 	int valor = 0;
-	log_warning(loggerCpu, "EL IDENT ID ES: %i", ident);
+	log_warning(loggerCpu, "ESTOY ACA");
 	switch (ident){
 	case 0:
 		num = list_get(instruccion -> parametros -> elements, 0);
@@ -51,16 +51,15 @@ void execute(t_instruccion* instruccion, PCB proceso, int raf, int socketA)
 			rafaga++;
 		}
 
-		proceso.program_counter++;
+		proceso->program_counter +=1;
 		break;
 	case 1:
 		tiempoBloqueo = list_get(instruccion->parametros->elements, 0);
-		proceso.program_counter++;
+		proceso->program_counter +=1;
 		rafaga++;
 		log_info(loggerCpu, "Instruccion IO con Bloqueo de %i", tiempoBloqueo);
-		enviarRespuestaKernel(socketA, proceso, IO, rafaga, tiempoBloqueo, loggerCpu);
+		enviarRespuestaKernel(socketA, *proceso, IO, rafaga, tiempoBloqueo, loggerCpu);
 		j = 99;
-
 		break;
 
 //READ(dirección_lógica)
@@ -73,7 +72,7 @@ void execute(t_instruccion* instruccion, PCB proceso, int raf, int socketA)
 		log_info(loggerCpu, "Ejecute Instruccion Read: %i", leido);
 
 		rafaga++;
-		proceso.program_counter++;
+		proceso->program_counter +=1;
 
 		break;
 
@@ -90,26 +89,28 @@ void execute(t_instruccion* instruccion, PCB proceso, int raf, int socketA)
 		escribir(valor, direccion_fisica);
 
 		rafaga++;
-		proceso.program_counter++;
+		proceso->program_counter +=1;
 
 		log_info(loggerCpu, "Ejecute Instruccion WRITE/COPY %i", valor);
 		break;
 
 	case 4:
 		log_info(loggerCpu, "Instruccion EXIT");
-		proceso.program_counter++;
-		enviarRespuestaKernel(socketA, proceso, EXIT, rafaga, 0, loggerCpu);
+		proceso->program_counter +=1;
+		enviarRespuestaKernel(socketA, *proceso, EXIT, rafaga, 0, loggerCpu);
 		j = 99;
 		break;
 	}
 }
 
-void checkInterrupt(int rafaga, PCB proceso, int cortarEjecucion, int socketA)
+void checkInterrupt(int rafaga, PCB proceso, int socketA)
 {
 	pthread_mutex_lock(&interrupcionVariable);
 	if(interrupcion==1) /// int interruption() implementado en otra rama
 	{
 //		enviar_respuesta_kernel(socketA, proceso, rafaga, DESALOJO, 0, loggerCpu);
+		//free(*proceso);
+		j = 250;
 		interrupcion = 0;
 	}
 	pthread_mutex_unlock(&interrupcionVariable);
