@@ -47,7 +47,7 @@ void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegres
 
 PCB* deserializarPCB(int socket_emisor){
 	PCB* unPCB = asignarMemoria(sizeof(PCB));
-	void* tamanio = sizeof(int);
+	/*	void* tamanio = sizeof(int);
 	recv(socket_emisor, tamanio, sizeof(int), 0);
 	void* contenido = malloc((int)tamanio);
 	recv(socket_emisor, contenido, tamanio, 0);
@@ -95,8 +95,8 @@ PCB* deserializarPCB(int socket_emisor){
 	unPCB -> instrucciones = instrucciones -> elements;
 
 	log_info(loggerCpu, "SIZE INST %i", list_size(unPCB -> instrucciones));
-
-/*	unPCB -> id = deserializarInt32(socket_emisor);
+*/
+	unPCB -> id = deserializarInt32(socket_emisor);
 	log_info(loggerCpu, "ID PCB %i", unPCB -> id);
 	unPCB -> tamanio = deserializarInt32(socket_emisor);
 	unPCB -> program_counter = deserializarInt32(socket_emisor);
@@ -104,7 +104,7 @@ PCB* deserializarPCB(int socket_emisor){
 	unPCB -> estimacion_rafaga = deserializarDouble(socket_emisor);
 	unPCB -> instrucciones = list_create();
 	unPCB -> instrucciones = deserializarListaInstruccionesK(socket_emisor);
-	log_info(loggerCpu, "SIZE INST %i", list_size(unPCB -> instrucciones));*/
+	log_info(loggerCpu, "SIZE INST %i", list_size(unPCB -> instrucciones));
 	return unPCB;
 }
 

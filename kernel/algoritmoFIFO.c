@@ -4,6 +4,7 @@ void algoritmo_FIFO(){
     t_list* respuestaCPU = list_create();
     while(1){
         sem_wait(&nuevoProcesoReady); // Espero a que el P.L.P me avise que hay un proceso en Ready
+        log_error(loggerKernel, "DEBERIA LEERLO 2 VECES - DESP DE BLOQUEO");
         pthread_mutex_lock(&mutexReady);
         PCB * unProceso = list_remove(procesosReady, 0);
         pthread_mutex_unlock(&mutexReady);
