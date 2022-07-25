@@ -87,13 +87,14 @@ void *dispatch(void *arg){
 		unPCB = deserializarPCB(socket_cliente);
 
 
-		int* rafaga = 0;
+		int* rafaga = malloc(sizeof(int));
+		rafaga = 0;
 		int tamanio = list_size(unPCB->instrucciones);
 
 //		mostrarDatosPCB(*unPCB, loggerCpu);
 
 //		enviarRespuestaKernel(socket_cliente, *unPCB, IO, 10, 15, loggerCpu);
-
+/*
 		for(j = 0; j < tamanio; j++){
 		// obtiene la instruccion del pcb
 		log_warning(loggerCpu, "PC %i", unPCB->program_counter);
@@ -108,6 +109,7 @@ void *dispatch(void *arg){
 		checkInterrupt(rafaga, *unPCB, socket_cliente);
 
 		}
+		free(rafaga);*/
 	}
 
 	log_info(loggerCpu, "Dispatch thread finish!");

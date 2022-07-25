@@ -11,6 +11,7 @@ void algoritmo_FIFO(){
         enviarPCB(socket_cpu_dispatch, *unProceso, loggerKernel);
 
         log_info(loggerKernel, "ESPERANDO RESPUESTA");
+
         // Espero respuesta del CPU con PCB/Motivo/Bloqueo
         respuestaCPU = recibirRespuestaCPU(socket_cpu_dispatch);
         unProceso = list_get(respuestaCPU, 0);

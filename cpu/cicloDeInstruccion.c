@@ -40,7 +40,6 @@ void execute(t_instruccion* instruccion, PCB* proceso, int raf, int socketA)
 	direccion_logica* direccion_logica;
 	int direccion = 0;
 	int valor = 0;
-	log_warning(loggerCpu, "ESTOY ACA");
 	switch (ident){
 	case 0:
 		num = list_get(instruccion -> parametros -> elements, 0);

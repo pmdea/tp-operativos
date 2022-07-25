@@ -14,7 +14,7 @@ void enviarMensaje(int socket, void* mensaje, int tamanio){
 }
 
 int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos){
-	int bytesRecibidos = recv(socketEmisor, buffer, bytesMaximos, MSG_WAITALL);
+	int bytesRecibidos = recv(socketEmisor, buffer, bytesMaximos, 0);
 	if(bytesRecibidos<=0){
 	// error o conexión cerrada por el cliente
 	if (bytesRecibidos == 0) {
@@ -46,9 +46,16 @@ void concatenarString(void* buffer, int* desplazamiento, char* mensaje){
 }
 
 double deserializarDouble(int emisor){
-	double mensaje;
-	recibirMensaje(emisor, &mensaje, sizeof(double));
-	return mensaje;
+	double *mensaje = asignarMemoria(sizeof(double));
+	recibirMensaje(emisor, mensaje, sizeof(double));
+	return *mensaje;
+}
+
+
+uint32_t deserializarInt32(int emisor){
+	uint32_t *mensaje = asignarMemoria(sizeof(uint32_t));
+	recibirMensaje(emisor, mensaje, sizeof(uint32_t));
+	return *mensaje;
 }
 
 char* deserializarString(int emisor){
@@ -58,11 +65,4 @@ char* deserializarString(int emisor){
 	mensaje[tamanioMensaje - 1] = '\0';
 	return mensaje;
 }
-
-uint32_t deserializarInt32(int emisor){
-	uint32_t mensaje;
-	recibirMensaje(emisor, &mensaje, sizeof(uint32_t));
-	return mensaje;
-}
-
 

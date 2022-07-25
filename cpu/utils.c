@@ -34,7 +34,7 @@ void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegres
 		}
 	}
 
-	concatenarInt32(buffer, &desplazamiento, (uint32_t) motivoRegreso);
+	concatenarInt32(buffer, &desplazamiento, motivoRegreso);
 	concatenarInt32(buffer, &desplazamiento, rafagaEjecutada);
 	concatenarInt32(buffer, &desplazamiento, tiempoBloqueo);
 
@@ -47,15 +47,64 @@ void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegres
 
 PCB* deserializarPCB(int socket_emisor){
 	PCB* unPCB = asignarMemoria(sizeof(PCB));
-	unPCB -> id = deserializarInt32(socket_emisor);
+	void* tamanio = sizeof(int);
+	recv(socket_emisor, tamanio, sizeof(int), 0);
+	void* contenido = malloc((int)tamanio);
+	recv(socket_emisor, contenido, tamanio, 0);
+	int contador = 0;
+	uint32_t *idPCB = malloc(sizeof(uint32_t));
+	uint32_t *tamanioPCB = malloc(sizeof(uint32_t));
+	uint32_t *program_counter = malloc(sizeof(uint32_t));
+	uint32_t *tabla_paginas = malloc(sizeof(uint32_t));
+	double *est = malloc(sizeof(uint32_t));
+	uint32_t *cantLista = malloc(sizeof(uint32_t));
+	t_queue *instrucciones = queue_create();
+	memcpy(idPCB, contenido + contador, sizeof(uint32_t));
+	contador += sizeof(uint32_t);
+	memcpy(tamanioPCB, contenido + contador, sizeof(uint32_t));
+	contador += sizeof(uint32_t);
+	memcpy(program_counter, contenido + contador, sizeof(uint32_t));
+	contador += sizeof(uint32_t);
+	memcpy(tabla_paginas, contenido + contador, sizeof(uint32_t));
+	contador += sizeof(uint32_t);
+	memcpy(est, contenido + contador, sizeof(double));
+	contador += sizeof(double);
+
+	memcpy(cantLista, contenido + contador, sizeof(uint32_t));
+	contador += sizeof(uint32_t);
+
+	for(int i = 0; i < 3; i++){
+		t_instruccion* instruc = malloc(sizeof(t_instruccion));
+		uint32_t *identificador = malloc(sizeof(ID_INSTRUCCION));
+		instruc -> parametros = queue_create();
+		memcpy(&(instruc -> identificador), contenido + contador, sizeof(ID_INSTRUCCION));
+		contador += sizeof(ID_INSTRUCCION);
+		for(int j = 0; j < cantidad_de_parametros(*identificador); j++){
+			uint32_t *param = malloc(sizeof(uint32_t));
+			memcpy(param, contenido + contador, sizeof(uint32_t));
+			contador += sizeof(uint32_t);
+			queue_push(instruc -> parametros, *param);
+		}
+		queue_push(instrucciones, instruc);
+	}
+	unPCB -> id = *idPCB;
+	unPCB -> tamanio = *tamanioPCB;
+	unPCB -> program_counter = *program_counter;
+	unPCB -> tabla_paginas = *tabla_paginas;
+	unPCB -> estimacion_rafaga = *est;
+	unPCB -> instrucciones = instrucciones -> elements;
+
+	log_info(loggerCpu, "SIZE INST %i", list_size(unPCB -> instrucciones));
+
+/*	unPCB -> id = deserializarInt32(socket_emisor);
+	log_info(loggerCpu, "ID PCB %i", unPCB -> id);
 	unPCB -> tamanio = deserializarInt32(socket_emisor);
 	unPCB -> program_counter = deserializarInt32(socket_emisor);
 	unPCB -> tabla_paginas = deserializarInt32(socket_emisor);
 	unPCB -> estimacion_rafaga = deserializarDouble(socket_emisor);
 	unPCB -> instrucciones = list_create();
-	t_list* recibirInstrucciones = list_create();
-	recibirInstrucciones = deserializarListaInstruccionesK(socket_emisor);
-	list_add_all(unPCB -> instrucciones, recibirInstrucciones);
+	unPCB -> instrucciones = deserializarListaInstruccionesK(socket_emisor);
+	log_info(loggerCpu, "SIZE INST %i", list_size(unPCB -> instrucciones));*/
 	return unPCB;
 }
 

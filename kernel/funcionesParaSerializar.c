@@ -1,6 +1,7 @@
 #include "kernel.h"
 
 void enviarMensaje(int socket, void* mensaje, int tamanio){
+	send(socket, (void*) &tamanio, sizeof(int), 0);
 	send(socket, mensaje, tamanio, 0);
 }
 
@@ -46,9 +47,16 @@ int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos){
 }
 
 double deserializarDouble(int emisor){
-	double mensaje;
-	recibirMensaje(emisor, &mensaje, sizeof(double));
-	return mensaje;
+	double *mensaje = asignarMemoria(sizeof(double));
+	recibirMensaje(emisor, mensaje, sizeof(double));
+	return *mensaje;
+}
+
+
+uint32_t deserializarInt32(int emisor){
+	uint32_t *mensaje = asignarMemoria(sizeof(uint32_t));
+	recibirMensaje(emisor, mensaje, sizeof(uint32_t));
+	return *mensaje;
 }
 
 char* deserializarString(int emisor){
@@ -59,8 +67,4 @@ char* deserializarString(int emisor){
 	return mensaje;
 }
 
-uint32_t deserializarInt32(int emisor){
-	uint32_t mensaje;
-	recibirMensaje(emisor, &mensaje, sizeof(uint32_t));
-	return mensaje;
-}
+

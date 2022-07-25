@@ -6,7 +6,6 @@ int main(void)
 	loggerCpu = iniciar_logger_cpu();
 	configCpu = iniciar_config_cpu();
 	tlb = list_create();
-
 	init_cpu();
 
 	pthread_t thread_dispath, thread_interrupt;
