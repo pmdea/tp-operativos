@@ -33,7 +33,7 @@ void dispatch(int escuchaDispatch){
 			t_instruccion* instruccion = fetch(unPCB);
 			decode(instruccion, unPCB);
 			execute(instruccion, unPCB, kernel_dispatch);
-
+			checkInterrupt(unPCB, kernel_dispatch);
 		}
 
 	}
