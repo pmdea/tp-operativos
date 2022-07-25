@@ -31,6 +31,7 @@ void estadoReady(){
             list_add(procesosReady, procesoSuspendido);
             pthread_mutex_unlock(&mutexSuspendido);
             log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
+            sem_post(&nuevoProcesoReady);
 
         }else if ( tamanioNew > 0){
             sem_wait(&grado_multiprogramacion);
@@ -48,6 +49,7 @@ void estadoReady(){
                 list_add(procesosReady, procesoSuspendido);
                 pthread_mutex_unlock(&mutexSuspendido);
                 log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
+                sem_post(&nuevoProcesoReady);
 
             } else {
                 pthread_mutex_lock(&mutexNew);
@@ -96,6 +98,7 @@ void estadoExit(){
             // Incremento el grado de multiprogramacion en 1
             log_info(loggerKernel, "Finalizo correctamente el Proceso de ID: %i", procesoFinalizado -> id);
             sem_post(&grado_multiprogramacion);
+            sem_post(&nuevoProcesoReady);
         }
 	}
 }

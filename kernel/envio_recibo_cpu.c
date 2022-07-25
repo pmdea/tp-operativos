@@ -1,5 +1,17 @@
 #include "kernel.h"
 
+void avisar_a_cpu_interrupt(){
+	int tamanioBuffer = sizeof(uint32_t);
+	void* buffer = asignarMemoria(tamanioBuffer);
+
+	int desplazamiento = 0;
+	concatenarInt32(buffer, &desplazamiento, 1);
+
+	enviarMensaje(socket_interrupt, buffer, tamanioBuffer);
+	free(buffer);
+	log_debug(loggerKernel, "******** ENVIANDO INTERRUPCION ********");
+}
+
 void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger){
 	uint32_t cantidadInstrucciones = list_size(unPCB . instrucciones);
 	int tamanioBuffer = sizeof(uint32_t)*4 + sizeof(double) + tamanioParametros(unPCB . instrucciones) + cantidadInstrucciones*sizeof(ID_INSTRUCCION);
@@ -52,6 +64,22 @@ PCB* deserializarPCB(int socket_emisor){
 	recibirInstrucciones = deserializarListaInstruccionesK(socket_emisor);
 	list_add_all(unPCB -> instrucciones, recibirInstrucciones);
 	return unPCB;
+}
+
+t_list* recibirRespuestaCPU(int socket_emisor){
+	t_list* respuesta = list_create();
+	PCB* unPCB = deserializarPCB(socket_emisor);
+	uint32_t motivoRegreso = deserializarInt32(socket_emisor);
+	uint32_t rafagaEjecutada = deserializarInt32(socket_emisor);
+	uint32_t tiempoBloqueo = deserializarInt32(socket_emisor);
+
+	list_add(respuesta, unPCB);
+	list_add(respuesta, motivoRegreso);
+	list_add(respuesta, rafagaEjecutada);
+	list_add(respuesta, tiempoBloqueo);
+	log_debug(loggerKernel, "********Recibi datos de CPU - PCB ID %i********", unPCB->id);
+	return respuesta;
+
 }
 
 t_list* deserializarListaInstruccionesK(int emisor){

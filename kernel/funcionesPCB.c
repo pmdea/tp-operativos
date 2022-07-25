@@ -5,8 +5,8 @@ PCB crearPCB(int idPCB, t_proceso* proceso){
 	unPCB.id = idPCB;
 	unPCB.tamanio = proceso -> tamanio_proceso;
 	unPCB.instrucciones = list_create();
-	unPCB.program_counter = 45;
-	unPCB.tabla_paginas = 86;
+	unPCB.program_counter = 0;
+	unPCB.tabla_paginas = 0;
 	unPCB.estimacion_rafaga = 10000;
 	list_add_all(unPCB . instrucciones, proceso -> instrucciones -> elements);
 
@@ -14,9 +14,9 @@ PCB crearPCB(int idPCB, t_proceso* proceso){
 }
 
 void agregarEstadoNew(PCB* unPCB ){
-	// MUTEX READY
+	pthread_mutex_lock(&mutexNew);
 	list_add(procesosNew, unPCB);
-	// MUTEX READY
+	pthread_mutex_unlock(&mutexNew);
 }
 
 void generarEstructuraPCB(int idPCB, t_proceso* proceso){
@@ -24,3 +24,37 @@ void generarEstructuraPCB(int idPCB, t_proceso* proceso){
 	*unPCB = crearPCB(idPCB, proceso);
 	agregarEstadoNew(unPCB);
 }
+
+bool ordenarSRT(PCB* unPCB,PCB* otroPCB){
+    double est1 = unPCB->estimacion_rafaga;
+    double est2 = otroPCB->estimacion_rafaga;
+    return est2 > est1;
+}
+
+
+void estimador(PCB* unPCB, double alfa, int rafaga_ejecutada){
+    unPCB -> estimacion_rafaga = (alfa * rafaga_ejecutada + (1 - alfa) * unPCB->estimacion_rafaga);
+}
+/* VER CUANDO SE IMPLEMENTE LA UNION CON CONSOLA
+int devolverID_PCB(int socket){
+    bool el_ID_es_igual(consola_pcb* unaConexion){
+        if(unaConexion->socket_consola == socket){
+            return 1;
+        }
+        return 0;
+    }
+    consola_pcb * conexionBuscada = list_find(conexiones_pcb, (void) el_ID_es_igual);
+    return conexionBuscada -> pcbVinculado;
+}
+
+int devolverID_CONSOLA(PCB unPCB){
+    bool el_ID_es_igual(consola_pcb* unaConexion){
+        if(unaConexion->pcbVinculado == unPCB -> id){
+            return 1;
+        }
+        return 0;
+    }
+    consola_pcb * conexionBuscada = list_find(conexiones_pcb, (void*) el_ID_es_igual);
+    return conexionBuscada -> socket_consola;
+}
+*/

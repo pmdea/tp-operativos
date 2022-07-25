@@ -12,6 +12,12 @@ int main(void)
 
 	list_add(instrucc1 -> parametros -> elements, 3);
 
+	t_instruccion* instrucc5 = asignarMemoria(sizeof(t_instruccion));
+	instrucc5 -> identificador = NO_OP;
+	instrucc5 -> parametros = queue_create();
+
+	list_add(instrucc5 -> parametros -> elements, 1);
+
 	t_instruccion* instrucc4 = asignarMemoria(sizeof(t_instruccion));
 	instrucc4 -> identificador = IO;
 	instrucc4 -> parametros = queue_create();
@@ -33,11 +39,19 @@ int main(void)
 	proceso -> tamanio_proceso = 15;
 	proceso -> instrucciones = queue_create();
 	list_add(proceso -> instrucciones -> elements, instrucc1);
-	list_add(proceso -> instrucciones -> elements, instrucc2);
+	list_add(proceso -> instrucciones -> elements, instrucc4);
 	list_add(proceso -> instrucciones -> elements, instrucc1);
 	list_add(proceso -> instrucciones -> elements, instrucc3);
 
-	generarEstructuraPCB(23, proceso);
+	t_proceso* proceso2 = asignarMemoria(sizeof(t_proceso));
+	proceso2 -> tamanio_proceso = 15;
+	proceso2 -> instrucciones = queue_create();
+	list_add(proceso2 -> instrucciones -> elements, instrucc5);
+	list_add(proceso2 -> instrucciones -> elements, instrucc3);
+
+	generarEstructuraPCB(30, proceso2);
+	generarEstructuraPCB(55, proceso2);
+	generarEstructuraPCB(77, proceso2);
 //	PCB* unPCB = list_get(procesosNew, 0);
 
 /*	enviarPCB(socket_dispatch, *unPCB, loggerKernel);

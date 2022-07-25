@@ -1,8 +1,8 @@
 #include "cpu.h"
 
-void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger){
+void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegreso, uint32_t rafagaEjecutada, uint32_t tiempoBloqueo, t_log* logger){
 	uint32_t cantidadInstrucciones = list_size(unPCB . instrucciones);
-	int tamanioBuffer = sizeof(uint32_t)*4 + sizeof(double) + tamanioParametros(unPCB . instrucciones) + cantidadInstrucciones*sizeof(ID_INSTRUCCION);
+	int tamanioBuffer = sizeof(uint32_t)*4 + sizeof(double) + tamanioParametros(unPCB . instrucciones) + cantidadInstrucciones*sizeof(ID_INSTRUCCION) + sizeof(uint32_t)*3;
 
 	void* buffer = asignarMemoria(tamanioBuffer);
 
@@ -33,6 +33,10 @@ void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger){
 				break;
 		}
 	}
+
+	concatenarInt32(buffer, &desplazamiento, motivoRegreso);
+	concatenarInt32(buffer, &desplazamiento, rafagaEjecutada);
+	concatenarInt32(buffer, &desplazamiento, tiempoBloqueo);
 
 
 	enviarMensaje(socket_receptor, buffer, tamanioBuffer);
@@ -86,6 +90,32 @@ uint32_t tamanioParametros(t_list* lista){
 		tamanio += (list_size(instruccion -> parametros -> elements) * sizeof(uint32_t));
 	}
 	return tamanio;
+}
+
+int instruccion_a_realizar(ID_INSTRUCCION identificador) {
+
+	switch (identificador) {
+
+		case NO_OP:
+			return 0;
+			break;
+		case IO:
+			return 1;
+			break;
+		case READ:
+			return 2;
+			break;
+		case COPY:
+			return 3;
+			break;
+		case WRITE:
+			return 3;
+		case EXIT:
+			return 4;
+			break;
+		}
+
+		return 0;
 }
 
 int cantidad_de_parametros(ID_INSTRUCCION identificador) {

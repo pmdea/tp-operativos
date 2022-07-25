@@ -13,28 +13,27 @@ void algoritmo_FIFO(){
         log_info(loggerKernel, "ESPERANDO RESPUESTA");
 
         // Espero respuesta del CPU con PCB/Motivo/Bloqueo
-        //respuestaCPU = recibirRespuestaCPU(socket_dispatch);
-        //unProceso = list_get(respuestaCPU, 0);
-        unProceso = deserializarPCB(socket_dispatch);
-        //uint32_t motivoRegreso = list_get(respuestaCPU, 1);
-        uint32_t motivoRegreso = IO_PCB;
-        //uint32_t raf = list_get(respuestaCPU, 2);
-        //uint32_t tb = list_get(respuestaCPU, 3);
+        respuestaCPU = recibirRespuestaCPU(socket_dispatch);
+        unProceso = list_get(respuestaCPU, 0);
+        uint32_t motivoRegreso = list_get(respuestaCPU, 1);
+        uint32_t raf = list_get(respuestaCPU, 2);
+        uint32_t tb = list_get(respuestaCPU, 3);
 
-        //log_warning(loggerKernel, "MOT: %i - RAF: %i - TB: %i", motivoRegreso, raf, tb);
+        log_warning(loggerKernel, "MOT: %i - RAF: %i - TB: %i", motivoRegreso, raf, tb);
 
         switch(motivoRegreso){
         	case EXIT_PCB:;
         		avisar_a_planificador_LP(unProceso);
+        		list_clean(respuestaCPU);
         		break;
         	case IO_PCB:;
-        		//int tiempoBloqueo =  list_get(respuestaCPU, 3);
-        		int tiempoBloqueo =  5000;
+        		int tiempoBloqueo =  list_get(respuestaCPU, 3);
         	    pthread_mutex_lock(&mutexBloqueo);
         	    list_add(procesosBlocked, unProceso);
         	    list_add(tiemposBlocked, tiempoBloqueo);
         	    pthread_mutex_unlock(&mutexBloqueo);
     	        sem_post(&procesoBloqueado);
+    	        list_clean(respuestaCPU);
     	        break;
         }
     }

@@ -13,6 +13,11 @@
 
 #define IP_CPU "127.0.0.1"
 
+//VAR GLOBAL
+int k;
+int rafagaEjecutada;
+int interrupcionKernel;
+
 //SOCKETS
 int server_cpu;
 int socket_memoria;
@@ -20,6 +25,8 @@ int socket_memoria;
 // Logs y Config
 t_log* loggerCpu;
 t_config* configCpu;
+
+pthread_mutex_t variableCompartida;
 
 // ENUMS
 typedef enum{
@@ -67,11 +74,18 @@ CPU_CONFIG config_cpu;
 void dispatch(int escuchaDispatch);
 void interrupt(int escuchaInterrupt);
 
+//CICLO_DE_INSTRUCCIONES.C
+t_instruccion* fetch(PCB* unPcb);
+void decode(t_instruccion* instruccion, PCB* unPCB);
+void execute(t_instruccion* instruccion, PCB* proceso, int socketA);
+void checkInterrupt(PCB* proceso, int socketA);
+
 //ENVIO_RECIBO_KERNEL.C
-void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger);
+void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegreso, uint32_t rafagaEjecutada, uint32_t tiempoBloqueo, t_log* logger);
 PCB* deserializarPCB(int socket_emisor);
 t_list* deserializarListaInstruccionesK(int emisor);
 uint32_t tamanioParametros(t_list* lista);
+int instruccion_a_realizar(ID_INSTRUCCION identificador);
 int cantidad_de_parametros(ID_INSTRUCCION identificador);
 
 //SERIALIZACIONESC.C

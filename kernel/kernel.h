@@ -12,6 +12,10 @@
 #include "pthread.h"
 #include "semaphore.h"
 
+
+//VAR GLOBAL
+int ejecutando;
+
 //SOCKETS
 int socket_memoria;
 int socket_dispatch;
@@ -130,15 +134,21 @@ void estadoExit(); // L
 void administrar_bloqueos(); // C
 void algoritmo_FIFO(); // C
 void algoritmo_SRT();
+void administradorRespuestaCPU(); // C SRT
+void ejecucionProcesoSRT(); // C SRT
+void avisar_a_cpu_interrupt();
 
 //FUNCIONESPCB.C
 PCB crearPCB(int idPCB, t_proceso* proceso);
 void agregarEstadoNew(PCB* unPCB );
 void generarEstructuraPCB(int idPCB, t_proceso* proceso);
+void estimador(PCB* unPCB, double alfa, int rafaga_ejecutada);
+bool ordenarSRT(PCB* unPCB,PCB* otroPCB);
 
 //ENVIO_RECIBO_CPU.C
 void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger);
 PCB* deserializarPCB(int socket_emisor);
+t_list* recibirRespuestaCPU(int socket_emisor);
 t_list* deserializarListaInstruccionesK(int emisor);
 uint32_t tamanioParametros(t_list* lista);
 int cantidad_de_parametros(ID_INSTRUCCION identificador);

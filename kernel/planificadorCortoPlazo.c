@@ -10,7 +10,7 @@ void planificador_CortoPlazo(){
     	pthread_create(&ejecucionAlgoritmoHilo, NULL, algoritmo_FIFO, NULL);
         //algoritmo_FIFO();
     }else{
-    	//pthread_create(&ejecucionAlgoritmoHilo, NULL, algoritmo_SRT, NULL);
+    	pthread_create(&ejecucionAlgoritmoHilo, NULL, algoritmo_SRT, NULL);
         //algoritmo_SRT();
     }
 
