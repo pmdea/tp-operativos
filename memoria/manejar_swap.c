@@ -6,11 +6,13 @@ extern t_log* logger;
 void* crear_swap(uint32_t size, uint32_t pid){
 	char* swap_name = generar_filename(pid);
 	log_info(logger, "Creando file swap para proceso %d en %s", pid, swap_name);
-	int swap = open(swap_name, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-	void* swap_process_mem = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, swap, 0);
-	close(swap);
+	FILE *fp = fopen(swap_name, "w");
+	ftruncate(fileno(fp), size);
+    fclose(fp);
+	int swap_fd = open(swap_name, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	void* swap_process_mem = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, swap_fd, 0);
 	free(swap_name);
-	memset(swap_process_mem, 0, size); //Inicializo en 0 el archivo de swap
+	close(swap_fd);
 	log_info(logger, "Espacio swap creado correctamente!");
 	return swap_process_mem;
 }
@@ -26,10 +28,12 @@ void eliminar_swap(uint32_t pid, void* swap, uint32_t size){
 
 char* generar_filename(uint32_t pid){
 	char* swap_name = string_new();
-	string_append(&swap_name, "/");
 	string_append(&swap_name, config->path_swap);
-	string_append(&swap_name, string_itoa(pid));
+	string_append(&swap_name, "/");
+	char* pid_string = string_itoa(pid);
+	string_append(&swap_name, pid_string);
 	string_append(&swap_name, ".swap");
+	free(pid_string);
 	return swap_name;
 }
 

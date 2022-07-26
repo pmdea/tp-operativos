@@ -46,7 +46,7 @@ uint32_t crear_tabla_2do_nivel(uint32_t* proc_mem, uint32_t pid, uint32_t* index
 	for(uint32_t i = 0; i<config->entradas_por_tabla; i++){
 		list_add(tabla->entradas, crear_pagina_2do_nivel(i, *index_swap));
 		*proc_mem = *proc_mem - config->tam_pag;
-		*(index_swap)++;
+		*index_swap = *index_swap + 1;
 		if(*proc_mem == 0)
 			break;
 	}
@@ -196,8 +196,8 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 				c++;
 				log_info(logger, "Encontrado id %d!", entrada->id);
 			}
-			list_iterator_destroy(page2_iterator);
 		}
+		list_iterator_destroy(page2_iterator);
 		pthread_mutex_unlock(&mutex_pagina_2);
 	}
 	list_iterator_destroy(iterator);
@@ -215,6 +215,12 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 				pag->frame = frame->id;
 				frame->ocupado = 1;
 				queue_push(cola_reemplazo, pag);
+				pthread_mutex_lock(&mutex_swap);
+				proc_swap* swap = obtener_swap_por_pid(tabla->pid);
+				pthread_mutex_unlock(&mutex_swap);
+				swap_a_pag(pag, swap->swap);
+
+
 				break;
 			}
 		}
@@ -231,9 +237,9 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 			pthread_mutex_unlock(&mutex_cola_reemplazo);
 			pthread_mutex_lock(&mutex_swap);
 			proc_swap* swap = obtener_swap_por_pid(tabla->pid);
-			pthread_mutex_unlock(&mutex_swap);
 			swap_a_pag(pag, swap->swap);
 			pag_a_swap(pag_reemplazar, tabla->pid, swap->swap);
+			pthread_mutex_unlock(&mutex_swap);
 			log_info(logger, "Cargada pagina en frame %d. Reemplazada la pag id %d por id %d.", pag->frame, pag_reemplazar->id, pag->id);
 		}
 	}else{
@@ -264,8 +270,16 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		pthread_mutex_lock(&mutex_swap);
 		uint32_t direc_fisica = config->tam_pag * pag->frame;
 		void* data = leer_de_memoria(direc_fisica, (uint32_t)config->tam_pag);
+		uint32_t* testD = malloc(sizeof(uint32_t));
+		memcpy(testD, data, sizeof(uint32_t));
 		uint32_t posicion = pag->pag_proc_interna * (uint32_t)config->tam_pag;
-		escribir_swap(swap, data, config->tam_pag, posicion);
+		if(pag->bit_modified)
+			escribir_swap(swap, data, config->tam_pag, posicion);
+
+		pthread_mutex_lock(&mutex_frames);
+		frame_auxiliar* frame = list_get(frames_auxiliares, pag->frame);
+		frame->ocupado = 0; //libero el frame
+		pthread_mutex_unlock(&mutex_frames);
 		pthread_mutex_unlock(&mutex_swap);
 		log_info(logger, "Pagina id %d swappeada exitosamente!", pag->id);
 	}
@@ -274,10 +288,9 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		log_info(logger, "Swapping a pag id %d", pag->id);
 		pthread_mutex_lock(&mutex_swap);
 		void* data_swap = leer_swap(swap, config->tam_pag, pag->pag_proc_interna * config->tam_pag);
-		char* response = escribir_en_memoria(pag->frame * config->tam_pag, data_swap, config->tam_pag);
+		escribir_en_memoria(pag->frame * config->tam_pag, data_swap, config->tam_pag);
 		pag->bit_presencia = 1;
 		pag->bit_uso = 1;
-		free(response);
 		free(data_swap);
 		pthread_mutex_unlock(&mutex_swap);
 		log_info(logger, "Swapping a pag id %d exitoso!", pag->id);
@@ -341,14 +354,17 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 	}
 
 	void marcar_pag_mod_uso(uint32_t id_2do_nivel, uint32_t id_entrada, uint8_t modificada){
-		log_info(logger, "Marcando pag %d de tabla 2do nivel %d como modificada y en uso", id_2do_nivel, id_entrada);
+		log_info(logger, "Marcando pag %d de tabla 2do nivel %d como en uso", id_2do_nivel, id_entrada);
 		pthread_mutex_lock(&mutex_pagina_2);
 		tabla_pagina* segundo = buscar_tabla_por_id(tablas_2do_nivel, id_2do_nivel);
 		entrada_tp_2* pag = buscar_entrada_2(segundo->entradas, id_entrada);
-		pag->bit_modified = (modificada)? modificada : pag->bit_modified;
 		pag->bit_uso = 1;
+		if(modificada){
+			log_info(logger, "Marcando pag %d de tabla 2do nivel %d como modificada", id_2do_nivel, id_entrada);
+			pag->bit_modified = (modificada)? modificada : pag->bit_modified;
+		}
 
-		pthread_mutex_lock(&mutex_pagina_2);
+		pthread_mutex_unlock(&mutex_pagina_2);
 	}
 
 	proc_swap* obtener_swap_por_pid(uint32_t pid){

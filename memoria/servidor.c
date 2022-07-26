@@ -25,9 +25,10 @@ int crear_conexion(char *ip, char* puerto)
 uint8_t ini_servidor(){
 	char* ip = "127.0.0.1";
 	log_info(logger, "Inicializando servidor con ip %s y puerto %d... ", ip, config->puerto_escucha);
-	socket_mem = crear_conexion(ip, string_itoa(config->puerto_escucha));
+	char* puerto_string = string_itoa(config->puerto_escucha);
+	socket_mem = crear_conexion(ip, puerto_string);
 	log_info(logger, "Socket creado y escuchando: %d!", socket_mem);
-//	free(ip);
+	free(puerto_string);
 	return 1;
 }
 

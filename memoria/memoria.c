@@ -31,7 +31,9 @@ void suspender_proc(uint32_t pid){
 				pag_a_swap(pag, tp1->pid, obtener_swap_por_pid(tp1->pid));
 			}
 		}
+		list_iterator_destroy(tp2_iter);
 	}
+	list_iterator_destroy(tp1_iter);
 	log_info(logger, "Se ha suspendido el pid %d correctamente!", tp1->pid);
 
 	esperar_response_cpu();
@@ -48,8 +50,10 @@ void finalizar_proc(uint32_t pid){
 	esperar_response_cpu();
 }
 uint32_t get_tabla_2do_lvl(uint32_t id_tabla_1, uint32_t entrada){
+	log_info(logger, "Buscando tabla de 2do nivel para tabla %d y entrada %d", id_tabla_1, entrada);
 
 	uint32_t id_tabla_2 = obtener_id_tabla_2do(id_tabla_1, entrada);
+	log_info(logger, "Tabla de 2do nivel encontrada: %d!", id_tabla_2);
 	esperar_response_cpu();
 	return id_tabla_2;
 }
