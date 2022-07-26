@@ -65,6 +65,7 @@ void iniciar_semaforos(){
 }
 
 void iniciar_planificadores(){
+	sleep(3);
 	pthread_create(&planificadorCortoPlazoHilo, NULL, planificador_CortoPlazo, NULL);
 	pthread_create(&planificadorMedianoPlazoHilo, NULL, planificador_MedianoPlazo, NULL);
 	pthread_create(&planificadorLargoPlazoHilo, NULL, planificador_LargoPlazo, NULL);

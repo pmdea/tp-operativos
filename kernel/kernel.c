@@ -16,7 +16,7 @@ int main(void)
 	instrucc5 -> identificador = NO_OP;
 	instrucc5 -> parametros = queue_create();
 
-	list_add(instrucc5 -> parametros -> elements, 1);
+	list_add(instrucc5 -> parametros -> elements, 5);
 
 	t_instruccion* instrucc4 = asignarMemoria(sizeof(t_instruccion));
 	instrucc4 -> identificador = IO;
@@ -49,8 +49,8 @@ int main(void)
 	list_add(proceso2 -> instrucciones -> elements, instrucc5);
 	list_add(proceso2 -> instrucciones -> elements, instrucc3);
 
-	generarEstructuraPCB(30, proceso2);
-	generarEstructuraPCB(55, proceso2);
+	generarEstructuraPCB(30, proceso);
+	generarEstructuraPCB(55, proceso);
 	generarEstructuraPCB(77, proceso2);
 //	PCB* unPCB = list_get(procesosNew, 0);
 

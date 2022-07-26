@@ -29,11 +29,23 @@ void dispatch(int escuchaDispatch){
 		//enviarRespuestaKernel(kernel_dispatch, *unPCB, IO, 3, 20000, loggerCpu);
 		for(k = 0; k < cantidadInstrucciones; k++){
 
-
 			t_instruccion* instruccion = fetch(unPCB);
+
 			decode(instruccion, unPCB);
+
 			execute(instruccion, unPCB, kernel_dispatch);
-			checkInterrupt(unPCB, kernel_dispatch);
+			log_error(loggerCpu, "INST %i", instruccion -> identificador);
+			pthread_mutex_lock(&variableCompartida);
+			if(instruccion -> identificador == EXIT){
+				interrupcionKernel = 0;
+				log_error(loggerCpu, "ENTRO ACA %i", interrupcionKernel);
+			} else {
+				checkInterrupt(unPCB, kernel_dispatch);
+			}
+
+			pthread_mutex_unlock(&variableCompartida);
+
+
 		}
 
 	}

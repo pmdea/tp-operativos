@@ -16,10 +16,6 @@ void algoritmo_FIFO(){
         respuestaCPU = recibirRespuestaCPU(socket_dispatch);
         unProceso = list_get(respuestaCPU, 0);
         uint32_t motivoRegreso = list_get(respuestaCPU, 1);
-        uint32_t raf = list_get(respuestaCPU, 2);
-        uint32_t tb = list_get(respuestaCPU, 3);
-
-        log_warning(loggerKernel, "MOT: %i - RAF: %i - TB: %i", motivoRegreso, raf, tb);
 
         switch(motivoRegreso){
         	case EXIT_PCB:;

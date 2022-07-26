@@ -88,7 +88,7 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 
 	case 4:
 		log_info(loggerCpu, "EXIT");
-		proceso->program_counter +=1;
+		//proceso->program_counter +=1;
 		enviarRespuestaKernel(socketA, *proceso, EXIT_PCB, rafagaEjecutada, 0, loggerCpu);
 		k = 2000;
 		break;
@@ -97,7 +97,6 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 
 void checkInterrupt(PCB* proceso, int socketA)
 {
-	pthread_mutex_lock(&variableCompartida);
     if(interrupcionKernel==1) /// int interruption() implementado en otra rama
     {
     	enviarRespuestaKernel(socketA, *proceso, DESALOJO_PCB, rafagaEjecutada, 0, loggerCpu);
@@ -105,5 +104,4 @@ void checkInterrupt(PCB* proceso, int socketA)
         k = 2000;
         interrupcionKernel = 0;
     }
-    pthread_mutex_unlock(&variableCompartida);
 }
