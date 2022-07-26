@@ -19,7 +19,7 @@ int crear_conexion(char *ip, char* puerto)
 }
 
 void iniciar_conexiones(){
-	socket_memoria = crear_conexion(config_kernel.ip_memoria, config_kernel.puerto_memoria);
-	socket_cpu_dispatch = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_dispatch);
-	socket_cpu_interrupt = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_interrupt);;
+	//socket_memoria = crear_conexion(config_kernel.ip_memoria, string_itoa(config_kernel.puerto_memoria));
+	socket_cpu_dispatch = crear_conexion(config_kernel.ip_cpu, string_itoa(config_kernel.puerto_cpu_dispatch));
+	socket_cpu_interrupt = crear_conexion(config_kernel.ip_cpu, string_itoa(config_kernel.puerto_cpu_interrupt));
 }

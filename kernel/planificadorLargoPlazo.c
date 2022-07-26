@@ -10,16 +10,15 @@ void planificador_LargoPlazo(){
 
 
 void estadoReady(){
-    int tamanioReady = 0;
+    int tamanioNew = 0;
     int tamanioSuspendido = 0;
     while(1){
-
         pthread_mutex_lock(&mutexSuspendido);
         tamanioSuspendido = list_size(procesosSuspendedReady);
         pthread_mutex_unlock(&mutexSuspendido);
 
         pthread_mutex_lock(&mutexReady);
-        tamanioReady = list_size(procesosReady);
+        tamanioNew = list_size(procesosNew);
         pthread_mutex_unlock(&mutexReady);
 
         if(tamanioSuspendido > 0){
@@ -28,13 +27,12 @@ void estadoReady(){
             sem_wait(&grado_multiprogramacion); // El signal lo da el Planificador Mediano Plazo
 
             pthread_mutex_lock(&mutexSuspendido);
-            pcb* procesoSuspendido = list_get(procesosSuspendedReady, 0);
+            PCB* procesoSuspendido = list_get(procesosSuspendedReady, 0);
             list_add(procesosReady, procesoSuspendido);
             pthread_mutex_unlock(&mutexSuspendido);
             log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
 
-        }else if ( tamanioReady > 0){
-
+        }else if ( tamanioNew > 0){
             sem_wait(&grado_multiprogramacion);
             // AGREGO ESTA VALIDACION POR SI JUSTO SE TRABA EN EL SEMAFORO
             // LLEGA UN PROCESO A NEW Y SEGUNDOS DESPUES UN SUSPENDIDO
@@ -46,14 +44,14 @@ void estadoReady(){
                 sem_wait(&prioridad_SuspendedReady); // Binario P.M.P
 
                 pthread_mutex_lock(&mutexSuspendido);
-                pcb* procesoSuspendido = list_get(procesosSuspendedReady, 0);
+                PCB* procesoSuspendido = list_get(procesosSuspendedReady, 0);
                 list_add(procesosReady, procesoSuspendido);
                 pthread_mutex_unlock(&mutexSuspendido);
                 log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
 
             } else {
                 pthread_mutex_lock(&mutexNew);
-                pcb * nuevoProceso = list_remove(procesosNew, 0);
+                PCB* nuevoProceso = list_remove(procesosNew, 0);
                 pthread_mutex_unlock(&mutexNew);
                 //Envio de mensaje a Modulo de Memoria para generar estructuras
                 //avisar_a_memoria(socket_memoria, INICIALIZA, nuevoProceso, loggerKernel);
@@ -74,7 +72,7 @@ void estadoReady(){
 
 
 void estadoExit(){
-	pcb* procesoFinalizado;
+	PCB* procesoFinalizado;
 	while (1){
 		sem_wait(&finalizoProceso);
         pthread_mutex_lock(&mutexExit);

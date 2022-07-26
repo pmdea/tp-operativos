@@ -127,32 +127,28 @@ uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint3
 	return valor;
 }
 
-int asignarNumero(char* ident)
+int asignarNumero(ID_INSTRUCCION ident)
 {
 	int n;
-	if(string_equals_ignore_case(ident, "NO_OP"))
-	{
-		n=0;
-	}
-	if(string_equals_ignore_case(ident, "I/O"))
-	{
-		n=1;
-	}
-	if(string_equals_ignore_case(ident, "READ"))
-	{
-		n=2;
-	}
-	if(string_equals_ignore_case(ident, "WRITE"))
-	{
-		n=3;
-	}
-	if(string_equals_ignore_case(ident, "COPY"))
-	{
-		n=3;
-	}
-	if(string_equals_ignore_case(ident, "EXIT"))
-	{
-		n=4;
+	switch(ident){
+		case NO_OP:;
+		n = 0;
+		break;
+		case IO:;
+		n = 1;
+		break;
+		case READ:;
+		n = 2;
+		break;
+		case WRITE:;
+		n = 3;
+		break;
+		case COPY:;
+		n = 3;
+		break;
+		case EXIT:;
+		n = 4;
+		break;
 	}
 	return n;
 }
@@ -229,7 +225,7 @@ void agregar_a_TLB(int pagina, int marco)
 }
 
 //traduce direciones logicas en direcciones fisicas
-direccion_fisica* mmu(direccion_logica* direccion_logica, pcb* proceso)
+direccion_fisica* mmu(direccion_logica* direccion_logica, PCB* proceso)
 {
 	direccion_fisica* direccion_fisica;
 

@@ -96,6 +96,15 @@ t_list* tiemposBlocked;
 t_list* tiemposBlockedSuspendMax;
 
 // DEFINO ESTRUCTURAS
+typedef enum{
+	NO_OP,
+	IO,
+	READ,
+	WRITE,
+	COPY,
+	EXIT,
+} ID_INSTRUCCION;
+
 typedef enum {
     INICIALIZA,
     SUSPENDE,
@@ -103,9 +112,9 @@ typedef enum {
 }OP_MEMORIA;
 
 typedef enum {
-    EXIT,
-    IO,
-    DESALOJO,
+    EXIT_PCB,
+    IO_PCB,
+    DESALOJO_PCB,
 }OP_CPU;
 
 typedef struct {
@@ -124,18 +133,17 @@ typedef struct {
 } KERNEL_CONFIG;
 KERNEL_CONFIG config_kernel;
 
-typedef struct {
-    int id;
-    int tamanio;
-    t_list* instrucciones; // LISTA
-    int program_counter;
-    int tabla_paginas; // LISTA
-    double estimacion_rafaga;
-} pcb;
+typedef struct{
+	uint32_t id;
+	uint32_t tamanio;
+	t_list* instrucciones;
+	uint32_t program_counter;
+	uint32_t tabla_paginas;
+	double estimacion_rafaga;
+}PCB;
 
 typedef struct {
-	int tamanio_id;
-	char* identificador;
+	ID_INSTRUCCION identificador;
 	t_queue* parametros;
 }t_instruccion;
 
@@ -159,11 +167,15 @@ t_log* iniciar_logger_kernel(void);
 t_config* iniciar_config_kernel(void);
 void terminar_programa(t_log* logger, t_config* config);
 //funciones_pcb.c
-void generar_PCB(int idPCB, t_proceso* proceso);
-void estimador(pcb* unPCB, double alfa, int rafaga_ejecutada);
-bool ordenarSRT(pcb* unPCB,pcb* otroPCB);
-int devolverID_CONSOLA(pcb* unPCB);
+void estimador(PCB* unPCB, double alfa, int rafaga_ejecutada);
+bool ordenarSRT(PCB* unPCB,PCB* otroPCB);
+int devolverID_CONSOLA(PCB* unPCB);
 int devolverID_PCB(int socket);
+PCB crearPCB(int idPCB, t_proceso* proceso);
+void agregarEstadoNew(PCB* unPCB );
+void generarEstructuraPCB(int idPCB, t_proceso* proceso);
+void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger);
+t_list* recibirRespuestaCPU(int socket_emisor);
 //Planificadores
 void planificador_LargoPlazo();
 void planificador_CortoPlazo();
@@ -176,59 +188,26 @@ void ejecucionProcesoSRT();
 //Algoritmos
 void algoritmo_FIFO();
 void algoritmo_SRT();
-void avisar_a_planificador_LP(pcb* pcbFinalizado);
+void avisar_a_planificador_LP(PCB* pcbFinalizado);
 
-// Utils
+// Utils funciones para deserializar
 void* asignarMemoria(int cantidad);
 int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos);
 void enviarMensaje(int socket, void* mensaje, int tamanio);
 
-void avisar_a_consola(pcb* pcbFinalizado);
-void avisar_a_memoria(int socket, uint32_t estado, pcb* unProceso, t_log* logger);
-void avisar_a_cpu_interrupt();
-
-void serilizar_enviar_pcb(int socket, pcb* unPCB , t_log* logger);
-void enviarStringSerializado(char* mensaje, int socket);
-void enviarIntSerializado(int numero, int socket_memoria);
-void enviar_respuesta_kernel(int socket, pcb* unPCB, int rafagaCPU , char* motivoRetorno, int tiempoBloqueo, t_log* logger);
-
-void concatenarInstruccion(void* buffer, int* desplazamiento, t_instruccion* unaInstruccion);
-void concatenarInt(void* buffer, int* desplazamiento, int numero);
 void concatenarInt32(void* buffer, int* desplazamiento, uint32_t numero);
 void concatenarDouble(void* buffer, int* desplazamiento, double numero);
 void concatenarString(void* buffer, int* desplazamiento, char* mensaje);
-void concatenarListaInt(void* buffer, int* desplazamiento, t_list* listaArchivos);
-
-char* deserializarString(int emisor);
-int deserializarInt(int emisor);
-char deserializarChar(int emisor);
+PCB* deserializarPCB(int socket_emisor);
+uint32_t deserializarInt32(int emisor);
 double deserializarDouble(int emisor);
-t_list* deserializarListaInt(int emisor);
-t_list* deserializarListaInstrucciones(int emisor);
-t_list* deserializarListaInst(int emisor);
-t_instruccion* deserializarInst(int emisor);
-t_list* recibir_devolucion_cpu(int socket);
-int tamanio_listaInst(t_list* listaInst);
+char* deserializarString(int emisor);
 
-// conexionConsola
-#define PUERTO "8080"
-#define IP "127.0.0.1"
 
-void inicializar_direccion_kernel(struct sockaddr_in *direccion_kernel);
-void bindear_kernel(int kernel, struct sockaddr_in direccion_kernel);
-void escuchar(int kernel);
-void procesar_entradas_de_consolas(int kernel);
-void atender_consola(int consola);
-bool protocolo_handshake(int consola);
-bool es_igual_a(char* un_string, char* otro_string);
-bool enviar_mensaje(op_code codigo, char* mensaje, int socket_consola);
-bool se_pudo_recibir_el_proceso(t_proceso* proceso,int consola);
-void recibir_instrucciones(t_proceso* proceso,int consola);
-bool se_pueden_recibir_instrucciones(t_proceso* proceso, int consola);
-void recibir_parametros(t_instruccion* instruccion, int consola);
-int cantidad_de_parametros(char* identificador);
-void enviar_confirmacion(int consola);
-bool enviar_paquete(t_paquete* paquete, int socket_consola);
-void eliminar_paquete(t_paquete* paquete);
+t_list* deserializarListaInstruccionesK(int emisor);
+uint32_t tamanioParametros(t_list* lista);
+int cantidad_de_parametros(ID_INSTRUCCION identificador);
+
+
 
 

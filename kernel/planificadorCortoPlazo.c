@@ -25,7 +25,7 @@ void administrar_bloqueos(){ // hilo
         sem_wait(&procesoBloqueado);
 
         pthread_mutex_lock(&mutexBloqueo);
-        pcb* procesoBloqueado = list_remove(procesosBlocked, 0);
+        PCB* procesoBloqueado = list_remove(procesosBlocked, 0);
         int tiempo = list_remove(tiemposBlocked, 0);
         pthread_mutex_unlock(&mutexBloqueo);
 
@@ -37,7 +37,7 @@ void administrar_bloqueos(){ // hilo
         }
 
         log_info(loggerKernel, "Iniciando bloqueo del Proceso de ID %i por un tiempo de %d........",procesoBloqueado -> id,tiempo);
-        usleep(tiempo);
+        sleep(tiempo/1000);
         log_info(loggerKernel, "Finalizando bloqueo del Proceso de ID %i", procesoBloqueado -> id);
 
         if(tiemposBlockedSuspended > 0){
