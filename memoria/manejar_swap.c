@@ -6,13 +6,12 @@ extern t_log* logger;
 void* crear_swap(uint32_t size, uint32_t pid){
 	char* swap_name = generar_filename(pid);
 	log_info(logger, "Creando file swap para proceso %d en %s", pid, swap_name);
-	FILE *fp = fopen(swap_name, "w");
-	ftruncate(fileno(fp), size);
-    fclose(fp);
 	int swap_fd = open(swap_name, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
-	void* swap_process_mem = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, swap_fd, 0);
+	ftruncate(swap_fd, size);
+	void* swap_process_mem = mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED, swap_fd, 0);
 	free(swap_name);
-	close(swap_fd);
+    close(swap_fd);
+	msync(swap_process_mem, size, MS_SYNC);
 	log_info(logger, "Espacio swap creado correctamente!");
 	return swap_process_mem;
 }
@@ -39,7 +38,7 @@ char* generar_filename(uint32_t pid){
 
 void escribir_swap(void* swap, void* data, uint32_t size, uint32_t start){
 	memcpy(swap+start, data, size);
-	free(data);
+	msync(swap+start, size, MS_SYNC);
 	retardo_swap();
 }
 

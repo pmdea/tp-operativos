@@ -12,7 +12,10 @@
 #include <commons/collections/queue.h>
 #include <commons/string.h>
 #include "estructuras.h"
+#include "servidor.h"
+#include "manejar_swap.h"
 #include <pthread.h>
+#include <time.h>
 
 typedef struct {
 	int puerto_escucha;
@@ -49,8 +52,9 @@ void finalizar_programa(); //Limpia para cerrar el programa
 t_mem_config* crear_config();
 uint8_t cargar_tablas_paginas();
 uint8_t cargar_frames_auxiliares();
-uint8_t cargar_queue_pags();
 uint8_t cargar_lista_swaps();
 uint8_t init_semaforos(); // inicializar mutex
+
+void finalizar_swap();
 
 #endif /* INIT_MEMORIA_H_ */

@@ -14,6 +14,7 @@ typedef struct{
 	uint8_t bit_uso;
 	uint8_t bit_modified;
 	uint32_t pag_proc_interna;
+	uint64_t t_assigned;
 } entrada_tp_2;
 
 typedef struct{

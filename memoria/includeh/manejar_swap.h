@@ -15,5 +15,5 @@ void eliminar_swap(uint32_t pid, void* swap, uint32_t size);
 void escribir_swap(void* swap, void* data, uint32_t size, uint32_t start);
 void* leer_swap(void* swap, uint32_t size, uint32_t start);
 char* generar_filename(uint32_t pid);
-
+void retardo_swap();
 #endif /* INCLUDEH_MANEJAR_SWAP_H_ */

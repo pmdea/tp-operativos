@@ -4,6 +4,7 @@ extern t_log* logger;
 extern t_list* lista_swaps;
 extern t_list* tablas_1er_nivel;
 extern t_list* tablas_2do_nivel;
+extern t_list* frames_auxiliares;
 
 uint32_t iniciar_proc(uint32_t proc_mem, uint32_t pid){
 	log_info(logger, "Inicializando proceso size %d pid %d", proc_mem, pid);
@@ -28,7 +29,9 @@ void suspender_proc(uint32_t pid){
 		while(list_iterator_has_next(tp2_iter)){
 			entrada_tp_2* pag = list_iterator_next(tp2_iter);
 			if(pag->bit_presencia){
-				pag_a_swap(pag, tp1->pid, obtener_swap_por_pid(tp1->pid));
+				pag_a_swap(pag, tp1->pid, obtener_swap_por_pid(tp1->pid)->swap);
+				frame_auxiliar* frame = list_get(frames_auxiliares, pag->frame);
+				frame->ocupado = 0; //libero el frame
 			}
 		}
 		list_iterator_destroy(tp2_iter);
@@ -46,6 +49,7 @@ void finalizar_proc(uint32_t pid){
 	proc_swap* proc_swap = list_remove_by_condition(lista_swaps, (void*) _is_proc_swap);
 	eliminar_swap(pid, proc_swap->swap, proc_swap->size);
 	borrar_memoria_proceso(pid);
+	free(proc_swap);
 	log_info(logger, "Proceso pid %d finalizado!", pid);
 	esperar_response_cpu();
 }
@@ -65,11 +69,13 @@ uint32_t get_nro_marco(uint32_t id_tabla_1, uint32_t id_tabla_2, uint32_t entrad
 	return marco;
 }
 uint32_t leer_en_memoria(uint32_t id_2do_nivel, uint32_t id_entrada, uint32_t offset){
-	uint32_t data = *((uint32_t*)leer_de_memoria(offset, sizeof(uint32_t)));
+	uint32_t* data = leer_de_memoria(offset, sizeof(uint32_t));
 	log_info(logger, "Leido de memoria: %d", data);
 	marcar_pag_mod_uso(id_2do_nivel, id_entrada, 0);
+	uint32_t result = *data;
+	free(data);
 	esperar_response_cpu();
-	return data;
+	return result;
 }
 char* escribir_memoria(uint32_t id_2do_nivel, uint32_t id_entrada, uint32_t offset, void* data){
 	log_info(logger, "Escribiendo en dirección física %d data: %d", offset, *((uint32_t*)data));

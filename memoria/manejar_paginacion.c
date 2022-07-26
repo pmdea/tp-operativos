@@ -5,7 +5,6 @@ extern t_list* tablas_2do_nivel;
 extern t_mem_config* config;
 static uint32_t index_tp = 0;
 extern t_list* frames_auxiliares;
-extern t_queue* cola_reemplazo;
 extern t_log* logger;
 extern t_list* lista_swaps;
 
@@ -13,8 +12,6 @@ extern pthread_mutex_t mutex_swap;
 extern pthread_mutex_t mutex_frames;
 extern pthread_mutex_t mutex_pagina_1;
 extern pthread_mutex_t mutex_pagina_2;
-extern pthread_mutex_t mutex_cola_reemplazo;
-
 uint32_t crear_tabla_1er_nivel(uint32_t proc_mem, uint32_t pid){
 	log_info(logger, "Creando tablas de primer nivel para proceso pid %d", pid);
 	tabla_pagina* tabla = malloc(sizeof(tabla_pagina));
@@ -115,60 +112,43 @@ uint8_t se_puede_asignar_marco(tabla_pagina* tbl_proc){
 	return marcos_asignados < config->marcos_por_proceso;
 }
 
-uint8_t buscar(uint32_t array[], uint32_t x) {
-	uint32_t size = (uint32_t)(sizeof(array)/sizeof(array[0]));
-	for(uint32_t i = 0; i < size; i++){
-		if(array[i] == x)
-			return true;
-	}
-	return false;
-}
-
-entrada_tp_2* algoritmo_reemplazo(uint32_t pags_proc[]){ // Devuelve la página elegida para reemplazar
+entrada_tp_2* algoritmo_reemplazo(t_list* paginas){ // Devuelve la página elegida para reemplazar
 	int algoritmo = string_equals_ignore_case(config->algoritmo_reemplazo, "CLOCK") ? 0 : 1;
 	log_info(logger, "Invocando algoritmo de reemplazo %s...", config->algoritmo_reemplazo);
 	switch(algoritmo){
 		case 0: //CLOCK
-			pthread_mutex_lock(&mutex_cola_reemplazo);
 			while(1){
-				for(uint32_t i = 0; i < queue_size(cola_reemplazo); i++){
-					entrada_tp_2* pag = queue_pop(cola_reemplazo);
-					if(buscar(pags_proc, pag->id)){
-						if(pag->bit_uso){
-							pag->bit_uso = 0;
-							queue_push(cola_reemplazo, pag);
-						}
-						else{
-							pthread_mutex_unlock(&mutex_cola_reemplazo);
-							return pag;
-						}
+				t_list_iterator* iterator = list_iterator_create(paginas);
+				while(list_iterator_has_next(iterator)){
+					entrada_tp_2* pag = list_iterator_next(iterator);
+					if(pag->bit_uso)
+						pag->bit_uso = 0;
+					else{
+						list_iterator_destroy(iterator);
+						return pag;
 					}
 				}
+				list_iterator_destroy(iterator);
 			}
 			break;
 		case 1: ;//CLOCK-M
 			uint8_t firstRun = true;
-			log_info(logger, "Primera corrida CLOCK-M");
-			pthread_mutex_lock(&mutex_cola_reemplazo);
+			log_debug(logger, "Primera corrida CLOCK-M");
 			while(1){
-				for(uint32_t i = 0; i < queue_size(cola_reemplazo); i++){
-					entrada_tp_2* pag = queue_pop(cola_reemplazo);
-					if(buscar(pags_proc, pag->id)){
-						if(firstRun){
-							if(!pag->bit_uso && !pag->bit_modified){
-								pthread_mutex_unlock(&mutex_cola_reemplazo);
-								return pag;
-							}
-							queue_push(cola_reemplazo, pag);
-						}else{
-							if(!pag->bit_uso && pag->bit_modified){
-								return pag;
-							}
-							pag->bit_uso = 0;
-							queue_push(cola_reemplazo, pag);
-						}
+				t_list_iterator* iterator = list_iterator_create(paginas);
+				while(list_iterator_has_next(iterator)){
+					entrada_tp_2* pag = list_iterator_next(iterator);
+					if(firstRun){
+						if(!pag->bit_uso && !pag->bit_modified)
+							return pag;
+					}
+					else{
+						if(!pag->bit_uso && pag->bit_modified)
+							return pag;
+						pag->bit_uso = 0;
 					}
 				}
+				list_iterator_destroy(iterator);
 				firstRun = !firstRun;
 			}
 			break;
@@ -179,11 +159,10 @@ entrada_tp_2* algoritmo_reemplazo(uint32_t pags_proc[]){ // Devuelve la página 
 }
 
 void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
-	uint32_t pags_proc[(config->entradas_por_tabla)*(config->entradas_por_tabla)];
-	log_info(logger, "Generando queue auxiliar con marcos asignados al proceso");
+	t_list* pags_con_presencia = list_create();
+	log_info(logger, "Generando lista con paginas con p=1");
 	t_list_iterator* iterator = list_iterator_create(tabla->entradas);
 	log_info(logger, "Obteniendo ids paginas del proceso con presencia.");
-	int c = 0;
 	while(list_iterator_has_next(iterator)){
 		entrada_tp_1* page = list_iterator_next(iterator);
 		pthread_mutex_lock(&mutex_pagina_2);
@@ -191,18 +170,16 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		t_list_iterator* page2_iterator = list_iterator_create(tabla_lvl_2->entradas);
 		while(list_iterator_has_next(page2_iterator)){
 			entrada_tp_2* entrada =  list_iterator_next(page2_iterator);
-			if(entrada->bit_presencia){
-				pags_proc[c] = entrada->id;
-				c++;
-				log_info(logger, "Encontrado id %d!", entrada->id);
-			}
+			if(entrada->bit_presencia)
+				list_add(pags_con_presencia, entrada);
 		}
 		list_iterator_destroy(page2_iterator);
 		pthread_mutex_unlock(&mutex_pagina_2);
 	}
 	list_iterator_destroy(iterator);
 
-	if(se_puede_asignar_marco(tabla)){
+	int cant_pags_ocupadas = list_size(pags_con_presencia);
+	if(cant_pags_ocupadas<config->marcos_por_proceso){
 		log_info(logger, "Buscando marco disponible...");
 		t_list_iterator* frame_iterator = list_iterator_create(frames_auxiliares);
 		pthread_mutex_lock(&mutex_frames);
@@ -213,28 +190,26 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 				pag->bit_presencia = 1;
 				pag->bit_uso = 1;
 				pag->frame = frame->id;
+				pag->t_assigned = GetTimeStamp();
 				frame->ocupado = 1;
-				queue_push(cola_reemplazo, pag);
 				pthread_mutex_lock(&mutex_swap);
 				proc_swap* swap = obtener_swap_por_pid(tabla->pid);
-				pthread_mutex_unlock(&mutex_swap);
 				swap_a_pag(pag, swap->swap);
-
-
+				pthread_mutex_unlock(&mutex_swap);
 				break;
 			}
 		}
 		list_iterator_destroy(frame_iterator);
 		pthread_mutex_unlock(&mutex_frames);
+
 		if(pag->frame == -1 || !pag->bit_presencia){
+			sort_lista_por_tiempo(pags_con_presencia);
 			log_info(logger, "Page fault! No se encontro marco disponible para cargar pagina id %d", pag->id);
-			entrada_tp_2* pag_reemplazar = algoritmo_reemplazo(pags_proc);
+			entrada_tp_2* pag_reemplazar = algoritmo_reemplazo(pags_con_presencia);
 			pag->bit_presencia = 1;
 			pag->bit_uso = 1;
 			pag->frame = pag_reemplazar->frame;
-			pthread_mutex_lock(&mutex_cola_reemplazo);
-			queue_push(cola_reemplazo, pag);
-			pthread_mutex_unlock(&mutex_cola_reemplazo);
+			pag->t_assigned = GetTimeStamp();
 			pthread_mutex_lock(&mutex_swap);
 			proc_swap* swap = obtener_swap_por_pid(tabla->pid);
 			swap_a_pag(pag, swap->swap);
@@ -243,22 +218,22 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 			log_info(logger, "Cargada pagina en frame %d. Reemplazada la pag id %d por id %d.", pag->frame, pag_reemplazar->id, pag->id);
 		}
 	}else{
-		log_info(logger, "El proceso no tiene marcos disponibles. Se reemplaza");
-		log_info(logger, "Page fault! No se encontro marco disponible para cargar pagina id %d", pag->id);
-		entrada_tp_2* pag_reemplazar = algoritmo_reemplazo(pags_proc);
+		sort_lista_por_tiempo(pags_con_presencia);
+		log_info(logger, "Page fault! Se excedieron los marcos disponibles para el proceso y cargar pagina id %d", pag->id);
+		entrada_tp_2* pag_reemplazar = algoritmo_reemplazo(pags_con_presencia);
 		pag->bit_presencia = 1;
 		pag->bit_uso = 1;
 		pag->frame = pag_reemplazar->frame;
+		pag->t_assigned = GetTimeStamp();
 		pthread_mutex_lock(&mutex_swap);
 		proc_swap* swap = obtener_swap_por_pid(tabla->pid);
 		swap_a_pag(pag, swap->swap);
-		pthread_mutex_lock(&mutex_cola_reemplazo);
-		queue_push(cola_reemplazo, pag);
-		pthread_mutex_unlock(&mutex_cola_reemplazo);
 		pag_a_swap(pag_reemplazar, tabla->pid, swap->swap);
 		pthread_mutex_unlock(&mutex_swap);
 		log_info(logger, "Cargada pagina en frame %d. Reemplazada la pag id %d por id %d.", pag->frame, pag_reemplazar->id, pag->id);
 	}
+
+	list_destroy(pags_con_presencia);
 }
 
 
@@ -267,32 +242,25 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		//seteo la pag con presencia 0 y uso 0
 		pag->bit_presencia = 0;
 		pag->bit_uso = 0;
-		pthread_mutex_lock(&mutex_swap);
 		uint32_t direc_fisica = config->tam_pag * pag->frame;
 		void* data = leer_de_memoria(direc_fisica, (uint32_t)config->tam_pag);
-		uint32_t* testD = malloc(sizeof(uint32_t));
-		memcpy(testD, data, sizeof(uint32_t));
 		uint32_t posicion = pag->pag_proc_interna * (uint32_t)config->tam_pag;
 		if(pag->bit_modified)
 			escribir_swap(swap, data, config->tam_pag, posicion);
-
+		free(data);
 		pthread_mutex_lock(&mutex_frames);
 		frame_auxiliar* frame = list_get(frames_auxiliares, pag->frame);
 		frame->ocupado = 0; //libero el frame
 		pthread_mutex_unlock(&mutex_frames);
-		pthread_mutex_unlock(&mutex_swap);
 		log_info(logger, "Pagina id %d swappeada exitosamente!", pag->id);
 	}
 
 	void swap_a_pag(entrada_tp_2* pag, void* swap){
 		log_info(logger, "Swapping a pag id %d", pag->id);
-		pthread_mutex_lock(&mutex_swap);
 		void* data_swap = leer_swap(swap, config->tam_pag, pag->pag_proc_interna * config->tam_pag);
 		escribir_en_memoria(pag->frame * config->tam_pag, data_swap, config->tam_pag);
 		pag->bit_presencia = 1;
 		pag->bit_uso = 1;
-		free(data_swap);
-		pthread_mutex_unlock(&mutex_swap);
 		log_info(logger, "Swapping a pag id %d exitoso!", pag->id);
 	}
 
@@ -371,5 +339,20 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		uint8_t _is_proc_swap(proc_swap* proc){
 			return proc->pid == pid;
 		}
-		return (proc_swap*) list_find(lista_swaps, (void*) _is_proc_swap);
+		return list_find(lista_swaps, (void*) _is_proc_swap);
+	}
+
+	void sort_lista_por_tiempo(t_list* list){
+	    bool pag_antes_de_pag(void* e1, void* e2) {
+	        entrada_tp_2* pag1 = e1;
+	        entrada_tp_2* pag2 = e2;
+	        return pag1->t_assigned < pag2->t_assigned;
+	    }
+	    list_sort(list, &pag_antes_de_pag);
+	}
+
+	uint64_t GetTimeStamp() {
+	    struct timeval tv;
+	    gettimeofday(&tv,NULL);
+	    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
 	}

@@ -9,7 +9,6 @@ void* memoria_principal;
 t_list* tablas_1er_nivel; //Se dejan como globales para utilizarlas como figura en el issue #2596
 t_list* tablas_2do_nivel; //Cada t_list va a tener una t_list como elemento de entrada_tp1 y tp2 correspondientemente, que representará una tabla de paginas
 t_list* frames_auxiliares;
-t_queue* cola_reemplazo;
 t_list* lista_swaps;
 
 // Mutex
@@ -18,7 +17,6 @@ pthread_mutex_t mutex_memoria;
 pthread_mutex_t mutex_frames;
 pthread_mutex_t mutex_pagina_1;
 pthread_mutex_t mutex_pagina_2;
-pthread_mutex_t mutex_cola_reemplazo;
 
 uint8_t init(){
 	config = crear_config();
@@ -33,7 +31,6 @@ uint8_t init_semaforos(){
 	pthread_mutex_init(&mutex_frames, NULL);
 	pthread_mutex_init(&mutex_pagina_1, NULL);
 	pthread_mutex_init(&mutex_pagina_2, NULL);
-	pthread_mutex_init(&mutex_cola_reemplazo, NULL);
 	return 1;
 }
 
@@ -76,12 +73,6 @@ uint8_t cargar_frames_auxiliares(){
 	}
 	log_info(logger, "El módulo tiene %d frames disponibles!", nro_frames);
 	log_info(logger, "Estructura auxiliar para manejo de frames creada!");
-	return cargar_queue_pags();
-}
-
-uint8_t cargar_queue_pags(){
-	log_info(logger, "Generando estructura para swapping...");
-	cola_reemplazo = queue_create();
 	return cargar_lista_swaps();
 }
 
@@ -123,7 +114,22 @@ static void frame_destroyer(frame_auxiliar *self){
 	free(self);
 }
 
+
+void finalizar_swap(){
+	t_list_iterator* iter = list_iterator_create(lista_swaps);
+	while(list_iterator_has_next(iter)){
+		proc_swap* swap = list_iterator_next(iter);
+		eliminar_swap(swap->pid, swap->swap, swap->size);
+		free(swap);
+	}
+	list_iterator_destroy(iter);
+	list_destroy(lista_swaps);
+}
+
 void finalizar_programa(){
+	//Mato espacios swap
+	finalizar_swap();
+
 	log_info(logger, "Finalizando programa...");
 	log_destroy(logger);
 	//Mato mutex
@@ -132,22 +138,21 @@ void finalizar_programa(){
 	pthread_mutex_destroy(&mutex_frames);
 	pthread_mutex_destroy(&mutex_pagina_1);
 	pthread_mutex_destroy(&mutex_pagina_2);
-	pthread_mutex_destroy(&mutex_cola_reemplazo);
 
 	//mato config
 	free(config->algoritmo_reemplazo);
 	free(config->path_swap);
 	free(config);
 
-	//matar cola_auxiliar
-	queue_destroy(cola_reemplazo);// Las páginas las libero cuando libero las tablas, no antes para evitar double free
 	//matar frames auxiliares
 	list_destroy_and_destroy_elements(frames_auxiliares, (void*) frame_destroyer);
 	//matar paginas y frames
 	list_destroy_and_destroy_elements(tablas_2do_nivel, (void*) tp_destroy);
 	list_destroy_and_destroy_elements(tablas_1er_nivel, (void*) tp_destroy);
 
+
 	//mato memoria principal
 	free(memoria_principal);
+	finalizar_servidor();
 
 }
