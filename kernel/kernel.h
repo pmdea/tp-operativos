@@ -81,6 +81,10 @@ typedef enum{
 	DESALOJO_PCB,
 } ID_CPU;
 
+typedef enum{
+	KERNEL = 1,
+} id_mod;
+
 // ESTRUCTURAS
 typedef struct{
 	uint32_t id;
@@ -124,6 +128,7 @@ void iniciar_conexiones();
 void iniciar_listas();
 void iniciar_semaforos();
 void iniciar_planificadores();
+void conectar_a_memoria(int socket);
 
 //PLANIFICADORES
 void planificador_CortoPlazo();

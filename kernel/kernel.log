@@ -9,3 +9,8 @@
 [INFO] 19:19:23:274 Kernel/(10645:10768): Ingreso el Proceso de ID: 13 a Ready
 [DEBUG] 19:19:23:274 Kernel/(10645:10730): ********Enviando PCB ID 13 a CPU********
 [INFO] 19:19:23:275 Kernel/(10645:10730): ESPERANDO RESPUESTA
+[INFO] 09:00:08:100 Kernel/(3897:3897): CONEXIONES INICIADAS
+[INFO] 09:00:08:102 Kernel/(3897:3897): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 09:00:11:107 Kernel/(3897:3912): Ingreso el Proceso de ID: 30 a Ready
+[INFO] 09:00:11:107 Kernel/(3897:3912): Ingreso el Proceso de ID: 55 a Ready
+[INFO] 09:00:11:107 Kernel/(3897:3912): Ingreso el Proceso de ID: 77 a Ready

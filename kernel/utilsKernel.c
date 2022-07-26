@@ -31,9 +31,19 @@ void iniciar_settings(){
 }
 
 void iniciar_conexiones(){
+	socket_memoria = crear_conexion(config_kernel.ip_memoria, config_kernel.ip_memoria);
+	conectar_a_memoria(socket_memoria);
 	socket_dispatch = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_dispatch);
 	socket_interrupt = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_interrupt);
 	log_info(loggerKernel, "CONEXIONES INICIADAS");
+}
+
+void conectar_a_memoria(int socket){
+	void* buffer = asignarMemoria(sizeof(id_mod));
+	int desplazamiento = 0;
+	concatenarInt32(buffer, &desplazamiento, KERNEL);
+	enviarMensaje(socket_memoria, buffer, sizeof(id_mod));
+	free(buffer);
 }
 
 void iniciar_listas(){

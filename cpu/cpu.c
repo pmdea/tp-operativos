@@ -8,7 +8,6 @@ int main(void)
 	pthread_mutex_init(&variableCompartida, NULL);
 	int cpu_dispatch = iniciar_servidor_dispatch();
 	int cpu_interrupt = iniciar_servidor_interrupt();
-
 	pthread_t hiloDispatch, hiloInterrupt;
 	pthread_create(&hiloDispatch, NULL, dispatch, cpu_dispatch);
 	pthread_create(&hiloInterrupt, NULL, interrupt, cpu_interrupt);
@@ -23,28 +22,25 @@ void dispatch(int escuchaDispatch){
 		log_info(loggerCpu, "ESPERANDO PCB" );
 		PCB* unPCB = deserializarPCB(kernel_dispatch);
 
-//		enviarRespuestaKernel(kernel_dispatch, *unPCB, IO, 3, 5000, loggerCpu);
 		int cantidadInstrucciones = list_size(unPCB -> instrucciones);
 		rafagaEjecutada = 0;
-		//enviarRespuestaKernel(kernel_dispatch, *unPCB, IO, 3, 20000, loggerCpu);
+		check = 1;
 		for(k = 0; k < cantidadInstrucciones; k++){
-
 			t_instruccion* instruccion = fetch(unPCB);
 
 			decode(instruccion, unPCB);
 
 			execute(instruccion, unPCB, kernel_dispatch);
-			log_error(loggerCpu, "INST %i", instruccion -> identificador);
-			pthread_mutex_lock(&variableCompartida);
-			if(instruccion -> identificador == EXIT){
-				interrupcionKernel = 0;
-				log_error(loggerCpu, "ENTRO ACA %i", interrupcionKernel);
-			} else {
+
+			if(check == 1){
+				pthread_mutex_lock(&variableCompartida);
 				checkInterrupt(unPCB, kernel_dispatch);
+				pthread_mutex_unlock(&variableCompartida);
+			} else{
+				pthread_mutex_unlock(&variableCompartida);
+				interrupcionKernel = 0;
+				pthread_mutex_unlock(&variableCompartida);
 			}
-
-			pthread_mutex_unlock(&variableCompartida);
-
 
 		}
 

@@ -51,6 +51,7 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 		log_info(loggerCpu, "IO %i", tiempoBloqueo);
 		enviarRespuestaKernel(socketA, *proceso, IO_PCB, rafagaEjecutada, tiempoBloqueo, loggerCpu);
 		k = 2000;
+		check = 0;
 		break;
 
 //READ(dirección_lógica)
