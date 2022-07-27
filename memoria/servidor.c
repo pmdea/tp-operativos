@@ -133,6 +133,7 @@ void* escuchar_cpu(void* arg){
 				leer_en_memoria(id_2do_nivel, id_entrada, direc_fisica);
 				uint32_t valor;
 				enviar_mensaje_cliente(cliente, &valor, sizeof(uint32_t));
+				free(request->data);
 				free(request);
 			}
 			break;
@@ -142,6 +143,7 @@ void* escuchar_cpu(void* arg){
 				get_values_from_data(request->data, &id_2do_nivel, &id_entrada, &direc_fisica, &valor);
 				char* response = escribir_memoria(id_2do_nivel, id_entrada, direc_fisica, &valor);
 				enviar_mensaje_cliente(cliente, response, sizeof(uint32_t));
+				free(request->data);
 				free(request);
 			}
 			break;
@@ -150,6 +152,7 @@ void* escuchar_cpu(void* arg){
 				log_error(logger, "No se deberia llamar. Hacer copy haciendo read y write");
 				uint32_t direc_fisica1, direc_fisica2;
 				get_values_from_data(request->data, &direc_fisica1, &direc_fisica2, NULL, NULL);
+				free(request->data);
 				free(request);
 			break;
 			case GET_PAG_NVL_2:{
@@ -158,6 +161,7 @@ void* escuchar_cpu(void* arg){
 				get_values_from_data(request->data, &id_tabla_1, &entrada, NULL, NULL);
 				uint32_t id_tabla_2 = get_tabla_2do_lvl(id_tabla_1, entrada);
 				enviar_mensaje_cliente(cliente, &id_tabla_2, sizeof(uint32_t));
+				free(request->data);
 				free(request);
 			}
 			break;
@@ -167,6 +171,7 @@ void* escuchar_cpu(void* arg){
 				get_values_from_data(request->data, &id_tabla_1, &id_tabla_2, &entrada, NULL);
 				uint32_t valor_en_mem = get_nro_marco(id_tabla_1, id_tabla_2, entrada);
 				enviar_mensaje_cliente(cliente, &valor_en_mem, sizeof(uint32_t));
+				free(request->data);
 				free(request);
 			}
 			break;
@@ -208,11 +213,11 @@ void get_values_from_data(void* data, uint32_t* primer, uint32_t* segundo, uint3
 	int size = sizeof(uint32_t);
 	memcpy(primer, data, size);
 	if(segundo != NULL)
-		memcpy(primer, data + size, size);
+		memcpy(segundo, data + size, size);
 	if(tercero != NULL)
-		memcpy(primer, data + size*2, size);
+		memcpy(tercero, data + size*2, size);
 	if(cuarto != NULL)
-		memcpy(primer, data + size*3, size);
+		memcpy(cuarto, data + size*3, size);
 }
 
 void finalizar_servidor(){
