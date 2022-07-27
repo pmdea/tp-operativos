@@ -1,14 +1,14 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<signal.h>
-#include<unistd.h>
-#include<sys/socket.h>
-#include<netdb.h>
-#include<string.h>
-#include<commons/log.h>
-#include<commons/collections/list.h>
-#include<commons/collections/queue.h>
-#include<commons/config.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <string.h>
+#include <commons/log.h>
+#include <commons/collections/list.h>
+#include <commons/collections/queue.h>
+#include <commons/config.h>
 #include "pthread.h"
 
 #define IP_CPU "127.0.0.1"
@@ -18,6 +18,7 @@ int k;
 int rafagaEjecutada;
 int interrupcionKernel;
 int check;
+t_list* tlb;
 
 //SOCKETS
 int server_cpu;
@@ -65,6 +66,22 @@ typedef struct {
 }t_instruccion;
 
 typedef struct {
+	int pagina;
+	int marco;
+}t_entrada_tlb;
+
+typedef struct {
+	int entrada_tabla_1er_nivel;
+	int entrada_tabla_2do_nivel;
+	int desplazamiento;
+}t_direccion_logica;
+
+typedef struct {
+	uint32_t marco;
+	uint32_t desplazamiento;
+}t_direccion_fisica;
+
+typedef struct {
     int entradas_tlb;
     char* reemplazo_tlb;
     int retardo_noop;
@@ -84,6 +101,7 @@ t_instruccion* fetch(PCB* unPcb);
 void decode(t_instruccion* instruccion, PCB* unPCB);
 void execute(t_instruccion* instruccion, PCB* proceso, int socketA);
 void checkInterrupt(PCB* proceso, int socketA);
+int fetchOperands(t_direccion_logica* direccion_logica, PCB unPcb);
 
 //ENVIO_RECIBO_KERNEL.C
 void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegreso, uint32_t rafagaEjecutada, uint32_t tiempoBloqueo, t_log* logger);
@@ -92,6 +110,20 @@ t_list* deserializarListaInstruccionesK(int emisor);
 uint32_t tamanioParametros(t_list* lista);
 int instruccion_a_realizar(ID_INSTRUCCION identificador);
 int cantidad_de_parametros(ID_INSTRUCCION identificador);
+
+//OPERACIONES_MEMORIA.C
+t_direccion_fisica* mmu(t_direccion_logica* direccion_logica, PCB proceso);
+int leer(t_direccion_fisica* direccion_fisica);
+void escribir(int valor, t_direccion_fisica* direccion_fisica);
+void obtener_direccion_logica(int direccion, t_direccion_logica* direccion_logica);
+void obtener_tamanioPag_Entradas(int tamanio_pagina, int cant_entradas_por_tabla);
+uint32_t obtener_tabla_2do_nivel(int tabla_paginas_1er_nivel, int entrada_pagina_1er_nivel);
+uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint32_t entrada_2do_nivel);
+int comparar_elementos_tlb(t_entrada_tlb* elem, int pag);
+int esta_en_tlb(int pag);
+int tlb_cache(int pag);
+void reemplazo_tlb(t_entrada_tlb* entrada);
+void agregar_a_TLB(int pagina, int marco);
 
 //SERIALIZACIONESC.C
 void* asignarMemoria(int cantidad);

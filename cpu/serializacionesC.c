@@ -1,7 +1,6 @@
 #include "cpu.h"
 
 void enviarMensaje(int socket, void* mensaje, int tamanio){
-//	send(socket, (void*) &tamanio, sizeof(int), 0);
 	send(socket, mensaje, tamanio, 0);
 }
 

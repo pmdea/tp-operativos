@@ -5,21 +5,29 @@ t_instruccion* fetch(PCB* unPcb){
 	return instruccion;
 }
 
+int fetchOperands(t_direccion_logica* direccion_logica, PCB unPcb)
+{
+	t_direccion_fisica* direccion_fisica = mmu(direccion_logica, unPcb);
+	int valor = leer(direccion_fisica);
+
+	return valor;
+}
+
 void decode(t_instruccion* instruccion, PCB* unPCB)
-{/*
-    //direccion_logica* direccion_logica = malloc(sizeof(direccion_logica));
+{
+    t_direccion_logica* direccion_logica = malloc(sizeof(direccion_logica));
 
     if(instruccion->identificador == COPY)
     {
-        direccion_logica* direccion_logica;
+        t_direccion_logica* direccion_logica;
         int direccion = list_remove(instruccion -> parametros -> elements, 1);
         obtener_direccion_logica(direccion, direccion_logica);
 
-        //int valor = fetchOperands(direccion_logica, unPCB);
-        //list_add(instruccion->parametros->elements, valor);
+        int valor = fetchOperands(direccion_logica, *unPCB);
+        list_add(instruccion->parametros->elements, valor);
 
     }
-*/
+
 }
 
 void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
@@ -27,8 +35,8 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 	int num;
 	int tiempoBloqueo;
 
-//	direccion_fisica* direccion_fisica;
-//	direccion_logica* direccion_logica;
+	t_direccion_fisica* direccion_fisica;
+	t_direccion_logica* direccion_logica;
 	int direccion;
 	int valor;
 	int ident = instruccion_a_realizar(instruccion->identificador);
@@ -57,15 +65,15 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 //READ(dirección_lógica)
 
 	case 2:
-/*		direccion = list_get(instruccion -> parametros -> elements, 0);
+		direccion = list_get(instruccion -> parametros -> elements, 0);
 		obtener_direccion_logica(direccion, direccion_logica);
-		//direccion_fisica = mmu(direccion_logica, proceso);
+		direccion_fisica = mmu(direccion_logica, *proceso);
 		int leido = leer(direccion_fisica);
 		log_info(loggerCpu, "Ejecute Instruccion Read: %i", leido);
 
-		rafaga++;
+		rafagaEjecutada++;
 		proceso->program_counter +=1;
-*/
+
 		break;
 
 //WRITE(dirección_lógica, valor)
@@ -73,23 +81,25 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 //COPY(dirección_lógica_destino, dirección_lógica_origen)
 
 	case 3:
-/*		direccion = list_get(instruccion -> parametros -> elements, 0);
+		direccion = list_get(instruccion -> parametros -> elements, 0);
+		log_info(loggerCpu, "Direccion %i", direccion);
 		obtener_direccion_logica(direccion, direccion_logica);
-		//direccion_fisica = mmu(direccion_logica, proceso);
+		log_info(loggerCpu, "Direccion logica %i", direccion_logica);
+//		direccion_fisica = mmu(direccion_logica, *proceso);
+//
+//		valor = list_get(instruccion -> parametros -> elements, 1);
+//		escribir(valor, direccion_fisica);
 
-		valor = list_get(instruccion -> parametros -> elements, 1);
-		escribir(valor, direccion_fisica);
-
-		rafaga++;
+		rafagaEjecutada++;
 		proceso->program_counter +=1;
 
 		log_info(loggerCpu, "Ejecute Instruccion WRITE/COPY %i", valor);
-*/
+
 		break;
 
 	case 4:
 		log_info(loggerCpu, "EXIT");
-		//proceso->program_counter +=1;
+		proceso->program_counter +=1;
 		enviarRespuestaKernel(socketA, *proceso, EXIT_PCB, rafagaEjecutada, 0, loggerCpu);
 		k = 2000;
 		break;
@@ -98,10 +108,9 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 
 void checkInterrupt(PCB* proceso, int socketA)
 {
-    if(interrupcionKernel==1) /// int interruption() implementado en otra rama
+    if(interrupcionKernel==1)
     {
     	enviarRespuestaKernel(socketA, *proceso, DESALOJO_PCB, rafagaEjecutada, 0, loggerCpu);
-        //free(*proceso);
         k = 2000;
         interrupcionKernel = 0;
     }
