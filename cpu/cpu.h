@@ -40,6 +40,10 @@ typedef enum{
 } ID_INSTRUCCION;
 
 typedef enum{
+	CPU = 0,
+} id_mod;
+
+typedef enum{
 	EXIT_PCB,
 	IO_PCB,
 	DESALOJO_PCB,
@@ -105,6 +109,8 @@ char* deserializarString(int emisor);
 int iniciar_servidor_dispatch(void);
 int iniciar_servidor_interrupt(void);
 int esperar_cliente(int socket_servidor);
+void conectar_a_memoria(int socket);
+int crear_conexion(char *ip, char* puerto);
 
 // LOG_CONFIGCPU.C
 t_log* iniciar_logger_cpu(void);

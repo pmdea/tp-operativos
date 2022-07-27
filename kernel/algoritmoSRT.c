@@ -79,6 +79,9 @@ void administradorRespuestaCPU(){
 
     	        break;
         	case DESALOJO_PCB:
+	       		pthread_mutex_lock(&variableEjecutando);
+					ejecutando = 1;
+				pthread_mutex_unlock(&variableEjecutando);
 				rafagaEjecutada = list_get(respuestaCPU, 2);
 				estimador(unPCB, config_kernel.alfa, rafagaEjecutada);
 
@@ -86,9 +89,7 @@ void administradorRespuestaCPU(){
 				list_add(procesosReady, unPCB);
 				list_sort(procesosReady, ordenarSRT);
 				pthread_mutex_unlock(&mutexReady);
-	       		pthread_mutex_lock(&variableEjecutando);
-					ejecutando = 0;
-				pthread_mutex_unlock(&variableEjecutando);
+				enviarPCB(socket_dispatch, *unPCB, loggerKernel);
 				sem_post(&nuevoProcesoReady);
 				list_clean(respuestaCPU);
         		break;

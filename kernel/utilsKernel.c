@@ -14,7 +14,6 @@ int crear_conexion(char *ip, char* puerto)
 
 	// Ahora vamos a crear el socket.
 	int socket_cliente = socket(server_info->ai_family, server_info->ai_socktype,server_info->ai_protocol);
-
 	// Ahora que tenemos el socket, vamos a conectarlo
 	connect(socket_cliente, server_info->ai_addr, server_info->ai_addrlen);
 
@@ -31,7 +30,7 @@ void iniciar_settings(){
 }
 
 void iniciar_conexiones(){
-	socket_memoria = crear_conexion(config_kernel.ip_memoria, config_kernel.ip_memoria);
+	socket_memoria = crear_conexion(config_kernel.ip_memoria, config_kernel.puerto_memoria);
 	conectar_a_memoria(socket_memoria);
 	socket_dispatch = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_dispatch);
 	socket_interrupt = crear_conexion(config_kernel.ip_cpu, config_kernel.puerto_cpu_interrupt);
@@ -75,7 +74,7 @@ void iniciar_semaforos(){
 }
 
 void iniciar_planificadores(){
-	sleep(3);
+	sleep(2);
 	pthread_create(&planificadorCortoPlazoHilo, NULL, planificador_CortoPlazo, NULL);
 	pthread_create(&planificadorMedianoPlazoHilo, NULL, planificador_MedianoPlazo, NULL);
 	pthread_create(&planificadorLargoPlazoHilo, NULL, planificador_LargoPlazo, NULL);

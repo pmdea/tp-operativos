@@ -11,7 +11,7 @@
 #include<commons/config.h>
 #include "pthread.h"
 #include "semaphore.h"
-
+#include <errno.h>
 
 //VAR GLOBAL
 int ejecutando;
@@ -81,6 +81,12 @@ typedef enum{
 	DESALOJO_PCB,
 } ID_CPU;
 
+typedef enum {
+    INICIALIZA,
+    SUSPENDE,
+    FINALIZA,
+}OP_MEMORIA;
+
 typedef enum{
 	KERNEL = 1,
 } id_mod;
@@ -149,6 +155,9 @@ void agregarEstadoNew(PCB* unPCB );
 void generarEstructuraPCB(int idPCB, t_proceso* proceso);
 void estimador(PCB* unPCB, double alfa, int rafaga_ejecutada);
 bool ordenarSRT(PCB* unPCB,PCB* otroPCB);
+
+//AVISOS_A_MEMORIA.C
+void avisar_a_memoria(OP_MEMORIA operacion, PCB unPCB, t_log* logger);
 
 //ENVIO_RECIBO_CPU.C
 void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger);

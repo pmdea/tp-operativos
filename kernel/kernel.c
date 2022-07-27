@@ -22,7 +22,7 @@ int main(void)
 	instrucc4 -> identificador = IO;
 	instrucc4 -> parametros = queue_create();
 
-	list_add(instrucc4 -> parametros -> elements, 5000);
+	list_add(instrucc4 -> parametros -> elements, 20000);
 
 	t_instruccion* instrucc2 = asignarMemoria(sizeof(t_instruccion));
 	instrucc2 -> identificador = WRITE;

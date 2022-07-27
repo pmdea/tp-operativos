@@ -56,9 +56,10 @@ void estadoReady(){
                 PCB* nuevoProceso = list_remove(procesosNew, 0);
                 pthread_mutex_unlock(&mutexNew);
                 //Envio de mensaje a Modulo de Memoria para generar estructuras
-                //avisar_a_memoria(socket_memoria, INICIALIZA, nuevoProceso, loggerKernel);
+                avisar_a_memoria(INICIALIZA, *nuevoProceso, loggerKernel);
                 //Obtengo las estructuras y se las asigno al PCB
-                //nuevoProceso -> tabla_paginas = deserializarInt32(socket_memoria);
+                nuevoProceso -> tabla_paginas = deserializarInt32(socket_memoria);
+                log_info(loggerKernel, "Tabla de paginas asignada al Proceso ID %i", nuevoProceso -> id);
 
                 pthread_mutex_lock(&mutexReady); // Mutex
                 list_add(procesosReady, nuevoProceso);
@@ -87,7 +88,7 @@ void estadoExit(){
             procesoFinalizado = list_remove(procesosExit, 0);
             pthread_mutex_unlock(&mutexExit);
             // Aviso a memoria para que libere
-            //avisar_a_memoria(socket_memoria, FINALIZA, procesoFinalizado, loggerKernel);
+            avisar_a_memoria(FINALIZA, *procesoFinalizado, loggerKernel);
 
             // Envio el mensaje de finalización
 

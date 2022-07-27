@@ -6,6 +6,9 @@ int main(void)
 	configCpu = iniciar_config_cpu();
 
 	pthread_mutex_init(&variableCompartida, NULL);
+	socket_memoria = crear_conexion(config_cpu.ip_memoria, config_cpu.puerto_memoria);
+	conectar_a_memoria(socket_memoria);
+	sleep(1);
 	int cpu_dispatch = iniciar_servidor_dispatch();
 	int cpu_interrupt = iniciar_servidor_interrupt();
 	pthread_t hiloDispatch, hiloInterrupt;
