@@ -13,8 +13,6 @@ int crear_conexion(char *ip, char* puerto)
 	hints.ai_flags = AI_PASSIVE;
 	getaddrinfo(ip, puerto, &hints, &servinfo);
 	int server = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
-	//const int enable = 1;
-	//setsockopt(server, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
 
 	bind(server, servinfo->ai_addr, servinfo->ai_addrlen);
 
@@ -36,31 +34,32 @@ uint8_t ini_servidor(){
 }
 
 int escuchar_server(){
-	int cliente = esperar_cliente();
-	if(cliente == -1){
-		return 0;
+	pthread_t t_cpu, t_kernel;
+	for(int i = 0; i<2; i++){
+		int cliente = esperar_cliente();
+		if(cliente == -1){
+			return 0;
+		}
+
+		id_mod modulo; // codigo para distinguir si es cpu o kernel
+		if(recv(cliente, &modulo, sizeof(modulo), 0) != sizeof(modulo)){
+			return 0;
+		}
+		args_thread* args = malloc(sizeof(args_thread));
+		args->socket_cliente = cliente;
+		switch(modulo){
+			case KERNEL:
+				log_info(logger, "Recibido mensaje de KERNEL, create y detach thread correspondiente");
+				pthread_create(&t_kernel, NULL, (void*) escuchar_kernel, (void*) args);
+			break;
+			case CPU:
+				log_info(logger, "Recibido mensaje de CPU, create y detach thread correspondiente");
+				pthread_create(&t_cpu, NULL, (void*) escuchar_cpu, (void*) args);
+			break;
+		}
 	}
-	pthread_t thread;
-	id_mod modulo; // codigo para distinguir si es cpu o kernel
-	if(recv(cliente, &modulo, sizeof(modulo), 0) != sizeof(modulo)){
-		return 0;
-	}
-	args_thread* args = malloc(sizeof(args_thread));
-	args->socket_cliente = cliente;
-	switch(modulo){
-		case KERNEL:
-			log_info(logger, "Recibido mensaje de KERNEL, create y detach thread correspondiente");
-			pthread_create(&thread, NULL, (void*) escuchar_kernel, (void*) args);
-			pthread_detach(thread);
-			return 1;
-		break;
-		case CPU:
-			log_info(logger, "Recibido mensaje de CPU, create y detach thread correspondiente");
-			pthread_create(&thread, NULL, (void*) escuchar_cpu, (void*) args);
-			pthread_detach(thread);
-			return 1;
-		break;
-	}
+	pthread_join(t_cpu, NULL);
+	pthread_join(t_kernel, NULL);
 	return 1;
 }
 
@@ -80,27 +79,32 @@ void* escuchar_kernel(void* arg){
 	free(args);
 	while (cliente != -1) {
 		message_kernel* request = parsear_message_kernel(cliente);
-		uint32_t response = 1;
+		if(request == NULL)
+			break;
 		switch(request->estado){
 			case 0: //Inicializar proceso
 				log_info(logger, "Inicializando proceso con pcb id %d y size %d...", request->id_pcb, request->tamanio_pcb);
 				uint32_t id_tabla = iniciar_proc(request->tamanio_pcb, request->id_pcb);
 				enviar_mensaje_cliente(cliente, &id_tabla, sizeof(id_tabla));
+				free(request);
 			break;
 			case 1 : //SUSP_PROC
 				log_info(logger, "Suspendiendo proceso con pcb id %d...", request->id_pcb);
 				suspender_proc(request->id_pcb);
+				free(request);
 				//enviar_mensaje_cliente(cliente, &response, sizeof(response));
 			break;
 			case 2: //EXIT
 				log_info(logger, "Finalizando proceso con pcb id %d...", request->id_pcb);
 				finalizar_proc(request->id_pcb);
+				free(request);
 				//enviar_mensaje_cliente(cliente, &response, sizeof(response));
 			break;
 
 		}
 	}
 	log_warning(logger, "El cliente se desconecto de memoria");
+	close(cliente);
 	return EXIT_SUCCESS;
 }
 void* escuchar_cpu(void* arg){
@@ -111,6 +115,8 @@ void* escuchar_cpu(void* arg){
 	free(args);
 	while (cliente != -1) {
 		message_cpu* request = parsear_message_cpu(cliente);
+		if(request == NULL)
+			break;
 		switch(request->operacion){
 			case HANDSHAKE:{
 				log_info(logger, "Realizando handshake con CPU");
@@ -179,6 +185,7 @@ void* escuchar_cpu(void* arg){
 
 	}
 	log_warning(logger, "El cliente se desconecto de memoria");
+	close(cliente);
 	return EXIT_SUCCESS;
 }
 
@@ -189,7 +196,13 @@ int enviar_mensaje_cliente(int cliente, void* data, int size){
 message_kernel* parsear_message_kernel(int cliente){
 	message_kernel* request = malloc(sizeof(message_kernel));
     void* stream = malloc(100);
-    recv(cliente, stream, 100, 0);
+    int bytes_recibidos = recv(cliente, stream, 100, 0);
+    if(bytes_recibidos < 1){
+    	log_info(logger, "Cliente desconectado.");
+        free(stream);
+        free(request);
+    	return NULL;
+    }
     //Copio estado del stream al struct
     memcpy(&(request->estado), stream, sizeof(uint32_t));
     //Copio estado del stream al struct
@@ -202,7 +215,14 @@ message_kernel* parsear_message_kernel(int cliente){
 message_cpu* parsear_message_cpu(int cliente){
 	message_cpu* request = malloc(sizeof(message_cpu));
     void* stream = malloc(100);
-    recv(cliente, stream, 100, 0);
+    int bytes_recibidos = recv(cliente, stream, 100, 0);
+    log_info(logger, "Bytes recibidos de CPU: %d", bytes_recibidos);
+    if(bytes_recibidos < 1){
+    	log_info(logger, "Cliente desconectado.");
+        free(stream);
+        free(request);
+    	return NULL;
+    }
     memcpy(&(request->operacion), stream, sizeof(request->operacion));
     memcpy(&(request->data), stream + sizeof(request->operacion), 100 - sizeof(request->operacion));
     free(stream);
