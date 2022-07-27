@@ -13,6 +13,9 @@ int crear_conexion(char *ip, char* puerto)
 	hints.ai_flags = AI_PASSIVE;
 	getaddrinfo(ip, puerto, &hints, &servinfo);
 	int server = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+	//const int enable = 1;
+	//setsockopt(server, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
+
 	bind(server, servinfo->ai_addr, servinfo->ai_addrlen);
 
 	listen(server, SOMAXCONN);
@@ -48,13 +51,13 @@ int escuchar_server(){
 		case KERNEL:
 			log_info(logger, "Recibido mensaje de KERNEL, create y detach thread correspondiente");
 			pthread_create(&thread, NULL, (void*) escuchar_kernel, (void*) args);
-			pthread_join(thread, NULL);
+			pthread_detach(thread);
 			return 1;
 		break;
 		case CPU:
 			log_info(logger, "Recibido mensaje de CPU, create y detach thread correspondiente");
 			pthread_create(&thread, NULL, (void*) escuchar_cpu, (void*) args);
-			pthread_join(thread, NULL);
+			pthread_detach(thread);
 			return 1;
 		break;
 	}
@@ -62,9 +65,7 @@ int escuchar_server(){
 }
 
 int esperar_cliente(){
-    struct sockaddr_in dir_cliente;
-    socklen_t tam_direccion = sizeof(struct sockaddr_in);
-	int socket_cliente = accept(socket_mem, (void*) &dir_cliente, &tam_direccion);
+	int socket_cliente = accept(socket_mem, NULL, NULL);
 	if(socket_cliente == -1){
 		log_error(logger, "Ha ocurrido un error con la conexión");
 	}
@@ -146,6 +147,7 @@ void* escuchar_cpu(void* arg){
 			break;
 			case COPY:
 				log_info(logger, "Recibido request de COPY");
+				log_error(logger, "No se deberia llamar. Hacer copy haciendo read y write");
 				uint32_t direc_fisica1, direc_fisica2;
 				get_values_from_data(request->data, &direc_fisica1, &direc_fisica2, NULL, NULL);
 				free(request);
@@ -181,15 +183,8 @@ int enviar_mensaje_cliente(int cliente, void* data, int size){
 
 message_kernel* parsear_message_kernel(int cliente){
 	message_kernel* request = malloc(sizeof(message_kernel));
-    size_t size_payload;
-    if (recv(cliente, &size_payload, sizeof(size_t), 0) != sizeof(size_t)) {
-        return NULL;
-    }
-    void* stream = malloc(size_payload);
-    if (recv(cliente, stream, size_payload, 0) != size_payload) {
-        free(stream);
-        return NULL;
-    }
+    void* stream = malloc(100);
+    recv(cliente, stream, 100, 0);
     //Copio estado del stream al struct
     memcpy(&(request->estado), stream, sizeof(uint32_t));
     //Copio estado del stream al struct
