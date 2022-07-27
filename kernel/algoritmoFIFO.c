@@ -1,38 +1,42 @@
 #include "kernel.h"
 
+
 void algoritmo_FIFO(){
-    t_list* respuestaCPU = list_create();
-    while(1){
-        sem_wait(&nuevoProcesoReady); // Espero a que el P.L.P me avise que hay un proceso en Ready
-        pthread_mutex_lock(&mutexReady);
-        PCB * unProceso = list_remove(procesosReady, 0);
-        pthread_mutex_unlock(&mutexReady);
-        //Enviar proceso a CPU
-        enviarPCB(socket_dispatch, *unProceso, loggerKernel);
+	PCB* unProceso;
+	uint32_t motivoDeRegreso;
+	uint32_t tiempoDeBloqueo;
+	t_list* respuestaDeCPU;
 
-        log_info(loggerKernel, "ESPERANDO RESPUESTA");
+	while(1){
+		sem_wait(&nuevoProcesoReady);
 
-        // Espero respuesta del CPU con PCB/Motivo/Bloqueo
-        respuestaCPU = recibirRespuestaCPU(socket_dispatch);
-        unProceso = list_get(respuestaCPU, 0);
-        uint32_t motivoRegreso = list_get(respuestaCPU, 1);
+		pthread_mutex_lock(&mutexReady);
+		unProceso = list_remove(procesosReady, 0);
+		pthread_mutex_unlock(&mutexReady);
 
-        switch(motivoRegreso){
-        	case EXIT_PCB:;
-        		avisar_a_planificador_LP(unProceso);
-        		list_clean(respuestaCPU);
-        		break;
-        	case IO_PCB:;
-        		int tiempoBloqueo =  list_get(respuestaCPU, 3);
-        	    pthread_mutex_lock(&mutexBloqueo);
-        	    list_add(procesosBlocked, unProceso);
-        	    list_add(tiemposBlocked, tiempoBloqueo);
-        	    pthread_mutex_unlock(&mutexBloqueo);
-    	        sem_post(&procesoBloqueado);
-    	        list_clean(respuestaCPU);
-    	        break;
-        }
-    }
+		enviarPCB(socket_dispatch, *unProceso, loggerKernel);
+
+		respuestaDeCPU = recibirRespuestaCPU(socket_dispatch);
+
+		unProceso = list_get(respuestaDeCPU, 0);
+		motivoDeRegreso = list_get(respuestaDeCPU, 1);
+
+		switch(motivoDeRegreso){
+			case IO_PCB:
+				tiempoDeBloqueo = list_get(respuestaDeCPU, 3);
+
+				pthread_mutex_lock(&mutexBloqueo);
+				list_add(procesosBlocked, unProceso);
+				list_add(tiemposBlocked, tiempoDeBloqueo);
+				pthread_mutex_unlock(&mutexBloqueo);
+
+				sem_post(&procesoBloqueado);
+				break;
+
+			case EXIT_PCB:
+				avisar_a_planificador_LP(unProceso);
+		}
+	}
 }
 
 void avisar_a_planificador_LP(PCB* pcbFinalizado){ //hilo <--- creo que no seria un hilo sino una funcion auxiliar

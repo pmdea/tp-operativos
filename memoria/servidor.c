@@ -92,13 +92,13 @@ void* escuchar_kernel(void* arg){
 				log_info(logger, "Suspendiendo proceso con pcb id %d...", request->id_pcb);
 				suspender_proc(request->id_pcb);
 				free(request);
-				//enviar_mensaje_cliente(cliente, &response, sizeof(response));
+				//enviar_mensaje_cliente(cliente, 1, sizeof(uint32_t));
 			break;
 			case 2: //EXIT
 				log_info(logger, "Finalizando proceso con pcb id %d...", request->id_pcb);
 				finalizar_proc(request->id_pcb);
 				free(request);
-				//enviar_mensaje_cliente(cliente, &response, sizeof(response));
+				//enviar_mensaje_cliente(cliente, 1, sizeof(uint32_t));
 			break;
 
 		}

@@ -1,5 +1,6 @@
 #include "kernel.h"
 
+// REDISEÑO LARGO PLAZO
 void planificador_LargoPlazo(){
 
     pthread_create(&estadoExitHilo, NULL, estadoExit, NULL);
@@ -8,98 +9,71 @@ void planificador_LargoPlazo(){
     pthread_join(estadoExitHilo, NULL);
 }
 
-
 void estadoReady(){
-    int tamanioNew;
-    int tamanioSuspendido;
-    while(1){
-        pthread_mutex_lock(&mutexSuspendido);
-        tamanioSuspendido = list_size(procesosSuspendedReady);
-        pthread_mutex_unlock(&mutexSuspendido);
+	int enNew, enSuspendedReady;
+	PCB* unProceso;
+	while(1){
+		pthread_mutex_lock(&mutexSuspendido);
+		enSuspendedReady = list_size(procesosSuspendedReady);
+		pthread_mutex_unlock(&mutexSuspendido);
 
-        pthread_mutex_lock(&mutexReady);
-        tamanioNew = list_size(procesosNew);
-        pthread_mutex_unlock(&mutexReady);
+		pthread_mutex_lock(&mutexNew);
+		enNew = list_size(procesosNew);
+		pthread_mutex_unlock(&mutexNew);
 
-        if(tamanioSuspendido > 0){
+		switch(enSuspendedReady){
+			case 0:
+				if(enNew > 0){
+					sem_wait(&grado_multiprogramacion); // Inicializa en 4
+					pthread_mutex_lock(&mutexNew);
+					unProceso = list_remove(procesosNew, 0);
+					pthread_mutex_unlock(&mutexNew);
 
-            sem_wait(&prioridad_SuspendedReady); // Binario P.M.P
-            sem_wait(&grado_multiprogramacion); // El signal lo da el Planificador Mediano Plazo
+					avisar_a_memoria(INICIALIZA, *unProceso, loggerKernel);
+					unProceso -> tabla_paginas = deserializarInt32(socket_memoria);
 
-            pthread_mutex_lock(&mutexSuspendido);
-            PCB* procesoSuspendido = list_get(procesosSuspendedReady, 0);
-            list_add(procesosReady, procesoSuspendido);
-            pthread_mutex_unlock(&mutexSuspendido);
-            log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
-            sem_post(&nuevoProcesoReady);
+					pthread_mutex_lock(&mutexReady);
+					list_add(procesosReady, unProceso);
+					pthread_mutex_unlock(&mutexReady);
 
-        }else if ( tamanioNew > 0){
-            sem_wait(&grado_multiprogramacion);
-            // AGREGO ESTA VALIDACION POR SI JUSTO SE TRABA EN EL SEMAFORO
-            // LLEGA UN PROCESO A NEW Y SEGUNDOS DESPUES UN SUSPENDIDO
-            // PERO COMO YA HABIA VALUADO QUE HABIA UNO EN NEW
-            pthread_mutex_lock(&mutexSuspendido);
-            tamanioSuspendido = list_size(procesosSuspendedReady);
-            pthread_mutex_unlock(&mutexSuspendido);
-            if(list_size(procesosSuspendedReady) > 0){
-                sem_wait(&prioridad_SuspendedReady); // Binario P.M.P
+					sem_post(&nuevoProcesoReady);
 
-                pthread_mutex_lock(&mutexSuspendido);
-                PCB* procesoSuspendido = list_get(procesosSuspendedReady, 0);
-                list_add(procesosReady, procesoSuspendido);
-                pthread_mutex_unlock(&mutexSuspendido);
-                log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready por Prioridad de ReadySuspended", procesoSuspendido -> id);
-                sem_post(&nuevoProcesoReady);
+					log_info(loggerKernel, "INGRESO PROCESO ID %i A READY DESDE NEW");
+				}
+				break;
+			default:
+				if(enSuspendedReady > 0){
+					sem_wait(&grado_multiprogramacion); // Inicializa en 4
+					pthread_mutex_lock(&mutexSuspendido);
+					unProceso = list_remove(procesosSuspendedReady, 0);
+					pthread_mutex_unlock(&mutexSuspendido);
 
-            } else {
-                pthread_mutex_lock(&mutexNew);
-                PCB* nuevoProceso = list_remove(procesosNew, 0);
-                pthread_mutex_unlock(&mutexNew);
-                //Envio de mensaje a Modulo de Memoria para generar estructuras
-                avisar_a_memoria(INICIALIZA, *nuevoProceso, loggerKernel);
-                //Obtengo las estructuras y se las asigno al PCB
-                nuevoProceso -> tabla_paginas = deserializarInt32(socket_memoria);
-                log_info(loggerKernel, "Tabla de paginas asignada al Proceso ID %i", nuevoProceso -> id);
+					pthread_mutex_lock(&mutexReady);
+					list_add(procesosReady, unProceso);
+					pthread_mutex_unlock(&mutexReady);
 
-                pthread_mutex_lock(&mutexReady); // Mutex
-                list_add(procesosReady, nuevoProceso);
-                pthread_mutex_unlock(&mutexReady);
-                log_info(loggerKernel, "Ingreso el Proceso de ID: %i a Ready", nuevoProceso -> id);
-                sem_post(&nuevoProcesoReady); // Binario P.C.P ---> Aviso que hay un nuevo proceso
+					sem_post(&nuevoProcesoReady);
 
-                //free(nuevoProceso);
-            }
-        }
-    }
+					log_info(loggerKernel, "INGRESO PROCESO ID %i A READY DESDE READY-SUSPENDED", unProceso -> id);
+				}
+		}
+	}
 }
 
-
 void estadoExit(){
-	PCB* procesoFinalizado;
-	while (1){
-		sem_wait(&finalizoProceso);
-        pthread_mutex_lock(&mutexExit);
-        int tamanioExit = list_size(procesosExit);
-        pthread_mutex_unlock(&mutexExit);
+	PCB* unProceso;
+	while(1){
+		sem_wait(&finalizoProceso); // Inicializa en 0 (Me avisa C)
 
-        if(tamanioExit > 0 ){
-            // Obtengo el PCB que finalizo
-        	pthread_mutex_lock(&mutexExit);
-            procesoFinalizado = list_remove(procesosExit, 0);
-            pthread_mutex_unlock(&mutexExit);
-            // Aviso a memoria para que libere
-            avisar_a_memoria(FINALIZA, *procesoFinalizado, loggerKernel);
+		pthread_mutex_lock(&mutexExit);
+		unProceso = list_remove(procesosExit, 0);
+		pthread_mutex_unlock(&mutexExit);
 
-            // Envio el mensaje de finalización
+		avisar_a_memoria(FINALIZA, *unProceso, loggerKernel);
+		//int32_t respuesta = deserializarInt32(socket_memoria);
 
-            //avisar_a_consola(procesoFinalizado);
-
-            // Libero memoria
-            //free(procesoFinalizado);
-            // Incremento el grado de multiprogramacion en 1
-            log_info(loggerKernel, "Finalizo correctamente el Proceso de ID: %i", procesoFinalizado -> id);
-            sem_post(&grado_multiprogramacion);
-            sem_post(&nuevoProcesoReady);
-        }
+		log_info(loggerKernel, "PROCESO ID %i FINALIZO - AVISANDO A CONSOLA", unProceso -> id);
+		//avisar_a_consola(unProceso);
+		sem_post(&grado_multiprogramacion);
 	}
 }
