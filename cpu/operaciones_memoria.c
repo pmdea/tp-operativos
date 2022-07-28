@@ -1,10 +1,10 @@
 #include "cpu.h"
 
 // Operaciones con memoria
-int leer(t_direccion_fisica* direccion_fisica)
+int leer(t_direccion_fisica direccion_fisica, uint32_t entrada_2do_nivel)
 {
-	int tamanioBuffer = sizeof(uint32_t)*4;
-	int tamanioStream = sizeof(uint32_t)*2;
+	int tamanioBuffer = sizeof(uint32_t)*5;
+	int tamanioStream = sizeof(uint32_t)*3;
 
 	void* buffer = asignarMemoria(tamanioBuffer);
 
@@ -12,8 +12,9 @@ int leer(t_direccion_fisica* direccion_fisica)
 
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) 2);
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) tamanioStream);
-	concatenarInt32(buffer, &desplazamiento, direccion_fisica->marco);
-	concatenarInt32(buffer, &desplazamiento, direccion_fisica->desplazamiento);
+	concatenarInt32(buffer, &desplazamiento, direccion_fisica.id_2do_nivel);
+	concatenarInt32(buffer, &desplazamiento, entrada_2do_nivel);
+	concatenarInt32(buffer, &desplazamiento, direccion_fisica.direccion);
 
 	enviarMensaje(socket_memoria, buffer, tamanioBuffer);
 
@@ -25,11 +26,11 @@ int leer(t_direccion_fisica* direccion_fisica)
 	return valor;
 }
 
-void escribir(int valor, t_direccion_fisica* direccion_fisica)
+void escribir(int valor, t_direccion_fisica direccion_fisica, uint32_t entrada_2do_nivel)
 {
 
-	int tamanioBuffer = sizeof(uint32_t)*5;
-	int tamanioStream = sizeof(uint32_t)*3;
+	int tamanioBuffer = sizeof(uint32_t)*6;
+	int tamanioStream = sizeof(uint32_t)*4;
 
 	void* buffer = asignarMemoria(tamanioBuffer);
 
@@ -37,8 +38,9 @@ void escribir(int valor, t_direccion_fisica* direccion_fisica)
 
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) 3);
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) tamanioStream);
-	concatenarInt32(buffer, &desplazamiento, direccion_fisica->marco);
-	concatenarInt32(buffer, &desplazamiento, direccion_fisica->desplazamiento);
+	concatenarInt32(buffer, &desplazamiento, direccion_fisica.id_2do_nivel);
+	concatenarInt32(buffer, &desplazamiento, entrada_2do_nivel);
+	concatenarInt32(buffer, &desplazamiento, direccion_fisica.direccion);
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) valor);
 
 	enviarMensaje(socket_memoria, buffer, tamanioBuffer);
@@ -59,19 +61,19 @@ void escribir(int valor, t_direccion_fisica* direccion_fisica)
 	free(buffer);
 }
 
-void obtener_direccion_logica(int direccion, t_direccion_logica* direccion_logica)
+t_config_tabla obtener_direccion_logica(int direccion, t_direccion_logica* direccion_logica)
 {
 	t_config_tabla* config = malloc(sizeof(t_config_tabla));
 	config = obtener_tamanioPag_Entradas();
 
 	int numero_pagina = floor(direccion / config->tamanio_pagina);
-	log_info(loggerCpu, "numero pag %i", numero_pagina);
 	direccion_logica->entrada_tabla_1er_nivel = floor(numero_pagina / config->cantidad_entradas);
-	log_info(loggerCpu, "entrada_tabla_1er_nivel %i", direccion_logica->entrada_tabla_1er_nivel);
 	direccion_logica->entrada_tabla_2do_nivel = numero_pagina % (config->cantidad_entradas);
-	log_info(loggerCpu, "entrada_tabla_2do_nivel %i", direccion_logica->entrada_tabla_2do_nivel);
 	direccion_logica->desplazamiento = direccion - numero_pagina * config->tamanio_pagina;
-	log_info(loggerCpu, "desplazam %i", direccion_logica->desplazamiento);
+
+	t_config_tabla retornar = *config;
+	free(config);
+	return retornar;
 }
 
 t_config_tabla* obtener_tamanioPag_Entradas()
@@ -101,6 +103,7 @@ t_config_tabla* obtener_tamanioPag_Entradas()
 	memcpy(&config->cantidad_entradas, buffer2 + sizeof(uint32_t), sizeof(uint32_t));
 
 	free(buffer);
+	free(buffer2);
 	return(config);
 }
 
@@ -125,7 +128,7 @@ uint32_t obtener_tabla_2do_nivel(int tabla_paginas_1er_nivel, int entrada_pagina
 	uint32_t* valor = malloc(sizeof(uint32_t));
 	recv(socket_memoria, valor, sizeof(uint32_t), MSG_WAITALL);
 	int retornar = *valor;
-	log_info(loggerCpu, "ESPERANDO RECIBIR id tabla 2do Nivel DE MEMORIA %i", retornar);
+
 	free(buffer);
 	free(valor);
 	return retornar;
@@ -146,16 +149,21 @@ uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint3
 	concatenarInt32(buffer, &desplazamiento, tabla_2do_nivel);
 	concatenarInt32(buffer, &desplazamiento, entrada_2do_nivel);
 
-	enviarMensaje(socket_memoria, buffer, tamanioBuffer);
+	send(socket_memoria, buffer, tamanioBuffer, 0);
 
-	log_info(loggerCpu, "ESPERANDO RECIBIR RESPUESTA DE MEMORIA");
+	log_info(loggerCpu, "ESPERANDO RECIBIR Marco DE MEMORIA");
 
-	uint32_t valor = deserializarInt32(socket_memoria);
+	uint32_t* valor = malloc(sizeof(uint32_t));
+	recv(socket_memoria, valor, sizeof(uint32_t), MSG_WAITALL);
 
-	return valor;
+	int retornar = *valor;
+
+	free(buffer);
+	free(valor);
+	return retornar;
 }
 
-int comparar_elementos_tlb(t_entrada_tlb* elem, int pag) //OK
+int comparar_elementos_tlb(t_entrada_tlb* elem, int pag)
 {
 	int i=0;
 
@@ -167,7 +175,7 @@ int comparar_elementos_tlb(t_entrada_tlb* elem, int pag) //OK
 	return i;
 }
 
-int esta_en_tlb(int pag) //OK
+int esta_en_tlb(int pag)
 {
 	int i=0;
 	t_entrada_tlb* entrada;
@@ -182,7 +190,7 @@ int esta_en_tlb(int pag) //OK
 	return i;
 }
 
-int tlb_cache(int pag) //OK
+int tlb_cache(int pag)
 {
 	int marco = 0;
 	t_entrada_tlb* entrada = malloc(sizeof(t_entrada_tlb));
@@ -208,13 +216,13 @@ int tlb_cache(int pag) //OK
 	return marco;
 }
 
-void reemplazo_tlb(t_entrada_tlb* entrada) //OK
+void reemplazo_tlb(t_entrada_tlb* entrada)
 {
 	list_remove(tlb, 0);
 	list_add(tlb, entrada);
 }
 
-void agregar_a_TLB(int pagina, int marco) //OK
+void agregar_a_TLB(int pagina, int marco)
 {
 	t_entrada_tlb* entrada = malloc(sizeof(t_entrada_tlb));
 	entrada->marco=marco;
@@ -233,10 +241,9 @@ void agregar_a_TLB(int pagina, int marco) //OK
 }
 
 //traduce direciones logicas en direcciones fisicas
-t_direccion_fisica* mmu(t_direccion_logica* direccion_logica, PCB proceso)
+t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_config_tabla config)
 {
 	t_direccion_fisica* direccion_fisica = malloc(sizeof(t_direccion_fisica));
-
 	uint32_t id_2do_nivel = obtener_tabla_2do_nivel(proceso.tabla_paginas, direccion_logica->entrada_tabla_1er_nivel);
 
 	log_info(loggerCpu, "ENTRE A MMU %i", id_2do_nivel);
@@ -255,5 +262,10 @@ t_direccion_fisica* mmu(t_direccion_logica* direccion_logica, PCB proceso)
 
 	direccion_fisica->desplazamiento = direccion_logica->desplazamiento;
 	log_info(loggerCpu, "Direccion fisica obtenida (Marco: %i, Desplazamiento: %i)", direccion_fisica->marco, direccion_fisica->desplazamiento);
-	return direccion_fisica;
+	direccion_fisica->direccion = direccion_fisica->marco * config.tamanio_pagina + direccion_fisica->desplazamiento;
+	direccion_fisica->id_2do_nivel = id_2do_nivel;
+
+	t_direccion_fisica retornar = *direccion_fisica;
+	free(direccion_fisica);
+	return retornar;
 }

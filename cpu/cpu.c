@@ -25,11 +25,6 @@ void dispatch(int escuchaDispatch){
 		log_info(loggerCpu, "ESPERANDO PCB" );
 		PCB* unPCB = deserializarPCB(kernel_dispatch);
 		tlb=list_create();
-//		t_entrada_tlb* ent = malloc(sizeof(t_entrada_tlb));
-//		ent->pagina = 1;
-//		ent->marco = 3;
-//		list_add(tlb, ent);
-		log_info(loggerCpu, "TENGO PCB %i", unPCB->id);
 
 		int cantidadInstrucciones = list_size(unPCB -> instrucciones);
 		rafagaEjecutada = 0;
@@ -41,15 +36,15 @@ void dispatch(int escuchaDispatch){
 
 			execute(instruccion, unPCB, kernel_dispatch);
 
-//			if(check == 1){
-//				pthread_mutex_lock(&variableCompartida);
-//				checkInterrupt(unPCB, kernel_dispatch);
-//				pthread_mutex_unlock(&variableCompartida);
-//			} else{
-//				pthread_mutex_unlock(&variableCompartida);
-//				interrupcionKernel = 0;
-//				pthread_mutex_unlock(&variableCompartida);
-//			}
+			if(check == 1){
+				pthread_mutex_lock(&variableCompartida);
+				checkInterrupt(unPCB, kernel_dispatch);
+				pthread_mutex_unlock(&variableCompartida);
+			} else{
+				pthread_mutex_unlock(&variableCompartida);
+				interrupcionKernel = 0;
+				pthread_mutex_unlock(&variableCompartida);
+			}
 
 		}
 
