@@ -27,7 +27,6 @@ void dispatch(int escuchaDispatch){
 
 		int cantidadInstrucciones = list_size(unPCB -> instrucciones);
 		rafagaEjecutada = 0;
-		check = 1;
 		for(k = 0; k < cantidadInstrucciones; k++){
 			t_instruccion* instruccion = fetch(unPCB);
 
@@ -35,18 +34,17 @@ void dispatch(int escuchaDispatch){
 
 			execute(instruccion, unPCB, kernel_dispatch);
 
-			if(check == 1){
-				pthread_mutex_lock(&variableCompartida);
-				checkInterrupt(unPCB, kernel_dispatch);
-				pthread_mutex_unlock(&variableCompartida);
-			} else{
-				pthread_mutex_unlock(&variableCompartida);
-				interrupcionKernel = 0;
-				pthread_mutex_unlock(&variableCompartida);
+			switch(instruccion -> identificador){
+				case EXIT:
+			        pthread_mutex_lock(&variableCompartida);
+			        interrupcionKernel = 0;
+			        pthread_mutex_unlock(&variableCompartida);
+					break;
+				default:
+					checkInterrupt(unPCB, kernel_dispatch);
+					break;
 			}
-
 		}
-
 	}
 }
 

@@ -51,7 +51,6 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 		log_info(loggerCpu, "IO %i", tiempoBloqueo);
 		enviarRespuestaKernel(socketA, *proceso, IO_PCB, rafagaEjecutada, tiempoBloqueo, loggerCpu);
 		k = 2000;
-		check = 0;
 		break;
 
 //READ(dirección_lógica)
@@ -100,9 +99,12 @@ void checkInterrupt(PCB* proceso, int socketA)
 {
     if(interrupcionKernel==1) /// int interruption() implementado en otra rama
     {
+    	log_error(loggerCpu, "RAFAGA %f, ID %i", proceso -> estimacion_rafaga, proceso -> id);
     	enviarRespuestaKernel(socketA, *proceso, DESALOJO_PCB, rafagaEjecutada, 0, loggerCpu);
         //free(*proceso);
         k = 2000;
+        pthread_mutex_lock(&variableCompartida);
         interrupcionKernel = 0;
+        pthread_mutex_unlock(&variableCompartida);
     }
 }

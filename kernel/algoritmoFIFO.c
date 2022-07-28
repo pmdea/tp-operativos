@@ -35,6 +35,7 @@ void algoritmo_FIFO(){
 
 			case EXIT_PCB:
 				avisar_a_planificador_LP(unProceso);
+				break;
 		}
 	}
 }

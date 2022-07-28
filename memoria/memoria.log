@@ -315,3 +315,52 @@
 [INFO] 19:40:31:477 MEM/(14124:14124): Socket creado y escuchando: 4!
 [INFO] 19:41:21:007 MEM/(14124:14124): Recibido mensaje de CPU, create y detach thread correspondiente
 [INFO] 19:41:22:483 MEM/(14124:14256): Escuchando mensaje de CPU
+[INFO] 22:47:15:756 MEM/(6364:6364): Logger creado!
+[INFO] 22:47:15:769 MEM/(6364:6364): Configuracion cargada correctamente
+[INFO] 22:47:15:770 MEM/(6364:6364): Memoria cargada correctamente!
+[INFO] 22:47:15:770 MEM/(6364:6364): Generando estructuras globales de tablas de paginas...
+[INFO] 22:47:15:770 MEM/(6364:6364): Estructuras globales de tablas de paginas creadas!
+[INFO] 22:47:15:770 MEM/(6364:6364): Generando estructura auxiliar para manejo de frames...
+[INFO] 22:47:15:770 MEM/(6364:6364): El módulo tiene 64 frames disponibles!
+[INFO] 22:47:15:770 MEM/(6364:6364): Estructura auxiliar para manejo de frames creada!
+[INFO] 22:47:15:770 MEM/(6364:6364): Generando lista de archivos swap...
+[INFO] 22:47:15:771 MEM/(6364:6364): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 22:47:15:771 MEM/(6364:6364): Socket creado y escuchando: 4!
+[INFO] 22:48:02:762 MEM/(6364:6364): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 22:48:07:056 MEM/(6364:6603): Escuchando mensaje de CPU
+[INFO] 22:48:43:570 MEM/(6364:6364): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 22:48:47:537 MEM/(6364:6718): Escuchando mensaje de KERNEL
+[INFO] 22:49:40:016 MEM/(6364:6718): Inicializando proceso con pcb id 30 y size 15...
+[INFO] 22:49:40:016 MEM/(6364:6718): Inicializando proceso size 15 pid 30
+[INFO] 22:49:40:016 MEM/(6364:6718): Creando tablas de primer nivel para proceso pid 30
+[INFO] 22:49:40:016 MEM/(6364:6718): Tablas de Paginas creadas para proceso pid 30 correctamente!
+[INFO] 22:49:40:016 MEM/(6364:6718): Creando file swap para proceso 30 en /home/utnso/swap/30.swap
+[INFO] 22:49:40:036 MEM/(6364:6718): Espacio swap creado correctamente!
+[INFO] 22:49:41:037 MEM/(6364:6718): Inicializacion finalizada para proceso pid 30!
+[INFO] 22:49:41:037 MEM/(6364:6718): Inicializando proceso con pcb id 55 y size 15...
+[INFO] 22:49:41:037 MEM/(6364:6718): Inicializando proceso size 15 pid 55
+[INFO] 22:49:41:037 MEM/(6364:6718): Creando tablas de primer nivel para proceso pid 55
+[INFO] 22:49:41:037 MEM/(6364:6718): Tablas de Paginas creadas para proceso pid 55 correctamente!
+[INFO] 22:49:41:037 MEM/(6364:6718): Creando file swap para proceso 55 en /home/utnso/swap/55.swap
+[INFO] 22:49:41:045 MEM/(6364:6718): Espacio swap creado correctamente!
+[INFO] 22:49:42:046 MEM/(6364:6718): Inicializacion finalizada para proceso pid 55!
+[INFO] 22:49:42:047 MEM/(6364:6718): Inicializando proceso con pcb id 77 y size 15...
+[INFO] 22:49:42:047 MEM/(6364:6718): Inicializando proceso size 15 pid 77
+[INFO] 22:49:42:047 MEM/(6364:6718): Creando tablas de primer nivel para proceso pid 77
+[INFO] 22:49:42:047 MEM/(6364:6718): Tablas de Paginas creadas para proceso pid 77 correctamente!
+[INFO] 22:49:42:047 MEM/(6364:6718): Creando file swap para proceso 77 en /home/utnso/swap/77.swap
+[INFO] 22:49:42:069 MEM/(6364:6718): Espacio swap creado correctamente!
+[INFO] 22:49:43:069 MEM/(6364:6718): Inicializacion finalizada para proceso pid 77!
+[INFO] 22:49:52:046 MEM/(6364:6718): Finalizando proceso con pcb id 77...
+[INFO] 22:49:52:046 MEM/(6364:6718): Finalizando proceso pid 77...
+[INFO] 22:49:52:046 MEM/(6364:6718): Eliminando file swap para proceso 77 en /home/utnso/swap/77.swap
+[INFO] 22:49:52:047 MEM/(6364:6718): Espacio swap eliminado correctamente!
+[INFO] 22:49:52:047 MEM/(6364:6718): Buscando tabla de 1er nivel para proceso 77
+[INFO] 22:49:52:047 MEM/(6364:6718): Encontrada tabla id 10 para pid 77!
+[INFO] 22:49:52:047 MEM/(6364:6718): Buscando paginas id 10 para pid 77!
+[INFO] 22:49:52:047 MEM/(6364:6718): Proceso pid 77 finalizado!
+[INFO] 22:50:10:733 MEM/(6364:6718): Cliente desconectado.
+[WARNING] 22:50:10:736 MEM/(6364:6718): El cliente se desconecto de memoria
+[INFO] 22:50:10:740 MEM/(6364:6603): Bytes recibidos de CPU: 0
+[INFO] 22:50:10:740 MEM/(6364:6603): Cliente desconectado.
+[WARNING] 22:50:10:740 MEM/(6364:6603): El cliente se desconecto de memoria

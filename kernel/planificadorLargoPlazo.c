@@ -38,7 +38,7 @@ void estadoReady(){
 
 					sem_post(&nuevoProcesoReady);
 
-					log_info(loggerKernel, "INGRESO PROCESO ID %i A READY DESDE NEW");
+					log_info(loggerKernel, "INGRESO PROCESO ID %i A READY DESDE NEW", unProceso -> id);
 				}
 				break;
 			default:

@@ -17,7 +17,6 @@
 int k;
 int rafagaEjecutada;
 int interrupcionKernel;
-int check;
 
 //SOCKETS
 int server_cpu;
