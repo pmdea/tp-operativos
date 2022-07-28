@@ -59,7 +59,8 @@ typedef struct{
 
 typedef struct{
 	uint32_t operacion;
-	void* data;
+	uint32_t size_data;
+	uint32_t datos[4];
 } message_cpu;
 
 #endif /* INCLUDEH_ESTRUCTURAS_H_ */

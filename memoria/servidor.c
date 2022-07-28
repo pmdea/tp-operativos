@@ -104,7 +104,6 @@ void* escuchar_kernel(void* arg){
 	return EXIT_SUCCESS;
 }
 void* escuchar_cpu(void* arg){
-	//TODO: generar funcionalidad escuchar cpu
 	log_info(logger, "Escuchando mensaje de CPU");
 	args_thread* args = (args_thread*) arg;
 	int cliente = args->socket_cliente;
@@ -128,50 +127,34 @@ void* escuchar_cpu(void* arg){
 			break;
 			case READ:{
 				log_info(logger, "Recibido request de READ");
-				uint32_t direc_fisica, id_2do_nivel, id_entrada;
-				get_values_from_data(request->data, &id_2do_nivel, &id_entrada, &direc_fisica, NULL);
-				leer_en_memoria(id_2do_nivel, id_entrada, direc_fisica);
-				uint32_t valor;
+				uint32_t valor = leer_en_memoria(request->datos[0], request->datos[1], request->datos[2]);
 				enviar_mensaje_cliente(cliente, &valor, sizeof(uint32_t));
-				free(request->data);
 				free(request);
 			}
 			break;
 			case WRITE:{
 				log_info(logger, "Recibido request de WRITE");
-				uint32_t direc_fisica, valor, id_2do_nivel, id_entrada;
-				get_values_from_data(request->data, &id_2do_nivel, &id_entrada, &direc_fisica, &valor);
-				char* response = escribir_memoria(id_2do_nivel, id_entrada, direc_fisica, &valor);
+				char* response = escribir_memoria(request->datos[0], request->datos[1], request->datos[2], &(request->datos[3]));
 				enviar_mensaje_cliente(cliente, response, sizeof(uint32_t));
-				free(request->data);
 				free(request);
 			}
 			break;
 			case COPY:
 				log_info(logger, "Recibido request de COPY");
 				log_error(logger, "No se deberia llamar. Hacer copy haciendo read y write");
-				uint32_t direc_fisica1, direc_fisica2;
-				get_values_from_data(request->data, &direc_fisica1, &direc_fisica2, NULL, NULL);
-				free(request->data);
 				free(request);
 			break;
 			case GET_PAG_NVL_2:{
 				log_info(logger, "Recibido request de GET_PAG_NVL_2");
-				uint32_t id_tabla_1, entrada;
-				get_values_from_data(request->data, &id_tabla_1, &entrada, NULL, NULL);
-				uint32_t id_tabla_2 = get_tabla_2do_lvl(id_tabla_1, entrada);
+				uint32_t id_tabla_2 = get_tabla_2do_lvl(request->datos[0], request->datos[1]);
 				enviar_mensaje_cliente(cliente, &id_tabla_2, sizeof(uint32_t));
-				free(request->data);
 				free(request);
 			}
 			break;
 			case GET_MARCO:{
 				log_info(logger, "Recibido request de GET_MARCO");
-				uint32_t id_tabla_1, id_tabla_2, entrada;
-				get_values_from_data(request->data, &id_tabla_1, &id_tabla_2, &entrada, NULL);
-				uint32_t valor_en_mem = get_nro_marco(id_tabla_1, id_tabla_2, entrada);
+				uint32_t valor_en_mem = get_nro_marco(request->datos[0], request->datos[1], request->datos[2]);
 				enviar_mensaje_cliente(cliente, &valor_en_mem, sizeof(uint32_t));
-				free(request->data);
 				free(request);
 			}
 			break;
@@ -201,23 +184,16 @@ message_kernel* parsear_message_kernel(int cliente){
 
 message_cpu* parsear_message_cpu(int cliente){
 	message_cpu* request = malloc(sizeof(message_cpu));
-    void* stream = malloc(100);
-    recv(cliente, stream, 100, 0);
-    memcpy(&(request->operacion), stream, sizeof(request->operacion));
-    memcpy(&(request->data), stream + sizeof(request->operacion), 100 - sizeof(request->operacion));
-    free(stream);
-	return request;
-}
-
-void get_values_from_data(void* data, uint32_t* primer, uint32_t* segundo, uint32_t* tercero, uint32_t* cuarto){
 	int size = sizeof(uint32_t);
-	memcpy(primer, data, size);
-	if(segundo != NULL)
-		memcpy(segundo, data + size, size);
-	if(tercero != NULL)
-		memcpy(tercero, data + size*2, size);
-	if(cuarto != NULL)
-		memcpy(cuarto, data + size*3, size);
+    recv(cliente, &(request->operacion), size, 0);
+    recv(cliente, &(request->size_data), size, 0);
+    int cantidad_datos = request->size_data/size;
+    for(int i = 0; i < cantidad_datos; i++){
+    	uint32_t dato;
+    	recv(cliente, &dato, size, 0);
+    	request->datos[i] = dato;
+    }
+	return request;
 }
 
 void finalizar_servidor(){
