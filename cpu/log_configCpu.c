@@ -19,7 +19,7 @@ t_config* iniciar_config_cpu(void) // CARGO LA INFORMACION DEL CONFIG
     }
 
     config_cpu.entradas_tlb = config_get_int_value(nuevo_config, "ENTRADAS_TLB");
-    config_cpu.reemplazo_tlb = config_get_int_value(nuevo_config, "REEMPLAZO_TLB");
+    config_cpu.reemplazo_tlb = config_get_string_value(nuevo_config, "REEMPLAZO_TLB");
     config_cpu.retardo_noop = config_get_int_value(nuevo_config, "RETARDO_NOOP");
     config_cpu.ip_memoria = config_get_string_value(nuevo_config, "IP_MEMORIA");
     config_cpu.puerto_memoria = config_get_string_value(nuevo_config, "PUERTO_MEMORIA");

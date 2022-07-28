@@ -1,6 +1,7 @@
 #include "cpu.h"
 
 void enviarMensaje(int socket, void* mensaje, int tamanio){
+//	send(socket, (void*) &tamanio, sizeof(int), 0);
 	send(socket, mensaje, tamanio, 0);
 }
 
@@ -53,9 +54,9 @@ double deserializarDouble(int emisor){
 
 
 uint32_t deserializarInt32(int emisor){
-	uint32_t mensaje;
-	recibirMensaje(emisor, &mensaje, sizeof(uint32_t));
-	return mensaje;
+	uint32_t* mensaje = malloc(sizeof(uint32_t));
+	recibirMensaje(emisor, mensaje, sizeof(uint32_t));
+	return *mensaje;
 }
 
 char* deserializarString(int emisor){

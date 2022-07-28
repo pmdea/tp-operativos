@@ -29,17 +29,31 @@ int main(void)
 	instrucc2 -> parametros = queue_create();
 
 	list_add(instrucc2 -> parametros -> elements, 5000);
-	list_add(instrucc2 -> parametros -> elements, 3);
+	list_add(instrucc2 -> parametros -> elements, 3544);
 
 	t_instruccion* instrucc3 = asignarMemoria(sizeof(t_instruccion));
 	instrucc3 -> identificador = EXIT;
 	instrucc3 -> parametros = queue_create();
+
+	t_instruccion* instrucc7 = asignarMemoria(sizeof(t_instruccion));
+	instrucc7 -> identificador = COPY;
+	instrucc7 -> parametros = queue_create();
+
+	list_add(instrucc7 -> parametros -> elements, 5000);
+	list_add(instrucc7 -> parametros -> elements, 4000);
+
+	t_instruccion* instrucc6 = asignarMemoria(sizeof(t_instruccion));
+	instrucc6 -> identificador = READ;
+	instrucc6 -> parametros = queue_create();
+
+	list_add(instrucc6 -> parametros -> elements, 5000);
 
 	t_proceso* proceso = asignarMemoria(sizeof(t_proceso));
 	proceso -> tamanio_proceso = 15;
 	proceso -> instrucciones = queue_create();
 	list_add(proceso -> instrucciones -> elements, instrucc1);
 	list_add(proceso -> instrucciones -> elements, instrucc2);
+//	list_add(proceso -> instrucciones -> elements, instrucc1);
 	list_add(proceso -> instrucciones -> elements, instrucc3);
 
 	t_proceso* proceso2 = asignarMemoria(sizeof(t_proceso));

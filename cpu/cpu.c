@@ -24,6 +24,11 @@ void dispatch(int escuchaDispatch){
 	while(1){
 		log_info(loggerCpu, "ESPERANDO PCB" );
 		PCB* unPCB = deserializarPCB(kernel_dispatch);
+		tlb=list_create();
+//		t_entrada_tlb* ent = malloc(sizeof(t_entrada_tlb));
+//		ent->pagina = 1;
+//		ent->marco = 3;
+//		list_add(tlb, ent);
 		log_info(loggerCpu, "TENGO PCB %i", unPCB->id);
 
 		int cantidadInstrucciones = list_size(unPCB -> instrucciones);
