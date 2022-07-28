@@ -4,12 +4,14 @@
 int leer(t_direccion_fisica* direccion_fisica)
 {
 	int tamanioBuffer = sizeof(uint32_t)*4;
+	int tamanioStream = sizeof(uint32_t)*2;
 
 	void* buffer = asignarMemoria(tamanioBuffer);
 
 	int desplazamiento = 0;
 
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) 2);
+	concatenarInt32(buffer, &desplazamiento, (uint32_t) tamanioStream);
 	concatenarInt32(buffer, &desplazamiento, direccion_fisica->marco);
 	concatenarInt32(buffer, &desplazamiento, direccion_fisica->desplazamiento);
 
@@ -27,12 +29,14 @@ void escribir(int valor, t_direccion_fisica* direccion_fisica)
 {
 
 	int tamanioBuffer = sizeof(uint32_t)*5;
+	int tamanioStream = sizeof(uint32_t)*3;
 
 	void* buffer = asignarMemoria(tamanioBuffer);
 
 	int desplazamiento = 0;
 
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) 3);
+	concatenarInt32(buffer, &desplazamiento, (uint32_t) tamanioStream);
 	concatenarInt32(buffer, &desplazamiento, direccion_fisica->marco);
 	concatenarInt32(buffer, &desplazamiento, direccion_fisica->desplazamiento);
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) valor);
@@ -74,12 +78,15 @@ t_config_tabla* obtener_tamanioPag_Entradas()
 {
 	t_config_tabla* config = malloc(sizeof(t_config_tabla));
 	int tamanioBuffer = sizeof(uint32_t)*2;
+	int tamanioStream = 0;
+
 	void* buffer = asignarMemoria(tamanioBuffer);
 
 	int desplazamiento = 0;
 
 //	concatenarInt32(buffer, &desplazamiento, (uint32_t) 0);
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) 1);
+	concatenarInt32(buffer, &desplazamiento, (uint32_t) tamanioStream);
 
 	send(socket_memoria, buffer, tamanioBuffer, 0);
 
@@ -99,12 +106,15 @@ t_config_tabla* obtener_tamanioPag_Entradas()
 
 uint32_t obtener_tabla_2do_nivel(int tabla_paginas_1er_nivel, int entrada_pagina_1er_nivel)
 {
-	int tamanioBuffer = sizeof(uint32_t)*3;
+	int tamanioBuffer = sizeof(uint32_t)*4;
+	int tamanioStream = sizeof(uint32_t)*2;
+
 	void* buffer = asignarMemoria(tamanioBuffer);
 
 	int desplazamiento = 0;
 
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) 5);
+	concatenarInt32(buffer, &desplazamiento, (uint32_t) tamanioStream);
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) tabla_paginas_1er_nivel);
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) entrada_pagina_1er_nivel);
 
@@ -124,11 +134,14 @@ uint32_t obtener_tabla_2do_nivel(int tabla_paginas_1er_nivel, int entrada_pagina
 uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint32_t entrada_2do_nivel)
 {
 	int tamanioBuffer = sizeof(uint32_t)*5;
+	int tamanioStream = sizeof(uint32_t)*3;
+
 	void* buffer = asignarMemoria(tamanioBuffer);
 
 	int desplazamiento = 0;
 
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) 6);
+	concatenarInt32(buffer, &desplazamiento, (uint32_t) tamanioStream);
 	concatenarInt32(buffer, &desplazamiento, tabla_1er_nivel);
 	concatenarInt32(buffer, &desplazamiento, tabla_2do_nivel);
 	concatenarInt32(buffer, &desplazamiento, entrada_2do_nivel);
