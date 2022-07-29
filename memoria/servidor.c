@@ -13,8 +13,6 @@ int crear_conexion(char *ip, char* puerto)
 	hints.ai_flags = AI_PASSIVE;
 	getaddrinfo(ip, puerto, &hints, &servinfo);
 	int server = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
-	//const int enable = 1;
-	//setsockopt(server, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
 
 	bind(server, servinfo->ai_addr, servinfo->ai_addrlen);
 
@@ -26,11 +24,10 @@ int crear_conexion(char *ip, char* puerto)
 
 
 uint8_t ini_servidor(){
-	char* ip = "127.0.0.1";
-	log_info(logger, "Inicializando servidor con ip %s y puerto %d... ", ip, config->puerto_escucha);
+	log_info(logger, "Inicializando servidor con ip %s y puerto %d... ", config->ip, config->puerto_escucha);
 	char* puerto_string = string_itoa(config->puerto_escucha);
-	socket_mem = crear_conexion(ip, puerto_string);
-	log_info(logger, "Socket creado y escuchando: %d!", socket_mem);
+	socket_mem = crear_conexion(config->ip, puerto_string);
+	log_info(logger, "Socket creado y escuchando!");
 	free(puerto_string);
 	return 1;
 }
@@ -90,12 +87,10 @@ void* escuchar_kernel(void* arg){
 			case 1 : //SUSP_PROC
 				log_info(logger, "Suspendiendo proceso con pcb id %d...", request->id_pcb);
 				suspender_proc(request->id_pcb);
-				//enviar_mensaje_cliente(cliente, &response, sizeof(response));
 			break;
 			case 2: //EXIT
 				log_info(logger, "Finalizando proceso con pcb id %d...", request->id_pcb);
 				finalizar_proc(request->id_pcb);
-				//enviar_mensaje_cliente(cliente, &response, sizeof(response));
 			break;
 
 		}

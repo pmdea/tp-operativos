@@ -18,7 +18,10 @@ pthread_mutex_t mutex_frames;
 pthread_mutex_t mutex_pagina_1;
 pthread_mutex_t mutex_pagina_2;
 
-uint8_t init(){
+char* path_config;
+
+uint8_t init(char* path){
+	path_config = path;
 	config = crear_config();
 	logger = log_create("memoria.log", "MEM", true, LOG_LEVEL_INFO);
 	log_info(logger, "Logger creado!");
@@ -79,12 +82,17 @@ uint8_t cargar_frames_auxiliares(){
 uint8_t cargar_lista_swaps(){
 	log_info(logger, "Generando lista de archivos swap...");
 	lista_swaps = list_create();
+	struct stat st = {0};
+	if (stat(config->path_swap, &st) == -1) {
+	    mkdir(config->path_swap, 0777);
+	    log_warning(logger, "Path %s no existia. Se creo.", config->path_swap);
+	}
 	return 1;
 }
 
 
 uint8_t cargar_config(){
-	t_config* file = config_create("memoria.config");
+	t_config* file = config_create(path_config);
 	if(file == NULL){
 		log_error(logger, "No se encontro memoria.config");
 		return 0;
@@ -99,6 +107,7 @@ uint8_t cargar_config(){
 	config->marcos_por_proceso = config_get_int_value(file, MARCOS_POR_PROCESO);
 	config->retardo_swap = config_get_int_value(file, RETARDO_SWAP);
 	config->path_swap = string_duplicate(config_get_string_value(file, PATH_SWAP));
+	config->ip = string_duplicate(config_get_string_value(file, IP));
 
 	log_info(logger, "Configuracion cargada correctamente");
 	config_destroy(file); // mato el file del config
@@ -142,6 +151,7 @@ void finalizar_programa(){
 	//mato config
 	free(config->algoritmo_reemplazo);
 	free(config->path_swap);
+	free(config->ip);
 	free(config);
 
 	//matar frames auxiliares

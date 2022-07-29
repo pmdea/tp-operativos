@@ -253,6 +253,7 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		frame->ocupado = 0; //libero el frame
 		pthread_mutex_unlock(&mutex_frames);
 		log_info(logger, "Pagina id %d swappeada exitosamente!", pag->id);
+		retardo_swap();
 	}
 
 	void swap_a_pag(entrada_tp_2* pag, void* swap){
@@ -262,6 +263,7 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		pag->bit_presencia = 1;
 		pag->bit_uso = 1;
 		log_info(logger, "Swapping a pag id %d exitoso!", pag->id);
+		retardo_swap();
 	}
 
 	void borrar_memoria_proceso(uint32_t pid){
@@ -280,7 +282,7 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 			while(list_iterator_has_next(page2_iterator)){
 				entrada_tp_2* entrada =  list_iterator_next(page2_iterator);
 				if(entrada->bit_presencia){
-					log_info("Liberando memoria de pag %d frame %d", entrada->id, entrada->frame);
+					log_info(logger, "Liberando memoria de pag %d frame %d", entrada->id, entrada->frame);
 					liberar_memoria(entrada->frame, config->tam_pag);
 					frame_auxiliar* frame = list_get(frames_auxiliares, entrada->frame);
 					frame->ocupado = 0; //libero el frame
@@ -290,7 +292,7 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 			list_iterator_destroy(page2_iterator);
 		}
 		list_iterator_destroy(iterator1);
-		log_info("Memoria alocada a pid %d liberada!", pid);
+		log_info(logger, "Memoria alocada a pid %d liberada!", pid);
 	}
 
 	// FUNCIONES DE BÚSQUEDA GENERAL

@@ -39,13 +39,11 @@ char* generar_filename(uint32_t pid){
 void escribir_swap(void* swap, void* data, uint32_t size, uint32_t start){
 	memcpy(swap+start, data, size);
 	msync(swap+start, size, MS_SYNC);
-	retardo_swap();
 }
 
 void* leer_swap(void* swap, uint32_t size, uint32_t start){
 	void* data = malloc(size);
 	memcpy(data, swap+start, size);
-	retardo_swap();
 	return data;
 }
 

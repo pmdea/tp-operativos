@@ -27,6 +27,7 @@ typedef struct {
 	int marcos_por_proceso;
 	int retardo_swap;
 	char* path_swap;
+	char* ip;
 
 } t_mem_config; // struct config memoria
 
@@ -43,9 +44,10 @@ typedef struct {
 #define MARCOS_POR_PROCESO "MARCOS_POR_PROCESO"
 #define RETARDO_SWAP "RETARDO_SWAP"
 #define PATH_SWAP "PATH_SWAP"
+#define IP "IP"
 
 
-uint8_t init(); // inicializa el loger y config
+uint8_t init(char* path); // inicializa el loger y config
 uint8_t cargar_memoria();
 uint8_t cargar_config(); // popula el struct de config
 void finalizar_programa(); //Limpia para cerrar el programa
