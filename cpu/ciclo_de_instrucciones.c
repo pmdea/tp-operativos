@@ -31,7 +31,6 @@ void decode(t_instruccion* instruccion, PCB* unPCB)
 
 void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 {
-	int num;
 	int tiempoBloqueo;
 	t_direccion_fisica direccion_fisica;
 	t_direccion_logica* direccion_logica = malloc(sizeof(t_direccion_logica));
@@ -42,13 +41,9 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 
 	switch (ident){
 	case 0:
-		num = list_get(instruccion -> parametros -> elements, 0);
-		for(int i=0; i<num; i++)
-		{
-			sleep(config_cpu.retardo_noop/1000);
-			log_info(loggerCpu, "NO_OP %i", num);
-			rafagaEjecutada++;
-		}
+		sleep(config_cpu.retardo_noop/1000);
+		log_info(loggerCpu, "NO_OP");
+		rafagaEjecutada++;
 		proceso->program_counter +=1;
 		break;
 	case 1:
