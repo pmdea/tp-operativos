@@ -16,13 +16,19 @@ int main(void)
 	instrucc5 -> identificador = NO_OP;
 	instrucc5 -> parametros = queue_create();
 
-	list_add(instrucc5 -> parametros -> elements, 5);
+	list_add(instrucc5 -> parametros -> elements, 10);
 
 	t_instruccion* instrucc4 = asignarMemoria(sizeof(t_instruccion));
 	instrucc4 -> identificador = IO;
 	instrucc4 -> parametros = queue_create();
 
-	list_add(instrucc4 -> parametros -> elements, 20000);
+	list_add(instrucc4 -> parametros -> elements, 13000);
+
+	t_instruccion* instrucc6 = asignarMemoria(sizeof(t_instruccion));
+	instrucc6 -> identificador = IO;
+	instrucc6 -> parametros = queue_create();
+
+	list_add(instrucc6 -> parametros -> elements, 5000);
 
 	t_instruccion* instrucc2 = asignarMemoria(sizeof(t_instruccion));
 	instrucc2 -> identificador = WRITE;
@@ -35,40 +41,35 @@ int main(void)
 	instrucc3 -> identificador = EXIT;
 	instrucc3 -> parametros = queue_create();
 
-	t_instruccion* instrucc7 = asignarMemoria(sizeof(t_instruccion));
-	instrucc7 -> identificador = COPY;
-	instrucc7 -> parametros = queue_create();
-
-	list_add(instrucc7 -> parametros -> elements, 5000);
-	list_add(instrucc7 -> parametros -> elements, 4000);
-
-	t_instruccion* instrucc6 = asignarMemoria(sizeof(t_instruccion));
-	instrucc6 -> identificador = READ;
-	instrucc6 -> parametros = queue_create();
-
-	list_add(instrucc6 -> parametros -> elements, 5000);
-
 	t_proceso* proceso = asignarMemoria(sizeof(t_proceso));
 	proceso -> tamanio_proceso = 15;
 	proceso -> instrucciones = queue_create();
 	list_add(proceso -> instrucciones -> elements, instrucc1);
-	list_add(proceso -> instrucciones -> elements, instrucc2);
-//	list_add(proceso -> instrucciones -> elements, instrucc1);
+	list_add(proceso -> instrucciones -> elements, instrucc4);
+	list_add(proceso -> instrucciones -> elements, instrucc1);
 	list_add(proceso -> instrucciones -> elements, instrucc3);
 
 	t_proceso* proceso2 = asignarMemoria(sizeof(t_proceso));
 	proceso2 -> tamanio_proceso = 15;
 	proceso2 -> instrucciones = queue_create();
-	list_add(proceso2 -> instrucciones -> elements, instrucc5);
+	list_add(proceso2 -> instrucciones -> elements, instrucc1);
+	list_add(proceso2 -> instrucciones -> elements, instrucc6);
+	list_add(proceso2 -> instrucciones -> elements, instrucc1);
 	list_add(proceso2 -> instrucciones -> elements, instrucc3);
 
-	generarEstructuraPCB(30, proceso);
-//	generarEstructuraPCB(55, proceso);
-//	generarEstructuraPCB(77, proceso2);
+	t_proceso* proceso3 = asignarMemoria(sizeof(t_proceso));
+	proceso3 -> tamanio_proceso = 15;
+	proceso3 -> instrucciones = queue_create();
+	list_add(proceso3 -> instrucciones -> elements, instrucc5);
+	list_add(proceso3 -> instrucciones -> elements, instrucc3);
+
+
+	generarEstructuraPCB(10, proceso);
+	generarEstructuraPCB(20, proceso2);
+	generarEstructuraPCB(30, proceso3);
 //	PCB* unPCB = list_get(procesosNew, 0);
 
 /*	enviarPCB(socket_dispatch, *unPCB, loggerKernel);
-
 	while(1){
 		unPCB = deserializarPCB(socket_dispatch);
 		log_warning(loggerKernel, "INICIANDO BLOQUEO DE 5000 - LISTA %i", list_size(unPCB->instrucciones));

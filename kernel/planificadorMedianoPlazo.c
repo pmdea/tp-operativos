@@ -15,7 +15,7 @@ void planificador_MedianoPlazo(){
 
         sem_post(&grado_multiprogramacion);
         log_info(loggerKernel, "BLOQUEANDO PROCESO SUSPENDIDO ID %i - TIEMPO BLOQUEO %i",procesoBloqueadoSuspendido -> id, tiemposBlockedSuspended);
-        sleep(tiemposBlockedSuspended/1000);
+        usleep(tiemposBlockedSuspended*1000);
         log_info(loggerKernel, "FINALIZO BLOQUEO PROCESO SUSPENDIDO ID %i", procesoBloqueadoSuspendido -> id);
 
 
