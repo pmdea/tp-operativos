@@ -2,44 +2,39 @@
 
 void algoritmo_SRT(){
     pthread_create(&ejecucionProcesoSRTHilo, NULL, ejecucionProcesoSRT, NULL);
-    pthread_create(&administradorRespuestaCPUHilo, NULL, administradorRespuestaCPU, NULL);
+    pthread_create(&administradorInterrupcionCPUHilo, NULL, administradorInterrupcionCPU, NULL);
     pthread_join(ejecucionProcesoSRTHilo, NULL);
-    pthread_join(administradorRespuestaCPUHilo, NULL);
+    pthread_join(administradorInterrupcionCPUHilo, NULL);
 }
 
 void ejecucionProcesoSRT(){
-	PCB* unProceso;
-	ejecutando = 0;
-	while(1){
-		sem_wait(&nuevoProcesoReady);
-
-		if(ejecutando == 0){
-			pthread_mutex_lock(&mutexReady);
-			if(list_size(procesosReady) > 1){
-				log_info(loggerKernel, "REPLANIFICANDO...");
-				list_sort(procesosReady,ordenarSRT);
-			}
-			unProceso = list_remove(procesosReady, 0);
-			pthread_mutex_unlock(&mutexReady);
-			enviarPCB(socket_dispatch, *unProceso, loggerKernel);
-
-			pthread_mutex_lock(&variableEjecutando);
-			ejecutando = 1;
-			pthread_mutex_unlock(&variableEjecutando);
-		} else {
-			avisar_a_cpu_interrupt();
-		}
-
-	}
-}
-
-void administradorRespuestaCPU(){
 	PCB* unProceso;
 	uint32_t motivoDeRegreso;
 	uint32_t tiempoDeBloqueo;
 	uint32_t rafagaEjecutada;
 	t_list* respuestaDeCPU;
+	ejecutando = 0;
 	while(1){
+		sem_wait(&nuevoProcesoReady);
+		/*
+		if(ejecutando == 1){
+			log_error(loggerKernel, "ENVIANDO INTERRUPCION");
+			sem_post(&enviarInterrupcion);
+		}*/
+
+		pthread_mutex_lock(&mutexReady);
+		if(list_size(procesosReady) > 1){
+			log_info(loggerKernel, "REPLANIFICANDO...");
+			list_sort(procesosReady,ordenarSRT);
+		}
+		unProceso = list_remove(procesosReady, 0);
+		pthread_mutex_unlock(&mutexReady);
+		enviarPCB(socket_dispatch, *unProceso, loggerKernel);
+
+		pthread_mutex_lock(&variableEjecutando);
+		ejecutando = 1;
+		pthread_mutex_unlock(&variableEjecutando);
+
 		respuestaDeCPU = recibirRespuestaCPU(socket_dispatch);
 
 		unProceso = list_get(respuestaDeCPU, 0);
@@ -87,8 +82,19 @@ void administradorRespuestaCPU(){
 				pthread_mutex_unlock(&variableEjecutando);
 				break;
 		}
+
+		//avisar_a_cpu_interrupt();
 	}
 }
+
+void administradorInterrupcionCPU(){
+	while(1){
+		sem_wait(&enviarInterrupcion);
+
+		avisar_a_cpu_interrupt();
+	}
+}
+
 
 
 

@@ -25,10 +25,13 @@ void generarEstructuraPCB(int idPCB, t_proceso* proceso){
 	agregarEstadoNew(unPCB);
 }
 
-bool ordenarSRT(PCB* unPCB,PCB* otroPCB){
-    double est1 = unPCB->estimacion_rafaga;
-    double est2 = otroPCB->estimacion_rafaga;
-    return est2 > est1;
+bool ordenarSRT(PCB* unPCB, PCB* otroPCB){
+	log_warning(loggerKernel, "COMPARO unPCB %i EST %f <= otroPCB %i EST %f",
+			unPCB -> id,
+			unPCB->estimacion_rafaga,
+			otroPCB->id,
+			otroPCB->estimacion_rafaga);
+    return unPCB->estimacion_rafaga <= otroPCB->estimacion_rafaga;
 }
 
 

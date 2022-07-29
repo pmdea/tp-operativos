@@ -41,6 +41,7 @@ t_list* tiemposBlockedSuspendMax;
 sem_t grado_multiprogramacion; // Tiene en cuenta el numero obtenido de la config.
 sem_t prioridad_SuspendedReady; // Binario con P.M.P
 sem_t nuevoProcesoReady; // Binario con P.C.P
+sem_t enviarInterrupcion;
 sem_t bloqueoMax; // Binario para saber cuando se bloqueo por mas tiempo del q tendria q estar
 sem_t procesoBloqueado; // hay un sem q es tiene nombre algo pero no me acuerdo para q era
 sem_t finalizoProceso; // Corto Plazo avisa a Largo Plazo FIN PROCESO
@@ -62,7 +63,7 @@ pthread_t estadoExitHilo; // L
 
 pthread_t administradorBloqueosHilo; // C
 pthread_t ejecucionAlgoritmoHilo; // C
-pthread_t administradorRespuestaCPUHilo; // C
+pthread_t administradorInterrupcionCPUHilo; // C
 pthread_t ejecucionProcesoSRTHilo; // C
 
 // ENUMS
@@ -145,7 +146,7 @@ void estadoExit(); // L
 void administrar_bloqueos(); // C
 void algoritmo_FIFO(); // C
 void algoritmo_SRT();
-void administradorRespuestaCPU(); // C SRT
+void administradorInterrupcionCPU(); // C SRT
 void ejecucionProcesoSRT(); // C SRT
 void avisar_a_cpu_interrupt();
 

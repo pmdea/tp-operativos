@@ -40,6 +40,11 @@ void dispatch(int escuchaDispatch){
 			        interrupcionKernel = 0;
 			        pthread_mutex_unlock(&variableCompartida);
 					break;
+				case IO:
+			        pthread_mutex_lock(&variableCompartida);
+			        interrupcionKernel = 0;
+			        pthread_mutex_unlock(&variableCompartida);
+			        break;
 				default:
 					checkInterrupt(unPCB, kernel_dispatch);
 					break;

@@ -38,7 +38,7 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 		num = list_get(instruccion -> parametros -> elements, 0);
 		for(int i=0; i<num; i++)
 		{
-			sleep(config_cpu.retardo_noop/1000);
+			usleep(config_cpu.retardo_noop*1000);
 			log_info(loggerCpu, "NO_OP %i", num);
 			rafagaEjecutada++;
 		}
