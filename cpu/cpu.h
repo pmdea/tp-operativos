@@ -8,6 +8,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <string.h>
+#include <math.h>
 #include <commons/log.h>
 #include <commons/collections/list.h>
 #include <commons/collections/queue.h>
@@ -86,7 +87,9 @@ typedef struct {
 
 typedef struct {
 	uint32_t marco;
+	uint32_t id_2do_nivel;
 	uint32_t desplazamiento;
+	uint32_t direccion;
 }t_direccion_fisica;
 
 typedef struct {
@@ -109,7 +112,7 @@ t_instruccion* fetch(PCB* unPcb);
 void decode(t_instruccion* instruccion, PCB* unPCB);
 void execute(t_instruccion* instruccion, PCB* proceso, int socketA);
 void checkInterrupt(PCB* proceso, int socketA);
-int fetchOperands(t_direccion_logica* direccion_logica, PCB unPcb);
+int fetchOperands(t_direccion_logica* direccion_logica, PCB unPcb, t_config_tabla config);
 
 //ENVIO_RECIBO_KERNEL.C
 void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegreso, uint32_t rafagaEjecutada, uint32_t tiempoBloqueo, t_log* logger);
@@ -120,10 +123,10 @@ int instruccion_a_realizar(ID_INSTRUCCION identificador);
 int cantidad_de_parametros(ID_INSTRUCCION identificador);
 
 //OPERACIONES_MEMORIA.C
-t_direccion_fisica* mmu(t_direccion_logica* direccion_logica, PCB proceso);
-int leer(t_direccion_fisica* direccion_fisica);
-void escribir(int valor, t_direccion_fisica* direccion_fisica);
-void obtener_direccion_logica(int direccion, t_direccion_logica* direccion_logica);
+t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_config_tabla config);
+int leer(t_direccion_fisica direccion_fisica, uint32_t entrada_2do_nivel);
+void escribir(int valor, t_direccion_fisica direccion_fisica, uint32_t entrada_2do_nivel);
+t_config_tabla obtener_direccion_logica(int direccion, t_direccion_logica* direccion_logica);
 t_config_tabla* obtener_tamanioPag_Entradas();
 uint32_t obtener_tabla_2do_nivel(int tabla_paginas_1er_nivel, int entrada_pagina_1er_nivel);
 uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint32_t entrada_2do_nivel);

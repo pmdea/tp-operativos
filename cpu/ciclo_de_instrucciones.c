@@ -5,10 +5,10 @@ t_instruccion* fetch(PCB* unPcb){
 	return instruccion;
 }
 
-int fetchOperands(t_direccion_logica* direccion_logica, PCB unPcb)
+int fetchOperands(t_direccion_logica* direccion_logica, PCB unPcb, t_config_tabla config)
 {
-	t_direccion_fisica* direccion_fisica = mmu(direccion_logica, unPcb);
-	int valor = leer(direccion_fisica);
+	t_direccion_fisica direccion_fisica = mmu(direccion_logica, unPcb, config);
+	int valor = leer(direccion_fisica, direccion_logica->entrada_tabla_2do_nivel);
 
 	return valor;
 }
@@ -21,9 +21,9 @@ void decode(t_instruccion* instruccion, PCB* unPCB)
     {
         t_direccion_logica* direccion_logica;
         int direccion = list_remove(instruccion -> parametros -> elements, 1);
-        obtener_direccion_logica(direccion, direccion_logica);
+        t_config_tabla config = obtener_direccion_logica(direccion, direccion_logica);
 
-        int valor = fetchOperands(direccion_logica, *unPCB);
+        int valor = fetchOperands(direccion_logica, *unPCB, config);
         list_add(instruccion->parametros->elements, valor);
     }
 
@@ -31,24 +31,19 @@ void decode(t_instruccion* instruccion, PCB* unPCB)
 
 void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 {
-	int num;
 	int tiempoBloqueo;
-
-	t_direccion_fisica* direccion_fisica = malloc(sizeof(t_direccion_fisica));
+	t_direccion_fisica direccion_fisica;
 	t_direccion_logica* direccion_logica = malloc(sizeof(t_direccion_logica));
+	t_config_tabla config;
 	int direccion;
 	int valor;
 	int ident = instruccion_a_realizar(instruccion->identificador);
 
 	switch (ident){
 	case 0:
-		num = list_get(instruccion -> parametros -> elements, 0);
-		for(int i=0; i<num; i++)
-		{
-			sleep(config_cpu.retardo_noop/1000);
-			log_info(loggerCpu, "NO_OP %i", num);
-			rafagaEjecutada++;
-		}
+		sleep(config_cpu.retardo_noop/1000);
+		log_info(loggerCpu, "NO_OP");
+		rafagaEjecutada++;
 		proceso->program_counter +=1;
 		break;
 	case 1:
@@ -58,18 +53,17 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 		log_info(loggerCpu, "IO %i", tiempoBloqueo);
 		enviarRespuestaKernel(socketA, *proceso, IO_PCB, rafagaEjecutada, tiempoBloqueo, loggerCpu);
 		k = 2000;
-		check = 0;
 		break;
 
 //READ(dirección_lógica)
 
 	case 2:
 		direccion = list_get(instruccion -> parametros -> elements, 0);
-		obtener_direccion_logica(direccion, direccion_logica);
-		direccion_fisica = mmu(direccion_logica, *proceso);
-//		int leido = leer(direccion_fisica);
+		config = obtener_direccion_logica(direccion, direccion_logica);
+		direccion_fisica = mmu(direccion_logica, *proceso, config);
+		int leido = leer(direccion_fisica, direccion_logica->entrada_tabla_2do_nivel);
 
-//		log_info(loggerCpu, "Ejecute Instruccion Read: %i", leido);
+		log_info(loggerCpu, "Ejecute Instruccion Read: %i", leido);
 
 		rafagaEjecutada++;
 		proceso->program_counter +=1;
@@ -81,13 +75,13 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 //COPY(dirección_lógica_destino, dirección_lógica_origen)
 
 	case 3:
-		log_info(loggerCpu, "Ejecutando Instruccion WRITE/COPY");
+
 		direccion = list_get(instruccion -> parametros -> elements, 0);
-		obtener_direccion_logica(direccion, direccion_logica);
-		direccion_fisica = mmu(direccion_logica, *proceso);
+		config = obtener_direccion_logica(direccion, direccion_logica);
+		direccion_fisica = mmu(direccion_logica, *proceso, config);
 
 		valor = list_get(instruccion -> parametros -> elements, 1);
-//		escribir(valor, direccion_fisica);
+		escribir(valor, direccion_fisica, direccion_logica->entrada_tabla_2do_nivel);
 
 		rafagaEjecutada++;
 		proceso->program_counter +=1;
@@ -103,14 +97,19 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 		k = 2000;
 		break;
 	}
+	free(direccion_logica);
 }
 
 void checkInterrupt(PCB* proceso, int socketA)
 {
-    if(interrupcionKernel==1)
+    if(interrupcionKernel==1) /// int interruption() implementado en otra rama
     {
+    	log_error(loggerCpu, "RAFAGA %f, ID %i", proceso -> estimacion_rafaga, proceso -> id);
     	enviarRespuestaKernel(socketA, *proceso, DESALOJO_PCB, rafagaEjecutada, 0, loggerCpu);
+        //free(*proceso);
         k = 2000;
+        pthread_mutex_lock(&variableCompartida);
         interrupcionKernel = 0;
+        pthread_mutex_unlock(&variableCompartida);
     }
 }

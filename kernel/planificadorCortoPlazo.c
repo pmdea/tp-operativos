@@ -39,7 +39,7 @@ void administrar_bloqueos(){
         }
 
         log_info(loggerKernel, "BLOQUEANDO PROCESO ID %i - TIEMPO BLOQUEO %i",procesoBlocked -> id,tiempo);
-        sleep(tiempo/1000);
+        usleep(tiempo*1000);
         log_info(loggerKernel, "FINALIZO BLOQUEO PROCESO ID %i", procesoBlocked -> id);
 
         if(tiemposBlockedSuspended > 0){
@@ -48,11 +48,17 @@ void administrar_bloqueos(){
             list_add(tiemposBlockedSuspendMax, tiemposBlockedSuspended);
             pthread_mutex_unlock(&mutexBloqueoSuspendido);
             sem_post(&bloqueoMax); // AVISO A M
+            tiemposBlockedSuspended = 0;
         }else{
         	pthread_mutex_lock(&mutexReady);
             list_add(procesosReady,procesoBlocked);
             pthread_mutex_unlock(&mutexReady);
             sem_post(&nuevoProcesoReady);
+
+			if(string_contains("SRT", config_kernel.algoritmo_planificacion)){
+				sem_post(&enviarInterrupcion);
+			}
+
         }
 
     }

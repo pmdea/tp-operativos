@@ -37,8 +37,11 @@ void estadoReady(){
 					pthread_mutex_unlock(&mutexReady);
 
 					sem_post(&nuevoProcesoReady);
+					if(string_contains("SRT", config_kernel.algoritmo_planificacion)){
+						sem_post(&enviarInterrupcion);
+					}
 
-					log_info(loggerKernel, "INGRESO PROCESO ID %i A READY DESDE NEW");
+					log_info(loggerKernel, "INGRESO PROCESO ID %i A READY DESDE NEW", unProceso -> id);
 				}
 				break;
 			default:
@@ -53,6 +56,10 @@ void estadoReady(){
 					pthread_mutex_unlock(&mutexReady);
 
 					sem_post(&nuevoProcesoReady);
+
+					if(string_contains("SRT", config_kernel.algoritmo_planificacion)){
+						sem_post(&enviarInterrupcion);
+					}
 
 					log_info(loggerKernel, "INGRESO PROCESO ID %i A READY DESDE READY-SUSPENDED", unProceso -> id);
 				}
