@@ -41,7 +41,7 @@ void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger){
 				concatenarInt32(buffer, &desplazamiento, list_get(instruccion -> parametros -> elements,0));
 				concatenarInt32(buffer, &desplazamiento, list_get(instruccion -> parametros -> elements,1));
 				break;
-			case 0:
+			default:
 				break;
 		}
 	}
@@ -98,7 +98,7 @@ t_list* deserializarListaInstruccionesK(int emisor){
 				list_add(instruccion -> parametros -> elements, deserializarInt32(emisor));
 				list_add(instruccion -> parametros -> elements, deserializarInt32(emisor));
 				break;
-			case 99:
+			default:
 				break;
 		}
 		list_add(lista, instruccion);
@@ -124,7 +124,7 @@ int cantidad_de_parametros(ID_INSTRUCCION identificador) {
 			return 1;
 			break;
 		case NO_OP:
-			return 1;
+			return 0;
 			break;
 		case READ:
 			return 1;

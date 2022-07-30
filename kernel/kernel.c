@@ -10,8 +10,6 @@ int main(void)
 	instrucc1 -> identificador = NO_OP;
 	instrucc1 -> parametros = queue_create();
 
-	list_add(instrucc1 -> parametros -> elements, 3);
-
 	t_instruccion* instrucc5 = asignarMemoria(sizeof(t_instruccion));
 	instrucc5 -> identificador = NO_OP;
 	instrucc5 -> parametros = queue_create();
@@ -45,7 +43,11 @@ int main(void)
 	proceso -> tamanio_proceso = 15;
 	proceso -> instrucciones = queue_create();
 	list_add(proceso -> instrucciones -> elements, instrucc1);
+	list_add(proceso -> instrucciones -> elements, instrucc1);
+	list_add(proceso -> instrucciones -> elements, instrucc1);
 	list_add(proceso -> instrucciones -> elements, instrucc4);
+	list_add(proceso -> instrucciones -> elements, instrucc1);
+	list_add(proceso -> instrucciones -> elements, instrucc1);
 	list_add(proceso -> instrucciones -> elements, instrucc1);
 	list_add(proceso -> instrucciones -> elements, instrucc3);
 
@@ -53,14 +55,27 @@ int main(void)
 	proceso2 -> tamanio_proceso = 15;
 	proceso2 -> instrucciones = queue_create();
 	list_add(proceso2 -> instrucciones -> elements, instrucc1);
+	list_add(proceso2 -> instrucciones -> elements, instrucc1);
+	list_add(proceso2 -> instrucciones -> elements, instrucc1);
 	list_add(proceso2 -> instrucciones -> elements, instrucc6);
+	list_add(proceso2 -> instrucciones -> elements, instrucc1);
+	list_add(proceso2 -> instrucciones -> elements, instrucc1);
 	list_add(proceso2 -> instrucciones -> elements, instrucc1);
 	list_add(proceso2 -> instrucciones -> elements, instrucc3);
 
 	t_proceso* proceso3 = asignarMemoria(sizeof(t_proceso));
 	proceso3 -> tamanio_proceso = 15;
 	proceso3 -> instrucciones = queue_create();
-	list_add(proceso3 -> instrucciones -> elements, instrucc5);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
+	list_add(proceso3 -> instrucciones -> elements, instrucc1);
 	list_add(proceso3 -> instrucciones -> elements, instrucc3);
 
 

@@ -9,13 +9,10 @@ void algoritmo_FIFO(){
 
 	while(1){
 		sem_wait(&nuevoProcesoReady);
-
 		pthread_mutex_lock(&mutexReady);
 		unProceso = list_remove(procesosReady, 0);
 		pthread_mutex_unlock(&mutexReady);
-
 		enviarPCB(socket_dispatch, *unProceso, loggerKernel);
-
 		respuestaDeCPU = recibirRespuestaCPU(socket_dispatch);
 
 		unProceso = list_get(respuestaDeCPU, 0);

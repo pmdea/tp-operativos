@@ -7,7 +7,7 @@ PCB crearPCB(int idPCB, t_proceso* proceso){
 	unPCB.instrucciones = list_create();
 	unPCB.program_counter = 0;
 	unPCB.tabla_paginas = 0;
-	unPCB.estimacion_rafaga = 10000;
+	unPCB.estimacion_rafaga = config_kernel.estimacion_inicial;
 	list_add_all(unPCB . instrucciones, proceso -> instrucciones -> elements);
 
 	return unPCB;
@@ -26,11 +26,6 @@ void generarEstructuraPCB(int idPCB, t_proceso* proceso){
 }
 
 bool ordenarSRT(PCB* unPCB, PCB* otroPCB){
-	log_warning(loggerKernel, "COMPARO unPCB %i EST %f <= otroPCB %i EST %f",
-			unPCB -> id,
-			unPCB->estimacion_rafaga,
-			otroPCB->id,
-			otroPCB->estimacion_rafaga);
     return unPCB->estimacion_rafaga <= otroPCB->estimacion_rafaga;
 }
 

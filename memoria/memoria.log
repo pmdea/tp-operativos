@@ -315,3 +315,38 @@
 [INFO] 19:40:31:477 MEM/(14124:14124): Socket creado y escuchando: 4!
 [INFO] 19:41:21:007 MEM/(14124:14124): Recibido mensaje de CPU, create y detach thread correspondiente
 [INFO] 19:41:22:483 MEM/(14124:14256): Escuchando mensaje de CPU
+[INFO] 18:33:20:605 MEM/(10119:10119): Logger creado!
+[INFO] 18:33:20:605 MEM/(10119:10119): Configuracion cargada correctamente
+[INFO] 18:33:20:606 MEM/(10119:10119): Memoria cargada correctamente!
+[INFO] 18:33:20:606 MEM/(10119:10119): Generando estructuras globales de tablas de paginas...
+[INFO] 18:33:20:606 MEM/(10119:10119): Estructuras globales de tablas de paginas creadas!
+[INFO] 18:33:20:606 MEM/(10119:10119): Generando estructura auxiliar para manejo de frames...
+[INFO] 18:33:20:606 MEM/(10119:10119): El módulo tiene 64 frames disponibles!
+[INFO] 18:33:20:606 MEM/(10119:10119): Estructura auxiliar para manejo de frames creada!
+[INFO] 18:33:20:606 MEM/(10119:10119): Generando lista de archivos swap...
+[INFO] 18:33:20:607 MEM/(10119:10119): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 18:33:20:607 MEM/(10119:10119): Socket creado y escuchando!
+[INFO] 18:33:36:014 MEM/(10119:10119): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 18:33:36:031 MEM/(10119:10219): Escuchando mensaje de CPU
+[INFO] 18:33:57:238 MEM/(10119:10119): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 18:33:57:253 MEM/(10119:10318): Escuchando mensaje de KERNEL
+[INFO] 18:35:16:948 MEM/(10119:10318): Inicializando proceso con pcb id 10 y size 15...
+[INFO] 18:35:16:948 MEM/(10119:10318): Inicializando proceso size 15 pid 10
+[INFO] 18:35:16:948 MEM/(10119:10318): Creando tablas de primer nivel para proceso pid 10
+[INFO] 18:35:16:949 MEM/(10119:10318): Tablas de Paginas creadas para proceso pid 10 correctamente!
+[INFO] 18:35:16:949 MEM/(10119:10318): Creando file swap para proceso 10 en /home/utnso/swap/10.swap
+[INFO] 18:35:16:949 MEM/(10119:10318): Espacio swap creado correctamente!
+[INFO] 18:35:17:949 MEM/(10119:10318): Inicializacion finalizada para proceso pid 10!
+[INFO] 18:35:17:952 MEM/(10119:10318): Inicializando proceso con pcb id 20 y size 15...
+[INFO] 18:35:17:952 MEM/(10119:10318): Inicializando proceso size 15 pid 20
+[INFO] 18:35:17:952 MEM/(10119:10318): Creando tablas de primer nivel para proceso pid 20
+[INFO] 18:35:17:952 MEM/(10119:10318): Tablas de Paginas creadas para proceso pid 20 correctamente!
+[INFO] 18:35:17:953 MEM/(10119:10318): Creando file swap para proceso 20 en /home/utnso/swap/20.swap
+[INFO] 18:35:17:953 MEM/(10119:10318): Espacio swap creado correctamente!
+[INFO] 18:35:18:953 MEM/(10119:10318): Inicializacion finalizada para proceso pid 20!
+[INFO] 18:36:04:456 MEM/(10119:10318): Inicializando proceso con pcb id 1768120698 y size 1768710505...
+[INFO] 18:36:04:456 MEM/(10119:10318): Inicializando proceso size 1768710505 pid 1768120698
+[INFO] 18:36:04:456 MEM/(10119:10318): Creando tablas de primer nivel para proceso pid 1768120698
+[INFO] 18:36:04:456 MEM/(10119:10318): Tablas de Paginas creadas para proceso pid 1768120698 correctamente!
+[INFO] 18:36:04:456 MEM/(10119:10318): Creando file swap para proceso 1768120698 en /home/utnso/swap/1768120698.swap
+[INFO] 18:36:04:461 MEM/(10119:10318): Espacio swap creado correctamente!

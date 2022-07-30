@@ -41,7 +41,7 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 
 	switch (ident){
 	case 0:
-		sleep(config_cpu.retardo_noop/1000);
+		usleep(config_cpu.retardo_noop*1000);
 		log_info(loggerCpu, "NO_OP");
 		rafagaEjecutada++;
 		proceso->program_counter +=1;
@@ -63,7 +63,7 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 		direccion_fisica = mmu(direccion_logica, *proceso, config);
 		int leido = leer(direccion_fisica, direccion_logica->entrada_tabla_2do_nivel);
 
-		log_info(loggerCpu, "Ejecute Instruccion Read: %i", leido);
+		log_info(loggerCpu, "Read: %i", leido);
 
 		rafagaEjecutada++;
 		proceso->program_counter +=1;
@@ -86,7 +86,7 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 		rafagaEjecutada++;
 		proceso->program_counter +=1;
 
-		log_info(loggerCpu, "Ejecute Instruccion WRITE/COPY %i", valor);
+		log_info(loggerCpu, "WRITE/COPY %i", valor);
 
 		break;
 
