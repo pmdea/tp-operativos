@@ -1,4 +1,5 @@
 #include "kernel.h"
+#include<errno.h>
 
 int main(void)
 {
@@ -82,6 +83,7 @@ int main(void)
 	generarEstructuraPCB(10, proceso);
 	generarEstructuraPCB(20, proceso2);
 	generarEstructuraPCB(30, proceso3);
+
 //	PCB* unPCB = list_get(procesosNew, 0);
 
 /*	enviarPCB(socket_dispatch, *unPCB, loggerKernel);

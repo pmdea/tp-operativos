@@ -14,7 +14,7 @@ uint32_t iniciar_proc(uint32_t proc_mem, uint32_t pid){
 	swap->size = proc_mem;
 	swap->swap = crear_swap(proc_mem, pid);
 	list_add(lista_swaps, swap);
-	esperar_response_cpu();
+//	esperar_response_cpu();
 	log_info(logger, "Inicializacion finalizada para proceso pid %d!", pid);
 	return id_tabla;
 }
@@ -39,7 +39,7 @@ void suspender_proc(uint32_t pid){
 	list_iterator_destroy(tp1_iter);
 	log_info(logger, "Se ha suspendido el pid %d correctamente!", tp1->pid);
 
-	esperar_response_cpu();
+//	esperar_response_cpu();
 }
 void finalizar_proc(uint32_t pid){
 	log_info(logger, "Finalizando proceso pid %d...", pid);
@@ -51,7 +51,7 @@ void finalizar_proc(uint32_t pid){
 	borrar_memoria_proceso(pid);
 	free(proc_swap);
 	log_info(logger, "Proceso pid %d finalizado!", pid);
-	esperar_response_cpu();
+//	esperar_response_cpu();
 }
 uint32_t get_tabla_2do_lvl(uint32_t id_tabla_1, uint32_t entrada){
 	log_info(logger, "Buscando tabla de 2do nivel para tabla %d y entrada %d", id_tabla_1, entrada);

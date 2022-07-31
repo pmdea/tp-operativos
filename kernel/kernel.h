@@ -102,6 +102,13 @@ typedef struct{
 	double estimacion_rafaga;
 }PCB;
 
+typedef struct{
+	 PCB* unPCB;
+	 uint32_t tiempo;
+	 uint32_t aux;
+	 uint32_t suspendido;
+}blockedPCB;
+
 typedef struct {
 	ID_INSTRUCCION identificador;
 	t_queue* parametros;

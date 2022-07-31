@@ -82,15 +82,18 @@ void* escuchar_kernel(void* arg){
 			case 0: //Inicializar proceso
 				log_info(logger, "Inicializando proceso con pcb id %d y size %d...", request->id_pcb, request->tamanio_pcb);
 				uint32_t id_tabla = iniciar_proc(request->tamanio_pcb, request->id_pcb);
+				uint32_t ok = 1;
 				enviar_mensaje_cliente(cliente, &id_tabla, sizeof(id_tabla));
 			break;
 			case 1 : //SUSP_PROC
 				log_info(logger, "Suspendiendo proceso con pcb id %d...", request->id_pcb);
 				suspender_proc(request->id_pcb);
+				enviar_mensaje_cliente(cliente, &ok, sizeof(ok));
 			break;
 			case 2: //EXIT
 				log_info(logger, "Finalizando proceso con pcb id %d...", request->id_pcb);
 				finalizar_proc(request->id_pcb);
+				enviar_mensaje_cliente(cliente, &ok, sizeof(ok));
 			break;
 
 		}

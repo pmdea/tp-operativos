@@ -10,7 +10,7 @@ void planificador_LargoPlazo(){
 }
 
 void estadoReady(){
-	int enNew, enSuspendedReady;
+	int enNew, enSuspendedReady, enReady;
 	PCB* unProceso;
 	while(1){
 		pthread_mutex_lock(&mutexSuspendido);
@@ -34,11 +34,13 @@ void estadoReady(){
 
 					pthread_mutex_lock(&mutexReady);
 					list_add(procesosReady, unProceso);
+					enReady = list_size(procesosReady);
 					pthread_mutex_unlock(&mutexReady);
 
 					sem_post(&nuevoProcesoReady);
-					if(string_contains("SRT", config_kernel.algoritmo_planificacion)){
-						sem_post(&enviarInterrupcion);
+					log_warning(loggerKernel, "SIZE %i EJECUTANDO %i", enReady, ejecutando);
+					if(string_contains("SRT", config_kernel.algoritmo_planificacion) && (enReady >= 0 && ejecutando == 1)){
+					                sem_post(&enviarInterrupcion);
 					}
 
 					log_info(loggerKernel, "INGRESO PROCESO ID %i A READY DESDE NEW", unProceso -> id);
@@ -53,12 +55,13 @@ void estadoReady(){
 
 					pthread_mutex_lock(&mutexReady);
 					list_add(procesosReady, unProceso);
+					enReady = list_size(procesosReady);
 					pthread_mutex_unlock(&mutexReady);
 
 					sem_post(&nuevoProcesoReady);
 
-					if(string_contains("SRT", config_kernel.algoritmo_planificacion)){
-						sem_post(&enviarInterrupcion);
+					if(string_contains("SRT", config_kernel.algoritmo_planificacion) && (enReady >= 0 && ejecutando == 1)){
+					                sem_post(&enviarInterrupcion);
 					}
 
 					log_info(loggerKernel, "INGRESO PROCESO ID %i A READY DESDE READY-SUSPENDED", unProceso -> id);
@@ -77,7 +80,7 @@ void estadoExit(){
 		pthread_mutex_unlock(&mutexExit);
 
 		avisar_a_memoria(FINALIZA, *unProceso, loggerKernel);
-		//int32_t respuesta = deserializarInt32(socket_memoria);
+		uint32_t retorno = deserializarInt32(socket_memoria);
 
 		log_info(loggerKernel, "PROCESO ID %i FINALIZO - AVISANDO A CONSOLA", unProceso -> id);
 		//avisar_a_consola(unProceso);

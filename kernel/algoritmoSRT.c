@@ -45,12 +45,16 @@ void ejecucionProcesoSRT(){
 				tiempoDeBloqueo = list_get(respuestaDeCPU, 3);
 				rafagaEjecutada = list_get(respuestaDeCPU, 2);
 				estimador(unProceso, config_kernel.alfa, rafagaEjecutada);
-
+				blockedPCB* datosPCB = asignarMemoria(sizeof(blockedPCB));
+				datosPCB -> unPCB = unProceso;
+				datosPCB -> tiempo = tiempoDeBloqueo;
+				datosPCB -> aux = 0;
+				datosPCB -> suspendido = 0;
 				log_error(loggerKernel, "RAFAGA NUEVA %f, ID %i", unProceso -> estimacion_rafaga, unProceso -> id);
 
 				pthread_mutex_lock(&mutexBloqueo);
-				list_add(procesosBlocked, unProceso);
-				list_add(tiemposBlocked, tiempoDeBloqueo);
+				list_add(procesosBlocked, datosPCB);
+				//list_add(tiemposBlocked, tiempoDeBloqueo);
 				pthread_mutex_unlock(&mutexBloqueo);
 
 				pthread_mutex_lock(&variableEjecutando);
@@ -61,8 +65,8 @@ void ejecucionProcesoSRT(){
 				break;
 
 			case DESALOJO_PCB:
-				rafagaEjecutada = list_get(respuestaDeCPU, 2);
-				estimador(unProceso, config_kernel.alfa, rafagaEjecutada);
+				//rafagaEjecutada = list_get(respuestaDeCPU, 2);
+				//estimador(unProceso, config_kernel.alfa, rafagaEjecutada);
 				log_warning(loggerKernel, "RAFAGA NUEVA %f, ID %i", unProceso -> estimacion_rafaga, unProceso -> id);
 				pthread_mutex_lock(&mutexReady);
 				list_add(procesosReady, unProceso);
