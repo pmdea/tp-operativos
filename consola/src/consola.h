@@ -1,10 +1,3 @@
-/*
- * consola.h
- *
- *  Created on: 22 jul. 2022
- *      Author: utnso
- */
-
 #ifndef SRC_CONSOLA_H_
 #define SRC_CONSOLA_H_
 
@@ -30,30 +23,14 @@ typedef enum {
 	NO_OP = 5
 } ID_INSTRUCCION;
 
-typedef struct {
-	ID_INSTRUCCION identificador;
-	t_queue* parametros;
-} t_instruccion;
-
 typedef enum {
 	HANDSHAKE,
 	ENVIO_PROCESO,
 	RECHAZO,
 	CONFIRMACION,
-	FINALIZACION_PROCESO
+	FINALIZACION_PROCESO,
+	ERROR
 } op_code;
-
-typedef struct {
-	int size;
-	void* stream;
-} __attribute__((packed))
-t_buffer;
-
-typedef struct {
-	op_code operacion;
-	t_buffer* buffer;
-}  __attribute__((packed))
-t_paquete;
 
 typedef struct {
 	op_code operacion;
@@ -62,11 +39,9 @@ typedef struct {
 } __attribute__((packed))
 t_mensaje;
 
-typedef struct {
-	t_queue* instrucciones;
-	int tamanio_proceso;
-}t_proceso;
-
-
-
+#define IDENTIFICADORES_VALIDOS "I/O,READ,WRITE,COPY,EXIT,NO_OP"
+#define CLAVE_IP "IP_KERNEL"
+#define CLAVE_PUERTO "PUERTO_KERNEL"
+#define MENSAJE_HANDSHAKE_ENVIADO 9992751
+#define PATH_CONFIG "./src/consola.config"
 #endif /* SRC_CONSOLA_H_ */

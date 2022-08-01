@@ -1,10 +1,3 @@
-/*
- * kernel.h
- *
- *  Created on: 23 jul. 2022
- *      Author: utnso
- */
-
 #ifndef SRC_KERNEL_H_
 #define SRC_KERNEL_H_
 
@@ -27,25 +20,23 @@ typedef enum {
 	ENVIO_PROCESO,
 	MENSAJE,
 	CONFIRMACION,
-	FINALIZACION_PROCESO
+	FINALIZACION_PROCESO,
+	ERROR
 } op_code;
 
+typedef struct{
+	uint32_t id;
+	uint32_t tamanio;
+	t_list* instrucciones;
+	uint32_t program_counter;
+	uint32_t tabla_paginas;
+	double estimacion_rafaga;
+}PCB;
+
 typedef struct {
-	t_queue* instrucciones;
-	int tamanio_proceso;
+    int tamanio_proceso;
+    t_queue* instrucciones;
 }t_proceso;
-
-typedef struct {
-	int size;
-	void* stream;
-} __attribute__((packed))
-t_buffer;
-
-typedef struct {
-	op_code operacion;
-	t_buffer* buffer;
-}  __attribute__((packed))
-t_paquete;
 
 typedef enum {
 	IO = 0,
@@ -61,6 +52,8 @@ typedef struct {
 	t_queue* parametros;
 } t_instruccion;
 
-
+#define PUERTO "8000"
+#define MENSAJE_HANDSHAKE_ESPERADO 9992751
+#define IP "127.0.0.1"
 #endif /* SRC_KERNEL_H_ */
 
