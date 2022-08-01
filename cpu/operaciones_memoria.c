@@ -212,14 +212,17 @@ int tlb_cache(int pag)
 		j=list_size(tlb);
 		}
 	}
-
+	log_info(loggerCpu, "Se ha encontardo en la TLB el marco %i correpondiente a la página %i.", marco, pag);
+	free(entrada);
 	return marco;
 }
 
 void reemplazo_tlb(t_entrada_tlb* entrada)
 {
-	list_remove(tlb, 0);
+	t_entrada_tlb* removido = list_remove(tlb, 0);
 	list_add(tlb, entrada);
+	log_info(loggerCpu, "No habia espacio, reemplacé la entrada con página %i y marco %i.", removido->pagina, removido->marco);
+	free(removido);
 }
 
 void agregar_a_TLB(int pagina, int marco)
@@ -231,13 +234,14 @@ void agregar_a_TLB(int pagina, int marco)
 	if (list_size(tlb)<config_cpu.entradas_tlb)
 	{
 		list_add(tlb, entrada);
-		log_info(loggerCpu, "Hay espacio!");
+		log_info(loggerCpu, "La entrada con página %i y marco %i ha sido agregada. No fue necesario reemplazar.", entrada->pagina, entrada->marco);
 	}
 	else
 	{
 		reemplazo_tlb(entrada);
-		log_info(loggerCpu, "No habia espacio, reemplacé!");
+		log_info(loggerCpu, "La entrada con página %i y marco %i ha sido agregada.", entrada->pagina, entrada->marco);
 	}
+	free(entrada);
 }
 
 //traduce direciones logicas en direcciones fisicas

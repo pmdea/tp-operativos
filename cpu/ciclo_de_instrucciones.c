@@ -15,18 +15,16 @@ int fetchOperands(t_direccion_logica* direccion_logica, PCB unPcb, t_config_tabl
 
 void decode(t_instruccion* instruccion, PCB* unPCB)
 {
-    t_direccion_logica* direccion_logica = malloc(sizeof(direccion_logica));
-
     if(instruccion->identificador == COPY)
     {
-        t_direccion_logica* direccion_logica;
+    	t_direccion_logica* direccion_logica = malloc(sizeof(direccion_logica));
         int direccion = list_remove(instruccion -> parametros -> elements, 1);
         t_config_tabla config = obtener_direccion_logica(direccion, direccion_logica);
 
         int valor = fetchOperands(direccion_logica, *unPCB, config);
         list_add(instruccion->parametros->elements, valor);
+        free(direccion_logica);
     }
-
 }
 
 void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
@@ -102,7 +100,7 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 
 void checkInterrupt(PCB* proceso, int socketA)
 {
-    if(interrupcionKernel==1) /// int interruption() implementado en otra rama
+    if(interrupcionKernel==1)
     {
     	log_error(loggerCpu, "RAFAGA %f, ID %i", proceso -> estimacion_rafaga, proceso -> id);
     	enviarRespuestaKernel(socketA, *proceso, DESALOJO_PCB, rafagaEjecutada, 0, loggerCpu);
