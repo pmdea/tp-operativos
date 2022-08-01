@@ -36,31 +36,16 @@ void administrar_bloqueos(){
 		pthread_mutex_unlock(&mutexBloqueo);
 		unProceso = datosPCB -> unPCB;
 		tiempoBloqueo = datosPCB -> tiempo;
-		/*
-		 * 0- 1000
-		 * 1- 1
-		 * 2- 2
-		 * 3- 3
-		 * 4- 4
-		 * 5-
-		 * 6- 8
-		 * 7 - 7
-		 * 8 - 9
-		 * 9 - 10
-		 * 10 - 11
-		 * 11 - 12
-		 * 12 - 13
-		 * 13 - 14
-		 */
+
 		log_info(loggerKernel, "BLOQUEANDO PROCESO ID %i - TIEMPO BLOQUEO %i",unProceso -> id, tiempoBloqueo);
 		for(int k = 0; k < (tiempoBloqueo/1000); k++){
+			datosPCB -> aux += 1000;
 			if(datosPCB -> aux > config_kernel.tiempo_maximo_bloqueado && datosPCB -> suspendido == 0){
 				avisar_a_memoria(SUSPENDE, *datosPCB -> unPCB ,loggerKernel);
 				uint32_t retorno = deserializarInt32(socket_memoria);
 				sem_post(&grado_multiprogramacion);
 				datosPCB -> suspendido = 1;
 			}
-			datosPCB -> aux += 1000;
 
 			usleep(1000*1000);
 
@@ -105,60 +90,14 @@ void administrar_bloqueos(){
 				enReady = list_size(procesosReady);
 				pthread_mutex_unlock(&mutexReady);
 				sem_post(&nuevoProcesoReady);
+				pthread_mutex_lock(&variableEjecutando);
 				if(string_contains("SRT", config_kernel.algoritmo_planificacion) && (enReady >= 0 && ejecutando == 1)){
 					sem_post(&enviarInterrupcion);
 				}
+				pthread_mutex_unlock(&variableEjecutando);
 				break;
 		}
 	}
 }
 
 
-/*
-void administrar_bloqueos(){
-	PCB* procesoBlocked;
-	int tiempo, enReady;
-	int tiemposBlockedSuspended;
-    while(1){
-        sem_wait(&procesoBloqueado); // Arranca en 0
-
-        pthread_mutex_lock(&mutexBloqueo);
-        procesoBlocked = list_remove(procesosBlocked, 0);
-        tiempo = list_remove(tiemposBlocked, 0);
-        pthread_mutex_unlock(&mutexBloqueo);
-
-        if(tiempo > config_kernel.tiempo_maximo_bloqueado){
-            tiemposBlockedSuspended = tiempo - config_kernel.tiempo_maximo_bloqueado;
-            tiempo = config_kernel.tiempo_maximo_bloqueado;
-        }
-
-        log_info(loggerKernel, "BLOQUEANDO PROCESO ID %i - TIEMPO BLOQUEO %i",procesoBlocked -> id,(tiempo+tiemposBlockedSuspended));
-        usleep(tiempo*1000);
-
-        if(tiemposBlockedSuspended > 0){
-        	pthread_mutex_lock(&mutexBloqueoSuspendido);
-            list_add(procesosSuspendedBlocked, procesoBlocked);
-            list_add(tiemposBlockedSuspendMax, tiemposBlockedSuspended);
-            pthread_mutex_unlock(&mutexBloqueoSuspendido);
-            sem_post(&bloqueoMax); // AVISO A M
-            tiemposBlockedSuspended = 0;
-            usleep(tiemposBlockedSuspended *1000);
-            log_info(loggerKernel, "FINALIZO BLOQUEO PROCESO ID %i", procesoBlocked -> id);
-        }else{
-        	pthread_mutex_lock(&mutexReady);
-            list_add(procesosReady,procesoBlocked);
-            enReady = list_size(procesosReady);
-            pthread_mutex_unlock(&mutexReady);
-            log_info(loggerKernel, "FINALIZO BLOQUEO PROCESO ID %i", procesoBlocked -> id);
-            sem_post(&nuevoProcesoReady);
-
-            if(string_contains("SRT", config_kernel.algoritmo_planificacion) && (enReady > 0 && ejecutando == 1)){
-            	sem_post(&enviarInterrupcion);
-            }
-
-
-        }
-
-    }
-
- }*/

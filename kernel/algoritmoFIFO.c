@@ -22,9 +22,14 @@ void algoritmo_FIFO(){
 			case IO_PCB:
 				tiempoDeBloqueo = list_get(respuestaDeCPU, 3);
 
+				blockedPCB* datosPCB = asignarMemoria(sizeof(blockedPCB));
+				datosPCB -> unPCB = unProceso;
+				datosPCB -> tiempo = tiempoDeBloqueo;
+				datosPCB -> aux = 0;
+				datosPCB -> suspendido = 0;
+
 				pthread_mutex_lock(&mutexBloqueo);
-				list_add(procesosBlocked, unProceso);
-				list_add(tiemposBlocked, tiempoDeBloqueo);
+				list_add(procesosBlocked, datosPCB);
 				pthread_mutex_unlock(&mutexBloqueo);
 
 				sem_post(&procesoBloqueado);

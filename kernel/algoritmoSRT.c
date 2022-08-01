@@ -54,7 +54,6 @@ void ejecucionProcesoSRT(){
 
 				pthread_mutex_lock(&mutexBloqueo);
 				list_add(procesosBlocked, datosPCB);
-				//list_add(tiemposBlocked, tiempoDeBloqueo);
 				pthread_mutex_unlock(&mutexBloqueo);
 
 				pthread_mutex_lock(&variableEjecutando);

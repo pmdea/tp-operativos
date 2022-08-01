@@ -7,6 +7,10 @@ int main(void)
 	configKernel = iniciar_config_kernel();
 	iniciar_settings();
 
+	pthread_mutex_lock(&variableEjecutando);
+	ejecutando = 0;
+	pthread_mutex_unlock(&variableEjecutando);
+
 	t_instruccion* instrucc1 = asignarMemoria(sizeof(t_instruccion));
 	instrucc1 -> identificador = NO_OP;
 	instrucc1 -> parametros = queue_create();
