@@ -5,6 +5,8 @@ int main(void)
 	loggerCpu = iniciar_logger_cpu();
 	configCpu = iniciar_config_cpu();
 
+	tlb = list_create();
+
 	pthread_mutex_init(&variableCompartida, NULL);
 	socket_memoria = crear_conexion(config_cpu.ip_memoria, config_cpu.puerto_memoria);
 	conectar_a_memoria(socket_memoria);

@@ -9,7 +9,7 @@ char* escribir_en_memoria(uint32_t direc_fisica, void* data, uint32_t size){
 	pthread_mutex_lock(&mutex_memoria);
 	memcpy(memoria_principal + direc_fisica, data, size);
 	pthread_mutex_unlock(&mutex_memoria);
-	free(data);
+	//free(data);
 	return "OK"; //Según enunciado
 }
 void* leer_de_memoria(uint32_t start, uint32_t size){

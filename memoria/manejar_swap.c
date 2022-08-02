@@ -48,5 +48,5 @@ void* leer_swap(void* swap, uint32_t size, uint32_t start){
 }
 
 void retardo_swap(){
-	usleep(config->retardo_swap*1000); // Espero el tiempo dado por configuracion
+	usleep(config->retardo_swap * 1000); // Espero el tiempo dado por configuracion
 }

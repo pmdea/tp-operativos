@@ -86,5 +86,5 @@ char* escribir_memoria(uint32_t id_2do_nivel, uint32_t id_entrada, uint32_t offs
 }
 
 void esperar_response_cpu(){
-	usleep(config->retardo_memoria* 1000);
+	usleep(config->retardo_memoria * 1000);
 }

@@ -96,7 +96,7 @@ t_config_tabla* obtener_tamanioPag_Entradas()
 
 	int tamanioBuffer2 = sizeof(uint32_t)*2;
 	void* buffer2 = asignarMemoria(tamanioBuffer2);
-
+	log_debug(loggerCpu, "TAMAÑO RESPUESTA ESPERADA: %i",tamanioBuffer2);
 	recv(socket_memoria, buffer2, tamanioBuffer2, MSG_WAITALL);
 
 	memcpy(&config->tamanio_pagina, buffer2, sizeof(uint32_t));

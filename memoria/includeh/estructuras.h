@@ -47,6 +47,7 @@ typedef enum{
 	GET_PAG_NVL_2 = 5,
 	GET_MARCO = 6
 } oper_cpu;
+
 typedef struct{
 	int socket_cliente;
 } args_thread;
