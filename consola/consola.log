@@ -1,0 +1,1516 @@
+[INFO] 22:15:13:198 CONSOLA/(5621:5621): Hola, soy el log de la consola
+[DEBUG] 22:15:13:198 CONSOLA/(5621:5621): recibi los parametros: ./src/proceso.txt , 330
+[ERROR] 22:15:13:198 CONSOLA/(5621:5621): el archivo en la direccion ./src/proceso.txt no existe.
+[INFO] 22:15:13:199 CONSOLA/(5621:5621): Consola finalizada
+[INFO] 22:59:46:521 CONSOLA/(7818:7818): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:59:46:690 CONSOLA/(7818:7818): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:59:46:690 CONSOLA/(7818:7818): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:59:46:690 CONSOLA/(7818:7818): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[ERROR] 22:59:46:931 CONSOLA/(7818:7818): El archivo en la ruta especificada no existe
+[INFO] 22:59:46:931 CONSOLA/(7818:7818): CONSOLA FINALIZADA
+[INFO] 23:01:53:592 CONSOLA/(7905:7905): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:01:53:593 CONSOLA/(7905:7905): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:01:53:593 CONSOLA/(7905:7905): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:01:53:593 CONSOLA/(7905:7905): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[ERROR] 23:01:53:593 CONSOLA/(7905:7905): El archivo en la ruta especificada no existe
+[INFO] 23:01:53:593 CONSOLA/(7905:7905): CONSOLA FINALIZADA
+[INFO] 23:03:09:201 CONSOLA/(8008:8008): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:03:09:201 CONSOLA/(8008:8008): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:03:09:201 CONSOLA/(8008:8008): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:03:09:201 CONSOLA/(8008:8008): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:03:33:086 CONSOLA/(8041:8041): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:03:33:087 CONSOLA/(8041:8041): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:03:33:087 CONSOLA/(8041:8041): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:03:33:087 CONSOLA/(8041:8041): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:03:35:582 CONSOLA/(8041:8041): El archivo en la ruta "./proceso.txt" fue abierto correctamente
+[ERROR] 23:03:35:582 CONSOLA/(8041:8041): Faltan parametros
+[ERROR] 23:03:35:582 CONSOLA/(8041:8041): La instruccion 1 no es valida
+[ERROR] 23:03:35:582 CONSOLA/(8041:8041): El proceso no es válido, FINALIZANDO...
+[INFO] 23:03:35:582 CONSOLA/(8041:8041): CONSOLA FINALIZADA
+[INFO] 23:03:52:626 CONSOLA/(8076:8076): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:03:52:626 CONSOLA/(8076:8076): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:03:52:626 CONSOLA/(8076:8076): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:03:52:626 CONSOLA/(8076:8076): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:03:58:495 CONSOLA/(8076:8076): El archivo en la ruta "./proceso.txt" fue abierto correctamente
+[INFO] 23:06:19:898 CONSOLA/(8232:8232): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:06:19:898 CONSOLA/(8232:8232): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:06:19:898 CONSOLA/(8232:8232): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:06:19:899 CONSOLA/(8232:8232): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:06:19:899 CONSOLA/(8232:8232): El archivo en la ruta "./proceso.txt" fue abierto correctamente
+[DEBUG] 23:06:19:899 CONSOLA/(8232:8232): Creando conexion con kernel
+[INFO] 23:06:19:899 CONSOLA/(8232:8232): Conexion creada: 5
+[INFO] 23:28:47:493 CONSOLA/(4543:4543): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:28:47:760 CONSOLA/(4543:4543): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:28:47:760 CONSOLA/(4543:4543): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:28:47:761 CONSOLA/(4543:4543): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:29:50:244 CONSOLA/(4591:4591): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:29:50:244 CONSOLA/(4591:4591): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:29:50:244 CONSOLA/(4591:4591): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:29:50:244 CONSOLA/(4591:4591): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:30:17:972 CONSOLA/(4626:4626): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:30:17:973 CONSOLA/(4626:4626): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:30:17:973 CONSOLA/(4626:4626): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:30:17:973 CONSOLA/(4626:4626): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:31:11:344 CONSOLA/(4700:4700): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:31:11:344 CONSOLA/(4700:4700): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:31:11:344 CONSOLA/(4700:4700): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:31:11:344 CONSOLA/(4700:4700): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:31:16:347 CONSOLA/(4700:4700): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:31:16:347 CONSOLA/(4700:4700): Creando conexion con kernel
+[INFO] 23:31:16:347 CONSOLA/(4700:4700): Conexion creada: 5
+[INFO] 23:35:46:762 CONSOLA/(4886:4886): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:35:46:762 CONSOLA/(4886:4886): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:35:46:762 CONSOLA/(4886:4886): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:35:46:762 CONSOLA/(4886:4886): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:35:46:762 CONSOLA/(4886:4886): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:35:46:762 CONSOLA/(4886:4886): Creando conexion con kernel
+[INFO] 23:35:46:764 CONSOLA/(4886:4886): Conexion creada: 5
+[ERROR] 23:37:36:632 CONSOLA/(4886:4886): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 23:37:36:632 CONSOLA/(4886:4886): No se recibió la confirmación esperada desde el kernel
+[INFO] 23:37:36:632 CONSOLA/(4886:4886): CONSOLA FINALIZADA
+[INFO] 23:37:55:978 CONSOLA/(4983:4983): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:37:55:978 CONSOLA/(4983:4983): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:37:55:978 CONSOLA/(4983:4983): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:37:55:978 CONSOLA/(4983:4983): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:37:57:268 CONSOLA/(4983:4983): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:37:57:268 CONSOLA/(4983:4983): Creando conexion con kernel
+[INFO] 23:37:57:268 CONSOLA/(4983:4983): Conexion creada: 5
+[ERROR] 23:38:27:128 CONSOLA/(4983:4983): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 23:38:27:128 CONSOLA/(4983:4983): No se recibió la confirmación esperada desde el kernel
+[INFO] 23:38:27:128 CONSOLA/(4983:4983): CONSOLA FINALIZADA
+[INFO] 23:39:13:833 CONSOLA/(5105:5105): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:39:13:833 CONSOLA/(5105:5105): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:39:13:833 CONSOLA/(5105:5105): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:39:13:833 CONSOLA/(5105:5105): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:39:13:857 CONSOLA/(5105:5105): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:39:13:866 CONSOLA/(5105:5105): Creando conexion con kernel
+[INFO] 23:39:13:866 CONSOLA/(5105:5105): Conexion creada: 5
+[INFO] 23:48:00:897 CONSOLA/(5739:5739): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:48:00:898 CONSOLA/(5739:5739): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:48:00:898 CONSOLA/(5739:5739): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:48:00:898 CONSOLA/(5739:5739): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:48:12:865 CONSOLA/(5739:5739): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:48:14:867 CONSOLA/(5739:5739): Creando conexion con kernel
+[INFO] 23:48:14:867 CONSOLA/(5739:5739): Conexion creada: 5
+[INFO] 23:53:33:148 CONSOLA/(5969:5969): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:53:33:149 CONSOLA/(5969:5969): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:53:33:149 CONSOLA/(5969:5969): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:53:33:149 CONSOLA/(5969:5969): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:53:33:149 CONSOLA/(5969:5969): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:53:33:149 CONSOLA/(5969:5969): Creando conexion con kernel
+[INFO] 23:53:33:149 CONSOLA/(5969:5969): Conexion creada: 5
+[INFO] 00:03:45:189 CONSOLA/(4337:4337): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 00:03:45:212 CONSOLA/(4337:4337): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 00:03:45:212 CONSOLA/(4337:4337): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 00:03:45:212 CONSOLA/(4337:4337): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 00:03:50:232 CONSOLA/(4337:4337): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 00:03:50:290 CONSOLA/(4337:4337): Creando conexion con kernel
+[INFO] 00:03:50:291 CONSOLA/(4337:4337): Conexion creada: 5
+[INFO] 00:06:16:805 CONSOLA/(4555:4555): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 00:06:16:806 CONSOLA/(4555:4555): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 00:06:16:806 CONSOLA/(4555:4555): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 00:06:16:806 CONSOLA/(4555:4555): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 00:06:16:806 CONSOLA/(4555:4555): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 00:06:16:806 CONSOLA/(4555:4555): Creando conexion con kernel
+[INFO] 00:06:16:806 CONSOLA/(4555:4555): Conexion creada: 5
+[INFO] 00:09:20:688 CONSOLA/(4966:4966): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 00:09:20:688 CONSOLA/(4966:4966): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 00:09:20:688 CONSOLA/(4966:4966): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 00:09:20:688 CONSOLA/(4966:4966): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 00:09:20:688 CONSOLA/(4966:4966): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 00:09:20:689 CONSOLA/(4966:4966): Creando conexion con kernel
+[INFO] 00:09:20:689 CONSOLA/(4966:4966): Conexion creada: 5
+[INFO] 14:52:37:450 CONSOLA/(5175:5175): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 14:52:37:450 CONSOLA/(5175:5175): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 14:52:37:450 CONSOLA/(5175:5175): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 14:52:37:450 CONSOLA/(5175:5175): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 14:52:37:557 CONSOLA/(5175:5175): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 14:52:37:568 CONSOLA/(5175:5175): Creando conexion con kernel
+[INFO] 14:52:37:568 CONSOLA/(5175:5175): Conexion creada: 5
+[INFO] 14:54:22:931 CONSOLA/(5175:5175): El proceso llegó bien :D
+[INFO] 14:54:29:625 CONSOLA/(5175:5175): El proceso finalizó con exito :D
+[INFO] 14:54:32:314 CONSOLA/(5175:5175): CONSOLA FINALIZADA
+[INFO] 15:10:44:489 CONSOLA/(5546:5546): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:10:44:490 CONSOLA/(5546:5546): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:10:44:490 CONSOLA/(5546:5546): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:10:44:490 CONSOLA/(5546:5546): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:10:44:490 CONSOLA/(5546:5546): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:10:44:490 CONSOLA/(5546:5546): Creando conexion con kernel
+[INFO] 15:10:44:491 CONSOLA/(5546:5546): Conexion creada: 5
+[INFO] 15:11:15:945 CONSOLA/(5546:5546): El proceso llegó bien :D
+[INFO] 15:11:15:945 CONSOLA/(5546:5546): El proceso finalizó con exito :D
+[INFO] 15:11:15:945 CONSOLA/(5546:5546): CONSOLA FINALIZADA
+[INFO] 15:14:14:432 CONSOLA/(5753:5753): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:14:14:432 CONSOLA/(5753:5753): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:14:14:432 CONSOLA/(5753:5753): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:14:14:432 CONSOLA/(5753:5753): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:14:14:432 CONSOLA/(5753:5753): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:14:14:433 CONSOLA/(5753:5753): Creando conexion con kernel
+[INFO] 15:14:14:433 CONSOLA/(5753:5753): Conexion creada: 5
+[INFO] 15:15:54:744 CONSOLA/(5855:5855): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:15:54:745 CONSOLA/(5855:5855): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:15:54:745 CONSOLA/(5855:5855): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:15:54:745 CONSOLA/(5855:5855): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:15:54:745 CONSOLA/(5855:5855): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:15:54:745 CONSOLA/(5855:5855): Creando conexion con kernel
+[INFO] 15:15:54:745 CONSOLA/(5855:5855): Conexion creada: 5
+[INFO] 15:16:45:935 CONSOLA/(5931:5931): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:16:45:935 CONSOLA/(5931:5931): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:16:45:936 CONSOLA/(5931:5931): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:16:45:936 CONSOLA/(5931:5931): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:16:45:936 CONSOLA/(5931:5931): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:16:45:936 CONSOLA/(5931:5931): Creando conexion con kernel
+[INFO] 15:16:45:936 CONSOLA/(5931:5931): Conexion creada: 5
+[DEBUG] 15:16:45:946 CONSOLA/(5931:5931): 330
+[INFO] 15:17:36:919 CONSOLA/(6011:6011): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:17:36:919 CONSOLA/(6011:6011): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:17:36:919 CONSOLA/(6011:6011): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:17:36:919 CONSOLA/(6011:6011): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:17:36:920 CONSOLA/(6011:6011): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:17:36:920 CONSOLA/(6011:6011): Creando conexion con kernel
+[INFO] 15:17:36:920 CONSOLA/(6011:6011): Conexion creada: 5
+[DEBUG] 15:17:36:926 CONSOLA/(6011:6011): 330
+[INFO] 15:19:12:904 CONSOLA/(6122:6122): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:19:12:904 CONSOLA/(6122:6122): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:19:12:904 CONSOLA/(6122:6122): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:19:12:904 CONSOLA/(6122:6122): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:19:12:904 CONSOLA/(6122:6122): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:19:12:904 CONSOLA/(6122:6122): Creando conexion con kernel
+[INFO] 15:19:12:904 CONSOLA/(6122:6122): Conexion creada: 5
+[DEBUG] 15:19:12:912 CONSOLA/(6122:6122): 330
+[INFO] 15:19:55:371 CONSOLA/(6122:6122): El proceso llegó bien :D
+[INFO] 15:19:55:372 CONSOLA/(6122:6122): El proceso finalizó con exito :D
+[INFO] 15:19:55:372 CONSOLA/(6122:6122): CONSOLA FINALIZADA
+[INFO] 15:20:02:198 CONSOLA/(6199:6199): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:20:02:198 CONSOLA/(6199:6199): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:20:02:198 CONSOLA/(6199:6199): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:20:02:198 CONSOLA/(6199:6199): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:20:02:198 CONSOLA/(6199:6199): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:20:02:198 CONSOLA/(6199:6199): Creando conexion con kernel
+[INFO] 15:20:02:199 CONSOLA/(6199:6199): Conexion creada: 5
+[DEBUG] 15:20:02:203 CONSOLA/(6199:6199): 330
+[INFO] 15:20:04:459 CONSOLA/(6199:6199): El proceso llegó bien :D
+[INFO] 15:20:04:502 CONSOLA/(6199:6199): El proceso finalizó con exito :D
+[INFO] 15:20:04:505 CONSOLA/(6199:6199): CONSOLA FINALIZADA
+[INFO] 15:21:30:913 CONSOLA/(6327:6327): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:21:30:913 CONSOLA/(6327:6327): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:21:30:913 CONSOLA/(6327:6327): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:21:30:913 CONSOLA/(6327:6327): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:21:30:913 CONSOLA/(6327:6327): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:21:30:913 CONSOLA/(6327:6327): Creando conexion con kernel
+[INFO] 15:21:30:913 CONSOLA/(6327:6327): Conexion creada: 5
+[DEBUG] 15:21:30:917 CONSOLA/(6327:6327): 92
+[DEBUG] 15:21:30:917 CONSOLA/(6327:6327): 330
+[INFO] 15:21:34:187 CONSOLA/(6327:6327): El proceso llegó bien :D
+[INFO] 15:21:34:230 CONSOLA/(6327:6327): El proceso finalizó con exito :D
+[INFO] 15:21:34:230 CONSOLA/(6327:6327): CONSOLA FINALIZADA
+[INFO] 15:27:22:162 CONSOLA/(6581:6581): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:27:22:162 CONSOLA/(6581:6581): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:27:22:162 CONSOLA/(6581:6581): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:27:22:162 CONSOLA/(6581:6581): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:27:22:162 CONSOLA/(6581:6581): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:27:22:162 CONSOLA/(6581:6581): Creando conexion con kernel
+[INFO] 15:27:22:162 CONSOLA/(6581:6581): Conexion creada: 5
+[DEBUG] 15:27:22:166 CONSOLA/(6581:6581): 92
+[DEBUG] 15:27:22:166 CONSOLA/(6581:6581): 330
+[INFO] 15:27:24:203 CONSOLA/(6581:6581): El proceso llegó bien :D
+[INFO] 15:27:24:246 CONSOLA/(6581:6581): El proceso finalizó con exito :D
+[INFO] 15:27:24:247 CONSOLA/(6581:6581): CONSOLA FINALIZADA
+[INFO] 15:27:41:846 CONSOLA/(6650:6650): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:27:41:846 CONSOLA/(6650:6650): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:27:41:846 CONSOLA/(6650:6650): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:27:41:846 CONSOLA/(6650:6650): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:27:41:847 CONSOLA/(6650:6650): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:27:41:847 CONSOLA/(6650:6650): Creando conexion con kernel
+[INFO] 15:27:41:847 CONSOLA/(6650:6650): Conexion creada: 5
+[DEBUG] 15:27:41:853 CONSOLA/(6650:6650): 92
+[DEBUG] 15:27:41:853 CONSOLA/(6650:6650): 330
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[DEBUG] 15:27:45:021 CONSOLA/(6650:6650): ID: 5
+[INFO] 15:27:45:021 CONSOLA/(6650:6650): El proceso llegó bien :D
+[INFO] 15:27:45:062 CONSOLA/(6650:6650): El proceso finalizó con exito :D
+[INFO] 15:27:45:062 CONSOLA/(6650:6650): CONSOLA FINALIZADA
+[INFO] 15:28:21:041 CONSOLA/(6693:6693): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:28:21:042 CONSOLA/(6693:6693): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:28:21:042 CONSOLA/(6693:6693): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:28:21:042 CONSOLA/(6693:6693): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:28:23:714 CONSOLA/(6693:6693): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:28:26:898 CONSOLA/(6693:6693): Creando conexion con kernel
+[INFO] 15:28:26:898 CONSOLA/(6693:6693): Conexion creada: 5
+[DEBUG] 15:28:43:602 CONSOLA/(6693:6693): 92
+[DEBUG] 15:28:48:233 CONSOLA/(6693:6693): 330
+[DEBUG] 15:31:44:563 CONSOLA/(6693:6693): ID: 5
+[DEBUG] 15:31:50:559 CONSOLA/(6693:6693): ID: 5
+[INFO] 15:33:35:461 CONSOLA/(7458:7458): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:33:35:461 CONSOLA/(7458:7458): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:33:35:461 CONSOLA/(7458:7458): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:33:35:461 CONSOLA/(7458:7458): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:33:35:461 CONSOLA/(7458:7458): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:33:35:461 CONSOLA/(7458:7458): Creando conexion con kernel
+[INFO] 15:33:35:461 CONSOLA/(7458:7458): Conexion creada: 5
+[DEBUG] 15:33:35:468 CONSOLA/(7458:7458): 92
+[DEBUG] 15:33:35:469 CONSOLA/(7458:7458): 330
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 4
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 1
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 1329799217
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 2
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 925380417
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 3
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 544108393
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 544108387
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 4
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 453667941
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 7155803
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): PARAMETRO: 0
+[DEBUG] 15:33:48:230 CONSOLA/(7458:7458): ID: 5
+[INFO] 15:37:55:109 CONSOLA/(7610:7610): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:37:55:109 CONSOLA/(7610:7610): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:37:55:109 CONSOLA/(7610:7610): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:37:55:109 CONSOLA/(7610:7610): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:37:55:109 CONSOLA/(7610:7610): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:37:55:109 CONSOLA/(7610:7610): Creando conexion con kernel
+[INFO] 15:37:55:109 CONSOLA/(7610:7610): Conexion creada: 5
+[DEBUG] 15:37:55:116 CONSOLA/(7610:7610): 92
+[DEBUG] 15:37:55:116 CONSOLA/(7610:7610): 330
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 4
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): PARAMETRO: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): PARAMETRO: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 1
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): PARAMETRO: 1329799225
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 2
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): PARAMETRO: 925380417
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 3
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): PARAMETRO: 544108393
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): PARAMETRO: 544108387
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 4
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): PARAMETRO: 453667941
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): PARAMETRO: 7155803
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 0
+[DEBUG] 15:37:59:243 CONSOLA/(7610:7610): ID: 5
+[INFO] 15:39:45:137 CONSOLA/(7830:7830): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:39:45:137 CONSOLA/(7830:7830): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:39:45:137 CONSOLA/(7830:7830): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:39:45:137 CONSOLA/(7830:7830): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:39:45:137 CONSOLA/(7830:7830): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:39:45:137 CONSOLA/(7830:7830): Creando conexion con kernel
+[INFO] 15:39:45:138 CONSOLA/(7830:7830): Conexion creada: 5
+[DEBUG] 15:39:45:141 CONSOLA/(7830:7830): 92
+[DEBUG] 15:39:45:141 CONSOLA/(7830:7830): 330
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 4
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): PARAMETRO: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): PARAMETRO: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 1
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): PARAMETRO: 1329799223
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 2
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): PARAMETRO: 925380417
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 3
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): PARAMETRO: 544108393
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): PARAMETRO: 544108387
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 4
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): PARAMETRO: 453667941
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): PARAMETRO: 7155803
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 0
+[DEBUG] 15:39:47:506 CONSOLA/(7830:7830): ID: 5
+[INFO] 15:41:34:091 CONSOLA/(7830:7830): El proceso llegó bien :D
+[INFO] 15:41:34:091 CONSOLA/(7830:7830): El proceso finalizó con exito :D
+[INFO] 15:41:34:091 CONSOLA/(7830:7830): CONSOLA FINALIZADA
+[INFO] 15:41:42:146 CONSOLA/(8070:8070): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:41:42:146 CONSOLA/(8070:8070): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:41:42:146 CONSOLA/(8070:8070): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:41:42:146 CONSOLA/(8070:8070): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:41:46:297 CONSOLA/(8070:8070): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:41:47:785 CONSOLA/(8070:8070): Creando conexion con kernel
+[INFO] 15:41:47:785 CONSOLA/(8070:8070): Conexion creada: 5
+[DEBUG] 15:41:56:236 CONSOLA/(8070:8070): 92
+[DEBUG] 15:41:59:633 CONSOLA/(8070:8070): 330
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 4
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): PARAMETRO: 1
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): PARAMETRO: 1564955970
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 2
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): PARAMETRO: 876228916
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 0
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 3
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): PARAMETRO: 1280267086
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): PARAMETRO: 942157633
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 4
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): PARAMETRO: 808923192
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): PARAMETRO: 1126185513
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 0
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 5
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 2019913327
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 544108393
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 544108387
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 1852990827
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 453667941
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 7155803
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 0
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 0
+[DEBUG] 15:42:34:944 CONSOLA/(8070:8070): ID: 0
+[INFO] 15:43:33:135 CONSOLA/(8070:8070): El proceso llegó bien :D
+[INFO] 15:43:33:135 CONSOLA/(8070:8070): El proceso finalizó con exito :D
+[INFO] 15:43:33:135 CONSOLA/(8070:8070): CONSOLA FINALIZADA
+[INFO] 15:43:37:785 CONSOLA/(8308:8308): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:43:37:785 CONSOLA/(8308:8308): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:43:37:785 CONSOLA/(8308:8308): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:43:37:785 CONSOLA/(8308:8308): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:43:37:785 CONSOLA/(8308:8308): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:43:37:785 CONSOLA/(8308:8308): Creando conexion con kernel
+[INFO] 15:43:37:785 CONSOLA/(8308:8308): Conexion creada: 5
+[DEBUG] 15:43:37:790 CONSOLA/(8308:8308): 92
+[DEBUG] 15:43:37:790 CONSOLA/(8308:8308): 330
+[DEBUG] 15:43:56:680 CONSOLA/(8308:8308): ID: 4
+[INFO] 15:45:00:239 CONSOLA/(8412:8412): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:45:00:240 CONSOLA/(8412:8412): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:45:00:240 CONSOLA/(8412:8412): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:45:00:240 CONSOLA/(8412:8412): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:45:01:718 CONSOLA/(8412:8412): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:45:01:718 CONSOLA/(8412:8412): Creando conexion con kernel
+[INFO] 15:45:01:718 CONSOLA/(8412:8412): Conexion creada: 5
+[DEBUG] 15:45:01:722 CONSOLA/(8412:8412): 92
+[DEBUG] 15:45:01:722 CONSOLA/(8412:8412): 330
+[DEBUG] 15:45:22:110 CONSOLA/(8412:8412): ID: 4
+[DEBUG] 15:45:22:110 CONSOLA/(8412:8412): PARAMETRO: 1
+[DEBUG] 15:45:22:110 CONSOLA/(8412:8412): PARAMETRO: 1564955970
+[DEBUG] 15:45:22:110 CONSOLA/(8412:8412): ID: 2
+[DEBUG] 15:45:22:110 CONSOLA/(8412:8412): PARAMETRO: 809121076
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 0
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 3
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): PARAMETRO: 1280267086
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): PARAMETRO: 942157633
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 4
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): PARAMETRO: 842085432
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): PARAMETRO: 1126185513
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 0
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 5
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 2019913327
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 544108393
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 544108387
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 1852990827
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 453667941
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 7155803
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 0
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 0
+[DEBUG] 15:45:22:111 CONSOLA/(8412:8412): ID: 0
+[INFO] 15:45:22:111 CONSOLA/(8412:8412): El proceso llegó bien :D
+[INFO] 15:45:22:111 CONSOLA/(8412:8412): El proceso finalizó con exito :D
+[INFO] 15:45:22:111 CONSOLA/(8412:8412): CONSOLA FINALIZADA
+[INFO] 15:45:28:518 CONSOLA/(8486:8486): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:45:28:519 CONSOLA/(8486:8486): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:45:28:519 CONSOLA/(8486:8486): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:45:28:519 CONSOLA/(8486:8486): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:45:31:439 CONSOLA/(8486:8486): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:45:32:694 CONSOLA/(8486:8486): Creando conexion con kernel
+[INFO] 15:45:32:695 CONSOLA/(8486:8486): Conexion creada: 5
+[DEBUG] 15:45:34:687 CONSOLA/(8486:8486): 92
+[DEBUG] 15:45:34:687 CONSOLA/(8486:8486): 330
+[INFO] 15:46:40:138 CONSOLA/(8690:8690): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:46:40:138 CONSOLA/(8690:8690): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:46:40:138 CONSOLA/(8690:8690): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:46:40:138 CONSOLA/(8690:8690): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:46:40:138 CONSOLA/(8690:8690): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:46:40:138 CONSOLA/(8690:8690): Creando conexion con kernel
+[INFO] 15:46:40:138 CONSOLA/(8690:8690): Conexion creada: 5
+[DEBUG] 15:46:40:143 CONSOLA/(8690:8690): 92
+[DEBUG] 15:46:40:143 CONSOLA/(8690:8690): 330
+[DEBUG] 15:47:01:141 CONSOLA/(8690:8690): ID: 0
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 1
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): PARAMETRO: 3000
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 2
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): PARAMETRO: 0
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 0
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 3
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): PARAMETRO: 4
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): PARAMETRO: 42
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 4
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): PARAMETRO: 0
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): PARAMETRO: 4
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 0
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 5
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 2019913327
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 544108393
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 544108387
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 1852990827
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 453667941
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 7155803
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 0
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 0
+[DEBUG] 15:47:01:142 CONSOLA/(8690:8690): ID: 0
+[INFO] 15:48:24:492 CONSOLA/(8690:8690): El proceso llegó bien :D
+[INFO] 15:48:24:492 CONSOLA/(8690:8690): El proceso finalizó con exito :D
+[INFO] 15:48:24:492 CONSOLA/(8690:8690): CONSOLA FINALIZADA
+[INFO] 15:48:30:609 CONSOLA/(8839:8839): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:48:30:609 CONSOLA/(8839:8839): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:48:30:609 CONSOLA/(8839:8839): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:48:30:609 CONSOLA/(8839:8839): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:48:30:609 CONSOLA/(8839:8839): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:48:30:609 CONSOLA/(8839:8839): Creando conexion con kernel
+[INFO] 15:48:30:609 CONSOLA/(8839:8839): Conexion creada: 5
+[DEBUG] 15:48:30:613 CONSOLA/(8839:8839): 92
+[DEBUG] 15:48:30:613 CONSOLA/(8839:8839): 330
+[INFO] 15:50:53:588 CONSOLA/(9242:9242): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:50:53:588 CONSOLA/(9242:9242): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:50:53:588 CONSOLA/(9242:9242): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:50:53:588 CONSOLA/(9242:9242): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:50:54:915 CONSOLA/(9242:9242): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:50:54:915 CONSOLA/(9242:9242): Creando conexion con kernel
+[INFO] 15:50:54:915 CONSOLA/(9242:9242): Conexion creada: 5
+[DEBUG] 15:50:54:919 CONSOLA/(9242:9242): 92
+[DEBUG] 15:50:54:919 CONSOLA/(9242:9242): 330
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 1
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): PARAMETRO: 3000
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 2
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): PARAMETRO: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 3
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): PARAMETRO: 4
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): PARAMETRO: 42
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 4
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): PARAMETRO: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): PARAMETRO: 4
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 0
+[DEBUG] 15:51:15:459 CONSOLA/(9242:9242): ID: 5
+[INFO] 15:52:24:194 CONSOLA/(9242:9242): El proceso llegó bien :D
+[INFO] 15:52:25:207 CONSOLA/(9242:9242): El proceso finalizó con exito :D
+[INFO] 15:52:26:194 CONSOLA/(9242:9242): CONSOLA FINALIZADA
+[INFO] 15:54:04:370 CONSOLA/(9585:9585): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:54:04:370 CONSOLA/(9585:9585): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:54:04:370 CONSOLA/(9585:9585): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:54:04:370 CONSOLA/(9585:9585): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:54:04:370 CONSOLA/(9585:9585): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:54:04:370 CONSOLA/(9585:9585): Creando conexion con kernel
+[INFO] 15:54:04:370 CONSOLA/(9585:9585): Conexion creada: 5
+[INFO] 15:55:32:364 CONSOLA/(9630:9630): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:55:32:365 CONSOLA/(9630:9630): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:55:32:365 CONSOLA/(9630:9630): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:55:32:365 CONSOLA/(9630:9630): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:55:32:365 CONSOLA/(9630:9630): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:55:32:365 CONSOLA/(9630:9630): Creando conexion con kernel
+[INFO] 15:55:32:365 CONSOLA/(9630:9630): Conexion creada: 5
+[DEBUG] 15:55:32:370 CONSOLA/(9630:9630): 92
+[DEBUG] 15:55:32:370 CONSOLA/(9630:9630): 330
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 1
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): PARAMETRO: 3000
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 2
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): PARAMETRO: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 3
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): PARAMETRO: 4
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): PARAMETRO: 42
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 4
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): PARAMETRO: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): PARAMETRO: 4
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 0
+[DEBUG] 15:55:47:124 CONSOLA/(9630:9630): ID: 5
+[INFO] 15:56:03:876 CONSOLA/(9630:9630): El proceso llegó bien :D
+[INFO] 15:59:04:815 CONSOLA/(9886:9886): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 15:59:04:815 CONSOLA/(9886:9886): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 15:59:04:815 CONSOLA/(9886:9886): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 15:59:04:815 CONSOLA/(9886:9886): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 15:59:04:815 CONSOLA/(9886:9886): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 15:59:04:815 CONSOLA/(9886:9886): Creando conexion con kernel
+[INFO] 15:59:04:816 CONSOLA/(9886:9886): Conexion creada: 5
+[DEBUG] 15:59:04:819 CONSOLA/(9886:9886): 92
+[DEBUG] 15:59:04:819 CONSOLA/(9886:9886): 330
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 1
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): PARAMETRO: 3000
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 2
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): PARAMETRO: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 3
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): PARAMETRO: 4
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): PARAMETRO: 42
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 4
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): PARAMETRO: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): PARAMETRO: 4
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 0
+[DEBUG] 16:00:28:934 CONSOLA/(9886:9886): ID: 5
+[INFO] 21:30:17:584 CONSOLA/(11636:11636): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 21:30:18:073 CONSOLA/(11636:11636): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 21:30:18:073 CONSOLA/(11636:11636): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 21:30:18:073 CONSOLA/(11636:11636): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 21:30:18:084 CONSOLA/(11636:11636): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 21:30:18:097 CONSOLA/(11636:11636): Creando conexion con kernel
+[INFO] 21:30:18:097 CONSOLA/(11636:11636): Conexion creada: 5
+[DEBUG] 21:30:18:102 CONSOLA/(11636:11636): 92
+[DEBUG] 21:30:18:102 CONSOLA/(11636:11636): 330
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 1
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): PARAMETRO: 3000
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 2
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): PARAMETRO: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 3
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): PARAMETRO: 4
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): PARAMETRO: 42
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 4
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): PARAMETRO: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): PARAMETRO: 4
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 0
+[DEBUG] 21:31:05:120 CONSOLA/(11636:11636): ID: 5
+[INFO] 21:32:13:234 CONSOLA/(11636:11636): El proceso llegó bien :D
+[ERROR] 21:44:41:022 CONSOLA/(11636:11636): El proceso se detuvo :C
+[INFO] 22:06:10:775 CONSOLA/(12515:12515): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:06:10:820 CONSOLA/(12515:12515): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:06:10:820 CONSOLA/(12515:12515): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:06:10:820 CONSOLA/(12515:12515): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 22:06:10:825 CONSOLA/(12515:12515): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 22:06:10:835 CONSOLA/(12515:12515): Creando conexion con kernel
+[INFO] 22:06:10:836 CONSOLA/(12515:12515): Conexion creada: 5
+[DEBUG] 22:06:10:843 CONSOLA/(12515:12515): 92
+[DEBUG] 22:06:10:843 CONSOLA/(12515:12515): 330
+[DEBUG] 22:06:28:217 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:217 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:217 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:217 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:217 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:217 CONSOLA/(12515:12515): ID: 1
+[DEBUG] 22:06:28:217 CONSOLA/(12515:12515): PARAMETRO: 3000
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 2
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): PARAMETRO: 0
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 3
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): PARAMETRO: 4
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): PARAMETRO: 42
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 4
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): PARAMETRO: 0
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): PARAMETRO: 4
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 0
+[DEBUG] 22:06:28:218 CONSOLA/(12515:12515): ID: 5
+[INFO] 22:25:20:097 CONSOLA/(4144:4144): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:25:20:117 CONSOLA/(4144:4144): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:25:20:117 CONSOLA/(4144:4144): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:25:20:120 CONSOLA/(4144:4144): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 22:25:20:128 CONSOLA/(4144:4144): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 22:25:20:138 CONSOLA/(4144:4144): Creando conexion con kernel
+[INFO] 22:25:20:138 CONSOLA/(4144:4144): Conexion creada: 5
+[DEBUG] 22:25:20:144 CONSOLA/(4144:4144): 92
+[DEBUG] 22:25:20:144 CONSOLA/(4144:4144): 330
+[DEBUG] 22:25:20:144 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:144 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 1
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): PARAMETRO: 3000
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 2
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): PARAMETRO: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 3
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): PARAMETRO: 4
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): PARAMETRO: 42
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 4
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): PARAMETRO: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): PARAMETRO: 4
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 0
+[DEBUG] 22:25:20:145 CONSOLA/(4144:4144): ID: 5
+[ERROR] 22:25:21:143 CONSOLA/(4144:4144): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 22:25:21:146 CONSOLA/(4144:4144): No se recibió la confirmación esperada desde el kernel
+[INFO] 22:25:21:146 CONSOLA/(4144:4144): CONSOLA FINALIZADA
+[INFO] 22:42:00:534 CONSOLA/(4578:4578): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:42:00:686 CONSOLA/(4578:4578): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:42:00:686 CONSOLA/(4578:4578): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:42:00:686 CONSOLA/(4578:4578): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 22:42:00:904 CONSOLA/(4578:4578): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 22:42:01:165 CONSOLA/(4578:4578): Creando conexion con kernel
+[INFO] 22:42:01:165 CONSOLA/(4578:4578): Conexion creada: 5
+[DEBUG] 22:42:01:175 CONSOLA/(4578:4578): 92
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): 330
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 1
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): PARAMETRO: 3000
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 2
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): PARAMETRO: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 3
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): PARAMETRO: 4
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): PARAMETRO: 42
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 4
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): PARAMETRO: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): PARAMETRO: 4
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 0
+[DEBUG] 22:42:01:176 CONSOLA/(4578:4578): ID: 5
+[ERROR] 22:42:59:982 CONSOLA/(4578:4578): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 22:42:59:983 CONSOLA/(4578:4578): No se recibió la confirmación esperada desde el kernel
+[INFO] 22:42:59:983 CONSOLA/(4578:4578): CONSOLA FINALIZADA
+[INFO] 22:43:16:767 CONSOLA/(4664:4664): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:43:16:767 CONSOLA/(4664:4664): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:43:16:767 CONSOLA/(4664:4664): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:43:16:767 CONSOLA/(4664:4664): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 22:43:16:767 CONSOLA/(4664:4664): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 22:43:16:768 CONSOLA/(4664:4664): Creando conexion con kernel
+[INFO] 22:43:16:768 CONSOLA/(4664:4664): Conexion creada: 5
+[DEBUG] 22:43:16:778 CONSOLA/(4664:4664): 92
+[DEBUG] 22:43:16:778 CONSOLA/(4664:4664): 330
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 1
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): PARAMETRO: 3000
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 2
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): PARAMETRO: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 3
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): PARAMETRO: 4
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): PARAMETRO: 42
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 4
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): PARAMETRO: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): PARAMETRO: 4
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 0
+[DEBUG] 22:43:16:779 CONSOLA/(4664:4664): ID: 5
+[ERROR] 22:45:41:525 CONSOLA/(4664:4664): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 22:45:41:525 CONSOLA/(4664:4664): No se recibió la confirmación esperada desde el kernel
+[INFO] 22:45:41:525 CONSOLA/(4664:4664): CONSOLA FINALIZADA
+[INFO] 22:46:04:266 CONSOLA/(4848:4848): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:46:04:266 CONSOLA/(4848:4848): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:46:04:266 CONSOLA/(4848:4848): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:46:04:266 CONSOLA/(4848:4848): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 22:46:04:266 CONSOLA/(4848:4848): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 22:46:04:266 CONSOLA/(4848:4848): Creando conexion con kernel
+[INFO] 22:46:04:267 CONSOLA/(4848:4848): Conexion creada: 5
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): 92
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): 330
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 1
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): PARAMETRO: 3000
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 2
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): PARAMETRO: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 3
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): PARAMETRO: 4
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): PARAMETRO: 42
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 4
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): PARAMETRO: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): PARAMETRO: 4
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 0
+[DEBUG] 22:46:04:268 CONSOLA/(4848:4848): ID: 5
+[INFO] 22:47:27:123 CONSOLA/(4848:4848): El proceso llegó bien :D
+[INFO] 22:49:08:218 CONSOLA/(4944:4944): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:49:08:220 CONSOLA/(4944:4944): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:49:08:220 CONSOLA/(4944:4944): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:49:08:220 CONSOLA/(4944:4944): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 22:49:08:220 CONSOLA/(4944:4944): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 22:49:08:220 CONSOLA/(4944:4944): Creando conexion con kernel
+[INFO] 22:49:08:220 CONSOLA/(4944:4944): Conexion creada: 5
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): 92
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): 330
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 1
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): PARAMETRO: 3000
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 2
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): PARAMETRO: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:223 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:224 CONSOLA/(4944:4944): ID: 3
+[DEBUG] 22:49:08:224 CONSOLA/(4944:4944): PARAMETRO: 4
+[DEBUG] 22:49:08:224 CONSOLA/(4944:4944): PARAMETRO: 42
+[DEBUG] 22:49:08:224 CONSOLA/(4944:4944): ID: 4
+[DEBUG] 22:49:08:224 CONSOLA/(4944:4944): PARAMETRO: 0
+[DEBUG] 22:49:08:224 CONSOLA/(4944:4944): PARAMETRO: 4
+[DEBUG] 22:49:08:224 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:224 CONSOLA/(4944:4944): ID: 0
+[DEBUG] 22:49:08:224 CONSOLA/(4944:4944): ID: 5
+[ERROR] 22:50:09:926 CONSOLA/(4944:4944): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 22:50:09:926 CONSOLA/(4848:4848): El proceso se detuvo :C
+[ERROR] 22:50:09:927 CONSOLA/(4944:4944): No se recibió la confirmación esperada desde el kernel
+[INFO] 22:50:09:927 CONSOLA/(4944:4944): CONSOLA FINALIZADA
+[INFO] 22:50:09:927 CONSOLA/(4848:4848): CONSOLA FINALIZADA
+[INFO] 22:52:20:220 CONSOLA/(5133:5133): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:52:20:222 CONSOLA/(5133:5133): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:52:20:222 CONSOLA/(5133:5133): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:52:20:222 CONSOLA/(5133:5133): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 22:52:20:222 CONSOLA/(5133:5133): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 22:52:20:222 CONSOLA/(5133:5133): Creando conexion con kernel
+[INFO] 22:52:20:225 CONSOLA/(5133:5133): Conexion creada: 5
+[DEBUG] 22:52:20:228 CONSOLA/(5133:5133): 92
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): 330
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 1
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): PARAMETRO: 3000
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 2
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): PARAMETRO: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): ID: 3
+[DEBUG] 22:52:20:229 CONSOLA/(5133:5133): PARAMETRO: 4
+[DEBUG] 22:52:20:230 CONSOLA/(5133:5133): PARAMETRO: 42
+[DEBUG] 22:52:20:230 CONSOLA/(5133:5133): ID: 4
+[DEBUG] 22:52:20:230 CONSOLA/(5133:5133): PARAMETRO: 0
+[DEBUG] 22:52:20:230 CONSOLA/(5133:5133): PARAMETRO: 4
+[DEBUG] 22:52:20:230 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:230 CONSOLA/(5133:5133): ID: 0
+[DEBUG] 22:52:20:230 CONSOLA/(5133:5133): ID: 5
+[ERROR] 22:55:37:290 CONSOLA/(5133:5133): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 22:55:37:291 CONSOLA/(5133:5133): No se recibió la confirmación esperada desde el kernel
+[INFO] 22:55:37:291 CONSOLA/(5133:5133): CONSOLA FINALIZADA
+[INFO] 22:55:44:788 CONSOLA/(5278:5278): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:55:44:788 CONSOLA/(5278:5278): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:55:44:788 CONSOLA/(5278:5278): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:55:44:788 CONSOLA/(5278:5278): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 22:55:44:789 CONSOLA/(5278:5278): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 22:55:44:789 CONSOLA/(5278:5278): Creando conexion con kernel
+[INFO] 22:55:44:789 CONSOLA/(5278:5278): Conexion creada: 5
+[INFO] 22:55:50:408 CONSOLA/(5291:5291): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 22:55:50:408 CONSOLA/(5291:5291): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 22:55:50:408 CONSOLA/(5291:5291): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 22:55:50:409 CONSOLA/(5291:5291): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 22:55:50:409 CONSOLA/(5291:5291): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 22:55:50:409 CONSOLA/(5291:5291): Creando conexion con kernel
+[INFO] 22:55:50:409 CONSOLA/(5291:5291): Conexion creada: 5
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): 92
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): 330
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 1
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): PARAMETRO: 3000
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 2
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): PARAMETRO: 0
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:416 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:417 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:417 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:418 CONSOLA/(5291:5291): ID: 3
+[DEBUG] 22:55:50:418 CONSOLA/(5291:5291): PARAMETRO: 4
+[DEBUG] 22:55:50:418 CONSOLA/(5291:5291): PARAMETRO: 42
+[DEBUG] 22:55:50:418 CONSOLA/(5291:5291): ID: 4
+[DEBUG] 22:55:50:418 CONSOLA/(5291:5291): PARAMETRO: 0
+[DEBUG] 22:55:50:418 CONSOLA/(5291:5291): PARAMETRO: 4
+[DEBUG] 22:55:50:418 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:418 CONSOLA/(5291:5291): ID: 0
+[DEBUG] 22:55:50:418 CONSOLA/(5291:5291): ID: 5
+[ERROR] 22:58:01:730 CONSOLA/(5291:5291): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 22:58:01:730 CONSOLA/(5291:5291): No se recibió la confirmación esperada desde el kernel
+[INFO] 22:58:01:730 CONSOLA/(5291:5291): CONSOLA FINALIZADA
+[INFO] 23:16:07:144 CONSOLA/(6545:6545): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:16:07:145 CONSOLA/(6545:6545): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:16:07:145 CONSOLA/(6545:6545): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:16:07:145 CONSOLA/(6545:6545): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:16:07:145 CONSOLA/(6545:6545): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:16:07:145 CONSOLA/(6545:6545): Creando conexion con kernel
+[INFO] 23:16:07:146 CONSOLA/(6545:6545): Conexion creada: 5
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): 92
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): 330
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): ID: 1
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): PARAMETRO: 3000
+[DEBUG] 23:16:11:203 CONSOLA/(6545:6545): ID: 2
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): PARAMETRO: 0
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 3
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): PARAMETRO: 4
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): PARAMETRO: 42
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 4
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): PARAMETRO: 0
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): PARAMETRO: 4
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 0
+[DEBUG] 23:16:11:204 CONSOLA/(6545:6545): ID: 5
+[ERROR] 23:19:35:113 CONSOLA/(6545:6545): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 23:19:35:113 CONSOLA/(6545:6545): No se recibió la confirmación esperada desde el kernel
+[INFO] 23:19:35:113 CONSOLA/(6545:6545): CONSOLA FINALIZADA
+[INFO] 23:19:39:021 CONSOLA/(6734:6734): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:19:39:021 CONSOLA/(6734:6734): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:19:39:021 CONSOLA/(6734:6734): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:19:39:021 CONSOLA/(6734:6734): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:19:39:021 CONSOLA/(6734:6734): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:19:39:022 CONSOLA/(6734:6734): Creando conexion con kernel
+[INFO] 23:19:39:022 CONSOLA/(6734:6734): Conexion creada: 5
+[INFO] 23:20:13:926 CONSOLA/(6808:6808): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:20:13:926 CONSOLA/(6808:6808): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:20:13:926 CONSOLA/(6808:6808): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:20:13:926 CONSOLA/(6808:6808): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:20:13:926 CONSOLA/(6808:6808): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:20:13:927 CONSOLA/(6808:6808): Creando conexion con kernel
+[INFO] 23:20:13:927 CONSOLA/(6808:6808): Conexion creada: 5
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): 92
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): 330
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 1
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): PARAMETRO: 3000
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 2
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): PARAMETRO: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 3
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): PARAMETRO: 4
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): PARAMETRO: 42
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 4
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): PARAMETRO: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): PARAMETRO: 4
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:239 CONSOLA/(6808:6808): ID: 0
+[DEBUG] 23:20:16:240 CONSOLA/(6808:6808): ID: 5
+[INFO] 23:21:06:534 CONSOLA/(6808:6808): El proceso llegó bien :D
+[INFO] 23:24:01:000 CONSOLA/(7075:7075): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:24:01:000 CONSOLA/(7075:7075): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:24:01:008 CONSOLA/(7075:7075): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:24:01:008 CONSOLA/(7075:7075): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:24:01:008 CONSOLA/(7075:7075): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:24:01:008 CONSOLA/(7075:7075): Creando conexion con kernel
+[INFO] 23:24:01:012 CONSOLA/(7075:7075): Conexion creada: 5
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): 92
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): 330
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): ID: 1
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): PARAMETRO: 3000
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): ID: 2
+[DEBUG] 23:24:01:012 CONSOLA/(7075:7075): PARAMETRO: 0
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 3
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): PARAMETRO: 4
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): PARAMETRO: 42
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 4
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): PARAMETRO: 0
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): PARAMETRO: 4
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 0
+[DEBUG] 23:24:01:013 CONSOLA/(7075:7075): ID: 5
+[ERROR] 23:24:01:194 CONSOLA/(7075:7075): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 23:24:01:194 CONSOLA/(7075:7075): No se recibió la confirmación esperada desde el kernel
+[INFO] 23:24:01:194 CONSOLA/(7075:7075): CONSOLA FINALIZADA
+[INFO] 23:32:02:541 CONSOLA/(4066:4066): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:32:02:562 CONSOLA/(4066:4066): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:32:02:562 CONSOLA/(4066:4066): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:32:02:562 CONSOLA/(4066:4066): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:32:02:571 CONSOLA/(4066:4066): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:32:02:583 CONSOLA/(4066:4066): Creando conexion con kernel
+[INFO] 23:32:02:583 CONSOLA/(4066:4066): Conexion creada: 5
+[DEBUG] 23:32:02:594 CONSOLA/(4066:4066): 92
+[DEBUG] 23:32:02:594 CONSOLA/(4066:4066): 330
+[DEBUG] 23:32:02:594 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:594 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:594 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:594 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:594 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:594 CONSOLA/(4066:4066): ID: 1
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): PARAMETRO: 3000
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 2
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): PARAMETRO: 0
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 3
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): PARAMETRO: 4
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): PARAMETRO: 42
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 4
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): PARAMETRO: 0
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): PARAMETRO: 4
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 0
+[DEBUG] 23:32:02:595 CONSOLA/(4066:4066): ID: 5
+[ERROR] 23:32:02:985 CONSOLA/(4066:4066): NO SE RECIBIÓ BIEN EL PROCESO
+[ERROR] 23:32:02:988 CONSOLA/(4066:4066): No se recibió la confirmación esperada desde el kernel
+[INFO] 23:32:02:988 CONSOLA/(4066:4066): CONSOLA FINALIZADA
+[INFO] 23:37:45:818 CONSOLA/(3577:3577): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:37:46:473 CONSOLA/(3577:3577): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:37:46:473 CONSOLA/(3577:3577): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:37:46:473 CONSOLA/(3577:3577): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:37:46:483 CONSOLA/(3577:3577): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:37:46:492 CONSOLA/(3577:3577): Creando conexion con kernel
+[INFO] 23:37:46:492 CONSOLA/(3577:3577): Conexion creada: 5
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): 92
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): 330
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 1
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): PARAMETRO: 3000
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 2
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): PARAMETRO: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 3
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): PARAMETRO: 4
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): PARAMETRO: 42
+[DEBUG] 23:37:46:495 CONSOLA/(3577:3577): ID: 4
+[DEBUG] 23:37:46:496 CONSOLA/(3577:3577): PARAMETRO: 0
+[DEBUG] 23:37:46:496 CONSOLA/(3577:3577): PARAMETRO: 4
+[DEBUG] 23:37:46:496 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:496 CONSOLA/(3577:3577): ID: 0
+[DEBUG] 23:37:46:496 CONSOLA/(3577:3577): ID: 5
+[INFO] 23:37:46:541 CONSOLA/(3577:3577): El proceso llegó bien :D
+[ERROR] 23:37:46:851 CONSOLA/(3577:3577): El proceso se detuvo :C
+[INFO] 23:37:46:855 CONSOLA/(3577:3577): CONSOLA FINALIZADA
+[INFO] 23:46:55:453 CONSOLA/(4584:4584): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:46:55:483 CONSOLA/(4584:4584): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:46:55:484 CONSOLA/(4584:4584): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:46:55:484 CONSOLA/(4584:4584): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:46:56:877 CONSOLA/(4584:4584): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:46:57:698 CONSOLA/(4584:4584): Creando conexion con kernel
+[INFO] 23:46:57:698 CONSOLA/(4584:4584): Conexion creada: 5
+[DEBUG] 23:47:11:106 CONSOLA/(4584:4584): 92
+[DEBUG] 23:47:11:107 CONSOLA/(4584:4584): 330
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 1
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): PARAMETRO: 3000
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 2
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): PARAMETRO: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 3
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): PARAMETRO: 4
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): PARAMETRO: 42
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 4
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): PARAMETRO: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): PARAMETRO: 4
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 0
+[DEBUG] 23:47:40:962 CONSOLA/(4584:4584): ID: 5
+[INFO] 23:57:23:915 CONSOLA/(4928:4928): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 23:57:23:915 CONSOLA/(4928:4928): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 23:57:23:916 CONSOLA/(4928:4928): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 23:57:23:916 CONSOLA/(4928:4928): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 23:57:23:916 CONSOLA/(4928:4928): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 23:57:23:916 CONSOLA/(4928:4928): Creando conexion con kernel
+[INFO] 23:57:23:917 CONSOLA/(4928:4928): Conexion creada: 5
+[DEBUG] 23:57:23:922 CONSOLA/(4928:4928): 92
+[DEBUG] 23:57:23:922 CONSOLA/(4928:4928): 330
+[DEBUG] 23:57:23:922 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:922 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:922 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:922 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:922 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:922 CONSOLA/(4928:4928): ID: 1
+[DEBUG] 23:57:23:922 CONSOLA/(4928:4928): PARAMETRO: 3000
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): ID: 2
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): PARAMETRO: 0
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): ID: 3
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): PARAMETRO: 4
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): PARAMETRO: 42
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): ID: 4
+[DEBUG] 23:57:23:923 CONSOLA/(4928:4928): PARAMETRO: 0
+[DEBUG] 23:57:23:924 CONSOLA/(4928:4928): PARAMETRO: 4
+[DEBUG] 23:57:23:924 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:924 CONSOLA/(4928:4928): ID: 0
+[DEBUG] 23:57:23:924 CONSOLA/(4928:4928): ID: 5
+[INFO] 23:57:23:968 CONSOLA/(4928:4928): El proceso llegó bien :D
+[ERROR] 23:58:15:064 CONSOLA/(4928:4928): El proceso se detuvo :C
+[INFO] 23:58:15:064 CONSOLA/(4928:4928): CONSOLA FINALIZADA
+[INFO] 00:07:00:984 CONSOLA/(4319:4319): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 00:07:01:252 CONSOLA/(4319:4319): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 00:07:01:252 CONSOLA/(4319:4319): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 00:07:01:252 CONSOLA/(4319:4319): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 00:07:01:461 CONSOLA/(4319:4319): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 00:07:01:513 CONSOLA/(4319:4319): Creando conexion con kernel
+[INFO] 00:07:01:514 CONSOLA/(4319:4319): Conexion creada: 5
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): 92
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): 330
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 1
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): PARAMETRO: 3000
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 2
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): PARAMETRO: 0
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:530 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): ID: 3
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): PARAMETRO: 4
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): PARAMETRO: 42
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): ID: 4
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): PARAMETRO: 0
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): PARAMETRO: 4
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): ID: 0
+[DEBUG] 00:07:01:531 CONSOLA/(4319:4319): ID: 5
+[INFO] 00:07:01:574 CONSOLA/(4319:4319): El proceso llegó bien :D
+[ERROR] 00:07:05:992 CONSOLA/(4319:4319): El proceso se detuvo :C
+[INFO] 00:07:05:992 CONSOLA/(4319:4319): CONSOLA FINALIZADA
+[INFO] 00:20:31:785 CONSOLA/(4524:4524): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 00:20:31:817 CONSOLA/(4524:4524): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 00:20:31:817 CONSOLA/(4524:4524): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 00:20:31:817 CONSOLA/(4524:4524): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 00:20:31:826 CONSOLA/(4524:4524): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 00:20:31:836 CONSOLA/(4524:4524): Creando conexion con kernel
+[INFO] 00:20:31:836 CONSOLA/(4524:4524): Conexion creada: 5
+[DEBUG] 00:20:31:852 CONSOLA/(4524:4524): 92
+[DEBUG] 00:20:31:852 CONSOLA/(4524:4524): 330
+[DEBUG] 00:20:31:852 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:852 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:852 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:852 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:852 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:852 CONSOLA/(4524:4524): ID: 1
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): PARAMETRO: 3000
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 2
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): PARAMETRO: 0
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 3
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): PARAMETRO: 4
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): PARAMETRO: 42
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 4
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): PARAMETRO: 0
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): PARAMETRO: 4
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 0
+[DEBUG] 00:20:31:853 CONSOLA/(4524:4524): ID: 5
+[INFO] 00:20:31:900 CONSOLA/(4524:4524): El proceso llegó bien :D
+[ERROR] 00:21:18:132 CONSOLA/(4524:4524): El proceso se detuvo :C
+[INFO] 00:21:18:132 CONSOLA/(4524:4524): CONSOLA FINALIZADA
+[INFO] 00:50:53:876 CONSOLA/(3842:3842): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 00:50:53:987 CONSOLA/(3842:3842): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 00:50:53:987 CONSOLA/(3842:3842): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 00:50:53:987 CONSOLA/(3842:3842): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 00:50:53:987 CONSOLA/(3842:3842): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 00:50:53:987 CONSOLA/(3842:3842): Creando conexion con kernel
+[INFO] 00:50:53:987 CONSOLA/(3842:3842): Conexion creada: 5
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): 44
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): 330
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 0
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 0
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 0
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 0
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 0
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 1
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): PARAMETRO: 3000
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 0
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 0
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 0
+[DEBUG] 00:50:53:992 CONSOLA/(3842:3842): ID: 5
+[INFO] 00:50:54:036 CONSOLA/(3842:3842): El proceso llegó bien :D
+[ERROR] 00:52:23:468 CONSOLA/(3842:3842): El proceso se detuvo :C
+[INFO] 00:52:23:469 CONSOLA/(3842:3842): CONSOLA FINALIZADA
+[INFO] 00:59:03:244 CONSOLA/(4063:4063): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 00:59:03:251 CONSOLA/(4063:4063): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 00:59:03:251 CONSOLA/(4063:4063): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 00:59:03:251 CONSOLA/(4063:4063): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 00:59:03:252 CONSOLA/(4063:4063): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 00:59:03:252 CONSOLA/(4063:4063): Creando conexion con kernel
+[INFO] 00:59:03:252 CONSOLA/(4063:4063): Conexion creada: 5
+[DEBUG] 00:59:03:256 CONSOLA/(4063:4063): 44
+[DEBUG] 00:59:03:256 CONSOLA/(4063:4063): 330
+[DEBUG] 00:59:03:256 CONSOLA/(4063:4063): ID: 0
+[DEBUG] 00:59:03:256 CONSOLA/(4063:4063): ID: 0
+[DEBUG] 00:59:03:256 CONSOLA/(4063:4063): ID: 0
+[DEBUG] 00:59:03:256 CONSOLA/(4063:4063): ID: 0
+[DEBUG] 00:59:03:256 CONSOLA/(4063:4063): ID: 0
+[DEBUG] 00:59:03:257 CONSOLA/(4063:4063): ID: 1
+[DEBUG] 00:59:03:257 CONSOLA/(4063:4063): PARAMETRO: 3000
+[DEBUG] 00:59:03:257 CONSOLA/(4063:4063): ID: 0
+[DEBUG] 00:59:03:257 CONSOLA/(4063:4063): ID: 0
+[DEBUG] 00:59:03:257 CONSOLA/(4063:4063): ID: 0
+[DEBUG] 00:59:03:257 CONSOLA/(4063:4063): ID: 5
+[INFO] 00:59:03:300 CONSOLA/(4063:4063): El proceso llegó bien :D
+[ERROR] 01:01:23:275 CONSOLA/(4063:4063): El proceso se detuvo :C
+[INFO] 01:01:23:275 CONSOLA/(4063:4063): CONSOLA FINALIZADA
+[INFO] 01:02:54:742 CONSOLA/(4216:4216): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 01:02:54:744 CONSOLA/(4216:4216): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 01:02:54:744 CONSOLA/(4216:4216): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 01:02:54:744 CONSOLA/(4216:4216): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 01:02:54:744 CONSOLA/(4216:4216): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 01:02:54:744 CONSOLA/(4216:4216): Creando conexion con kernel
+[INFO] 01:02:54:744 CONSOLA/(4216:4216): Conexion creada: 5
+[DEBUG] 01:02:54:752 CONSOLA/(4216:4216): 44
+[DEBUG] 01:02:54:752 CONSOLA/(4216:4216): 330
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 0
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 0
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 0
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 0
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 0
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 1
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): PARAMETRO: 3000
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 0
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 0
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 0
+[DEBUG] 01:02:54:753 CONSOLA/(4216:4216): ID: 5
+[INFO] 01:02:54:796 CONSOLA/(4216:4216): El proceso llegó bien :D
+[ERROR] 01:03:06:177 CONSOLA/(4216:4216): El proceso se detuvo :C
+[INFO] 01:03:06:177 CONSOLA/(4216:4216): CONSOLA FINALIZADA
+[INFO] 01:09:13:649 CONSOLA/(4703:4703): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 01:09:13:672 CONSOLA/(4703:4703): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 01:09:13:672 CONSOLA/(4703:4703): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 01:09:13:672 CONSOLA/(4703:4703): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 01:09:13:773 CONSOLA/(4703:4703): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 01:09:13:879 CONSOLA/(4703:4703): Creando conexion con kernel
+[INFO] 01:09:13:882 CONSOLA/(4703:4703): Conexion creada: 5
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): 44
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): 330
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 0
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 0
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 0
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 0
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 0
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 1
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): PARAMETRO: 3000
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 0
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 0
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 0
+[DEBUG] 01:09:13:888 CONSOLA/(4703:4703): ID: 5
+[INFO] 01:09:13:932 CONSOLA/(4703:4703): El proceso llegó bien :D
+[INFO] 01:09:25:549 CONSOLA/(4703:4703): El proceso finalizó con exito :D
+[INFO] 01:09:25:549 CONSOLA/(4703:4703): CONSOLA FINALIZADA
+[INFO] 01:10:36:356 CONSOLA/(4724:4724): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 01:10:36:357 CONSOLA/(4724:4724): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 01:10:36:359 CONSOLA/(4724:4724): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 01:10:36:359 CONSOLA/(4724:4724): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 01:10:36:359 CONSOLA/(4724:4724): El archivo en la ruta "proceso.txt" fue abierto correctamente
+[DEBUG] 01:10:36:360 CONSOLA/(4724:4724): Creando conexion con kernel
+[INFO] 01:10:36:361 CONSOLA/(4724:4724): Conexion creada: 5
+[DEBUG] 01:10:36:363 CONSOLA/(4724:4724): 696
+[DEBUG] 01:10:36:363 CONSOLA/(4724:4724): 330
+[DEBUG] 01:10:36:363 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:363 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:363 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:363 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:364 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:364 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:364 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:364 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:364 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:364 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:364 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:364 CONSOLA/(4724:4724): PARAMETRO: 0
+[DEBUG] 01:10:36:364 CONSOLA/(4724:4724): PARAMETRO: 1
+[DEBUG] 01:10:36:366 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:366 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:366 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:366 CONSOLA/(4724:4724): PARAMETRO: 4
+[DEBUG] 01:10:36:366 CONSOLA/(4724:4724): PARAMETRO: 2
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 8
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 12
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 4
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 16
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 5
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 256
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 11
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 260
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 12
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 264
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 13
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 268
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 14
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 272
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 15
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 512
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 21
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 516
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 22
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 520
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 23
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 524
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 24
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 3
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 528
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): PARAMETRO: 25
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:368 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 1
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): PARAMETRO: 5000
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): PARAMETRO: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): PARAMETRO: 4
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:369 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:370 CONSOLA/(4724:4724): PARAMETRO: 8
+[DEBUG] 01:10:36:370 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:370 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:370 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:370 CONSOLA/(4724:4724): PARAMETRO: 12
+[DEBUG] 01:10:36:370 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:370 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): PARAMETRO: 16
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): PARAMETRO: 256
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): PARAMETRO: 260
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:371 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): PARAMETRO: 264
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): PARAMETRO: 268
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): PARAMETRO: 272
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): PARAMETRO: 512
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:372 CONSOLA/(4724:4724): PARAMETRO: 516
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): PARAMETRO: 520
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): PARAMETRO: 524
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 2
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): PARAMETRO: 528
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:373 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:374 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:374 CONSOLA/(4724:4724): ID: 0
+[DEBUG] 01:10:36:374 CONSOLA/(4724:4724): ID: 5
+[INFO] 01:10:36:416 CONSOLA/(4724:4724): El proceso llegó bien :D
+[ERROR] 01:10:47:644 CONSOLA/(4724:4724): El proceso se detuvo :C
+[INFO] 01:10:47:645 CONSOLA/(4724:4724): CONSOLA FINALIZADA

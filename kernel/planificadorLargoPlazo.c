@@ -86,7 +86,7 @@ void estadoExit(){
 		uint32_t retorno = deserializarInt32(socket_memoria);
 
 		log_info(loggerKernel, "PROCESO ID %i FINALIZO - AVISANDO A CONSOLA", unProceso -> id);
-		//avisar_a_consola(unProceso);
+		avisar_a_consola(unProceso);
 		sem_post(&grado_multiprogramacion);
 	}
 }

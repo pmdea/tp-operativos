@@ -46,3 +46,471 @@
 [INFO] 18:19:29:724 Kernel/(21285:21285): ID PCB 10
 [INFO] 18:19:38:459 Kernel/(21325:21325): Conexiones, Listas, Semaforos: INICIADOS
 [INFO] 18:19:38:465 Kernel/(21325:21325): ID PCB 11
+[INFO] 23:01:08:200 Kernel/(7790:7790): CONEXIONES INICIADAS
+[INFO] 23:01:08:200 Kernel/(7790:7790): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 23:01:10:221 Kernel/(7790:7873): INICIANDO ALGORITMO SRT
+[INFO] 23:15:02:749 Kernel/(4407:4407): CONEXIONES INICIADAS
+[INFO] 23:15:06:493 Kernel/(4407:4407): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 23:15:19:941 Kernel/(4407:4438): INICIANDO ALGORITMO SRT
+[INFO] 23:17:34:796 Kernel/(4543:4543): CONEXIONES INICIADAS
+[INFO] 23:17:34:796 Kernel/(4543:4543): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 23:17:39:962 Kernel/(4543:4543): El kernel fue bindeado con exito
+
+[INFO] 23:17:42:225 Kernel/(4543:4543): El kernel esta escuchando el puerto: 8000
+
+[INFO] 23:17:42:225 Kernel/(4543:4543): Esperando conexiones...
+
+[INFO] 23:17:47:224 Kernel/(4543:4571): INICIANDO ALGORITMO SRT
+[INFO] 23:21:20:907 Kernel/(4691:4691): CONEXIONES INICIADAS
+[INFO] 23:21:20:907 Kernel/(4691:4691): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 23:21:20:907 Kernel/(4691:4691): El kernel fue bindeado con exito
+
+[INFO] 23:21:20:907 Kernel/(4691:4691): El kernel esta escuchando el puerto: 8000
+
+[INFO] 23:21:20:907 Kernel/(4691:4691): Esperando conexiones...
+
+[INFO] 23:21:22:931 Kernel/(4691:4729): INICIANDO ALGORITMO SRT
+[INFO] 23:46:39:624 Kernel/(5570:5570): CONEXIONES INICIADAS
+[INFO] 23:46:39:649 Kernel/(5570:5570): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 23:46:42:694 Kernel/(5570:5570): El kernel fue bindeado con exito
+
+[INFO] 23:46:42:694 Kernel/(5570:5570): El kernel esta escuchando el puerto: 8000
+
+[INFO] 23:46:42:694 Kernel/(5570:5570): Esperando conexiones...
+
+[INFO] 23:46:44:705 Kernel/(5570:5675): INICIANDO ALGORITMO SRT
+[INFO] 23:48:14:867 Kernel/(5570:5570): SOCKET CONSOLA ACTUAL: 8
+[INFO] 23:48:14:867 Kernel/(5570:5570): ID PCB ACTUAL: 0
+[INFO] 23:48:14:890 Kernel/(5570:5570): Esperando nueva conexion...
+
+[INFO] 23:48:14:891 Kernel/(5570:5763): preparado para recibir datos de la consola...
+
+[INFO] 23:48:14:891 Kernel/(5570:5763): Iniciando protocolo handshake...
+[DEBUG] 23:48:57:928 Kernel/(5570:5763): MENSAJE HANDSHAKE RECIBIDO: 9992751
+[INFO] 23:48:57:928 Kernel/(5570:5763): Se recibió el mensaje correcto
+[INFO] 23:48:57:928 Kernel/(5570:5763): Envie confirmacion :D
+[INFO] 23:49:31:247 Kernel/(5570:5763): Recibi el proceso :D
+[INFO] 23:49:31:247 Kernel/(5570:5763): 4
+[ERROR] 23:49:31:247 Kernel/(5570:5763): No se pudo recibir el proceso
+[INFO] 23:53:22:013 Kernel/(5923:5923): CONEXIONES INICIADAS
+[INFO] 23:53:22:014 Kernel/(5923:5923): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 23:53:22:014 Kernel/(5923:5923): El kernel fue bindeado con exito
+
+[INFO] 23:53:22:014 Kernel/(5923:5923): El kernel esta escuchando el puerto: 8000
+
+[INFO] 23:53:22:014 Kernel/(5923:5923): Esperando conexiones...
+
+[INFO] 23:53:24:033 Kernel/(5923:5941): INICIANDO ALGORITMO SRT
+[INFO] 23:53:33:149 Kernel/(5923:5923): SOCKET CONSOLA ACTUAL: 8
+[INFO] 23:53:33:149 Kernel/(5923:5923): ID PCB ACTUAL: 0
+[INFO] 23:53:33:164 Kernel/(5923:5923): Esperando nueva conexion...
+
+[INFO] 23:53:33:166 Kernel/(5923:5979): preparado para recibir datos de la consola...
+
+[INFO] 23:53:33:166 Kernel/(5923:5979): Iniciando protocolo handshake...
+[DEBUG] 23:53:33:166 Kernel/(5923:5979): MENSAJE HANDSHAKE RECIBIDO: 9992751
+[INFO] 23:53:33:166 Kernel/(5923:5979): Se recibió el mensaje correcto
+[INFO] 23:53:33:169 Kernel/(5923:5979): Envie confirmacion :D
+[INFO] 00:03:39:030 Kernel/(4310:4310): CONEXIONES INICIADAS
+[INFO] 00:03:39:031 Kernel/(4310:4310): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 00:03:39:917 Kernel/(4310:4310): El kernel fue bindeado con exito
+
+[INFO] 00:03:39:917 Kernel/(4310:4310): El kernel esta escuchando el puerto: 8000
+
+[INFO] 00:03:39:917 Kernel/(4310:4310): Esperando conexiones...
+
+[INFO] 00:03:41:929 Kernel/(4310:4351): INICIANDO ALGORITMO SRT
+[INFO] 00:03:50:291 Kernel/(4310:4310): SOCKET CONSOLA ACTUAL: 8
+[INFO] 00:03:50:291 Kernel/(4310:4310): ID PCB ACTUAL: 0
+[INFO] 00:03:50:293 Kernel/(4310:4310): Esperando nueva conexion...
+
+[INFO] 00:03:50:293 Kernel/(4310:4368): preparado para recibir datos de la consola...
+
+[INFO] 00:03:50:293 Kernel/(4310:4368): Iniciando protocolo handshake...
+[DEBUG] 00:03:50:293 Kernel/(4310:4368): MENSAJE HANDSHAKE RECIBIDO: 9992751
+[INFO] 00:03:50:293 Kernel/(4310:4368): Se recibió el mensaje correcto
+[INFO] 00:03:50:298 Kernel/(4310:4368): Envie confirmacion :D
+[INFO] 00:04:20:561 Kernel/(4310:4368): Recibi el proceso :D
+[INFO] 00:04:20:562 Kernel/(4310:4368): 4
+[ERROR] 00:04:20:562 Kernel/(4310:4368): No se pudo recibir el proceso
+[INFO] 00:06:09:541 Kernel/(4500:4500): CONEXIONES INICIADAS
+[INFO] 00:06:09:541 Kernel/(4500:4500): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 00:06:09:541 Kernel/(4500:4500): El kernel fue bindeado con exito
+
+[INFO] 00:06:09:541 Kernel/(4500:4500): El kernel esta escuchando el puerto: 8000
+
+[INFO] 00:06:09:541 Kernel/(4500:4500): Esperando conexiones...
+
+[INFO] 00:06:11:553 Kernel/(4500:4511): INICIANDO ALGORITMO SRT
+[INFO] 00:06:16:806 Kernel/(4500:4500): SOCKET CONSOLA ACTUAL: 8
+[INFO] 00:06:16:806 Kernel/(4500:4500): ID PCB ACTUAL: 0
+[INFO] 00:06:16:817 Kernel/(4500:4500): Esperando nueva conexion...
+
+[INFO] 00:06:16:817 Kernel/(4500:4564): preparado para recibir datos de la consola...
+
+[INFO] 00:06:16:821 Kernel/(4500:4564): Iniciando protocolo handshake...
+[DEBUG] 00:06:16:821 Kernel/(4500:4564): MENSAJE HANDSHAKE RECIBIDO: 9992751
+[INFO] 00:06:16:822 Kernel/(4500:4564): Se recibió el mensaje correcto
+[INFO] 00:06:16:826 Kernel/(4500:4564): Envie confirmacion :D
+[INFO] 00:06:38:622 Kernel/(4500:4564): Recibi el proceso :D
+[INFO] 00:06:38:622 Kernel/(4500:4564): 4
+[ERROR] 00:06:38:622 Kernel/(4500:4564): No se pudo recibir el proceso
+[INFO] 00:09:14:096 Kernel/(4925:4925): CONEXIONES INICIADAS
+[INFO] 00:09:14:096 Kernel/(4925:4925): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 00:09:14:096 Kernel/(4925:4925): El kernel fue bindeado con exito
+
+[INFO] 00:09:14:096 Kernel/(4925:4925): El kernel esta escuchando el puerto: 8000
+
+[INFO] 00:09:14:096 Kernel/(4925:4925): Esperando conexiones...
+
+[INFO] 00:09:16:109 Kernel/(4925:4936): INICIANDO ALGORITMO SRT
+[INFO] 00:09:20:689 Kernel/(4925:4925): SOCKET CONSOLA ACTUAL: 8
+[INFO] 00:09:20:689 Kernel/(4925:4925): ID PCB ACTUAL: 0
+[INFO] 00:09:20:697 Kernel/(4925:4925): Esperando nueva conexion...
+
+[INFO] 00:09:20:697 Kernel/(4925:4972): preparado para recibir datos de la consola...
+
+[INFO] 00:09:20:697 Kernel/(4925:4972): Iniciando protocolo handshake...
+[DEBUG] 00:09:20:697 Kernel/(4925:4972): MENSAJE HANDSHAKE RECIBIDO: 9992751
+[INFO] 00:09:20:698 Kernel/(4925:4972): Se recibió el mensaje correcto
+[INFO] 00:09:20:704 Kernel/(4925:4972): Envie confirmacion :D
+[INFO] 00:09:25:537 Kernel/(4925:4972): Recibi el proceso :D
+[INFO] 00:09:25:537 Kernel/(4925:4972): 4
+[INFO] 00:09:25:537 Kernel/(4925:4972): Envie confirmacion :D
+[INFO] 23:46:16:523 Kernel/(4505:4505): CONEXIONES INICIADAS
+[INFO] 23:46:16:523 Kernel/(4505:4505): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 23:46:28:185 Kernel/(4505:4505): El kernel fue bindeado con exito
+
+[INFO] 23:46:28:633 Kernel/(4505:4505): El kernel esta escuchando el puerto: 8000
+
+[INFO] 23:46:28:633 Kernel/(4505:4505): Esperando conexiones...
+
+[INFO] 23:46:31:100 Kernel/(4505:4529): INICIANDO ALGORITMO SRT
+[INFO] 23:46:57:698 Kernel/(4505:4505): SOCKET CONSOLA ACTUAL: 8
+[INFO] 23:46:57:698 Kernel/(4505:4505): ID PCB ACTUAL: 0
+[INFO] 23:46:57:712 Kernel/(4505:4505): Esperando nueva conexion...
+
+[INFO] 23:46:57:712 Kernel/(4505:4604): preparado para recibir datos de la consola...
+
+[INFO] 23:46:57:712 Kernel/(4505:4604): Estoy atendiendo a la consola 8
+[INFO] 23:46:57:712 Kernel/(4505:4604): Iniciando protocolo handshake...
+[DEBUG] 23:47:05:818 Kernel/(4505:4604): MENSAJE HANDSHAKE RECIBIDO: 9992751
+[INFO] 23:47:05:818 Kernel/(4505:4604): Se recibió el mensaje correcto
+[INFO] 23:47:05:818 Kernel/(4505:4604): Envie confirmacion :D
+[INFO] 23:47:05:818 Kernel/(4505:4604): Se pudo hacer el handshake :D
+[INFO] 23:47:11:106 Kernel/(4505:4604): 1
+[INFO] 23:47:11:148 Kernel/(4505:4604): 92
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): Cosa 330
+[INFO] 23:47:30:668 Kernel/(4505:4604): Recibi el proceso :D
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): Empezando a deserializar
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 1
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): PARAMETRO: 3000
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 2
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): PARAMETRO: 0
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:668 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 3
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 4
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 42
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 4
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 4
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 5
+[INFO] 23:47:30:669 Kernel/(4505:4604): Envie confirmacion :D
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): TAMAÑO: 330
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 1
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 3000
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 2
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 3
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 4
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 42
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 4
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): PARAMETRO: 4
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 0
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): ID: 5
+[DEBUG] 23:47:30:669 Kernel/(4505:4604): Generando PCB...
+[INFO] 23:56:50:717 Kernel/(4895:4895): CONEXIONES INICIADAS
+[INFO] 23:56:50:718 Kernel/(4895:4895): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 23:56:50:718 Kernel/(4895:4895): El kernel fue bindeado con exito
+
+[INFO] 23:56:50:718 Kernel/(4895:4895): El kernel esta escuchando el puerto: 8000
+
+[INFO] 23:56:50:718 Kernel/(4895:4895): Esperando conexiones...
+
+[INFO] 23:56:52:733 Kernel/(4895:4906): INICIANDO ALGORITMO SRT
+[INFO] 23:57:23:916 Kernel/(4895:4895): SOCKET CONSOLA ACTUAL: 8
+[INFO] 23:57:23:917 Kernel/(4895:4895): ID PCB ACTUAL: 0
+[INFO] 23:57:23:921 Kernel/(4895:4895): Esperando nueva conexion...
+
+[INFO] 23:57:23:922 Kernel/(4895:4934): preparado para recibir datos de la consola...
+
+[INFO] 23:57:23:922 Kernel/(4895:4934): Estoy atendiendo a la consola 8
+[INFO] 23:57:23:922 Kernel/(4895:4934): Iniciando protocolo handshake...
+[DEBUG] 23:57:23:922 Kernel/(4895:4934): MENSAJE HANDSHAKE RECIBIDO: 9992751
+[INFO] 23:57:23:922 Kernel/(4895:4934): Se recibió el mensaje correcto
+[INFO] 23:57:23:924 Kernel/(4895:4934): Envie confirmacion :D
+[INFO] 23:57:23:924 Kernel/(4895:4934): Se pudo hacer el handshake :D
+[INFO] 23:57:23:924 Kernel/(4895:4934): 1
+[INFO] 23:57:23:968 Kernel/(4895:4934): 92
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): Cosa 330
+[INFO] 23:57:23:968 Kernel/(4895:4934): Recibi el proceso :D
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): Empezando a deserializar
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 1
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): PARAMETRO: 3000
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 2
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): PARAMETRO: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 3
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): PARAMETRO: 4
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): PARAMETRO: 42
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 4
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): PARAMETRO: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): PARAMETRO: 4
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 5
+[INFO] 23:57:23:968 Kernel/(4895:4934): Envie confirmacion :D
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): TAMAÑO: 330
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:968 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 1
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): PARAMETRO: 3000
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 2
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): PARAMETRO: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 3
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): PARAMETRO: 4
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): PARAMETRO: 42
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 4
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): PARAMETRO: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): PARAMETRO: 4
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 0
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): ID: 5
+[DEBUG] 23:57:23:969 Kernel/(4895:4934): Generando PCB...
+[INFO] 23:58:03:058 Kernel/(4895:4913): ENVIANDO AVISO A MEMORIA - NUEVO PROCESO ID 0...
+[WARNING] 23:58:10:124 Kernel/(4895:4913): SIZE 1 EJECUTANDO 0
+[DEBUG] 23:58:10:126 Kernel/(4895:4912): ********Enviando PCB ID 0 a CPU********
+[INFO] 23:58:10:126 Kernel/(4895:4913): INGRESO PROCESO ID 0 A READY DESDE NEW
+[DEBUG] 23:58:10:629 Kernel/(4895:4912): ********Recibi datos de CPU - PCB ID 0********
+[ERROR] 23:58:10:629 Kernel/(4895:4912): RAFAGA NUEVA 40001.200000, ID 0
+[INFO] 23:58:10:629 Kernel/(4895:4908): BLOQUEANDO PROCESO ID 0 - TIEMPO BLOQUEO 3000
+[INFO] 23:58:11:629 Kernel/(4895:4908): ENVIANDO AVISO A MEMORIA - SUSPENSION PROCESO ID 0...
+[INFO] 23:58:13:631 Kernel/(4895:4908): FINALIZO BLOQUEO PROCESO ID 0
+[DEBUG] 23:58:13:631 Kernel/(4895:4912): ********Enviando PCB ID 0 a CPU********
+[DEBUG] 23:58:13:631 Kernel/(4895:4914): ******** ENVIANDO INTERRUPCION ********
+[INFO] 23:58:13:631 Kernel/(4895:4913): INGRESO PROCESO ID 0 A READY DESDE READY-SUSPENDED
+[INFO] 00:06:40:100 Kernel/(4262:4262): CONEXIONES INICIADAS
+[INFO] 00:06:40:100 Kernel/(4262:4262): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 00:06:44:696 Kernel/(4262:4262): El kernel fue bindeado con exito
+
+[INFO] 00:06:45:407 Kernel/(4262:4262): El kernel esta escuchando el puerto: 8000
+
+[INFO] 00:06:45:407 Kernel/(4262:4262): Esperando conexiones...
+
+[INFO] 00:06:48:246 Kernel/(4262:4287): INICIANDO ALGORITMO SRT
+[INFO] 00:07:01:514 Kernel/(4262:4262): SOCKET CONSOLA ACTUAL: 8
+[INFO] 00:07:01:514 Kernel/(4262:4262): ID PCB ACTUAL: 0
+[INFO] 00:07:01:525 Kernel/(4262:4262): Esperando nueva conexion...
+
+[INFO] 00:07:01:530 Kernel/(4262:4327): preparado para recibir datos de la consola...
+
+[INFO] 00:07:01:530 Kernel/(4262:4327): Estoy atendiendo a la consola 8
+[INFO] 00:07:01:530 Kernel/(4262:4327): Iniciando protocolo handshake...
+[DEBUG] 00:07:01:530 Kernel/(4262:4327): MENSAJE HANDSHAKE RECIBIDO: 9992751
+[INFO] 00:07:01:530 Kernel/(4262:4327): Se recibió el mensaje correcto
+[INFO] 00:07:01:531 Kernel/(4262:4327): Envie confirmacion :D
+[INFO] 00:07:01:531 Kernel/(4262:4327): Se pudo hacer el handshake :D
+[INFO] 00:07:01:531 Kernel/(4262:4327): 1
+[INFO] 00:07:01:573 Kernel/(4262:4327): 92
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): Cosa 330
+[INFO] 00:07:01:573 Kernel/(4262:4327): Recibi el proceso :D
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): Empezando a deserializar
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 1
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): PARAMETRO: 3000
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 2
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): PARAMETRO: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 3
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): PARAMETRO: 4
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): PARAMETRO: 42
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): ID: 4
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): PARAMETRO: 0
+[DEBUG] 00:07:01:573 Kernel/(4262:4327): PARAMETRO: 4
+[DEBUG] 00:07:01:574 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:574 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:574 Kernel/(4262:4327): ID: 5
+[INFO] 00:07:01:574 Kernel/(4262:4327): Envie confirmacion :D
+[DEBUG] 00:07:01:574 Kernel/(4262:4327): TAMAÑO: 330
+[DEBUG] 00:07:01:574 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:574 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:574 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:574 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:574 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 1
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): PARAMETRO: 3000
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 2
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): PARAMETRO: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 3
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): PARAMETRO: 4
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): PARAMETRO: 42
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 4
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): PARAMETRO: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): PARAMETRO: 4
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 0
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): ID: 5
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): Generando PCB...
+[DEBUG] 00:07:01:577 Kernel/(4262:4327): PCB creado
+[INFO] 00:07:01:581 Kernel/(4262:4294): ENVIANDO AVISO A MEMORIA - NUEVO PROCESO ID 0...
+[WARNING] 00:07:01:715 Kernel/(4262:4294): SIZE 1 EJECUTANDO 0
+[DEBUG] 00:07:01:715 Kernel/(4262:4293): ********Enviando PCB ID 0 a CPU********
+[INFO] 00:07:01:715 Kernel/(4262:4294): INGRESO PROCESO ID 0 A READY DESDE NEW
+[DEBUG] 00:07:02:219 Kernel/(4262:4293): ********Recibi datos de CPU - PCB ID 0********
+[ERROR] 00:07:02:219 Kernel/(4262:4293): RAFAGA NUEVA 40001.200000, ID 0
+[INFO] 00:07:02:219 Kernel/(4262:4289): BLOQUEANDO PROCESO ID 0 - TIEMPO BLOQUEO 3000
+[INFO] 00:07:03:220 Kernel/(4262:4289): ENVIANDO AVISO A MEMORIA - SUSPENSION PROCESO ID 0...
+[INFO] 00:07:05:220 Kernel/(4262:4289): FINALIZO BLOQUEO PROCESO ID 0
+[DEBUG] 00:07:05:226 Kernel/(4262:4293): ********Enviando PCB ID 0 a CPU********
+[DEBUG] 00:07:05:226 Kernel/(4262:4295): ******** ENVIANDO INTERRUPCION ********
+[INFO] 00:07:05:226 Kernel/(4262:4294): INGRESO PROCESO ID 0 A READY DESDE READY-SUSPENDED
+[INFO] 00:19:42:168 Kernel/(4452:4452): CONEXIONES INICIADAS
+[INFO] 00:19:42:169 Kernel/(4452:4452): Conexiones, Listas, Semaforos: INICIADOS
+[INFO] 00:19:46:554 Kernel/(4452:4452): El kernel fue bindeado con exito
+
+[INFO] 00:19:47:146 Kernel/(4452:4452): El kernel esta escuchando el puerto: 8000
+
+[INFO] 00:19:47:146 Kernel/(4452:4452): Esperando conexiones...
+
+[INFO] 00:19:49:960 Kernel/(4452:4477): INICIANDO ALGORITMO SRT
+[INFO] 00:20:31:836 Kernel/(4452:4452): SOCKET CONSOLA ACTUAL: 8
+[INFO] 00:20:31:836 Kernel/(4452:4452): ID PCB ACTUAL: 0
+[INFO] 00:20:31:843 Kernel/(4452:4452): Esperando nueva conexion...
+
+[INFO] 00:20:31:851 Kernel/(4452:4531): preparado para recibir datos de la consola...
+
+[INFO] 00:20:31:851 Kernel/(4452:4531): Estoy atendiendo a la consola 8
+[INFO] 00:20:31:851 Kernel/(4452:4531): Iniciando protocolo handshake...
+[DEBUG] 00:20:31:851 Kernel/(4452:4531): MENSAJE HANDSHAKE RECIBIDO: 9992751
+[INFO] 00:20:31:851 Kernel/(4452:4531): Se recibió el mensaje correcto
+[INFO] 00:20:31:855 Kernel/(4452:4531): Envie confirmacion :D
+[INFO] 00:20:31:856 Kernel/(4452:4531): Se pudo hacer el handshake :D
+[INFO] 00:20:31:859 Kernel/(4452:4531): 1
+[INFO] 00:20:31:899 Kernel/(4452:4531): 92
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): Cosa 330
+[INFO] 00:20:31:899 Kernel/(4452:4531): Recibi el proceso :D
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): Empezando a deserializar
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 1
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): PARAMETRO: 3000
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 2
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): PARAMETRO: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 3
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): PARAMETRO: 4
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): PARAMETRO: 42
+[DEBUG] 00:20:31:899 Kernel/(4452:4531): ID: 4
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): PARAMETRO: 0
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): PARAMETRO: 4
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): ID: 5
+[INFO] 00:20:31:900 Kernel/(4452:4531): Envie confirmacion :D
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): TAMAÑO: 330
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:900 Kernel/(4452:4531): ID: 1
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): PARAMETRO: 3000
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): ID: 2
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): PARAMETRO: 0
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): ID: 3
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): PARAMETRO: 4
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): PARAMETRO: 42
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): ID: 4
+[DEBUG] 00:20:31:902 Kernel/(4452:4531): PARAMETRO: 0
+[DEBUG] 00:20:31:903 Kernel/(4452:4531): PARAMETRO: 4
+[DEBUG] 00:20:31:903 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:903 Kernel/(4452:4531): ID: 0
+[DEBUG] 00:20:31:903 Kernel/(4452:4531): ID: 5
+[DEBUG] 00:20:31:903 Kernel/(4452:4531): Generando PCB...
+[DEBUG] 00:20:31:903 Kernel/(4452:4531): PCB creado
+[INFO] 00:20:31:907 Kernel/(4452:4484): ENVIANDO AVISO A MEMORIA - NUEVO PROCESO ID 0...
+[WARNING] 00:20:32:022 Kernel/(4452:4484): SIZE 1 EJECUTANDO 0
+[DEBUG] 00:20:32:022 Kernel/(4452:4483): ********Enviando PCB ID 0 a CPU********
+[INFO] 00:20:32:022 Kernel/(4452:4484): INGRESO PROCESO ID 0 A READY DESDE NEW
+[DEBUG] 00:20:32:524 Kernel/(4452:4483): ********Recibi datos de CPU - PCB ID 0********
+[ERROR] 00:20:32:525 Kernel/(4452:4483): RAFAGA NUEVA 40001.200000, ID 0
+[INFO] 00:20:32:525 Kernel/(4452:4479): BLOQUEANDO PROCESO ID 0 - TIEMPO BLOQUEO 3000
+[INFO] 00:20:33:525 Kernel/(4452:4479): ENVIANDO AVISO A MEMORIA - SUSPENSION PROCESO ID 0...
+[INFO] 00:20:55:620 Kernel/(4452:4479): FINALIZO BLOQUEO PROCESO ID 0
+[INFO] 00:21:06:529 Kernel/(4452:4484): INGRESO PROCESO ID 0 A READY DESDE READY-SUSPENDED
+[DEBUG] 00:21:06:529 Kernel/(4452:4483): ********Enviando PCB ID 0 a CPU********

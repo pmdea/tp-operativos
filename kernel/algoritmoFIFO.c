@@ -1,5 +1,11 @@
 #include "kernel.h"
 
+void avisar_a_planificador_LP(PCB* pcbFinalizado){ //hilo <--- creo que no seria un hilo sino una funcion auxiliar
+	pthread_mutex_lock(&mutexExit);
+    list_add(procesosExit, pcbFinalizado);
+    pthread_mutex_unlock(&mutexExit);
+    sem_post(&finalizoProceso);
+}
 
 void algoritmo_FIFO(){
 	PCB* unProceso;
@@ -41,9 +47,4 @@ void algoritmo_FIFO(){
 	}
 }
 
-void avisar_a_planificador_LP(PCB* pcbFinalizado){ //hilo <--- creo que no seria un hilo sino una funcion auxiliar
-	pthread_mutex_lock(&mutexExit);
-    list_add(procesosExit, pcbFinalizado);
-    pthread_mutex_unlock(&mutexExit);
-    sem_post(&finalizoProceso);
-}
+

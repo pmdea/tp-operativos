@@ -13,6 +13,10 @@
 #include "semaphore.h"
 #include <errno.h>
 
+#define PUERTO "8000"
+#define MENSAJE_HANDSHAKE_ESPERADO 9992751
+#define IP "127.0.0.1"
+
 //VAR GLOBAL
 int ejecutando;
 
@@ -36,6 +40,7 @@ t_list* procesosExit;
 t_list* conexiones_pcb;
 t_list* tiemposBlocked;
 t_list* tiemposBlockedSuspendMax;
+t_list* conexiones_pcb;
 
 // SEMAFOROS
 sem_t grado_multiprogramacion; // Tiene en cuenta el numero obtenido de la config.
@@ -66,7 +71,19 @@ pthread_t ejecucionAlgoritmoHilo; // C
 pthread_t administradorInterrupcionCPUHilo; // C
 pthread_t ejecucionProcesoSRTHilo; // C
 
+
+
 // ENUMS
+
+typedef enum {
+	HANDSHAKE,
+	ENVIO_PROCESO,
+	MENSAJE,
+	CONFIRMACION,
+	FINALIZACION_PROCESO,
+	ERROR
+} op_code;
+
 typedef enum{
 	NO_OP,
 	IO,
@@ -135,6 +152,11 @@ typedef struct {
 } KERNEL_CONFIG;
 KERNEL_CONFIG config_kernel;
 
+typedef struct {
+    int socket_consola;
+    int pcbVinculado;
+} consola_pcb;
+
 // UTILS.C
 int crear_conexion(char *ip, char* puerto);
 void iniciar_settings();
@@ -156,7 +178,9 @@ void algoritmo_SRT();
 void administradorInterrupcionCPU(); // C SRT
 void ejecucionProcesoSRT(); // C SRT
 void avisar_a_cpu_interrupt();
-
+void avisar_a_consola(PCB* pcbFinalizado);
+int devolverID_PCB(int socket);
+int devolverID_CONSOLA(PCB* unPCB);
 //FUNCIONESPCB.C
 PCB crearPCB(int idPCB, t_proceso* proceso);
 void agregarEstadoNew(PCB* unPCB );

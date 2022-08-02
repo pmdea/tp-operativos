@@ -13,7 +13,7 @@ t_log* iniciar_logger_kernel(void)
 t_config* iniciar_config_kernel(void) // CARGO LA INFORMACION DEL CONFIG
 {
     t_config* nuevo_config;
-    if((nuevo_config = config_create("./kernel.config")) == NULL){
+    if((nuevo_config = config_create("/home/utnso/workspace/tp-2022-1c-Los-Domadores-de-SO/kernel/Debug/kernel.config")) == NULL){
         printf("No pude leer la config\n");
         exit(2);
     }

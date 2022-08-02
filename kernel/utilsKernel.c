@@ -77,12 +77,26 @@ void iniciar_semaforos(){
 
 void iniciar_planificadores(){
 	sleep(2);
-	pthread_create(&planificadorCortoPlazoHilo, NULL, planificador_CortoPlazo, NULL);
-	pthread_create(&planificadorMedianoPlazoHilo, NULL, planificador_MedianoPlazo, NULL);
-	pthread_create(&planificadorLargoPlazoHilo, NULL, planificador_LargoPlazo, NULL);
-	pthread_join(planificadorCortoPlazoHilo, NULL);
+	pthread_create(&planificadorCortoPlazoHilo, NULL, (void*) planificador_CortoPlazo, NULL);
+	pthread_create(&planificadorMedianoPlazoHilo, NULL, (void*) planificador_MedianoPlazo, NULL);
+	pthread_create(&planificadorLargoPlazoHilo, NULL, (void*) planificador_LargoPlazo, NULL);
+	pthread_detach(planificadorCortoPlazoHilo);
 	sleep(1);
-	pthread_join(planificadorMedianoPlazoHilo, NULL);
+	pthread_detach(planificadorMedianoPlazoHilo);
 	sleep(1);
-	pthread_join(planificadorLargoPlazoHilo, NULL);
+	pthread_detach(planificadorLargoPlazoHilo);
+}
+
+void avisar_a_consola(PCB* pcbFinalizado){
+    int socket_consola = devolverID_CONSOLA(pcbFinalizado);
+    void* buffer = asignarMemoria(sizeof(uint32_t));
+
+    op_code mensaje = FINALIZACION_PROCESO;
+    int desp = 0;
+
+    concatenarInt32(buffer,&desp, mensaje);
+
+    enviarMensaje(socket_consola, buffer, sizeof(uint32_t));
+    free(buffer);
+    log_debug(loggerKernel, "Ya le avise");
 }

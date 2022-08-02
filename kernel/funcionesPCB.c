@@ -10,6 +10,7 @@ PCB crearPCB(int idPCB, t_proceso* proceso){
 	unPCB.estimacion_rafaga = config_kernel.estimacion_inicial;
 	list_add_all(unPCB . instrucciones, proceso -> instrucciones -> elements);
 
+	log_debug(loggerKernel,"PCB creado");
 	return unPCB;
 }
 
@@ -34,7 +35,8 @@ bool ordenarSRT(PCB* unPCB, PCB* otroPCB){
 void estimador(PCB* unPCB, double alfa, int rafaga_ejecutada){
     unPCB -> estimacion_rafaga = (alfa * rafaga_ejecutada + (1 - alfa) * unPCB->estimacion_rafaga);
 }
-/* VER CUANDO SE IMPLEMENTE LA UNION CON CONSOLA
+// VER CUANDO SE IMPLEMENTE LA UNION CON CONSOLA
+
 int devolverID_PCB(int socket){
     bool el_ID_es_igual(consola_pcb* unaConexion){
         if(unaConexion->socket_consola == socket){
@@ -42,12 +44,13 @@ int devolverID_PCB(int socket){
         }
         return 0;
     }
-    consola_pcb * conexionBuscada = list_find(conexiones_pcb, (void) el_ID_es_igual);
-    return conexionBuscada -> pcbVinculado;
+    consola_pcb * conexionBuscada = list_find(conexiones_pcb, (void*) el_ID_es_igual);
+    return conexionBuscada->pcbVinculado;
 }
-int devolverID_CONSOLA(PCB unPCB){
+
+int devolverID_CONSOLA(PCB* unPCB){
     bool el_ID_es_igual(consola_pcb* unaConexion){
-        if(unaConexion->pcbVinculado == unPCB -> id){
+        if(unaConexion->pcbVinculado == unPCB->id){
             return 1;
         }
         return 0;
@@ -55,4 +58,4 @@ int devolverID_CONSOLA(PCB unPCB){
     consola_pcb * conexionBuscada = list_find(conexiones_pcb, (void*) el_ID_es_igual);
     return conexionBuscada -> socket_consola;
 }
-*/
+
