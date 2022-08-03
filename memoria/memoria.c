@@ -38,8 +38,6 @@ void suspender_proc(uint32_t pid){
 	}
 	list_iterator_destroy(tp1_iter);
 	log_info(logger, "Se ha suspendido el pid %d correctamente!", tp1->pid);
-
-//	esperar_response_cpu();
 }
 void finalizar_proc(uint32_t pid){
 	log_info(logger, "Finalizando proceso pid %d...", pid);
@@ -51,26 +49,24 @@ void finalizar_proc(uint32_t pid){
 	borrar_memoria_proceso(pid);
 	free(proc_swap);
 	log_info(logger, "Proceso pid %d finalizado!", pid);
-//	esperar_response_cpu();
 }
 uint32_t get_tabla_2do_lvl(uint32_t id_tabla_1, uint32_t entrada){
 	log_info(logger, "Buscando tabla de 2do nivel para tabla %d y entrada %d", id_tabla_1, entrada);
-
 	uint32_t id_tabla_2 = obtener_id_tabla_2do(id_tabla_1, entrada);
 	log_info(logger, "Tabla de 2do nivel encontrada: %d!", id_tabla_2);
 	esperar_response_cpu();
 	return id_tabla_2;
 }
-uint32_t get_nro_marco(uint32_t id_tabla_1, uint32_t id_tabla_2, uint32_t entrada){
-	log_info(logger, "Buscando nro de marco para pid %d en tabla de 2nivel %d y entrada %d", id_tabla_2, entrada);
-	uint32_t marco = obtener_nro_marco(id_tabla_1, id_tabla_2, entrada);
+uint32_t get_nro_marco(uint32_t tabla, uint32_t id_tabla_2, uint32_t entrada){
+	log_info(logger, "Buscando nro de marco para tabla 1er nvl %d en tabla de 2nivel %d y entrada %d", tabla, id_tabla_2, entrada);
+	uint32_t marco = obtener_nro_marco(tabla, id_tabla_2, entrada);
 	log_info(logger, "Marco %d obtenido!", marco);
 	esperar_response_cpu();
 	return marco;
 }
 uint32_t leer_en_memoria(uint32_t id_2do_nivel, uint32_t id_entrada, uint32_t offset){
 	uint32_t* data = leer_de_memoria(offset, sizeof(uint32_t));
-	log_info(logger, "Leido de memoria: %d", data);
+	log_info(logger, "Leido de memoria: %d", *data);
 	marcar_pag_mod_uso(id_2do_nivel, id_entrada, 0);
 	uint32_t result = *data;
 	free(data);

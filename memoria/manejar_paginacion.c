@@ -66,14 +66,14 @@ entrada_tp_2* crear_pagina_2do_nivel(uint32_t index, uint32_t index_swap){
 	return pag;
 }
 
-uint32_t obtener_nro_marco(uint32_t id_tabla_1, uint32_t id_table, uint32_t entrada){
+uint32_t obtener_nro_marco(uint32_t tabla_1er, uint32_t id_table, uint32_t entrada){
 
 	pthread_mutex_lock(&mutex_pagina_2);
 	tabla_pagina* tabla2 = buscar_tabla_por_id(tablas_2do_nivel, id_table);
 	pthread_mutex_unlock(&mutex_pagina_2);
 	entrada_tp_2* entr = buscar_entrada_2(tabla2->entradas, entrada);
 	pthread_mutex_lock(&mutex_pagina_1);
-	tabla_pagina* tabla1 = buscar_tabla_por_id(tablas_1er_nivel, id_tabla_1);
+	tabla_pagina* tabla1 = buscar_tabla_por_id(tablas_1er_nivel, tabla_1er);
 	pthread_mutex_unlock(&mutex_pagina_1);
 	if(!entr->bit_presencia || entr->frame == -1){
 		cargar_pag_marco(tabla1, entr);
@@ -260,6 +260,7 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		log_info(logger, "Swapping a pag id %d", pag->id);
 		void* data_swap = leer_swap(swap, config->tam_pag, pag->pag_proc_interna * config->tam_pag);
 		escribir_en_memoria(pag->frame * config->tam_pag, data_swap, config->tam_pag);
+		free(data_swap);
 		pag->bit_presencia = 1;
 		pag->bit_uso = 1;
 		log_info(logger, "Swapping a pag id %d exitoso!", pag->id);
