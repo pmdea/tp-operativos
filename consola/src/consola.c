@@ -134,8 +134,10 @@ void enviar_paquete(int socket, FILE* archivo, int tam_proceso) {
 	char** instruccion_leida;
 	ID_INSTRUCCION *id = malloc(sizeof(ID_INSTRUCCION));
 	int *parametro = malloc(sizeof(int));
+	size_t len = 0;
 	fseek(archivo,0,SEEK_SET);
-	while (fgets(linea,14,archivo) != NULL) {
+	ssize_t read;
+	while ((read = getline(&linea, &len, archivo)) != -1) {
 		instruccion_leida = string_split(linea, " ");
 
 		*id = get_id(instruccion_leida[0]);
@@ -243,11 +245,13 @@ void print_mensaje_error(char* mensaje) {
 
 bool el_proceso_es_valido(FILE* instrucciones) {
 
-	char* linea = malloc(15);
+	char* linea = malloc(16);
 	char** instruccion_leida;
 	ID_INSTRUCCION id = EXIT;
+	size_t len = 0;
 	fseek(instrucciones,0,SEEK_SET);
-	while (fgets(linea,14,instrucciones) != NULL) {
+	ssize_t read;
+	while ((read = getline(&linea, &len, instrucciones)) != -1) {
 		cant_instrucciones++;
 		instruccion_leida = string_split(linea, " ");
 
