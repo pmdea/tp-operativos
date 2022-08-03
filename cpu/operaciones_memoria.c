@@ -45,9 +45,11 @@ void escribir(int valor, t_direccion_fisica direccion_fisica, uint32_t entrada_2
 
 	enviarMensaje(socket_memoria, buffer, tamanioBuffer);
 
-	log_info(loggerCpu, "ESPERANDO RECIBIR RESPUESTA DE MEMORIA");
+	log_info(loggerCpu, "ESPERANDO RECIBIR OK DE MEMORIA");
 
-	char* stream = deserializarString(socket_memoria);
+	char* stream = malloc(sizeof("OK"));
+
+	recv(socket_memoria, stream, sizeof("OK"), MSG_WAITALL);
 
 	if(string_equals_ignore_case(stream, "OK"))
 	{
@@ -55,9 +57,10 @@ void escribir(int valor, t_direccion_fisica direccion_fisica, uint32_t entrada_2
 	}
 	else
 	{
-		log_error(loggerCpu, "Error en escribir el valor en memoria.");
+		log_error(loggerCpu, "Error en escribir el valor en memoria. %s", stream);
 	}
 
+	free(stream);
 	free(buffer);
 }
 

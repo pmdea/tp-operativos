@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
 
 	inicializar_log_consola();
 
-	FILE* archivo_instrucciones = fopen("/home/utnso/workspace/tp-2022-1c-Los-Domadores-de-SO/consola/Debug/proceso.txt", "r");
+	FILE* archivo_instrucciones = fopen(argv[1], "r");
 	int tam_proceso = atoi(argv[2]);
 
 	t_config* consola_config = config_create(PATH_CONFIG);
