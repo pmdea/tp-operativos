@@ -33,8 +33,9 @@ int main(void)
 	inicializar_direccion_kernel(&direccion_kernel);
 
 	int kernel = socket(AF_INET, SOCK_STREAM, 0);
-	int activado = 1;
-	setsockopt(kernel, SOL_SOCKET, SO_REUSEADDR, &activado, sizeof(activado));
+	int enable = 1;
+	setsockopt(kernel, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
+	setsockopt(kernel, SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(int));
 
 	bindear_kernel(kernel, direccion_kernel);
 

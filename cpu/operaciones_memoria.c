@@ -47,9 +47,9 @@ void escribir(int valor, t_direccion_fisica direccion_fisica, uint32_t entrada_2
 
 	log_info(loggerCpu, "ESPERANDO RECIBIR OK DE MEMORIA");
 
-	char* stream = malloc(sizeof("OK"));
+	char* stream = malloc(sizeof(char)*2);
 
-	recv(socket_memoria, stream, sizeof("OK"), MSG_WAITALL);
+	recv(socket_memoria, stream, sizeof(char)*2, MSG_WAITALL);
 
 	if(string_equals_ignore_case(stream, "OK"))
 	{
@@ -208,7 +208,8 @@ int tlb_cache(int pag)
 
 			if(string_equals_ignore_case(config_cpu.reemplazo_tlb, "LRU"))
 			{
-				list_remove(tlb,j);
+				t_entrada_tlb* removido = list_remove(tlb,j);
+				free(removido);
 				list_add(tlb,entrada);
 			}
 
@@ -244,7 +245,6 @@ void agregar_a_TLB(int pagina, int marco)
 		reemplazo_tlb(entrada);
 		log_info(loggerCpu, "La entrada con página %i y marco %i ha sido agregada.", entrada->pagina, entrada->marco);
 	}
-	free(entrada);
 }
 
 //traduce direciones logicas en direcciones fisicas

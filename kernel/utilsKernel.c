@@ -14,6 +14,9 @@ int crear_conexion(char *ip, char* puerto)
 
 	// Ahora vamos a crear el socket.
 	int socket_cliente = socket(server_info->ai_family, server_info->ai_socktype,server_info->ai_protocol);
+	int enable = 1;
+	setsockopt(socket_cliente, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
+	setsockopt(socket_cliente, SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(int));
 	// Ahora que tenemos el socket, vamos a conectarlo
 	connect(socket_cliente, server_info->ai_addr, server_info->ai_addrlen);
 

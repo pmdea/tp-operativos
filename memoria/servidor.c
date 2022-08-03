@@ -13,6 +13,9 @@ int crear_conexion(char *ip, char* puerto)
 	hints.ai_flags = AI_PASSIVE;
 	getaddrinfo(ip, puerto, &hints, &servinfo);
 	int server = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+	int enable = 1;
+	setsockopt(server, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
+	setsockopt(server, SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(int));
 
 	bind(server, servinfo->ai_addr, servinfo->ai_addrlen);
 
@@ -133,7 +136,7 @@ void* escuchar_cpu(void* arg){
 			case WRITE:{
 				log_info(logger, "Recibido request de WRITE");
 				char* response = escribir_memoria(request->datos[0], request->datos[1], request->datos[2], &(request->datos[3]));
-				enviar_mensaje_cliente(cliente, response, sizeof(uint32_t));
+				enviar_mensaje_cliente(cliente, response, sizeof(char)*2);
 				free(request);
 			}
 			break;
