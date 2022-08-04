@@ -44,6 +44,7 @@ void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegres
 	log_debug(logger, "********Enviando PCB ID %i a KERNEL********", unPCB.id);
 }
 
+
 PCB* deserializarPCB(int socket_emisor){
 	PCB* unPCB = asignarMemoria(sizeof(PCB));
 	unPCB -> id = deserializarInt32(socket_emisor);
@@ -52,10 +53,9 @@ PCB* deserializarPCB(int socket_emisor){
 	unPCB -> tabla_paginas = deserializarInt32(socket_emisor);
 	unPCB -> estimacion_rafaga = deserializarDouble(socket_emisor);
 	unPCB -> instrucciones = list_create();
-	t_list* recibirInstrucciones = list_create();
-	recibirInstrucciones = deserializarListaInstruccionesK(socket_emisor);
+	t_list* recibirInstrucciones = deserializarListaInstruccionesK(socket_emisor);
 	list_add_all(unPCB -> instrucciones, recibirInstrucciones);
-	free(recibirInstrucciones);
+	list_destroy(recibirInstrucciones);
 	return unPCB;
 }
 

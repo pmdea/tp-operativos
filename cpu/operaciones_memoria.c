@@ -66,8 +66,7 @@ void escribir(int valor, t_direccion_fisica direccion_fisica, uint32_t entrada_2
 
 t_config_tabla obtener_direccion_logica(int direccion, t_direccion_logica* direccion_logica)
 {
-	t_config_tabla* config = malloc(sizeof(t_config_tabla));
-	config = obtener_tamanioPag_Entradas();
+	t_config_tabla* config = obtener_tamanioPag_Entradas();
 
 	int numero_pagina = floor(direccion / config->tamanio_pagina);
 	direccion_logica->entrada_tabla_1er_nivel = floor(numero_pagina / config->cantidad_entradas);
