@@ -225,14 +225,14 @@ t_proceso* deserializar_proceso(void* contenido,t_proceso* proceso, int tam_max)
 		memcpy(id,contenido + desp, sizeof(ID_INSTRUCCION));
 		desp += sizeof(ID_INSTRUCCION);
 
-		log_debug(loggerKernel,"ID: %i",*id);
+		//log_debug(loggerKernel,"ID: %i",*id);
 
 		for(int i = 0; i < cantidad_de_parametros(*id); i++) {
 
 			memcpy(parametro,contenido + desp, sizeof(int));
 			desp += sizeof(int);
 			queue_push(parametros,(void*) *parametro);
-			log_debug(loggerKernel,"PARAMETRO: %i",*parametro);
+			//log_debug(loggerKernel,"PARAMETRO: %i",*parametro);
 		}
 
 		instruccion->identificador = *id;

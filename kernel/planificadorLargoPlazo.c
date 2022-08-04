@@ -1,15 +1,6 @@
 #include "kernel.h"
 
-// REDISEÑO LARGO PLAZO
-void planificador_LargoPlazo(){
-
-    pthread_create(&estadoExitHilo, NULL, estadoExit, NULL);
-    pthread_create(&estadoReadyHilo, NULL, estadoReady, NULL);
-    pthread_join(estadoReadyHilo, NULL);
-    pthread_join(estadoExitHilo, NULL);
-}
-
-void estadoReady(){
+void gestionNewSuspended(){
 	int enNew, enSuspendedReady, enReady;
 	PCB* unProceso;
 	while(1){
@@ -40,7 +31,6 @@ void estadoReady(){
 
 					sem_post(&nuevoProcesoReady);
 					pthread_mutex_lock(&variableEjecutando);
-					log_warning(loggerKernel, "SIZE %i EJECUTANDO %i", enReady, ejecutando);
 					if(string_contains("SRT", config_kernel.algoritmo_planificacion) && (enReady >= 0 && ejecutando == 1)){
 					                sem_post(&enviarInterrupcion);
 					}
@@ -74,7 +64,7 @@ void estadoReady(){
 	}
 }
 
-void estadoExit(){
+void gestionExit(){
 	PCB* unProceso;
 	while(1){
 		sem_wait(&finalizoProceso); // Inicializa en 0 (Me avisa C)

@@ -34,12 +34,8 @@ t_list* procesosNew;
 t_list* procesosReady;
 t_list* procesosExecute;
 t_list* procesosBlocked;
-t_list* procesosSuspendedBlocked;
 t_list* procesosSuspendedReady;
 t_list* procesosExit;
-t_list* conexiones_pcb;
-t_list* tiemposBlocked;
-t_list* tiemposBlockedSuspendMax;
 t_list* conexiones_pcb;
 
 // SEMAFOROS
@@ -50,6 +46,7 @@ sem_t enviarInterrupcion;
 sem_t bloqueoMax; // Binario para saber cuando se bloqueo por mas tiempo del q tendria q estar
 sem_t procesoBloqueado; // hay un sem q es tiene nombre algo pero no me acuerdo para q era
 sem_t finalizoProceso; // Corto Plazo avisa a Largo Plazo FIN PROCESO
+sem_t hayProcesoAnalizar; // Consola - L - Exit - Bloqueos
 pthread_mutex_t mutexReady; // mutex cuando se agrega a ready o se lee
 pthread_mutex_t mutexExit; // cuando se saca o agrega un proceso a exit mutex
 pthread_mutex_t mutexBloqueo; // Adm bloqueos con SRT
@@ -59,18 +56,12 @@ pthread_mutex_t mutexNew;
 pthread_mutex_t variableEjecutando; // Mutex para la variable compartida de SRT
 
 // HILOS (L - M - C)
-pthread_t planificadorCortoPlazoHilo;
-pthread_t planificadorMedianoPlazoHilo;
-pthread_t planificadorLargoPlazoHilo;
-
 pthread_t estadoReadyHilo; // L
 pthread_t estadoExitHilo; // L
 
-pthread_t administradorBloqueosHilo; // C
-pthread_t ejecucionAlgoritmoHilo; // C
-pthread_t administradorInterrupcionCPUHilo; // C
-pthread_t ejecucionProcesoSRTHilo; // C
-sem_t hayProcesoAnalizar; // Consola - L - Exit - Bloqueos
+pthread_t gestionBloqueoHilo; // C
+pthread_t algoritmoHilo; // C
+pthread_t desalojoSRTHilo; // C
 
 
 
@@ -168,16 +159,12 @@ void iniciar_planificadores();
 void conectar_a_memoria(int socket);
 
 //PLANIFICADORES
-void planificador_CortoPlazo();
-void planificador_MedianoPlazo();
-void planificador_LargoPlazo();
-void estadoReady(); // L
-void estadoExit(); // L
-void administrar_bloqueos(); // C
+void gestionNewSuspended(); // L
+void gestionExit(); // L
+void gestionBloqueo_Suspension(); // C
 void algoritmo_FIFO(); // C
 void algoritmo_SRT();
 void administradorInterrupcionCPU(); // C SRT
-void ejecucionProcesoSRT(); // C SRT
 void avisar_a_cpu_interrupt();
 void avisar_a_consola(PCB* pcbFinalizado);
 int devolverID_PCB(int socket);
