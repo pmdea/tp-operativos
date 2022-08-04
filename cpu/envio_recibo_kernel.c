@@ -55,6 +55,7 @@ PCB* deserializarPCB(int socket_emisor){
 	t_list* recibirInstrucciones = list_create();
 	recibirInstrucciones = deserializarListaInstruccionesK(socket_emisor);
 	list_add_all(unPCB -> instrucciones, recibirInstrucciones);
+	free(recibirInstrucciones);
 	return unPCB;
 }
 
