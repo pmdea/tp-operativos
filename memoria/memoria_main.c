@@ -14,7 +14,7 @@ int main(int argc, char **argv){
 		return 1;
 	}
 
-	while(escuchar_server());
+	escuchar_server();
 
 	finalizar_programa();
 	return 0;
