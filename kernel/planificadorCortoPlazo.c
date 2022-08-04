@@ -1,28 +1,6 @@
 #include "kernel.h"
 
-void planificador_CortoPlazo(){
-    char* algoritmo = config_kernel.algoritmo_planificacion;
-    pthread_create(&administradorBloqueosHilo, NULL, administrar_bloqueos, NULL);
-    // int ciclosTotales=0; NO SE SI VA
-
-
-    if(string_contains("FIFO", algoritmo)){
-    	log_info(loggerKernel, "INICIANDO ALGORITMO FIFO");
-    	pthread_create(&ejecucionAlgoritmoHilo, NULL, algoritmo_FIFO, NULL);
-        //algoritmo_FIFO();
-    }else{
-    	log_info(loggerKernel, "INICIANDO ALGORITMO SRT");
-    	pthread_create(&ejecucionAlgoritmoHilo, NULL, algoritmo_SRT, NULL);
-        //algoritmo_SRT();
-    }
-
-
-    pthread_join(administradorBloqueosHilo, NULL);
-    pthread_join(ejecucionAlgoritmoHilo, NULL);
-}
-
-
-void administrar_bloqueos(){
+void gestionBloqueo_Suspension(){
 	blockedPCB* datosPCB;
 	blockedPCB* datosAuxiliar;
 	PCB* unProceso;

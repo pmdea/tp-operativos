@@ -28,7 +28,6 @@ void generarEstructuraPCB(int idPCB, t_proceso* proceso){
 }
 
 bool ordenarSRT(PCB* unPCB, PCB* otroPCB){
-	log_error(loggerKernel, "PCB ID %i RAFAGA %f <= PCB ID %i RAFAGA %f", unPCB -> id, unPCB -> estimacion_rafaga, otroPCB -> id, otroPCB -> estimacion_rafaga );
     return unPCB->estimacion_rafaga < otroPCB->estimacion_rafaga;
 }
 

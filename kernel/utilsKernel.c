@@ -53,9 +53,6 @@ void iniciar_listas(){
 	procesosReady = list_create();
 	procesosExecute = list_create();
 	procesosBlocked = list_create();
-	tiemposBlocked = list_create();
-	tiemposBlockedSuspendMax = list_create();
-	procesosSuspendedBlocked = list_create();
 	procesosSuspendedReady = list_create();
 	procesosExit = list_create();
 	conexiones_pcb = list_create();
@@ -70,7 +67,8 @@ void iniciar_semaforos(){
 	pthread_mutex_init(&mutexSuspendido, NULL);
 	pthread_mutex_init(&variableEjecutando, NULL);
 	sem_init(&grado_multiprogramacion, 0, config_kernel.grado_multiprogramacion);
-    sem_init(&prioridad_SuspendedReady, 0, 0);
+    sem_init(&hayProcesoAnalizar, 0, 0);
+	sem_init(&prioridad_SuspendedReady, 0, 0);
     sem_init(&enviarInterrupcion, 0, 0);
     sem_init(&finalizoProceso, 0, 0);
     sem_init(&nuevoProcesoReady, 0, 0);
@@ -79,15 +77,29 @@ void iniciar_semaforos(){
 }
 
 void iniciar_planificadores(){
-	sleep(2);
-	pthread_create(&planificadorCortoPlazoHilo, NULL, (void*) planificador_CortoPlazo, NULL);
-	pthread_create(&planificadorMedianoPlazoHilo, NULL, (void*) planificador_MedianoPlazo, NULL);
-	pthread_create(&planificadorLargoPlazoHilo, NULL, (void*) planificador_LargoPlazo, NULL);
-	pthread_detach(planificadorCortoPlazoHilo);
-	sleep(1);
-	pthread_detach(planificadorMedianoPlazoHilo);
-	sleep(1);
-	pthread_detach(planificadorLargoPlazoHilo);
+	pthread_create(&gestionBloqueoHilo, NULL, (void*) gestionBloqueo_Suspension, NULL);
+    pthread_create(&estadoExitHilo, NULL, gestionExit, NULL);
+    pthread_create(&estadoReadyHilo, NULL, gestionNewSuspended, NULL);
+
+
+    if(string_contains("FIFO", config_kernel.algoritmo_planificacion)){
+    	log_info(loggerKernel, "INICIANDO ALGORITMO FIFO");
+    	pthread_create(&algoritmoHilo, NULL, algoritmo_FIFO, NULL);
+    }else{
+    	log_info(loggerKernel, "INICIANDO ALGORITMO SRT");
+    	pthread_create(&algoritmoHilo, NULL, algoritmo_SRT, NULL);
+    	pthread_create(&desalojoSRTHilo, NULL, administradorInterrupcionCPU, NULL);
+    }
+
+    if(string_contains("SRT", config_kernel.algoritmo_planificacion)){
+    	pthread_detach(desalojoSRTHilo);
+    }
+
+	pthread_detach(gestionBloqueoHilo);
+	pthread_detach(algoritmoHilo);
+
+    pthread_detach(estadoReadyHilo);
+    pthread_detach(estadoExitHilo);
 }
 
 void avisar_a_consola(PCB* pcbFinalizado){

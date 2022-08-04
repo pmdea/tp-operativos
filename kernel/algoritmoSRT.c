@@ -1,13 +1,6 @@
 #include "kernel.h"
 
 void algoritmo_SRT(){
-    pthread_create(&ejecucionProcesoSRTHilo, NULL, ejecucionProcesoSRT, NULL);
-    pthread_create(&administradorInterrupcionCPUHilo, NULL, administradorInterrupcionCPU, NULL);
-    pthread_join(ejecucionProcesoSRTHilo, NULL);
-    pthread_join(administradorInterrupcionCPUHilo, NULL);
-}
-
-void ejecucionProcesoSRT(){
 	PCB* unProceso;
 	uint32_t motivoDeRegreso;
 	uint32_t tiempoDeBloqueo;
@@ -16,11 +9,6 @@ void ejecucionProcesoSRT(){
 	ejecutando = 0;
 	while(1){
 		sem_wait(&nuevoProcesoReady);
-		/*
-		if(ejecutando == 1){
-			log_error(loggerKernel, "ENVIANDO INTERRUPCION");
-			sem_post(&enviarInterrupcion);
-		}*/
 
 		pthread_mutex_lock(&mutexReady);
 		if(list_size(procesosReady) > 1){
@@ -50,7 +38,6 @@ void ejecucionProcesoSRT(){
 				datosPCB -> tiempo = tiempoDeBloqueo;
 				datosPCB -> aux = 0;
 				datosPCB -> suspendido = 0;
-				log_error(loggerKernel, "RAFAGA NUEVA %f, ID %i", unProceso -> estimacion_rafaga, unProceso -> id);
 
 				pthread_mutex_lock(&mutexBloqueo);
 				list_add(procesosBlocked, datosPCB);
@@ -64,9 +51,6 @@ void ejecucionProcesoSRT(){
 				break;
 
 			case DESALOJO_PCB:
-				//rafagaEjecutada = list_get(respuestaDeCPU, 2);
-				//estimador(unProceso, config_kernel.alfa, rafagaEjecutada);
-				log_warning(loggerKernel, "RAFAGA NUEVA %f, ID %i", unProceso -> estimacion_rafaga, unProceso -> id);
 				pthread_mutex_lock(&mutexReady);
 				list_add(procesosReady, unProceso);
 				pthread_mutex_unlock(&mutexReady);
@@ -86,7 +70,6 @@ void ejecucionProcesoSRT(){
 				break;
 		}
 
-		//avisar_a_cpu_interrupt();
 	}
 }
 
