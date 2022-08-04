@@ -36,31 +36,32 @@ uint8_t ini_servidor(){
 }
 
 int escuchar_server(){
-	int cliente = esperar_cliente();
-	if(cliente == -1){
-		return 0;
+	pthread_t thread_k, thread_c;
+	for(int i=0; i<2; i++){
+		int cliente = esperar_cliente();
+		if(cliente == -1){
+			return 0;
+		}
+		id_mod modulo; // codigo para distinguir si es cpu o kernel
+		if(recv(cliente, &modulo, sizeof(modulo), 0) != sizeof(modulo)){
+			return 0;
+		}
+		args_thread* args = malloc(sizeof(args_thread));
+		args->socket_cliente = cliente;
+		switch(modulo){
+			case KERNEL:
+				log_info(logger, "Recibido mensaje de KERNEL, create y detach thread correspondiente");
+				pthread_create(&thread_k, NULL, (void*) escuchar_kernel, (void*) args);
+			break;
+			case CPU:
+				log_info(logger, "Recibido mensaje de CPU, create y detach thread correspondiente");
+				pthread_create(&thread_c, NULL, (void*) escuchar_cpu, (void*) args);
+			break;
+		}
 	}
-	pthread_t thread;
-	id_mod modulo; // codigo para distinguir si es cpu o kernel
-	if(recv(cliente, &modulo, sizeof(modulo), 0) != sizeof(modulo)){
-		return 0;
-	}
-	args_thread* args = malloc(sizeof(args_thread));
-	args->socket_cliente = cliente;
-	switch(modulo){
-		case KERNEL:
-			log_info(logger, "Recibido mensaje de KERNEL, create y detach thread correspondiente");
-			pthread_create(&thread, NULL, (void*) escuchar_kernel, (void*) args);
-			pthread_detach(thread);
-			return 1;
-		break;
-		case CPU:
-			log_info(logger, "Recibido mensaje de CPU, create y detach thread correspondiente");
-			pthread_create(&thread, NULL, (void*) escuchar_cpu, (void*) args);
-			pthread_detach(thread);
-			return 1;
-		break;
-	}
+	pthread_join(thread_c, NULL);
+	pthread_join(thread_k, NULL);
+
 	return 1;
 }
 
@@ -80,7 +81,9 @@ void* escuchar_kernel(void* arg){
 	free(args);
 	while (cliente != -1) {
 		message_kernel* request = parsear_message_kernel(cliente);
-		uint32_t response = 1;
+		if(request == NULL){
+			break;
+		}
 		switch(request->estado){
 			case 0: //Inicializar proceso
 				log_info(logger, "Inicializando proceso con pcb id %d y size %d...", request->id_pcb, request->tamanio_pcb);
@@ -101,7 +104,7 @@ void* escuchar_kernel(void* arg){
 
 		}
 	}
-	log_warning(logger, "El cliente se desconecto de memoria");
+	log_warning(logger, "El kernel se desconecto de memoria");
 	return EXIT_SUCCESS;
 }
 void* escuchar_cpu(void* arg){
@@ -111,6 +114,9 @@ void* escuchar_cpu(void* arg){
 	free(args);
 	while (cliente != -1) {
 		message_cpu* request = parsear_message_cpu(cliente);
+		if(request == NULL){
+			break;
+		}
 		switch(request->operacion){
 			case HANDSHAKE:{
 				log_info(logger, "Realizando handshake con CPU");
@@ -162,7 +168,7 @@ void* escuchar_cpu(void* arg){
 		}
 
 	}
-	log_warning(logger, "El cliente se desconecto de memoria");
+	log_warning(logger, "La CPU se desconecto de memoria");
 	return EXIT_SUCCESS;
 }
 
@@ -173,7 +179,11 @@ int enviar_mensaje_cliente(int cliente, void* data, int size){
 message_kernel* parsear_message_kernel(int cliente){
 	message_kernel* request = malloc(sizeof(message_kernel));
     void* stream = malloc(100);
-    recv(cliente, stream, 100, 0);
+    if(recv(cliente, stream, 100, 0) < 1){
+    	free(stream);
+    	free(request);
+    	return NULL;
+    }
     //Copio estado del stream al struct
     memcpy(&(request->estado), stream, sizeof(uint32_t));
     //Copio estado del stream al struct
@@ -186,12 +196,21 @@ message_kernel* parsear_message_kernel(int cliente){
 message_cpu* parsear_message_cpu(int cliente){
 	message_cpu* request = malloc(sizeof(message_cpu));
 	int size = sizeof(uint32_t);
-    recv(cliente, &(request->operacion), size, 0);
-    recv(cliente, &(request->size_data), size, 0);
+	if(recv(cliente, &(request->operacion), size, 0) <1){
+		free(request);
+		return NULL;
+	}
+	if(recv(cliente, &(request->size_data), size, 0) < 1){
+		free(request);
+		return NULL;
+	}
     int cantidad_datos = request->size_data/size;
     for(int i = 0; i < cantidad_datos; i++){
     	uint32_t dato;
-    	recv(cliente, &dato, size, 0);
+    	if(recv(cliente, &dato, size, 0) <1){
+    		free(request);
+    		return NULL;
+    	}
     	request->datos[i] = dato;
     }
 	return request;
