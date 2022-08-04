@@ -18,6 +18,7 @@ void agregarEstadoNew(PCB* unPCB ){
 	pthread_mutex_lock(&mutexNew);
 	list_add(procesosNew, unPCB);
 	pthread_mutex_unlock(&mutexNew);
+	sem_post(&hayProcesoAnalizar);
 }
 
 void generarEstructuraPCB(int idPCB, t_proceso* proceso){

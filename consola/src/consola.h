@@ -48,5 +48,5 @@ typedef struct {
 #define CLAVE_IP "IP_KERNEL"
 #define CLAVE_PUERTO "PUERTO_KERNEL"
 #define MENSAJE_HANDSHAKE_ENVIADO 9992751
-#define PATH_CONFIG "/home/pmdea/Documents/Facultad/sysops/tpso/tp-2022-1c-Los-Domadores-de-SO/consola/src/consola.config"
+#define PATH_CONFIG "/home/utnso/Documentos/tp-2022-1c-Los-Domadores-de-SO/consola/src/consola.config"
 #endif /* SRC_CONSOLA_H_ */

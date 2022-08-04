@@ -70,6 +70,7 @@ pthread_t administradorBloqueosHilo; // C
 pthread_t ejecucionAlgoritmoHilo; // C
 pthread_t administradorInterrupcionCPUHilo; // C
 pthread_t ejecucionProcesoSRTHilo; // C
+sem_t hayProcesoAnalizar; // Consola - L - Exit - Bloqueos
 
 
 
