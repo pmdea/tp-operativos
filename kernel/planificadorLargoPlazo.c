@@ -13,6 +13,7 @@ void estadoReady(){
 	int enNew, enSuspendedReady, enReady;
 	PCB* unProceso;
 	while(1){
+		sem_wait(&hayProcesoAnalizar);
 		pthread_mutex_lock(&mutexSuspendido);
 		enSuspendedReady = list_size(procesosSuspendedReady);
 		pthread_mutex_unlock(&mutexSuspendido);
@@ -88,5 +89,6 @@ void estadoExit(){
 		log_info(loggerKernel, "PROCESO ID %i FINALIZO - AVISANDO A CONSOLA", unProceso -> id);
 		avisar_a_consola(unProceso);
 		sem_post(&grado_multiprogramacion);
+		sem_post(&hayProcesoAnalizar);
 	}
 }

@@ -47,9 +47,11 @@ void escribir(int valor, t_direccion_fisica direccion_fisica, uint32_t entrada_2
 
 	log_info(loggerCpu, "ESPERANDO RECIBIR OK DE MEMORIA");
 
-	char* stream = malloc(sizeof(char)*2);
+	//char* stream = malloc(sizeof(char)*2);
 
-	recv(socket_memoria, stream, sizeof(char)*2, MSG_WAITALL);
+//	recv(socket_memoria, stream, sizeof(char)*2, MSG_WAITALL);
+
+	char* stream = deserializarString(socket_memoria);
 
 	if(string_equals_ignore_case(stream, "OK"))
 	{

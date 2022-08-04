@@ -44,6 +44,7 @@ void administrar_bloqueos(){
 				avisar_a_memoria(SUSPENDE, *datosPCB -> unPCB ,loggerKernel);
 				uint32_t retorno = deserializarInt32(socket_memoria);
 				sem_post(&grado_multiprogramacion);
+				sem_post(&hayProcesoAnalizar);
 				datosPCB -> suspendido = 1;
 			}
 
@@ -66,6 +67,7 @@ void administrar_bloqueos(){
 							avisar_a_memoria(SUSPENDE, *datosAuxiliar -> unPCB ,loggerKernel);
 							uint32_t retorno = deserializarInt32(socket_memoria);
 							sem_post(&grado_multiprogramacion);
+							sem_post(&hayProcesoAnalizar);
 							datosAuxiliar -> aux = -1;
 							datosAuxiliar -> suspendido = 1;
 						}
@@ -83,6 +85,7 @@ void administrar_bloqueos(){
 		        pthread_mutex_lock(&mutexSuspendido);
 		        list_add(procesosSuspendedReady,unProceso);
 		        pthread_mutex_unlock(&mutexSuspendido);
+		        sem_post(&hayProcesoAnalizar);
 				break;
 			case 0:
 				pthread_mutex_lock(&mutexReady);

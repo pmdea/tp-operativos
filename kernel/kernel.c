@@ -43,9 +43,7 @@ int main(void)
 
 	iniciar_planificadores();
 
-	while(1) {
-		procesar_entradas_de_consolas(kernel);
-	}
+	procesar_entradas_de_consolas(kernel);
 
 	return 0;
 

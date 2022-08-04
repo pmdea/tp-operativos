@@ -54,9 +54,9 @@ double deserializarDouble(int emisor){
 
 
 uint32_t deserializarInt32(int emisor){
-	uint32_t* mensaje = malloc(sizeof(uint32_t));
-	recibirMensaje(emisor, mensaje, sizeof(uint32_t));
-	return *mensaje;
+	uint32_t mensaje;
+	recibirMensaje(emisor, &mensaje, sizeof(uint32_t));
+	return mensaje;
 }
 
 char* deserializarString(int emisor){
