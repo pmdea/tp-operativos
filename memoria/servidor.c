@@ -142,7 +142,7 @@ void* escuchar_cpu(void* arg){
 			case WRITE:{
 				log_info(logger, "Recibido request de WRITE");
 				char* response = escribir_memoria(request->datos[0], request->datos[1], request->datos[2], &(request->datos[3]));
-				enviar_mensaje_cliente(cliente, response, sizeof(char)*2);
+				enviar_mensaje_cliente(cliente, response, sizeof(char)*3);
 				free(request);
 			}
 			break;

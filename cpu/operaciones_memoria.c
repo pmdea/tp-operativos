@@ -47,9 +47,9 @@ void escribir(int valor, t_direccion_fisica direccion_fisica, uint32_t entrada_2
 
 	log_info(loggerCpu, "ESPERANDO RECIBIR OK DE MEMORIA");
 
-	char* stream = malloc(sizeof(char)*2);
+	char* stream = malloc(sizeof(char)*3);
 
-	recv(socket_memoria, stream, sizeof(char)*2, MSG_WAITALL);
+	recv(socket_memoria, stream, sizeof(char)*3, MSG_WAITALL);
 
 	if(string_equals_ignore_case(stream, "OK"))
 	{
@@ -196,7 +196,7 @@ int esta_en_tlb(int pag)
 int tlb_cache(int pag)
 {
 	int marco = 0;
-	t_entrada_tlb* entrada = malloc(sizeof(t_entrada_tlb));
+	t_entrada_tlb* entrada;
 
 	for(int j=0;j<list_size(tlb);j++)
 	{
@@ -208,16 +208,14 @@ int tlb_cache(int pag)
 
 			if(string_equals_ignore_case(config_cpu.reemplazo_tlb, "LRU"))
 			{
-				t_entrada_tlb* removido = list_remove(tlb,j);
-				free(removido);
-				list_add(tlb,entrada);
+				list_remove(tlb,j);
+				list_add(tlb, entrada);
 			}
 
 		j=list_size(tlb);
 		}
 	}
 	log_info(loggerCpu, "Se ha encontardo en la TLB el marco %i correpondiente a la página %i.", marco, pag);
-	free(entrada);
 	return marco;
 }
 
