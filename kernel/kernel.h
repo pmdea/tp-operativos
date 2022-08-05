@@ -156,6 +156,7 @@ void iniciar_listas();
 void iniciar_semaforos();
 void iniciar_planificadores();
 void conectar_a_memoria(int socket);
+void pcb_destroyer(PCB* pcb);
 
 //PLANIFICADORES
 void gestionNewSuspended(); // L

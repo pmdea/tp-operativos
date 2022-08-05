@@ -19,6 +19,7 @@ void algoritmo_FIFO(){
 		unProceso = list_remove(procesosReady, 0);
 		pthread_mutex_unlock(&mutexReady);
 		enviarPCB(socket_dispatch, *unProceso, loggerKernel);
+		pcb_destroyer(unProceso);
 		respuestaDeCPU = recibirRespuestaCPU(socket_dispatch);
 
 		unProceso = list_get(respuestaDeCPU, 0);
@@ -44,6 +45,7 @@ void algoritmo_FIFO(){
 			case EXIT_PCB:
 				avisar_a_planificador_LP(unProceso);
 		}
+		list_destroy(respuestaDeCPU);
 	}
 }
 

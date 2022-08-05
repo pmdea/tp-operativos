@@ -18,7 +18,7 @@ void algoritmo_SRT(){
 		unProceso = list_remove(procesosReady, 0);
 		pthread_mutex_unlock(&mutexReady);
 		enviarPCB(socket_dispatch, *unProceso, loggerKernel);
-
+		pcb_destroyer(unProceso);
 		pthread_mutex_lock(&variableEjecutando);
 		ejecutando = 1;
 		pthread_mutex_unlock(&variableEjecutando);
@@ -69,7 +69,7 @@ void algoritmo_SRT(){
 				pthread_mutex_unlock(&variableEjecutando);
 				break;
 		}
-
+		list_destroy(respuestaDeCPU);
 	}
 }
 

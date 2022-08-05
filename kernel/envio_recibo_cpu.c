@@ -1,5 +1,16 @@
 #include "kernel.h"
 
+void pcb_destroyer(PCB* pcb){
+    void instruccion_destroy(t_instruccion* self){
+        queue_destroy(self->parametros);
+        free(self);
+    }
+    list_destroy_and_destroy_elements(pcb->instrucciones, (void*)instruccion_destroy);
+    free(pcb);
+    //log_info(loggerKernel, "PCB destruido!");
+}
+
+
 void avisar_a_cpu_interrupt(){
 	int tamanioBuffer = sizeof(uint32_t);
 	void* buffer = asignarMemoria(tamanioBuffer);
@@ -59,10 +70,7 @@ PCB* deserializarPCB(int socket_emisor){
 	unPCB -> program_counter = deserializarInt32(socket_emisor);
 	unPCB -> tabla_paginas = deserializarInt32(socket_emisor);
 	unPCB -> estimacion_rafaga = deserializarDouble(socket_emisor);
-	unPCB -> instrucciones = list_create();
-	t_list* recibirInstrucciones = list_create();
-	recibirInstrucciones = deserializarListaInstruccionesK(socket_emisor);
-	list_add_all(unPCB -> instrucciones, recibirInstrucciones);
+	unPCB -> instrucciones = deserializarListaInstruccionesK(socket_emisor);
 	return unPCB;
 }
 
@@ -86,7 +94,7 @@ t_list* deserializarListaInstruccionesK(int emisor){
 	uint32_t tamanioLista = deserializarInt32(emisor);
 	t_list* lista = list_create();
 	for(int k = 0; k < tamanioLista; k++){
-		t_instruccion* instruccion = asignarMemoria(sizeof(instruccion));
+		t_instruccion* instruccion = asignarMemoria(sizeof(t_instruccion));
 		instruccion -> identificador = deserializarInt32(emisor);
 		instruccion -> parametros = queue_create();
 		int param = cantidad_de_parametros(instruccion -> identificador);
