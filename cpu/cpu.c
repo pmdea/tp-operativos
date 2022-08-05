@@ -99,6 +99,7 @@ void finalizar_programa(){
 	// Logs y Config
 	log_info(loggerCpu, "Finalizando CPU");
 	log_destroy(loggerCpu);
+	config_destroy(configCpu);
 	pthread_mutex_destroy(&variableCompartida);
 	void tlb_destroyer(t_entrada_tlb* self){
 		free(self);
