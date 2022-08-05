@@ -158,4 +158,4 @@ int crear_conexion(char *ip, char* puerto);
 
 // LOG_CONFIGCPU.C
 t_log* iniciar_logger_cpu(void);
-t_config* iniciar_config_cpu(void);
+t_config* iniciar_config_cpu(char* path_config);
