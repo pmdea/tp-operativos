@@ -15,6 +15,7 @@ void enviar_confirmacion(int consola);
 void mostrar_envio(void* envio, int tam);
 void mostrar_proceso(t_proceso* proceso);
 void mostrar_instruccion(t_instruccion* instruccion);
+void proceso_destroyer(t_proceso* proceso);
 
 int main(int argc, char **argv)
 {
@@ -147,6 +148,7 @@ void procesar_entradas_de_consolas(int kernel) {
 
         log_info(loggerKernel, "Esperando nueva conexion...\n");
         id_ultimo_pcb++;
+        free(consola);
     }
 
 }
@@ -165,7 +167,7 @@ void atender_consola(int consola) {
 		if (!se_pudo_recibir_el_proceso(consola,proceso)) {
 			log_error(loggerKernel,"No se pudo recibir el proceso :C");
 		} else {
-			mostrar_proceso(proceso);
+			//mostrar_proceso(proceso);
 			log_debug(loggerKernel,"Generando PCB...");
 			int idPCB = devolverID_PCB(consola);
 			generarEstructuraPCB(idPCB, proceso);
@@ -175,8 +177,13 @@ void atender_consola(int consola) {
 		op_code cod = ERROR;
 		send(consola,&cod,sizeof(op_code),0);
 	}
+	proceso_destroyer(proceso);
 }
 
+void proceso_destroyer(t_proceso* proceso){
+    queue_destroy(proceso -> instrucciones);
+	free(proceso);
+}
 
 bool se_pudo_recibir_el_proceso(int consola, t_proceso* proceso) {
 

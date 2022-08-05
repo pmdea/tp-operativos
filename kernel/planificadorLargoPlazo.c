@@ -78,6 +78,7 @@ void gestionExit(){
 
 		log_info(loggerKernel, "PROCESO ID %i FINALIZO - AVISANDO A CONSOLA", unProceso -> id);
 		avisar_a_consola(unProceso);
+		pcb_destroyer(unProceso);
 		sem_post(&grado_multiprogramacion);
 		sem_post(&hayProcesoAnalizar);
 	}

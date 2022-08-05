@@ -78,6 +78,7 @@ void gestionBloqueo_Suspension(){
 				pthread_mutex_unlock(&variableEjecutando);
 				break;
 		}
+		free(datosPCB);
 	}
 }
 
