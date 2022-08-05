@@ -114,7 +114,7 @@ void decode(t_instruccion* instruccion, PCB* unPCB);
 void execute(t_instruccion* instruccion, PCB* proceso, int socketA);
 void checkInterrupt(PCB* proceso, int socketA);
 int fetchOperands(t_direccion_logica* direccion_logica, PCB unPcb, t_config_tabla config);
-
+void pcb_destroyer(PCB* pcb);
 //ENVIO_RECIBO_KERNEL.C
 void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegreso, uint32_t rafagaEjecutada, uint32_t tiempoBloqueo, t_log* logger);
 PCB* deserializarPCB(int socket_emisor);

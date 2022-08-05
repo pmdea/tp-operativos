@@ -52,10 +52,7 @@ PCB* deserializarPCB(int socket_emisor){
 	unPCB -> program_counter = deserializarInt32(socket_emisor);
 	unPCB -> tabla_paginas = deserializarInt32(socket_emisor);
 	unPCB -> estimacion_rafaga = deserializarDouble(socket_emisor);
-	unPCB -> instrucciones = list_create();
-	t_list* recibirInstrucciones = deserializarListaInstruccionesK(socket_emisor);
-	list_add_all(unPCB -> instrucciones, recibirInstrucciones);
-	list_destroy(recibirInstrucciones);
+	unPCB -> instrucciones = deserializarListaInstruccionesK(socket_emisor);
 	return unPCB;
 }
 
@@ -63,7 +60,7 @@ t_list* deserializarListaInstruccionesK(int emisor){
 	uint32_t tamanioLista = deserializarInt32(emisor);
 	t_list* lista = list_create();
 	for(int k = 0; k < tamanioLista; k++){
-		t_instruccion* instruccion = asignarMemoria(sizeof(instruccion));
+		t_instruccion* instruccion = asignarMemoria(sizeof(t_instruccion));
 		instruccion -> identificador = deserializarInt32(emisor);
 		instruccion -> parametros = queue_create();
 		int param = cantidad_de_parametros(instruccion -> identificador);
@@ -88,7 +85,7 @@ uint32_t tamanioParametros(t_list* lista){
 	uint32_t tamanio = sizeof(uint32_t);
 	for(int i = 0; i<cantidadInstrucciones; i++){
 		t_instruccion* instruccion = list_get(lista, i);
-		tamanio += (list_size(instruccion -> parametros -> elements) * sizeof(uint32_t));
+		tamanio += (queue_size(instruccion -> parametros) * sizeof(uint32_t));
 	}
 	return tamanio;
 }

@@ -33,9 +33,6 @@ void* asignarMemoria(int cantidad){
 
 int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos){
 	int bytesRecibidos = recv(socketEmisor, buffer, bytesMaximos, MSG_WAITALL);
-	if(bytesRecibidos == 8){
-		printf("");
-	}
 	if(bytesRecibidos<=0){
 	// error o conexión cerrada por el cliente
 	if (bytesRecibidos == 0) {

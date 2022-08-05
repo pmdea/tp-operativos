@@ -18,6 +18,9 @@ int main(void)
 	pthread_create(&hiloInterrupt, NULL, interrupt, cpu_interrupt);
 	pthread_join(hiloDispatch, NULL);
 	pthread_join(hiloInterrupt, NULL);
+
+	close(cpu_dispatch);
+	close(cpu_interrupt);
 }
 
 void dispatch(int escuchaDispatch){
@@ -41,6 +44,7 @@ void dispatch(int escuchaDispatch){
 			        pthread_mutex_lock(&variableCompartida);
 			        interrupcionKernel = 0;
 			        pthread_mutex_unlock(&variableCompartida);
+			        pcb_destroyer(unPCB);
 					break;
 				case IO:
 			        pthread_mutex_lock(&variableCompartida);
@@ -64,4 +68,27 @@ void interrupt(int escuchaInterrupt){
 		interrupcionKernel = valor;
 		pthread_mutex_unlock(&variableCompartida);
 	}
+}
+
+void pcb_destroyer(PCB* pcb){
+	void instruccion_destroy(t_instruccion* self){
+		queue_destroy(self->parametros);
+		free(self);
+	}
+	list_destroy_and_destroy_elements(pcb->instrucciones, (void*)instruccion_destroy);
+	free(pcb);
+	log_info(loggerCpu, "PCB destruido!");
+}
+
+void finalizar_programa(){
+	// Logs y Config
+	log_info(loggerCpu, "Finalizando CPU");
+	log_destroy(loggerCpu);
+	pthread_mutex_destroy(&variableCompartida);
+	void tlb_destroyer(t_entrada_tlb* self){
+		free(self);
+	}
+	list_clean_and_destroy_elements(tlb, (void*)tlb_destroyer);
+	list_destroy(tlb);
+	close(socket_memoria);
 }
