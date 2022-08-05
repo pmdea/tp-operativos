@@ -1759,3 +1759,24 @@
 [DEBUG] 02:38:47:043 CONSOLA/(8027:8027): PARAMETRO: 1
 [DEBUG] 02:38:47:043 CONSOLA/(8027:8027): ID: 5
 [INFO] 02:38:47:086 CONSOLA/(8027:8027): El proceso llegó bien :D
+[INFO] 20:59:22:846 CONSOLA/(2508:2508): 	  _   _   _   _   _   _   _     _   _   _   _   _   _   _   _  
+[INFO] 20:59:22:852 CONSOLA/(2508:2508): 	 / \ / \ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \ / \ / \ 
+[INFO] 20:59:22:853 CONSOLA/(2508:2508): 	( C | O | N | S | O | L | A ) ( I | N | I | C | I | A | D | A )
+[INFO] 20:59:22:853 CONSOLA/(2508:2508): 	 \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+[INFO] 20:59:32:452 CONSOLA/(2508:2508): El archivo en la ruta "/home/utnso/Documentos/tp-2022-1c-Los-Domadores-de-SO/pruebas/SUSPE_1" fue abierto correctamente
+[DEBUG] 20:59:40:800 CONSOLA/(2508:2508): Creando conexion con kernel
+[INFO] 21:00:09:500 CONSOLA/(2508:2508): Conexion creada: 5
+[DEBUG] 21:00:58:948 CONSOLA/(2508:2508): 36
+[DEBUG] 21:01:13:188 CONSOLA/(2508:2508): 15
+[DEBUG] 21:02:08:094 CONSOLA/(2508:2508): ID: 0
+[DEBUG] 21:02:08:094 CONSOLA/(2508:2508): ID: 0
+[DEBUG] 21:02:08:094 CONSOLA/(2508:2508): ID: 0
+[DEBUG] 21:02:08:094 CONSOLA/(2508:2508): ID: 1
+[DEBUG] 21:02:08:094 CONSOLA/(2508:2508): PARAMETRO: 13000
+[DEBUG] 21:02:08:094 CONSOLA/(2508:2508): ID: 0
+[DEBUG] 21:02:08:095 CONSOLA/(2508:2508): ID: 0
+[DEBUG] 21:02:08:095 CONSOLA/(2508:2508): ID: 0
+[DEBUG] 21:02:08:095 CONSOLA/(2508:2508): ID: 5
+[INFO] 21:02:50:838 CONSOLA/(2508:2508): El proceso llegó bien :D
+[INFO] 21:02:51:019 CONSOLA/(2508:2508): El proceso finalizó con exito :D
+[INFO] 21:02:51:553 CONSOLA/(2508:2508): CONSOLA FINALIZADA

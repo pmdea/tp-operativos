@@ -13,9 +13,8 @@
 #include "semaphore.h"
 #include <errno.h>
 
-#define PUERTO "8000"
 #define MENSAJE_HANDSHAKE_ESPERADO 9992751
-#define IP "127.0.0.1"
+
 
 //VAR GLOBAL
 int ejecutando;
@@ -201,4 +200,6 @@ char* deserializarString(int emisor);
 
 // LOG_CONFIG.C
 t_log* iniciar_logger_kernel(void);
-t_config* iniciar_config_kernel(void);
+t_config* iniciar_config_kernel(char* path);
+
+void finalizar_programa();

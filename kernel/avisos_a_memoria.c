@@ -1,6 +1,5 @@
 #include "kernel.h"
 
-//void avisar_a_memoria(socket_memoria, INICIALIZA, nuevoProceso, loggerKernel){
 void avisar_a_memoria(OP_MEMORIA operacion, PCB unPCB, t_log* logger){
 	int tamanioBuffer = sizeof(uint32_t)*4;
 	void* buffer = asignarMemoria(tamanioBuffer);

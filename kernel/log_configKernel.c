@@ -3,17 +3,17 @@
 t_log* iniciar_logger_kernel(void)
 {
 	t_log* nuevo_logger;
-	if ((nuevo_logger = log_create("kernel.log", "Kernel", 1, LOG_LEVEL_DEBUG)) == NULL){
+	if ((nuevo_logger = log_create("kernel.log", "Kernel", 1, LOG_LEVEL_INFO)) == NULL){
 		printf("No pude crear el logger");
 		exit(1);
 	}
 	return nuevo_logger;
 }
 
-t_config* iniciar_config_kernel(void) // CARGO LA INFORMACION DEL CONFIG
+t_config* iniciar_config_kernel(char* path) // CARGO LA INFORMACION DEL CONFIG
 {
     t_config* nuevo_config;
-    if((nuevo_config = config_create("./kernel.config")) == NULL){
+    if((nuevo_config = config_create(path)) == NULL){
         printf("No pude leer la config\n");
         exit(2);
     }

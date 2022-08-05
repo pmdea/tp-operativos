@@ -32,7 +32,9 @@ int main(int argc, char** argv) {
 	FILE* archivo_instrucciones = fopen(argv[1], "r");
 	int tam_proceso = atoi(argv[2]);
 
-	t_config* consola_config = config_create(PATH_CONFIG);
+	char* path_config = argv[3];
+
+	t_config* consola_config = config_create(path_config);
 
 	if (argc < 3) {
 		print_mensaje_error("No se pasaron los parámetros necesarios");

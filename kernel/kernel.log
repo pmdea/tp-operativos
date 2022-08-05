@@ -514,3 +514,23 @@
 [INFO] 00:20:55:620 Kernel/(4452:4479): FINALIZO BLOQUEO PROCESO ID 0
 [INFO] 00:21:06:529 Kernel/(4452:4484): INGRESO PROCESO ID 0 A READY DESDE READY-SUSPENDED
 [DEBUG] 00:21:06:529 Kernel/(4452:4483): ********Enviando PCB ID 0 a CPU********
+[INFO] 20:39:42:041 Kernel/(31971:31971): PATH ../kernel.config
+[INFO] 20:40:09:426 Kernel/(32016:32016): PATH /home/utnso/Documentos/tp-2022-1c-Los-Domadores-de-SO/kernel/kernel.config
+[INFO] 20:40:09:431 Kernel/(32016:32016): El kernel fue bindeado con exito
+
+[INFO] 20:40:09:431 Kernel/(32016:32016): El kernel esta escuchando el puerto: 8000
+
+[INFO] 20:40:09:434 Kernel/(32016:32016): Esperando conexiones...
+
+[INFO] 20:41:07:508 Kernel/(32260:32260): El kernel fue bindeado con exito
+
+[INFO] 20:41:07:514 Kernel/(32260:32260): El kernel esta escuchando el puerto: 8000
+
+[INFO] 20:41:07:514 Kernel/(32260:32260): Esperando conexiones...
+
+[INFO] 20:41:34:059 Kernel/(32413:32413): El kernel fue bindeado con exito
+
+[INFO] 20:41:34:062 Kernel/(32413:32413): El kernel esta escuchando el puerto: 8000
+
+[INFO] 20:41:34:062 Kernel/(32413:32413): Esperando conexiones...
+
