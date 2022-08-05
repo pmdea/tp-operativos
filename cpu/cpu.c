@@ -18,7 +18,7 @@ int main(void)
 	pthread_create(&hiloInterrupt, NULL, interrupt, cpu_interrupt);
 	pthread_join(hiloDispatch, NULL);
 	pthread_join(hiloInterrupt, NULL);
-
+	finalizar_programa();
 	close(cpu_dispatch);
 	close(cpu_interrupt);
 }
@@ -29,7 +29,10 @@ void dispatch(int escuchaDispatch){
 	while(1){
 		log_info(loggerCpu, "ESPERANDO PCB" );
 		PCB* unPCB = deserializarPCB(kernel_dispatch);
-
+		if(unPCB == NULL){
+			log_warning(loggerCpu, "Se desconectó del dispatch");
+			return;
+		}
 		int cantidadInstrucciones = list_size(unPCB -> instrucciones);
 		rafagaEjecutada = 0;
 		for(k = 0; k < cantidadInstrucciones; k++){
@@ -50,6 +53,7 @@ void dispatch(int escuchaDispatch){
 			        pthread_mutex_lock(&variableCompartida);
 			        interrupcionKernel = 0;
 			        pthread_mutex_unlock(&variableCompartida);
+			    	pcb_destroyer(unPCB);
 			        break;
 				default:
 					checkInterrupt(unPCB, kernel_dispatch);
@@ -64,6 +68,10 @@ void interrupt(int escuchaInterrupt){
 	log_info(loggerCpu, "KERNEL INTERRUPT INICIALIZADO %i", kernel_interrupt);
 	while(1){
 		uint32_t valor = deserializarInt32(kernel_interrupt);
+		if(valor == (uint32_t)(-1)){
+			log_warning(loggerCpu, "Se desconectó del interrupt");
+			return;
+		}
 		pthread_mutex_lock(&variableCompartida);
 		interrupcionKernel = valor;
 		pthread_mutex_unlock(&variableCompartida);

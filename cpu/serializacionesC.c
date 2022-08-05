@@ -38,7 +38,8 @@ int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos){
 	if (bytesRecibidos == 0) {
 		// conexión cerrada
 		printf("conexion cerrada\n");
-		exit(1);
+		//exit(1);
+		return -1;
 	} else {
 		perror("error en el recv");
 	}
@@ -48,21 +49,28 @@ int recibirMensaje(int socketEmisor, void* buffer, int bytesMaximos){
 
 double deserializarDouble(int emisor){
 	double mensaje;
-	recibirMensaje(emisor, &mensaje, sizeof(double));
+	if(recibirMensaje(emisor, &mensaje, sizeof(double)) == -1){
+		return -1;
+	}
 	return mensaje;
 }
 
 
 uint32_t deserializarInt32(int emisor){
 	uint32_t mensaje;
-	recibirMensaje(emisor, &mensaje, sizeof(uint32_t));
+	if(recibirMensaje(emisor, &mensaje, sizeof(uint32_t)) == -1){
+		return -1;
+	}
 	return mensaje;
 }
 
 char* deserializarString(int emisor){
 	uint32_t tamanioMensaje = deserializarInt32(emisor);
 	char* mensaje = asignarMemoria(tamanioMensaje + 1);
-	recibirMensaje(emisor, mensaje, tamanioMensaje);
+	if(recibirMensaje(emisor, mensaje, tamanioMensaje) == -1){
+		free(mensaje);
+		return -1;
+	}
 	mensaje[tamanioMensaje - 1] = '\0';
 	return mensaje;
 }

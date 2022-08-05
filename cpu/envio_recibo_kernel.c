@@ -48,6 +48,10 @@ void enviarRespuestaKernel(int socket_receptor, PCB unPCB, uint32_t motivoRegres
 PCB* deserializarPCB(int socket_emisor){
 	PCB* unPCB = asignarMemoria(sizeof(PCB));
 	unPCB -> id = deserializarInt32(socket_emisor);
+	if(unPCB -> id == -1){
+		free(unPCB);
+		return NULL;
+	}
 	unPCB -> tamanio = deserializarInt32(socket_emisor);
 	unPCB -> program_counter = deserializarInt32(socket_emisor);
 	unPCB -> tabla_paginas = deserializarInt32(socket_emisor);

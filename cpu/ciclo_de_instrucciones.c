@@ -36,8 +36,8 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 	int direccion;
 	int valor;
 	int ident = instruccion_a_realizar(instruccion->identificador);
-
 	switch (ident){
+
 	case 0:
 		usleep(config_cpu.retardo_noop*1000);
 		log_info(loggerCpu, "NO_OP");
@@ -104,6 +104,7 @@ void checkInterrupt(PCB* proceso, int socketA)
     {
     	log_error(loggerCpu, "RAFAGA %f, ID %i", proceso -> estimacion_rafaga, proceso -> id);
     	enviarRespuestaKernel(socketA, *proceso, DESALOJO_PCB, rafagaEjecutada, 0, loggerCpu);
+    	pcb_destroyer(proceso);
         //free(*proceso);
         k = 2000;
         pthread_mutex_lock(&variableCompartida);
