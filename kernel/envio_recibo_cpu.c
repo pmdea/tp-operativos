@@ -9,7 +9,7 @@ void avisar_a_cpu_interrupt(){
 
 	enviarMensaje(socket_interrupt, buffer, tamanioBuffer);
 	free(buffer);
-	log_debug(loggerKernel, "******** ENVIANDO INTERRUPCION ********");
+	log_info(loggerKernel, "******** ENVIANDO INTERRUPCION ********");
 }
 
 void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger){
@@ -49,7 +49,7 @@ void enviarPCB(int socket_receptor, PCB unPCB, t_log* logger){
 
 	enviarMensaje(socket_receptor, buffer, tamanioBuffer);
 	free(buffer);
-	log_debug(logger, "********Enviando PCB ID %i a CPU********", unPCB.id);
+	log_info(logger, "********Enviando PCB ID %i a CPU********", unPCB.id);
 }
 
 PCB* deserializarPCB(int socket_emisor){
@@ -77,7 +77,7 @@ t_list* recibirRespuestaCPU(int socket_emisor){
 	list_add(respuesta, motivoRegreso);
 	list_add(respuesta, rafagaEjecutada);
 	list_add(respuesta, tiempoBloqueo);
-	log_debug(loggerKernel, "********Recibi datos de CPU - PCB ID %i********", unPCB->id);
+	log_info(loggerKernel, "********Recibi datos de CPU - PCB ID %i********", unPCB->id);
 	return respuesta;
 
 }

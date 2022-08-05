@@ -10,10 +10,10 @@ t_log* iniciar_logger_cpu(void)
 	return nuevo_logger;
 }
 
-t_config* iniciar_config_cpu(void) // CARGO LA INFORMACION DEL CONFIG
+t_config* iniciar_config_cpu(char* path_config) // CARGO LA INFORMACION DEL CONFIG
 {
     t_config* nuevo_config;
-    if((nuevo_config = config_create("./cpu.config")) == NULL){
+    if((nuevo_config = config_create(path_config)) == NULL){
         printf("No pude leer la config\n");
         exit(2);
     }

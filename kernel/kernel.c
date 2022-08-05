@@ -1,5 +1,4 @@
 #include "kernel.h"
-#include<errno.h>
 
 void inicializar_direccion_kernel(struct sockaddr_in *direccion_kernel);
 void bindear_kernel(int kernel, struct sockaddr_in direccion_kernel);
@@ -17,11 +16,18 @@ void mostrar_envio(void* envio, int tam);
 void mostrar_proceso(t_proceso* proceso);
 void mostrar_instruccion(t_instruccion* instruccion);
 
-int main(void)
+int main(int argc, char **argv)
 {
+	char* path_config;
+	if(argc < 2){
+		path_config = "kernel.config";
+	}else{
+		path_config = argv[1];
+	}
+
 	loggerKernel = iniciar_logger_kernel();
-	configKernel = iniciar_config_kernel();
-	// USAR PUERTO IP DE CONFIG
+	configKernel = iniciar_config_kernel(path_config);
+
 	iniciar_settings();
 
 	pthread_mutex_lock(&variableEjecutando);
@@ -45,15 +51,54 @@ int main(void)
 
 	procesar_entradas_de_consolas(kernel);
 
+//	finalizar_programa();
+
 	return 0;
 
 }
+void finalizar_programa(){
+
+	log_warning(loggerKernel, "Finalizando Kernel...");
+	close(socket_memoria);
+	close(socket_dispatch);
+	close(socket_interrupt);
+
+	pthread_mutex_destroy(&mutexReady);
+	pthread_mutex_destroy(&mutexExit);
+	pthread_mutex_destroy(&mutexBloqueo);
+	pthread_mutex_destroy(&mutexBloqueoSuspendido);
+	pthread_mutex_destroy(&mutexSuspendido);
+	pthread_mutex_destroy(&mutexNew);
+
+	sem_destroy(&grado_multiprogramacion);
+	sem_destroy(&prioridad_SuspendedReady);
+	sem_destroy(&nuevoProcesoReady);
+	sem_destroy(&enviarInterrupcion);
+	sem_destroy(&bloqueoMax);
+	sem_destroy(&procesoBloqueado);
+	sem_destroy(&finalizoProceso);
+	sem_destroy(&hayProcesoAnalizar);
+
+	log_destroy(loggerKernel);
+	config_destroy(configKernel);
+/*
+	t_list* procesosNew;
+	t_list* procesosReady;
+	t_list* procesosExecute;
+	t_list* procesosBlocked;
+	t_list* procesosSuspendedReady;
+	t_list* procesosExit;
+	t_list* conexiones_pcb;
+
+	list_destroy(procesosNew);*/
+}
+
 
 void inicializar_direccion_kernel(struct sockaddr_in *direccion_kernel) {
 
 	direccion_kernel->sin_family = AF_INET;
 	direccion_kernel->sin_addr.s_addr = INADDR_ANY;
-	direccion_kernel->sin_port = htons(atoi(PUERTO));
+	direccion_kernel->sin_port = htons(atoi(config_kernel.puerto_escucha));
 
 }
 
@@ -68,9 +113,9 @@ void bindear_kernel(int kernel, struct sockaddr_in direccion_kernel) {
 
 void escuchar(int kernel) {
 	if(listen(kernel, SOMAXCONN) != 0) {
-		log_error(loggerKernel, "No se pudo escuchar el puerto %s",PUERTO);
+		log_error(loggerKernel, "No se pudo escuchar el puerto %s",config_kernel.puerto_escucha);
 	} else {
-		log_info(loggerKernel, "El kernel esta escuchando el puerto: %s\n", PUERTO);
+		log_info(loggerKernel, "El kernel esta escuchando el puerto: %s\n", config_kernel.puerto_escucha);
 		log_info(loggerKernel, "Esperando conexiones...\n");
 	}
 

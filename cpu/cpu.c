@@ -1,9 +1,16 @@
 #include "cpu.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
+	char* path_config;
+	if(argc < 2){
+		path_config = "memoria.config";
+	}else{
+		path_config = argv[1];
+	}
+
 	loggerCpu = iniciar_logger_cpu();
-	configCpu = iniciar_config_cpu();
+	configCpu = iniciar_config_cpu(path_config);
 
 	tlb = list_create();
 
