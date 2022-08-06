@@ -35,22 +35,36 @@ int main(int argc, char **argv)
 	ejecutando = 0;
 	pthread_mutex_unlock(&variableEjecutando);
 
-	struct sockaddr_in direccion_kernel;
+	//struct sockaddr_in direccion_kernel;
 
-	inicializar_direccion_kernel(&direccion_kernel);
+	//inicializar_direccion_kernel(&direccion_kernel);
 
-	int kernel = socket(AF_INET, SOCK_STREAM, 0);
+//	int kernel = socket(AF_INET, SOCK_STREAM, 0);
+//	int enable = 1;
+//	setsockopt(kernel, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
+	//setsockopt(kernel, SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(int));
+
+	//bindear_kernel(kernel, direccion_kernel);
+	struct addrinfo hints, *servinfo;
+
+	memset(&hints, 0, sizeof(hints));
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_flags = AI_PASSIVE;
+	getaddrinfo(NULL, config_kernel.puerto_escucha, &hints, &servinfo);
+	int server = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
 	int enable = 1;
-	setsockopt(kernel, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
-	setsockopt(kernel, SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(int));
+	setsockopt(server, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
+	setsockopt(server, SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(int));
 
-	bindear_kernel(kernel, direccion_kernel);
+	bind(server, servinfo->ai_addr, servinfo->ai_addrlen);
 
-	escuchar(kernel);
+	freeaddrinfo(servinfo);
+	escuchar(server);
 
 	iniciar_planificadores();
 
-	procesar_entradas_de_consolas(kernel);
+	procesar_entradas_de_consolas(server);
 
 //	finalizar_programa();
 
