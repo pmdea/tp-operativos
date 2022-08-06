@@ -170,7 +170,7 @@ void* escuchar_cpu(void* arg){
 }
 
 int enviar_mensaje_cliente(int cliente, void* data, int size){
-	return send(cliente, data, size, 0);
+	return send(cliente, data, size, MSG_NOSIGNAL);
 }
 
 message_kernel* parsear_message_kernel(int cliente){

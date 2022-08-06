@@ -123,14 +123,14 @@ void enviar_paquete(int socket, FILE* archivo, int tam_proceso) {
 	void* envio = malloc(tamanio_instrucciones);
 	int desp = 0;
 	op_code cod = 1;
-	send(socket, &cod,sizeof(op_code),0);
+	send(socket, &cod,sizeof(op_code),MSG_NOSIGNAL);
 
 	log_debug(log_consola,"%i",tamanio_instrucciones);
-	send(socket,&tamanio_instrucciones,sizeof(int),0);
+	send(socket,&tamanio_instrucciones,sizeof(int),MSG_NOSIGNAL);
 
 	int tam = tam_proceso;
 	log_debug(log_consola,"%i",tam);
-	send(socket,&tam,sizeof(int),0);
+	send(socket,&tam,sizeof(int),MSG_NOSIGNAL);
 
 	char* linea = malloc(15);
 	char** instruccion_leida;
@@ -166,7 +166,7 @@ void enviar_paquete(int socket, FILE* archivo, int tam_proceso) {
 		string_array_destroy(instruccion_leida);
 	}
 
-	send(socket,envio,tamanio_instrucciones,0);
+	send(socket,envio,tamanio_instrucciones,MSG_NOSIGNAL);
 	mostrar_envio(envio,tamanio_instrucciones);
 	free(id);
 	free(parametro);
@@ -203,8 +203,8 @@ bool se_pudo_hacer_el_handshake(int socket) {
 
 	op_code cod_respuesta = HANDSHAKE;
 	int mensaje = MENSAJE_HANDSHAKE_ENVIADO;
-	send(socket,&cod_respuesta,sizeof(op_code),0);
-	send(socket,&mensaje,sizeof(int),0);
+	send(socket,&cod_respuesta,sizeof(op_code),MSG_NOSIGNAL);
+	send(socket,&mensaje,sizeof(int),MSG_NOSIGNAL);
 
 	recibir_confirmacion(&cod_respuesta, socket);
 

@@ -25,7 +25,7 @@ t_config* iniciar_config_cpu(char* path_config) // CARGO LA INFORMACION DEL CONF
     config_cpu.puerto_memoria = config_get_string_value(nuevo_config, "PUERTO_MEMORIA");
     config_cpu.puerto_cpu_dispatch = config_get_string_value(nuevo_config, "PUERTO_ESCUCHA_DISPATCH");
     config_cpu.puerto_cpu_interrupt = config_get_string_value(nuevo_config, "PUERTO_ESCUCHA_INTERRUPT");
-
+    config_cpu.ip = config_get_string_value(nuevo_config, "IP");
 
     return nuevo_config;
 

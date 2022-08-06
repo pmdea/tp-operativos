@@ -5,7 +5,7 @@ CFLAGS=-I$(IDIR) -I$(SHARED_IDIR) -g -Wall
 
 ODIR=./obj
 SRCDIR =./
-LIBS=-lcommons -lpthread
+LIBS=-lcommons -lpthread -lm
 
 DEPS = $(wildcard $(IDIR)/*.h)
 

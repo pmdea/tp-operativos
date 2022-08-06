@@ -101,6 +101,7 @@ typedef struct {
     char* puerto_memoria;
     char* puerto_cpu_dispatch;
     char* puerto_cpu_interrupt;
+    char* ip;
 } CPU_CONFIG;
 CPU_CONFIG config_cpu;
 
