@@ -59,6 +59,7 @@ int iniciar_servidor_interrupt(void)
 	freeaddrinfo(servinfo);
 	log_info(loggerCpu, "Listo para escuchar a KERNEL - Interrupt");
 
+	perror("error create socket interrupt");
 	return socket_servidor;
 }
 

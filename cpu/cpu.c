@@ -76,6 +76,7 @@ void dispatch(int escuchaDispatch){
 
 void interrupt(int escuchaInterrupt){
 	int kernel_interrupt = esperar_cliente(escuchaInterrupt);
+	perror("error socket interrupt");
 	log_info(loggerCpu, "KERNEL INTERRUPT INICIALIZADO %i", kernel_interrupt);
 	while(1){
 		uint32_t valor = deserializarInt32(kernel_interrupt);
