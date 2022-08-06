@@ -24,7 +24,7 @@ uint8_t init(char* path){
 	path_config = path;
 	config = crear_config();
 	logger = log_create("memoria.log", "MEM", true, LOG_LEVEL_INFO);
-	log_info(logger, "Logger creado!");
+	log_debug(logger, "Logger creado!");
 	return init_semaforos();
 }
 
@@ -52,20 +52,18 @@ uint8_t cargar_memoria(){
 		return 0;
 	}
 	memset(memoria_principal, 0, config->tam_memoria); // le escribo 0s a toda la memoria
-	log_info(logger, "Memoria cargada correctamente!");
+	log_info(logger, "****MEMORIA SIZE %d INICIALIZADA****", config->tam_memoria);
 	return cargar_tablas_paginas();
 }
 
 uint8_t cargar_tablas_paginas(){
-	log_info(logger, "Generando estructuras globales de tablas de paginas...");
 	tablas_1er_nivel = list_create(); // representa el espacio de memoria donde estaran todas las paginas de todos los procesos
 	tablas_2do_nivel = list_create();
-	log_info(logger, "Estructuras globales de tablas de paginas creadas!");
+	log_info(logger, "****ESTRUCTURAS TABLAS CREADAS****");
 	return cargar_frames_auxiliares();
 }
 
 uint8_t cargar_frames_auxiliares(){
-	log_info(logger, "Generando estructura auxiliar para manejo de frames...");
 	uint32_t nro_frames = config->tam_memoria/config->tam_pag;
 	frames_auxiliares = list_create();
 	for(uint32_t i = 0; i < nro_frames; i++){
@@ -74,19 +72,18 @@ uint8_t cargar_frames_auxiliares(){
 		frame_auxiliar->ocupado = 0;
 		list_add(frames_auxiliares, frame_auxiliar);
 	}
-	log_info(logger, "El módulo tiene %d frames disponibles!", nro_frames);
-	log_info(logger, "Estructura auxiliar para manejo de frames creada!");
+	log_info(logger, "****MÓDULO CARGADO CON %d FRAMES****", nro_frames);
 	return cargar_lista_swaps();
 }
 
 uint8_t cargar_lista_swaps(){
-	log_info(logger, "Generando lista de archivos swap...");
 	lista_swaps = list_create();
 	struct stat st = {0};
 	if (stat(config->path_swap, &st) == -1) {
 	    mkdir(config->path_swap, 0777);
 	    log_warning(logger, "Path %s no existia. Se creo.", config->path_swap);
 	}
+	log_info(logger, "****ESTRUCTURA SWAP CREADA****");
 	return 1;
 }
 
@@ -109,7 +106,7 @@ uint8_t cargar_config(){
 	config->path_swap = string_duplicate(config_get_string_value(file, PATH_SWAP));
 	config->ip = string_duplicate(config_get_string_value(file, IP));
 
-	log_info(logger, "Configuracion cargada correctamente");
+	log_info(logger, "****CONFIG CREADO CORRECTAMENTE****");
 	config_destroy(file); // mato el file del config
 	return 1;
 }
@@ -139,7 +136,7 @@ void finalizar_programa(){
 	//Mato espacios swap
 	finalizar_swap();
 
-	log_info(logger, "Finalizando programa...");
+	log_info(logger, "****FINALIZANDO MEMORIA****");
 	log_destroy(logger);
 	//Mato mutex
 	pthread_mutex_destroy(&mutex_swap);
