@@ -100,7 +100,6 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 
 void checkInterrupt(PCB* proceso, int socketA)
 {
-	log_info(loggerCpu, "TEST VALOR INTERRUPT %d", interrupcionKernel);
     pthread_mutex_lock(&variableCompartida);
     if(interrupcionKernel==1)
     {
