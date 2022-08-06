@@ -84,6 +84,7 @@ void interrupt(int escuchaInterrupt){
 			return;
 		}
 		pthread_mutex_lock(&variableCompartida);
+		log_info(loggerCpu, "ME INTERRUMPIERON");
 		interrupcionKernel = valor;
 		pthread_mutex_unlock(&variableCompartida);
 	}
