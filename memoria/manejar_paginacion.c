@@ -196,6 +196,7 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 				pthread_mutex_lock(&mutex_swap);
 				proc_swap* swap = obtener_swap_por_pid(tabla->pid);
 				swap_a_pag(pag, swap->swap);
+				retardo_swap();
 				pthread_mutex_unlock(&mutex_swap);
 				break;
 			}
@@ -215,6 +216,7 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 			proc_swap* swap = obtener_swap_por_pid(tabla->pid);
 			swap_a_pag(pag, swap->swap);
 			pag_a_swap(pag_reemplazar, tabla->pid, swap->swap);
+			retardo_swap();
 			pthread_mutex_unlock(&mutex_swap);
 			log_info(logger, "****FRAME %d CARGADA CON PAG %d ---- TENIA PAG %d****", pag->frame, pag->id, pag_reemplazar->id);
 		}
@@ -230,6 +232,7 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		proc_swap* swap = obtener_swap_por_pid(tabla->pid);
 		swap_a_pag(pag, swap->swap);
 		pag_a_swap(pag_reemplazar, tabla->pid, swap->swap);
+		retardo_swap();
 		pthread_mutex_unlock(&mutex_swap);
 		log_info(logger, "****FRAME %d CARGADA CON PAG %d ---- TENIA PAG %d****", pag->frame, pag->id, pag_reemplazar->id);
 	}
@@ -254,7 +257,6 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		frame->ocupado = 0; //libero el frame
 		pthread_mutex_unlock(&mutex_frames);
 		log_info(logger, "****SWAP PAG->SWAP %d PID %d EXITOSO****", pag->id, pid);
-		retardo_swap();
 	}
 
 	void swap_a_pag(entrada_tp_2* pag, void* swap){
@@ -265,7 +267,6 @@ void cargar_pag_marco(tabla_pagina* tabla, entrada_tp_2* pag){
 		pag->bit_presencia = 1;
 		pag->bit_uso = 1;
 		log_info(logger, "****SWAP SWAP->PAG %d EXITOSO****", pag->id);
-		retardo_swap();
 	}
 
 	void borrar_memoria_proceso(uint32_t pid){
