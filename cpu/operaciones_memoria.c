@@ -280,6 +280,6 @@ t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_conf
 void print_tlb(){
 	for(int i = 0; i<list_size(tlb); i++){
 		t_entrada_tlb* entrada = list_get(tlb, i);
-		log_info(loggerCpu, "Pag en TLB: %d", entrada->nro_pagina);
+		log_info(loggerCpu, "Pag en TLB: %d", entrada->pagina);
 	}
 }
