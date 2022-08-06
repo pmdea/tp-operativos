@@ -27,10 +27,10 @@ int crear_conexion(char *ip, char* puerto)
 
 
 uint8_t ini_servidor(){
-	log_info(logger, "Inicializando servidor con ip %s y puerto %d... ", config->ip, config->puerto_escucha);
+	log_info(logger, "****INIT SERVER IP %s PORT %d ****", config->ip, config->puerto_escucha);
 	char* puerto_string = string_itoa(config->puerto_escucha);
 	socket_mem = crear_conexion(config->ip, puerto_string);
-	log_info(logger, "Socket creado y escuchando!");
+	log_info(logger, "****INIT SERVER OK****");
 	free(puerto_string);
 	return 1;
 }
@@ -50,11 +50,11 @@ int escuchar_server(){
 		args->socket_cliente = cliente;
 		switch(modulo){
 			case KERNEL:
-				log_info(logger, "Recibido mensaje de KERNEL, create y detach thread correspondiente");
+				log_info(logger, "**** KERNEL CONECTADO ****");
 				pthread_create(&thread_k, NULL, (void*) escuchar_kernel, (void*) args);
 			break;
 			case CPU:
-				log_info(logger, "Recibido mensaje de CPU, create y detach thread correspondiente");
+				log_info(logger, "**** CPU CONECTADO ****");
 				pthread_create(&thread_c, NULL, (void*) escuchar_cpu, (void*) args);
 			break;
 		}
@@ -74,8 +74,6 @@ int esperar_cliente(){
 }
 
 void* escuchar_kernel(void* arg){
-	//TODO: generar métodos para escuchar_kernel
-	log_info(logger, "Escuchando mensaje de KERNEL");
 	args_thread* args = (args_thread*) arg;
 	int cliente = args->socket_cliente;
 	free(args);
@@ -86,18 +84,18 @@ void* escuchar_kernel(void* arg){
 		}
 		switch(request->estado){
 			case 0: //Inicializar proceso
-				log_info(logger, "Inicializando proceso con pcb id %d y size %d...", request->id_pcb, request->tamanio_pcb);
+				log_info(logger, "---REQUEST KERNEL INIT PROC PID %d SIZE %d---", request->id_pcb, request->tamanio_pcb);
 				uint32_t id_tabla = iniciar_proc(request->tamanio_pcb, request->id_pcb);
 				uint32_t ok = 1;
 				enviar_mensaje_cliente(cliente, &id_tabla, sizeof(id_tabla));
 			break;
 			case 1 : //SUSP_PROC
-				log_info(logger, "Suspendiendo proceso con pcb id %d...", request->id_pcb);
+				log_info(logger, "---REQUEST SUSPEND PID %d---", request->id_pcb);
 				suspender_proc(request->id_pcb);
 				enviar_mensaje_cliente(cliente, &ok, sizeof(ok));
 			break;
 			case 2: //EXIT
-				log_info(logger, "Finalizando proceso con pcb id %d...", request->id_pcb);
+				log_info(logger, "---REQUEST FINALIZAR PID %d---", request->id_pcb);
 				finalizar_proc(request->id_pcb);
 				enviar_mensaje_cliente(cliente, &ok, sizeof(ok));
 			break;
@@ -108,7 +106,6 @@ void* escuchar_kernel(void* arg){
 	return EXIT_SUCCESS;
 }
 void* escuchar_cpu(void* arg){
-	log_info(logger, "Escuchando mensaje de CPU");
 	args_thread* args = (args_thread*) arg;
 	int cliente = args->socket_cliente;
 	free(args);
@@ -119,10 +116,10 @@ void* escuchar_cpu(void* arg){
 		}
 		switch(request->operacion){
 			case HANDSHAKE:{
-				log_info(logger, "Realizando handshake con CPU");
+				log_info(logger, "---HANDSHAKE CPU---");
 				uint32_t size_pag = config->tam_pag;
 				uint32_t nro_entradas = config->entradas_por_tabla;
-				log_info(logger, "Modulo de memoria configurado con paginas de size %d y entradas x tabla %d", size_pag, nro_entradas);
+				log_info(logger, "---MEM PAGS SIZE %d ENTRADAS X TABLAS %d---", size_pag, nro_entradas);
 				int size = sizeof(size_pag) + sizeof(nro_entradas);
 				void* buffer = malloc(size);
 				memcpy(buffer, &size_pag, sizeof(size_pag));
@@ -133,33 +130,33 @@ void* escuchar_cpu(void* arg){
 			}
 			break;
 			case READ:{
-				log_info(logger, "Recibido request de READ");
+				log_info(logger, "---REQUEST READ CPU---");
 				uint32_t valor = leer_en_memoria(request->datos[0], request->datos[1], request->datos[2]);
 				enviar_mensaje_cliente(cliente, &valor, sizeof(uint32_t));
 				free(request);
 			}
 			break;
 			case WRITE:{
-				log_info(logger, "Recibido request de WRITE");
+				log_info(logger, "---REQUEST WRITE CPU---");
 				char* response = escribir_memoria(request->datos[0], request->datos[1], request->datos[2], &(request->datos[3]));
 				enviar_mensaje_cliente(cliente, response, sizeof(char)*3);
 				free(request);
 			}
 			break;
 			case COPY:
-				log_info(logger, "Recibido request de COPY");
+				log_info(logger, "---REQUEST COPY CPU---");
 				log_error(logger, "No se deberia llamar. Hacer copy haciendo read y write");
 				free(request);
 			break;
 			case GET_PAG_NVL_2:{
-				log_info(logger, "Recibido request de GET_PAG_NVL_2");
+				log_info(logger, "---REQUEST GET PAG NVL 2 CPU---");
 				uint32_t id_tabla_2 = get_tabla_2do_lvl(request->datos[0], request->datos[1]);
 				enviar_mensaje_cliente(cliente, &id_tabla_2, sizeof(uint32_t));
 				free(request);
 			}
 			break;
 			case GET_MARCO:{
-				log_info(logger, "Recibido request de GET_MARCO");
+				log_info(logger, "---REQUEST MARCO CPU---");
 				uint32_t valor_en_mem = get_nro_marco(request->datos[0], request->datos[1], request->datos[2]);
 				enviar_mensaje_cliente(cliente, &valor_en_mem, sizeof(uint32_t));
 				free(request);
