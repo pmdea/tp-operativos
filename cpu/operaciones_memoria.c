@@ -270,10 +270,7 @@ t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_conf
 	direccion_fisica->direccion = direccion_fisica->marco * config.tamanio_pagina + direccion_fisica->desplazamiento;
 	
 	direccion_fisica->id_2do_nivel = id_2do_nivel;
-
-	t_direccion_fisica retornar = *direccion_fisica;
-	free(direccion_fisica);
-	return retornar;
+	return direccion_fisica;
 }
 
 
