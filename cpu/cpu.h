@@ -78,6 +78,7 @@ typedef struct {
 typedef struct {
 	int pagina;
 	int marco;
+	int tabla_2do_nivel;
 }t_entrada_tlb;
 
 typedef struct {
@@ -135,7 +136,7 @@ uint32_t obtener_tabla_2do_nivel(int tabla_paginas_1er_nivel, int entrada_pagina
 uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint32_t entrada_2do_nivel);
 int comparar_elementos_tlb(t_entrada_tlb* elem, int pag);
 int esta_en_tlb(int pag);
-int tlb_cache(int pag);
+t_entrada_tlb* tlb_cache(int pag);
 void reemplazo_tlb(t_entrada_tlb* entrada);
 void agregar_a_TLB(int pagina, int marco);
 

@@ -193,7 +193,7 @@ int esta_en_tlb(int pag)
 	return i;
 }
 
-int tlb_cache(int pag)
+t_entrada_tlb* tlb_cache(int pag)
 {
 	int marco = 0;
 	t_entrada_tlb* entrada;
@@ -204,11 +204,9 @@ int tlb_cache(int pag)
 
 		if(entrada->pagina==pag)
 		{
-			marco=entrada->marco;
-
 			if(string_equals_ignore_case(config_cpu.reemplazo_tlb, "LRU"))
 			{
-				list_remove(tlb,j);
+				entrada = list_remove(tlb,j);
 				list_add(tlb, entrada);
 			}
 
@@ -216,7 +214,7 @@ int tlb_cache(int pag)
 		}
 	}
 	log_info(loggerCpu, "Se ha encontardo en la TLB el marco %i correpondiente a la página %i.", marco, pag);
-	return marco;
+	return entrada;
 }
 
 void reemplazo_tlb(t_entrada_tlb* entrada)
@@ -253,7 +251,9 @@ t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_conf
 	if(esta_en_tlb(direccion_logica->nro_pagina))
 	{
 		log_info(loggerCpu, "La pag %d está en la TLB", direccion_logica->nro_pagina);
-		direccion_fisica->marco = tlb_cache(direccion_logica->nro_pagina);
+		t_entrada_tlb* entrada = tlb_cache(direccion_logica->nro_pagina);
+		id_2do_nivel = entrada->tabla_2do_nivel;
+		direccion_fisica->marco = entrada->marco;
 	}
 	else
 	{
@@ -266,6 +266,7 @@ t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_conf
 	direccion_fisica->desplazamiento = direccion_logica->desplazamiento;
 	log_info(loggerCpu, "Direccion fisica obtenida (Marco: %i, Desplazamiento: %i)", direccion_fisica->marco, direccion_fisica->desplazamiento);
 	direccion_fisica->direccion = direccion_fisica->marco * config.tamanio_pagina + direccion_fisica->desplazamiento;
+	
 	direccion_fisica->id_2do_nivel = id_2do_nivel;
 
 	t_direccion_fisica retornar = *direccion_fisica;
