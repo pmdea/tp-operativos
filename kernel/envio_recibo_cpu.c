@@ -19,7 +19,6 @@ void avisar_a_cpu_interrupt(){
 	concatenarInt32(buffer, &desplazamiento, 1);
 
 	enviarMensaje(socket_interrupt, buffer, tamanioBuffer);
-	perror("error send");
 	free(buffer);
 	log_info(loggerKernel, "******** ENVIANDO INTERRUPCION ********");
 }

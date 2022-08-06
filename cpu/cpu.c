@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 void dispatch(int escuchaDispatch){
 	int kernel_dispatch = esperar_cliente(escuchaDispatch);
 	log_info(loggerCpu, "KERNEL DISPATCH INICIALIZADO %i", kernel_dispatch);
+	int id_ant=0;
 	while(1){
 		log_info(loggerCpu, "ESPERANDO PCB" );
 		PCB* unPCB = deserializarPCB(kernel_dispatch);
@@ -40,6 +41,13 @@ void dispatch(int escuchaDispatch){
 			log_warning(loggerCpu, "Se desconectó del dispatch");
 			return;
 		}
+
+		if(unPCB->id != id_ant)
+		{
+			list_clean(tlb);
+		    log_info(loggerCpu,"Se limpió la TLB");
+		}
+		id_ant = unPCB->id;
 		int cantidadInstrucciones = list_size(unPCB -> instrucciones);
 		rafagaEjecutada = 0;
 		for(k = 0; k < cantidadInstrucciones; k++){
@@ -63,8 +71,6 @@ void dispatch(int escuchaDispatch){
 			        interrupcionKernel = 0;
 			        pthread_mutex_unlock(&variableCompartida);
 			    	pcb_destroyer(unPCB);
-					list_clean(tlb);
-					log_info(loggerCpu, "Se limpió la TLB");
 			        break;
 				default:
 					checkInterrupt(unPCB, kernel_dispatch);
@@ -76,7 +82,6 @@ void dispatch(int escuchaDispatch){
 
 void interrupt(int escuchaInterrupt){
 	int kernel_interrupt = esperar_cliente(escuchaInterrupt);
-	perror("error socket interrupt");
 	log_info(loggerCpu, "KERNEL INTERRUPT INICIALIZADO %i", kernel_interrupt);
 	while(1){
 		uint32_t valor = deserializarInt32(kernel_interrupt);
