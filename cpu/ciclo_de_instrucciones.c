@@ -102,7 +102,6 @@ void checkInterrupt(PCB* proceso, int socketA)
 {
     if(interrupcionKernel==1)
     {
-    	log_error(loggerCpu, "RAFAGA %f, ID %i", proceso -> estimacion_rafaga, proceso -> id);
     	enviarRespuestaKernel(socketA, *proceso, DESALOJO_PCB, rafagaEjecutada, 0, loggerCpu);
     	pcb_destroyer(proceso);
         //free(*proceso);
