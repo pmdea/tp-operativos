@@ -249,6 +249,7 @@ void agregar_a_TLB(int pagina, int marco)
 t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_config_tabla config)
 {
 	t_direccion_fisica* direccion_fisica = malloc(sizeof(t_direccion_fisica));
+	uint32_t id_2do_nivel;
 	if(esta_en_tlb(direccion_logica->nro_pagina))
 	{
 		log_info(loggerCpu, "La pag %d está en la TLB", direccion_logica->nro_pagina);
@@ -257,7 +258,7 @@ t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_conf
 	else
 	{
 		log_info(loggerCpu, "La pag %d no está en TLB", direccion_logica->nro_pagina);
-		uint32_t id_2do_nivel = obtener_tabla_2do_nivel(proceso.tabla_paginas, direccion_logica->entrada_tabla_1er_nivel);
+		id_2do_nivel = obtener_tabla_2do_nivel(proceso.tabla_paginas, direccion_logica->entrada_tabla_1er_nivel);
 		direccion_fisica->marco = obtener_marco(proceso.tabla_paginas, id_2do_nivel, direccion_logica->entrada_tabla_2do_nivel);
 		agregar_a_TLB(direccion_logica->nro_pagina, direccion_fisica->marco);
 	}
