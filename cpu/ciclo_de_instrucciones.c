@@ -108,6 +108,8 @@ void checkInterrupt(PCB* proceso, int socketA)
         //free(*proceso);
         k = 2000;
         interrupcionKernel = 0;
+		list_clean(tlb);
+		log_info(loggerCpu, "Se limpió la TLB");
     }
     pthread_mutex_unlock(&variableCompartida);
 }
