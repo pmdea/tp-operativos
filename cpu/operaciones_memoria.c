@@ -190,6 +190,7 @@ int esta_en_tlb(int pag)
 			i=1;
 		}
 	}
+	print_tlb();
 	return i;
 }
 
@@ -273,4 +274,12 @@ t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_conf
 	t_direccion_fisica retornar = *direccion_fisica;
 	free(direccion_fisica);
 	return retornar;
+}
+
+
+void print_tlb(){
+	for(int i = 0; i<list_size(tlb); i++){
+		t_entrada_tlb* entrada = list_get(tlb, i);
+		log_info(loggerCpu, "Pag en TLB: %d", entrada->nro_pagina);
+	}
 }
