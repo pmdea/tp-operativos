@@ -84,6 +84,7 @@ typedef struct {
 	int entrada_tabla_1er_nivel;
 	int entrada_tabla_2do_nivel;
 	int desplazamiento;
+	int nro_pagina;
 }t_direccion_logica;
 
 typedef struct {
