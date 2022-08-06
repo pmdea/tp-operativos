@@ -1,0 +1,3 @@
+#!/bin/bash
+args=("$@")
+./consola/consola ${args[0]} ${args[1]} ./configs/consola.config
