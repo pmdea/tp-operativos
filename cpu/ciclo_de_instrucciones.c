@@ -100,16 +100,16 @@ void execute(t_instruccion* instruccion, PCB* proceso, int socketA)
 
 void checkInterrupt(PCB* proceso, int socketA)
 {
+    pthread_mutex_lock(&variableCompartida);
     if(interrupcionKernel==1)
     {
     	enviarRespuestaKernel(socketA, *proceso, DESALOJO_PCB, rafagaEjecutada, 0, loggerCpu);
     	pcb_destroyer(proceso);
         //free(*proceso);
         k = 2000;
-        pthread_mutex_lock(&variableCompartida);
         interrupcionKernel = 0;
-        pthread_mutex_unlock(&variableCompartida);
 		list_clean(tlb);
 		log_info(loggerCpu, "Se limpió la TLB");
     }
+    pthread_mutex_unlock(&variableCompartida);
 }
