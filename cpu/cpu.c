@@ -55,12 +55,16 @@ void dispatch(int escuchaDispatch){
 			        interrupcionKernel = 0;
 			        pthread_mutex_unlock(&variableCompartida);
 			        pcb_destroyer(unPCB);
+					list_clean(tlb);
+					log_info(loggerCpu, "Se limpió la TLB");
 					break;
 				case IO:
 			        pthread_mutex_lock(&variableCompartida);
 			        interrupcionKernel = 0;
 			        pthread_mutex_unlock(&variableCompartida);
 			    	pcb_destroyer(unPCB);
+					list_clean(tlb);
+					log_info(loggerCpu, "Se limpió la TLB");
 			        break;
 				default:
 					checkInterrupt(unPCB, kernel_dispatch);
