@@ -225,11 +225,12 @@ void reemplazo_tlb(t_entrada_tlb* entrada)
 	free(removido);
 }
 
-void agregar_a_TLB(int pagina, int marco)
+void agregar_a_TLB(int pagina, int marco, int tabla_2do_nivel)
 {
 	t_entrada_tlb* entrada = malloc(sizeof(t_entrada_tlb));
 	entrada->marco=marco;
 	entrada->pagina=pagina;
+	entrada->tabla_2do_nivel = tabla_2do_nivel;
 
 	if (list_size(tlb)<config_cpu.entradas_tlb)
 	{
@@ -260,7 +261,7 @@ t_direccion_fisica mmu(t_direccion_logica* direccion_logica, PCB proceso, t_conf
 		log_info(loggerCpu, "La pag %d no está en TLB", direccion_logica->nro_pagina);
 		id_2do_nivel = obtener_tabla_2do_nivel(proceso.tabla_paginas, direccion_logica->entrada_tabla_1er_nivel);
 		direccion_fisica->marco = obtener_marco(proceso.tabla_paginas, id_2do_nivel, direccion_logica->entrada_tabla_2do_nivel);
-		agregar_a_TLB(direccion_logica->nro_pagina, direccion_fisica->marco);
+		agregar_a_TLB(direccion_logica->nro_pagina, direccion_fisica->marco, id_2do_nivel);
 	}
 
 	direccion_fisica->desplazamiento = direccion_logica->desplazamiento;

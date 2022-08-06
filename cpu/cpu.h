@@ -138,7 +138,7 @@ int comparar_elementos_tlb(t_entrada_tlb* elem, int pag);
 int esta_en_tlb(int pag);
 t_entrada_tlb* tlb_cache(int pag);
 void reemplazo_tlb(t_entrada_tlb* entrada);
-void agregar_a_TLB(int pagina, int marco);
+void agregar_a_TLB(int pagina, int marco, int tabla_2do_nivel);
 
 //SERIALIZACIONESC.C
 void* asignarMemoria(int cantidad);
