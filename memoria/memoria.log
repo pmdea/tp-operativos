@@ -1,0 +1,707 @@
+[INFO] 09:39:10:507 MEM/(10278:10278): Logger creado!
+[INFO] 09:39:10:508 MEM/(10278:10278): Configuracion cargada correctamente
+[INFO] 09:39:10:508 MEM/(10278:10278): Memoria cargada correctamente!
+[INFO] 09:39:10:508 MEM/(10278:10278): Generando estructuras globales de tablas de paginas...
+[INFO] 09:39:10:509 MEM/(10278:10278): Estructuras globales de tablas de paginas creadas!
+[INFO] 09:39:10:509 MEM/(10278:10278): Generando estructura auxiliar para manejo de frames...
+[INFO] 09:39:10:510 MEM/(10278:10278): El módulo tiene 64 frames disponibles!
+[INFO] 09:39:10:510 MEM/(10278:10278): Estructura auxiliar para manejo de frames creada!
+[INFO] 09:39:10:510 MEM/(10278:10278): Generando lista de archivos swap...
+[INFO] 09:39:10:510 MEM/(10278:10278): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 09:39:10:510 MEM/(10278:10278): Socket creado y escuchando: 4!
+[INFO] 10:35:43:613 MEM/(4142:4142): Logger creado!
+[INFO] 10:35:43:619 MEM/(4142:4142): Configuracion cargada correctamente
+[INFO] 10:35:43:620 MEM/(4142:4142): Memoria cargada correctamente!
+[INFO] 10:35:43:620 MEM/(4142:4142): Generando estructuras globales de tablas de paginas...
+[INFO] 10:35:43:620 MEM/(4142:4142): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:35:43:620 MEM/(4142:4142): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:35:43:620 MEM/(4142:4142): El módulo tiene 64 frames disponibles!
+[INFO] 10:35:43:620 MEM/(4142:4142): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:35:43:620 MEM/(4142:4142): Generando lista de archivos swap...
+[INFO] 10:35:43:625 MEM/(4142:4142): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:35:43:625 MEM/(4142:4142): Socket creado y escuchando: 4!
+[INFO] 10:37:55:294 MEM/(4507:4507): Logger creado!
+[INFO] 10:37:55:296 MEM/(4507:4507): Configuracion cargada correctamente
+[INFO] 10:37:55:299 MEM/(4507:4507): Memoria cargada correctamente!
+[INFO] 10:37:55:299 MEM/(4507:4507): Generando estructuras globales de tablas de paginas...
+[INFO] 10:37:55:299 MEM/(4507:4507): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:37:55:299 MEM/(4507:4507): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:37:55:299 MEM/(4507:4507): El módulo tiene 64 frames disponibles!
+[INFO] 10:37:55:300 MEM/(4507:4507): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:37:55:300 MEM/(4507:4507): Generando lista de archivos swap...
+[INFO] 10:37:55:302 MEM/(4507:4507): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:37:55:303 MEM/(4507:4507): Socket creado y escuchando: 4!
+[INFO] 10:44:06:951 MEM/(5441:5441): Logger creado!
+[INFO] 10:44:06:952 MEM/(5441:5441): Configuracion cargada correctamente
+[INFO] 10:44:06:953 MEM/(5441:5441): Memoria cargada correctamente!
+[INFO] 10:44:06:953 MEM/(5441:5441): Generando estructuras globales de tablas de paginas...
+[INFO] 10:44:06:953 MEM/(5441:5441): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:44:06:953 MEM/(5441:5441): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:44:06:953 MEM/(5441:5441): El módulo tiene 64 frames disponibles!
+[INFO] 10:44:06:953 MEM/(5441:5441): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:44:06:953 MEM/(5441:5441): Generando lista de archivos swap...
+[INFO] 10:44:06:960 MEM/(5441:5441): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:44:06:960 MEM/(5441:5441): Socket creado y escuchando: 4!
+[INFO] 10:46:23:724 MEM/(5958:5958): Logger creado!
+[INFO] 10:46:23:725 MEM/(5958:5958): Configuracion cargada correctamente
+[INFO] 10:46:23:726 MEM/(5958:5958): Memoria cargada correctamente!
+[INFO] 10:46:23:726 MEM/(5958:5958): Generando estructuras globales de tablas de paginas...
+[INFO] 10:46:23:726 MEM/(5958:5958): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:46:23:726 MEM/(5958:5958): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:46:23:726 MEM/(5958:5958): El módulo tiene 64 frames disponibles!
+[INFO] 10:46:23:726 MEM/(5958:5958): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:46:23:726 MEM/(5958:5958): Generando lista de archivos swap...
+[INFO] 10:46:23:748 MEM/(5958:5958): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:46:23:749 MEM/(5958:5958): Socket creado y escuchando: 4!
+[INFO] 10:47:22:943 MEM/(6181:6181): Logger creado!
+[INFO] 10:47:22:944 MEM/(6181:6181): Configuracion cargada correctamente
+[INFO] 10:47:22:945 MEM/(6181:6181): Memoria cargada correctamente!
+[INFO] 10:47:22:945 MEM/(6181:6181): Generando estructuras globales de tablas de paginas...
+[INFO] 10:47:22:946 MEM/(6181:6181): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:47:22:946 MEM/(6181:6181): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:47:22:946 MEM/(6181:6181): El módulo tiene 64 frames disponibles!
+[INFO] 10:47:22:946 MEM/(6181:6181): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:47:22:946 MEM/(6181:6181): Generando lista de archivos swap...
+[INFO] 10:47:22:949 MEM/(6181:6181): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:47:22:950 MEM/(6181:6181): Socket creado y escuchando: 4!
+[INFO] 10:50:41:127 MEM/(6812:6812): Logger creado!
+[INFO] 10:50:41:128 MEM/(6812:6812): Configuracion cargada correctamente
+[INFO] 10:50:41:129 MEM/(6812:6812): Memoria cargada correctamente!
+[INFO] 10:50:41:129 MEM/(6812:6812): Generando estructuras globales de tablas de paginas...
+[INFO] 10:50:41:129 MEM/(6812:6812): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:50:41:129 MEM/(6812:6812): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:50:41:129 MEM/(6812:6812): El módulo tiene 64 frames disponibles!
+[INFO] 10:50:41:129 MEM/(6812:6812): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:50:41:129 MEM/(6812:6812): Generando lista de archivos swap...
+[INFO] 10:50:41:137 MEM/(6812:6812): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:50:41:137 MEM/(6812:6812): Socket creado y escuchando: 4!
+[INFO] 10:51:58:344 MEM/(7057:7057): Logger creado!
+[INFO] 10:51:58:345 MEM/(7057:7057): Configuracion cargada correctamente
+[INFO] 10:51:58:346 MEM/(7057:7057): Memoria cargada correctamente!
+[INFO] 10:51:58:346 MEM/(7057:7057): Generando estructuras globales de tablas de paginas...
+[INFO] 10:51:58:346 MEM/(7057:7057): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:51:58:346 MEM/(7057:7057): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:51:58:346 MEM/(7057:7057): El módulo tiene 64 frames disponibles!
+[INFO] 10:51:58:346 MEM/(7057:7057): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:51:58:346 MEM/(7057:7057): Generando lista de archivos swap...
+[INFO] 10:51:58:354 MEM/(7057:7057): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:51:58:354 MEM/(7057:7057): Socket creado y escuchando: 4!
+[INFO] 10:54:43:551 MEM/(7476:7476): Logger creado!
+[INFO] 10:54:43:553 MEM/(7476:7476): Configuracion cargada correctamente
+[INFO] 10:54:43:554 MEM/(7476:7476): Memoria cargada correctamente!
+[INFO] 10:54:43:554 MEM/(7476:7476): Generando estructuras globales de tablas de paginas...
+[INFO] 10:54:43:554 MEM/(7476:7476): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:54:43:554 MEM/(7476:7476): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:54:43:554 MEM/(7476:7476): El módulo tiene 64 frames disponibles!
+[INFO] 10:54:43:554 MEM/(7476:7476): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:54:43:554 MEM/(7476:7476): Generando lista de archivos swap...
+[INFO] 10:54:43:562 MEM/(7476:7476): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:54:43:562 MEM/(7476:7476): Socket creado y escuchando: 4!
+[INFO] 10:57:55:492 MEM/(8042:8042): Logger creado!
+[INFO] 10:57:55:493 MEM/(8042:8042): Configuracion cargada correctamente
+[INFO] 10:57:55:494 MEM/(8042:8042): Memoria cargada correctamente!
+[INFO] 10:57:55:494 MEM/(8042:8042): Generando estructuras globales de tablas de paginas...
+[INFO] 10:57:55:494 MEM/(8042:8042): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:57:55:494 MEM/(8042:8042): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:57:55:495 MEM/(8042:8042): El módulo tiene 64 frames disponibles!
+[INFO] 10:57:55:495 MEM/(8042:8042): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:57:55:495 MEM/(8042:8042): Generando lista de archivos swap...
+[INFO] 10:57:55:498 MEM/(8042:8042): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:57:55:498 MEM/(8042:8042): Socket creado y escuchando: 4!
+[INFO] 10:58:02:472 MEM/(8069:8069): Logger creado!
+[INFO] 10:58:02:478 MEM/(8069:8069): Configuracion cargada correctamente
+[INFO] 10:58:02:478 MEM/(8069:8069): Memoria cargada correctamente!
+[INFO] 10:58:02:478 MEM/(8069:8069): Generando estructuras globales de tablas de paginas...
+[INFO] 10:58:02:478 MEM/(8069:8069): Estructuras globales de tablas de paginas creadas!
+[INFO] 10:58:02:478 MEM/(8069:8069): Generando estructura auxiliar para manejo de frames...
+[INFO] 10:58:02:479 MEM/(8069:8069): El módulo tiene 64 frames disponibles!
+[INFO] 10:58:02:479 MEM/(8069:8069): Estructura auxiliar para manejo de frames creada!
+[INFO] 10:58:02:479 MEM/(8069:8069): Generando lista de archivos swap...
+[INFO] 10:58:02:481 MEM/(8069:8069): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 10:58:02:484 MEM/(8069:8069): Socket creado y escuchando: 4!
+[INFO] 11:02:17:794 MEM/(8659:8659): Logger creado!
+[INFO] 11:02:17:796 MEM/(8659:8659): Configuracion cargada correctamente
+[INFO] 11:02:17:802 MEM/(8659:8659): Memoria cargada correctamente!
+[INFO] 11:02:17:802 MEM/(8659:8659): Generando estructuras globales de tablas de paginas...
+[INFO] 11:02:17:806 MEM/(8659:8659): Estructuras globales de tablas de paginas creadas!
+[INFO] 11:02:17:806 MEM/(8659:8659): Generando estructura auxiliar para manejo de frames...
+[INFO] 11:02:17:806 MEM/(8659:8659): El módulo tiene 64 frames disponibles!
+[INFO] 11:02:17:806 MEM/(8659:8659): Estructura auxiliar para manejo de frames creada!
+[INFO] 11:02:17:806 MEM/(8659:8659): Generando lista de archivos swap...
+[INFO] 11:02:17:814 MEM/(8659:8659): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 11:02:17:814 MEM/(8659:8659): Socket creado y escuchando: 4!
+[INFO] 11:04:12:747 MEM/(9067:9067): Logger creado!
+[INFO] 11:04:12:748 MEM/(9067:9067): Configuracion cargada correctamente
+[INFO] 11:04:12:749 MEM/(9067:9067): Memoria cargada correctamente!
+[INFO] 11:04:12:749 MEM/(9067:9067): Generando estructuras globales de tablas de paginas...
+[INFO] 11:04:12:749 MEM/(9067:9067): Estructuras globales de tablas de paginas creadas!
+[INFO] 11:04:12:749 MEM/(9067:9067): Generando estructura auxiliar para manejo de frames...
+[INFO] 11:04:12:749 MEM/(9067:9067): El módulo tiene 64 frames disponibles!
+[INFO] 11:04:12:749 MEM/(9067:9067): Estructura auxiliar para manejo de frames creada!
+[INFO] 11:04:12:749 MEM/(9067:9067): Generando lista de archivos swap...
+[INFO] 11:04:12:754 MEM/(9067:9067): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 11:04:12:755 MEM/(9067:9067): Socket creado y escuchando: 4!
+[INFO] 18:35:08:129 MEM/(4558:4558): Logger creado!
+[INFO] 18:35:11:432 MEM/(4558:4558): Configuracion cargada correctamente
+[INFO] 18:35:13:762 MEM/(4558:4558): Memoria cargada correctamente!
+[INFO] 18:35:13:764 MEM/(4558:4558): Generando estructuras globales de tablas de paginas...
+[INFO] 18:35:13:764 MEM/(4558:4558): Estructuras globales de tablas de paginas creadas!
+[INFO] 18:35:13:764 MEM/(4558:4558): Generando estructura auxiliar para manejo de frames...
+[INFO] 18:35:13:764 MEM/(4558:4558): El módulo tiene 64 frames disponibles!
+[INFO] 18:35:13:764 MEM/(4558:4558): Estructura auxiliar para manejo de frames creada!
+[INFO] 18:35:13:764 MEM/(4558:4558): Generando lista de archivos swap...
+[INFO] 18:35:25:897 MEM/(4558:4558): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 18:36:04:615 MEM/(4558:4558): Socket creado y escuchando: 4!
+[INFO] 18:37:24:008 MEM/(5000:5000): Logger creado!
+[INFO] 18:37:24:382 MEM/(5000:5000): Configuracion cargada correctamente
+[INFO] 18:37:25:403 MEM/(5000:5000): Memoria cargada correctamente!
+[INFO] 18:37:25:403 MEM/(5000:5000): Generando estructuras globales de tablas de paginas...
+[INFO] 18:37:25:403 MEM/(5000:5000): Estructuras globales de tablas de paginas creadas!
+[INFO] 18:37:25:403 MEM/(5000:5000): Generando estructura auxiliar para manejo de frames...
+[INFO] 18:37:25:403 MEM/(5000:5000): El módulo tiene 64 frames disponibles!
+[INFO] 18:37:25:404 MEM/(5000:5000): Estructura auxiliar para manejo de frames creada!
+[INFO] 18:37:25:404 MEM/(5000:5000): Generando lista de archivos swap...
+[INFO] 18:37:34:545 MEM/(5000:5000): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 18:37:41:377 MEM/(5000:5000): Socket creado y escuchando: 4!
+[INFO] 18:49:55:207 MEM/(7001:7001): Logger creado!
+[INFO] 18:49:55:472 MEM/(7001:7001): Configuracion cargada correctamente
+[INFO] 18:49:55:652 MEM/(7001:7001): Memoria cargada correctamente!
+[INFO] 18:49:55:652 MEM/(7001:7001): Generando estructuras globales de tablas de paginas...
+[INFO] 18:49:55:652 MEM/(7001:7001): Estructuras globales de tablas de paginas creadas!
+[INFO] 18:49:55:653 MEM/(7001:7001): Generando estructura auxiliar para manejo de frames...
+[INFO] 18:49:55:653 MEM/(7001:7001): El módulo tiene 64 frames disponibles!
+[INFO] 18:49:55:653 MEM/(7001:7001): Estructura auxiliar para manejo de frames creada!
+[INFO] 18:49:55:653 MEM/(7001:7001): Generando lista de archivos swap...
+[INFO] 18:49:56:009 MEM/(7001:7001): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 18:49:56:009 MEM/(7001:7001): Listo para escuchar a KERNEL
+[INFO] 18:49:56:009 MEM/(7001:7001): Socket creado y escuchando: 4!
+[INFO] 18:51:24:023 MEM/(7282:7282): Logger creado!
+[INFO] 18:51:24:407 MEM/(7282:7282): Configuracion cargada correctamente
+[INFO] 18:51:24:991 MEM/(7282:7282): Memoria cargada correctamente!
+[INFO] 18:51:24:991 MEM/(7282:7282): Generando estructuras globales de tablas de paginas...
+[INFO] 18:51:24:991 MEM/(7282:7282): Estructuras globales de tablas de paginas creadas!
+[INFO] 18:51:24:991 MEM/(7282:7282): Generando estructura auxiliar para manejo de frames...
+[INFO] 18:51:24:991 MEM/(7282:7282): El módulo tiene 64 frames disponibles!
+[INFO] 18:51:24:991 MEM/(7282:7282): Estructura auxiliar para manejo de frames creada!
+[INFO] 18:51:24:992 MEM/(7282:7282): Generando lista de archivos swap...
+[INFO] 18:51:25:522 MEM/(7282:7282): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 18:51:25:522 MEM/(7282:7282): Listo para escuchar a KERNEL
+[INFO] 18:51:25:522 MEM/(7282:7282): Socket creado y escuchando: 4!
+[INFO] 18:52:36:423 MEM/(7555:7555): Logger creado!
+[INFO] 18:52:36:815 MEM/(7555:7555): Configuracion cargada correctamente
+[INFO] 18:52:37:139 MEM/(7555:7555): Memoria cargada correctamente!
+[INFO] 18:52:37:139 MEM/(7555:7555): Generando estructuras globales de tablas de paginas...
+[INFO] 18:52:37:139 MEM/(7555:7555): Estructuras globales de tablas de paginas creadas!
+[INFO] 18:52:37:139 MEM/(7555:7555): Generando estructura auxiliar para manejo de frames...
+[INFO] 18:52:37:140 MEM/(7555:7555): El módulo tiene 64 frames disponibles!
+[INFO] 18:52:37:140 MEM/(7555:7555): Estructura auxiliar para manejo de frames creada!
+[INFO] 18:52:37:140 MEM/(7555:7555): Generando lista de archivos swap...
+[INFO] 18:52:37:543 MEM/(7555:7555): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 18:52:37:543 MEM/(7555:7555): Listo para escuchar a KERNEL
+[INFO] 18:52:37:543 MEM/(7555:7555): Socket creado y escuchando: 4!
+[INFO] 18:55:43:891 MEM/(8184:8184): Logger creado!
+[INFO] 18:55:43:892 MEM/(8184:8184): Configuracion cargada correctamente
+[INFO] 18:55:43:893 MEM/(8184:8184): Memoria cargada correctamente!
+[INFO] 18:55:43:893 MEM/(8184:8184): Generando estructuras globales de tablas de paginas...
+[INFO] 18:55:43:893 MEM/(8184:8184): Estructuras globales de tablas de paginas creadas!
+[INFO] 18:55:43:893 MEM/(8184:8184): Generando estructura auxiliar para manejo de frames...
+[INFO] 18:55:43:893 MEM/(8184:8184): El módulo tiene 64 frames disponibles!
+[INFO] 18:55:43:893 MEM/(8184:8184): Estructura auxiliar para manejo de frames creada!
+[INFO] 18:55:43:893 MEM/(8184:8184): Generando lista de archivos swap...
+[INFO] 18:55:43:897 MEM/(8184:8184): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 18:55:43:897 MEM/(8184:8184): Socket creado y escuchando: 4!
+[INFO] 18:56:38:063 MEM/(8184:8184): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 18:58:10:055 MEM/(8184:8428): Escuchando mensaje de KERNEL
+[INFO] 19:05:42:981 MEM/(9537:9537): Logger creado!
+[INFO] 19:05:42:982 MEM/(9537:9537): Configuracion cargada correctamente
+[INFO] 19:05:42:984 MEM/(9537:9537): Memoria cargada correctamente!
+[INFO] 19:05:42:984 MEM/(9537:9537): Generando estructuras globales de tablas de paginas...
+[INFO] 19:05:42:984 MEM/(9537:9537): Estructuras globales de tablas de paginas creadas!
+[INFO] 19:05:42:984 MEM/(9537:9537): Generando estructura auxiliar para manejo de frames...
+[INFO] 19:05:42:984 MEM/(9537:9537): El módulo tiene 64 frames disponibles!
+[INFO] 19:05:42:984 MEM/(9537:9537): Estructura auxiliar para manejo de frames creada!
+[INFO] 19:05:42:984 MEM/(9537:9537): Generando lista de archivos swap...
+[INFO] 19:05:42:986 MEM/(9537:9537): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 19:05:42:987 MEM/(9537:9537): Socket creado y escuchando: 4!
+[INFO] 19:06:55:537 MEM/(9719:9719): Logger creado!
+[INFO] 19:06:56:660 MEM/(9719:9719): Configuracion cargada correctamente
+[INFO] 19:06:56:663 MEM/(9719:9719): Memoria cargada correctamente!
+[INFO] 19:06:56:663 MEM/(9719:9719): Generando estructuras globales de tablas de paginas...
+[INFO] 19:06:56:663 MEM/(9719:9719): Estructuras globales de tablas de paginas creadas!
+[INFO] 19:06:56:664 MEM/(9719:9719): Generando estructura auxiliar para manejo de frames...
+[INFO] 19:06:56:664 MEM/(9719:9719): El módulo tiene 64 frames disponibles!
+[INFO] 19:06:56:664 MEM/(9719:9719): Estructura auxiliar para manejo de frames creada!
+[INFO] 19:06:56:664 MEM/(9719:9719): Generando lista de archivos swap...
+[INFO] 19:06:56:665 MEM/(9719:9719): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 19:06:56:665 MEM/(9719:9719): Socket creado y escuchando: 4!
+[INFO] 19:09:14:932 MEM/(10050:10050): Logger creado!
+[INFO] 19:09:14:933 MEM/(10050:10050): Configuracion cargada correctamente
+[INFO] 19:09:14:934 MEM/(10050:10050): Memoria cargada correctamente!
+[INFO] 19:09:14:934 MEM/(10050:10050): Generando estructuras globales de tablas de paginas...
+[INFO] 19:09:14:934 MEM/(10050:10050): Estructuras globales de tablas de paginas creadas!
+[INFO] 19:09:14:934 MEM/(10050:10050): Generando estructura auxiliar para manejo de frames...
+[INFO] 19:09:14:934 MEM/(10050:10050): El módulo tiene 64 frames disponibles!
+[INFO] 19:09:14:934 MEM/(10050:10050): Estructura auxiliar para manejo de frames creada!
+[INFO] 19:09:14:934 MEM/(10050:10050): Generando lista de archivos swap...
+[INFO] 19:09:14:937 MEM/(10050:10050): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 19:09:14:937 MEM/(10050:10050): Socket creado y escuchando: 4!
+[INFO] 19:10:33:486 MEM/(10232:10232): Logger creado!
+[INFO] 19:10:33:487 MEM/(10232:10232): Configuracion cargada correctamente
+[INFO] 19:10:33:488 MEM/(10232:10232): Memoria cargada correctamente!
+[INFO] 19:10:33:488 MEM/(10232:10232): Generando estructuras globales de tablas de paginas...
+[INFO] 19:10:33:488 MEM/(10232:10232): Estructuras globales de tablas de paginas creadas!
+[INFO] 19:10:33:488 MEM/(10232:10232): Generando estructura auxiliar para manejo de frames...
+[INFO] 19:10:33:488 MEM/(10232:10232): El módulo tiene 64 frames disponibles!
+[INFO] 19:10:33:489 MEM/(10232:10232): Estructura auxiliar para manejo de frames creada!
+[INFO] 19:10:33:489 MEM/(10232:10232): Generando lista de archivos swap...
+[INFO] 19:10:33:492 MEM/(10232:10232): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 19:10:33:494 MEM/(10232:10232): Socket creado y escuchando: 4!
+[INFO] 19:22:30:911 MEM/(11860:11860): Logger creado!
+[INFO] 19:22:30:941 MEM/(11860:11860): Configuracion cargada correctamente
+[INFO] 19:22:30:943 MEM/(11860:11860): Memoria cargada correctamente!
+[INFO] 19:22:30:943 MEM/(11860:11860): Generando estructuras globales de tablas de paginas...
+[INFO] 19:22:30:943 MEM/(11860:11860): Estructuras globales de tablas de paginas creadas!
+[INFO] 19:22:30:943 MEM/(11860:11860): Generando estructura auxiliar para manejo de frames...
+[INFO] 19:22:30:943 MEM/(11860:11860): El módulo tiene 64 frames disponibles!
+[INFO] 19:22:30:943 MEM/(11860:11860): Estructura auxiliar para manejo de frames creada!
+[INFO] 19:22:30:943 MEM/(11860:11860): Generando lista de archivos swap...
+[INFO] 19:22:30:945 MEM/(11860:11860): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 19:22:30:946 MEM/(11860:11860): Socket creado y escuchando: 4!
+[INFO] 19:26:04:145 MEM/(12200:12200): Logger creado!
+[INFO] 19:26:04:149 MEM/(12200:12200): Configuracion cargada correctamente
+[INFO] 19:26:04:153 MEM/(12200:12200): Memoria cargada correctamente!
+[INFO] 19:26:04:153 MEM/(12200:12200): Generando estructuras globales de tablas de paginas...
+[INFO] 19:26:04:153 MEM/(12200:12200): Estructuras globales de tablas de paginas creadas!
+[INFO] 19:26:04:153 MEM/(12200:12200): Generando estructura auxiliar para manejo de frames...
+[INFO] 19:26:04:153 MEM/(12200:12200): El módulo tiene 64 frames disponibles!
+[INFO] 19:26:04:154 MEM/(12200:12200): Estructura auxiliar para manejo de frames creada!
+[INFO] 19:26:04:154 MEM/(12200:12200): Generando lista de archivos swap...
+[INFO] 19:26:04:159 MEM/(12200:12200): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 19:26:04:159 MEM/(12200:12200): Socket creado y escuchando: 4!
+[INFO] 19:33:58:511 MEM/(13289:13289): Logger creado!
+[INFO] 19:33:58:513 MEM/(13289:13289): Configuracion cargada correctamente
+[INFO] 19:33:58:517 MEM/(13289:13289): Memoria cargada correctamente!
+[INFO] 19:33:58:517 MEM/(13289:13289): Generando estructuras globales de tablas de paginas...
+[INFO] 19:33:58:517 MEM/(13289:13289): Estructuras globales de tablas de paginas creadas!
+[INFO] 19:33:58:517 MEM/(13289:13289): Generando estructura auxiliar para manejo de frames...
+[INFO] 19:33:58:517 MEM/(13289:13289): El módulo tiene 64 frames disponibles!
+[INFO] 19:33:58:517 MEM/(13289:13289): Estructura auxiliar para manejo de frames creada!
+[INFO] 19:33:58:517 MEM/(13289:13289): Generando lista de archivos swap...
+[INFO] 19:33:58:519 MEM/(13289:13289): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 19:33:58:519 MEM/(13289:13289): Socket creado y escuchando: 4!
+[INFO] 19:36:39:816 MEM/(13289:13289): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 19:36:41:525 MEM/(13289:13617): Escuchando mensaje de CPU
+[INFO] 19:39:26:012 MEM/(13941:13941): Logger creado!
+[INFO] 19:39:26:013 MEM/(13941:13941): Configuracion cargada correctamente
+[INFO] 19:39:26:015 MEM/(13941:13941): Memoria cargada correctamente!
+[INFO] 19:39:26:015 MEM/(13941:13941): Generando estructuras globales de tablas de paginas...
+[INFO] 19:39:26:015 MEM/(13941:13941): Estructuras globales de tablas de paginas creadas!
+[INFO] 19:39:26:015 MEM/(13941:13941): Generando estructura auxiliar para manejo de frames...
+[INFO] 19:39:26:015 MEM/(13941:13941): El módulo tiene 64 frames disponibles!
+[INFO] 19:39:26:015 MEM/(13941:13941): Estructura auxiliar para manejo de frames creada!
+[INFO] 19:39:26:015 MEM/(13941:13941): Generando lista de archivos swap...
+[INFO] 19:39:26:020 MEM/(13941:13941): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 19:39:26:020 MEM/(13941:13941): Socket creado y escuchando: 4!
+[INFO] 19:40:31:463 MEM/(14124:14124): Logger creado!
+[INFO] 19:40:31:465 MEM/(14124:14124): Configuracion cargada correctamente
+[INFO] 19:40:31:470 MEM/(14124:14124): Memoria cargada correctamente!
+[INFO] 19:40:31:471 MEM/(14124:14124): Generando estructuras globales de tablas de paginas...
+[INFO] 19:40:31:471 MEM/(14124:14124): Estructuras globales de tablas de paginas creadas!
+[INFO] 19:40:31:471 MEM/(14124:14124): Generando estructura auxiliar para manejo de frames...
+[INFO] 19:40:31:471 MEM/(14124:14124): El módulo tiene 64 frames disponibles!
+[INFO] 19:40:31:471 MEM/(14124:14124): Estructura auxiliar para manejo de frames creada!
+[INFO] 19:40:31:473 MEM/(14124:14124): Generando lista de archivos swap...
+[INFO] 19:40:31:477 MEM/(14124:14124): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 19:40:31:477 MEM/(14124:14124): Socket creado y escuchando: 4!
+[INFO] 19:41:21:007 MEM/(14124:14124): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 19:41:22:483 MEM/(14124:14256): Escuchando mensaje de CPU
+[INFO] 18:33:20:605 MEM/(10119:10119): Logger creado!
+[INFO] 18:33:20:605 MEM/(10119:10119): Configuracion cargada correctamente
+[INFO] 18:33:20:606 MEM/(10119:10119): Memoria cargada correctamente!
+[INFO] 18:33:20:606 MEM/(10119:10119): Generando estructuras globales de tablas de paginas...
+[INFO] 18:33:20:606 MEM/(10119:10119): Estructuras globales de tablas de paginas creadas!
+[INFO] 18:33:20:606 MEM/(10119:10119): Generando estructura auxiliar para manejo de frames...
+[INFO] 18:33:20:606 MEM/(10119:10119): El módulo tiene 64 frames disponibles!
+[INFO] 18:33:20:606 MEM/(10119:10119): Estructura auxiliar para manejo de frames creada!
+[INFO] 18:33:20:606 MEM/(10119:10119): Generando lista de archivos swap...
+[INFO] 18:33:20:607 MEM/(10119:10119): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 18:33:20:607 MEM/(10119:10119): Socket creado y escuchando!
+[INFO] 18:33:36:014 MEM/(10119:10119): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 18:33:36:031 MEM/(10119:10219): Escuchando mensaje de CPU
+[INFO] 18:33:57:238 MEM/(10119:10119): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 18:33:57:253 MEM/(10119:10318): Escuchando mensaje de KERNEL
+[INFO] 18:35:16:948 MEM/(10119:10318): Inicializando proceso con pcb id 10 y size 15...
+[INFO] 18:35:16:948 MEM/(10119:10318): Inicializando proceso size 15 pid 10
+[INFO] 18:35:16:948 MEM/(10119:10318): Creando tablas de primer nivel para proceso pid 10
+[INFO] 18:35:16:949 MEM/(10119:10318): Tablas de Paginas creadas para proceso pid 10 correctamente!
+[INFO] 18:35:16:949 MEM/(10119:10318): Creando file swap para proceso 10 en /home/utnso/swap/10.swap
+[INFO] 18:35:16:949 MEM/(10119:10318): Espacio swap creado correctamente!
+[INFO] 18:35:17:949 MEM/(10119:10318): Inicializacion finalizada para proceso pid 10!
+[INFO] 18:35:17:952 MEM/(10119:10318): Inicializando proceso con pcb id 20 y size 15...
+[INFO] 18:35:17:952 MEM/(10119:10318): Inicializando proceso size 15 pid 20
+[INFO] 18:35:17:952 MEM/(10119:10318): Creando tablas de primer nivel para proceso pid 20
+[INFO] 18:35:17:952 MEM/(10119:10318): Tablas de Paginas creadas para proceso pid 20 correctamente!
+[INFO] 18:35:17:953 MEM/(10119:10318): Creando file swap para proceso 20 en /home/utnso/swap/20.swap
+[INFO] 18:35:17:953 MEM/(10119:10318): Espacio swap creado correctamente!
+[INFO] 18:35:18:953 MEM/(10119:10318): Inicializacion finalizada para proceso pid 20!
+[INFO] 18:36:04:456 MEM/(10119:10318): Inicializando proceso con pcb id 1768120698 y size 1768710505...
+[INFO] 18:36:04:456 MEM/(10119:10318): Inicializando proceso size 1768710505 pid 1768120698
+[INFO] 18:36:04:456 MEM/(10119:10318): Creando tablas de primer nivel para proceso pid 1768120698
+[INFO] 18:36:04:456 MEM/(10119:10318): Tablas de Paginas creadas para proceso pid 1768120698 correctamente!
+[INFO] 18:36:04:456 MEM/(10119:10318): Creando file swap para proceso 1768120698 en /home/utnso/swap/1768120698.swap
+[INFO] 18:36:04:461 MEM/(10119:10318): Espacio swap creado correctamente!
+[INFO] 01:53:18:872 MEM/(6475:6475): Logger creado!
+[ERROR] 01:53:18:898 MEM/(6475:6475): No se encontro memoria.config
+[INFO] 01:53:48:182 MEM/(6508:6508): Logger creado!
+[INFO] 01:53:48:182 MEM/(6508:6508): Configuracion cargada correctamente
+[INFO] 01:53:48:182 MEM/(6508:6508): Memoria cargada correctamente!
+[INFO] 01:53:48:182 MEM/(6508:6508): Generando estructuras globales de tablas de paginas...
+[INFO] 01:53:48:182 MEM/(6508:6508): Estructuras globales de tablas de paginas creadas!
+[INFO] 01:53:48:182 MEM/(6508:6508): Generando estructura auxiliar para manejo de frames...
+[INFO] 01:53:48:182 MEM/(6508:6508): El módulo tiene 64 frames disponibles!
+[INFO] 01:53:48:182 MEM/(6508:6508): Estructura auxiliar para manejo de frames creada!
+[INFO] 01:53:48:182 MEM/(6508:6508): Generando lista de archivos swap...
+[INFO] 01:53:48:182 MEM/(6508:6508): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 01:53:48:182 MEM/(6508:6508): Socket creado y escuchando!
+[INFO] 01:54:54:912 MEM/(6508:6508): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 01:54:54:918 MEM/(6508:6530): Escuchando mensaje de CPU
+[INFO] 01:55:00:515 MEM/(6508:6508): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 01:55:00:519 MEM/(6508:6534): Escuchando mensaje de KERNEL
+[INFO] 01:55:57:693 MEM/(6508:6534): Inicializando proceso con pcb id 0 y size 330...
+[INFO] 01:55:57:693 MEM/(6508:6534): Inicializando proceso size 330 pid 0
+[INFO] 01:55:57:693 MEM/(6508:6534): Creando tablas de primer nivel para proceso pid 0
+[INFO] 01:55:57:693 MEM/(6508:6534): Tablas de Paginas creadas para proceso pid 0 correctamente!
+[INFO] 01:55:57:694 MEM/(6508:6534): Creando file swap para proceso 0 en /home/utnso/swap/0.swap
+[INFO] 01:55:57:708 MEM/(6508:6534): Espacio swap creado correctamente!
+[INFO] 01:55:57:708 MEM/(6508:6534): Inicializacion finalizada para proceso pid 0!
+[INFO] 01:56:06:712 MEM/(6508:6530): Realizando handshake con CPU
+[INFO] 01:56:06:712 MEM/(6508:6530): Modulo de memoria configurado con paginas de size 64 y entradas x tabla 4
+[INFO] 01:56:06:713 MEM/(6508:6530): Recibido request de GET_PAG_NVL_2
+[INFO] 01:56:06:713 MEM/(6508:6530): Buscando tabla de 2do nivel para tabla 0 y entrada 0
+[INFO] 01:56:06:713 MEM/(6508:6530): Tabla de 2do nivel encontrada: 1!
+[INFO] 01:56:07:715 MEM/(6508:6530): Recibido request de GET_MARCO
+[INFO] 01:56:07:715 MEM/(6508:6530): Buscando nro de marco para pid 1 en tabla de 2nivel 0 y entrada -1220540928
+[INFO] 01:56:07:715 MEM/(6508:6530): Generando lista con paginas con p=1
+[INFO] 01:56:07:716 MEM/(6508:6530): Obteniendo ids paginas del proceso con presencia.
+[INFO] 01:56:07:716 MEM/(6508:6530): Buscando marco disponible...
+[INFO] 01:56:07:716 MEM/(6508:6530): Frame libre encontrado en id 0.
+[INFO] 01:56:07:716 MEM/(6508:6530): Swapping a pag id 0
+[INFO] 01:56:07:716 MEM/(6508:6530): Escribiendo 64 bytes en pos 0
+[INFO] 01:56:07:716 MEM/(6508:6530): Swapping a pag id 0 exitoso!
+[INFO] 01:56:09:716 MEM/(6508:6530): Marco 0 obtenido!
+[INFO] 01:56:56:222 MEM/(6508:6530): Recibido request de WRITE
+[INFO] 01:56:57:926 MEM/(6508:6530): Escribiendo en dirección física 0 data: 1
+[INFO] 01:56:57:926 MEM/(6508:6530): Escribiendo 4 bytes en pos 0
+[INFO] 02:00:45:765 MEM/(6727:6727): Logger creado!
+[INFO] 02:00:45:766 MEM/(6727:6727): Configuracion cargada correctamente
+[INFO] 02:00:45:766 MEM/(6727:6727): Memoria cargada correctamente!
+[INFO] 02:00:45:766 MEM/(6727:6727): Generando estructuras globales de tablas de paginas...
+[INFO] 02:00:45:766 MEM/(6727:6727): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:00:45:766 MEM/(6727:6727): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:00:45:766 MEM/(6727:6727): El módulo tiene 64 frames disponibles!
+[INFO] 02:00:45:766 MEM/(6727:6727): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:00:45:766 MEM/(6727:6727): Generando lista de archivos swap...
+[INFO] 02:00:45:766 MEM/(6727:6727): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:00:45:766 MEM/(6727:6727): Socket creado y escuchando!
+[INFO] 02:01:20:636 MEM/(6727:6727): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 02:01:20:641 MEM/(6727:6743): Escuchando mensaje de CPU
+[INFO] 02:01:26:124 MEM/(6727:6727): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 02:01:26:127 MEM/(6727:6747): Escuchando mensaje de KERNEL
+[INFO] 02:01:34:373 MEM/(6727:6747): Inicializando proceso con pcb id 0 y size 330...
+[INFO] 02:01:34:373 MEM/(6727:6747): Inicializando proceso size 330 pid 0
+[INFO] 02:01:34:373 MEM/(6727:6747): Creando tablas de primer nivel para proceso pid 0
+[INFO] 02:01:34:373 MEM/(6727:6747): Tablas de Paginas creadas para proceso pid 0 correctamente!
+[INFO] 02:01:34:373 MEM/(6727:6747): Creando file swap para proceso 0 en /home/utnso/swap/0.swap
+[INFO] 02:01:34:382 MEM/(6727:6747): Espacio swap creado correctamente!
+[INFO] 02:01:34:382 MEM/(6727:6747): Inicializacion finalizada para proceso pid 0!
+[INFO] 02:01:43:387 MEM/(6727:6743): Realizando handshake con CPU
+[INFO] 02:01:43:387 MEM/(6727:6743): Modulo de memoria configurado con paginas de size 64 y entradas x tabla 4
+[INFO] 02:01:43:387 MEM/(6727:6743): Recibido request de GET_PAG_NVL_2
+[INFO] 02:01:43:387 MEM/(6727:6743): Buscando tabla de 2do nivel para tabla 0 y entrada 0
+[INFO] 02:01:43:387 MEM/(6727:6743): Tabla de 2do nivel encontrada: 1!
+[INFO] 02:01:44:387 MEM/(6727:6743): Recibido request de GET_MARCO
+[INFO] 02:01:44:390 MEM/(6727:6743): Buscando nro de marco para pid 1 en tabla de 2nivel 0 y entrada -1220540928
+[INFO] 02:01:44:390 MEM/(6727:6743): Generando lista con paginas con p=1
+[INFO] 02:01:44:390 MEM/(6727:6743): Obteniendo ids paginas del proceso con presencia.
+[INFO] 02:01:44:390 MEM/(6727:6743): Buscando marco disponible...
+[INFO] 02:01:44:390 MEM/(6727:6743): Frame libre encontrado en id 0.
+[INFO] 02:01:44:390 MEM/(6727:6743): Swapping a pag id 0
+[INFO] 02:01:52:519 MEM/(6727:6743): Escribiendo 64 bytes en pos 0
+[INFO] 02:04:51:472 MEM/(6909:6909): Logger creado!
+[INFO] 02:04:51:472 MEM/(6909:6909): Configuracion cargada correctamente
+[INFO] 02:04:51:472 MEM/(6909:6909): Memoria cargada correctamente!
+[INFO] 02:04:51:472 MEM/(6909:6909): Generando estructuras globales de tablas de paginas...
+[INFO] 02:04:51:472 MEM/(6909:6909): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:04:51:472 MEM/(6909:6909): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:04:51:472 MEM/(6909:6909): El módulo tiene 64 frames disponibles!
+[INFO] 02:04:51:472 MEM/(6909:6909): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:04:51:472 MEM/(6909:6909): Generando lista de archivos swap...
+[INFO] 02:04:51:472 MEM/(6909:6909): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:04:51:472 MEM/(6909:6909): Socket creado y escuchando!
+[INFO] 02:05:09:367 MEM/(6944:6944): Logger creado!
+[INFO] 02:05:09:367 MEM/(6944:6944): Configuracion cargada correctamente
+[INFO] 02:05:09:367 MEM/(6944:6944): Memoria cargada correctamente!
+[INFO] 02:05:09:367 MEM/(6944:6944): Generando estructuras globales de tablas de paginas...
+[INFO] 02:05:09:367 MEM/(6944:6944): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:05:09:367 MEM/(6944:6944): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:05:09:367 MEM/(6944:6944): El módulo tiene 64 frames disponibles!
+[INFO] 02:05:09:367 MEM/(6944:6944): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:05:09:367 MEM/(6944:6944): Generando lista de archivos swap...
+[INFO] 02:05:09:367 MEM/(6944:6944): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:05:09:367 MEM/(6944:6944): Socket creado y escuchando!
+[INFO] 02:05:29:374 MEM/(6982:6982): Logger creado!
+[INFO] 02:05:29:374 MEM/(6982:6982): Configuracion cargada correctamente
+[INFO] 02:05:29:375 MEM/(6982:6982): Memoria cargada correctamente!
+[INFO] 02:05:29:375 MEM/(6982:6982): Generando estructuras globales de tablas de paginas...
+[INFO] 02:05:29:375 MEM/(6982:6982): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:05:29:375 MEM/(6982:6982): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:05:29:375 MEM/(6982:6982): El módulo tiene 64 frames disponibles!
+[INFO] 02:05:29:375 MEM/(6982:6982): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:05:29:375 MEM/(6982:6982): Generando lista de archivos swap...
+[INFO] 02:05:29:375 MEM/(6982:6982): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:05:29:375 MEM/(6982:6982): Socket creado y escuchando!
+[INFO] 02:05:57:286 MEM/(7020:7020): Logger creado!
+[INFO] 02:05:57:286 MEM/(7020:7020): Configuracion cargada correctamente
+[INFO] 02:05:57:286 MEM/(7020:7020): Memoria cargada correctamente!
+[INFO] 02:05:57:286 MEM/(7020:7020): Generando estructuras globales de tablas de paginas...
+[INFO] 02:05:57:286 MEM/(7020:7020): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:05:57:286 MEM/(7020:7020): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:05:57:286 MEM/(7020:7020): El módulo tiene 64 frames disponibles!
+[INFO] 02:05:57:286 MEM/(7020:7020): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:05:57:286 MEM/(7020:7020): Generando lista de archivos swap...
+[INFO] 02:05:57:286 MEM/(7020:7020): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:05:57:287 MEM/(7020:7020): Socket creado y escuchando!
+[INFO] 02:06:02:606 MEM/(7020:7020): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 02:06:02:614 MEM/(7020:7031): Escuchando mensaje de CPU
+[INFO] 02:06:05:693 MEM/(7020:7020): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 02:06:05:697 MEM/(7020:7037): Escuchando mensaje de KERNEL
+[INFO] 02:06:21:126 MEM/(7020:7037): Inicializando proceso con pcb id 0 y size 330...
+[INFO] 02:06:21:126 MEM/(7020:7037): Inicializando proceso size 330 pid 0
+[INFO] 02:06:21:126 MEM/(7020:7037): Creando tablas de primer nivel para proceso pid 0
+[INFO] 02:06:21:126 MEM/(7020:7037): Tablas de Paginas creadas para proceso pid 0 correctamente!
+[INFO] 02:06:21:126 MEM/(7020:7037): Creando file swap para proceso 0 en /home/utnso/swap/0.swap
+[INFO] 02:06:21:157 MEM/(7020:7037): Espacio swap creado correctamente!
+[INFO] 02:06:21:157 MEM/(7020:7037): Inicializacion finalizada para proceso pid 0!
+[INFO] 02:06:30:160 MEM/(7020:7031): Realizando handshake con CPU
+[INFO] 02:06:30:160 MEM/(7020:7031): Modulo de memoria configurado con paginas de size 64 y entradas x tabla 4
+[INFO] 02:06:30:160 MEM/(7020:7031): Recibido request de GET_PAG_NVL_2
+[INFO] 02:06:30:160 MEM/(7020:7031): Buscando tabla de 2do nivel para tabla 0 y entrada 0
+[INFO] 02:06:30:160 MEM/(7020:7031): Tabla de 2do nivel encontrada: 1!
+[INFO] 02:06:31:160 MEM/(7020:7031): Recibido request de GET_MARCO
+[INFO] 02:06:31:161 MEM/(7020:7031): Buscando nro de marco para pid 1 en tabla de 2nivel 0 y entrada -1220540928
+[INFO] 02:06:31:161 MEM/(7020:7031): Generando lista con paginas con p=1
+[INFO] 02:06:31:161 MEM/(7020:7031): Obteniendo ids paginas del proceso con presencia.
+[INFO] 02:06:31:161 MEM/(7020:7031): Buscando marco disponible...
+[INFO] 02:06:31:161 MEM/(7020:7031): Frame libre encontrado en id 0.
+[INFO] 02:06:31:161 MEM/(7020:7031): Swapping a pag id 0
+[INFO] 02:06:37:714 MEM/(7020:7031): Escribiendo 64 bytes en pos 0
+[INFO] 02:06:44:697 MEM/(7020:7031): Swapping a pag id 0 exitoso!
+[INFO] 02:06:59:288 MEM/(7020:7031): Marco 0 obtenido!
+[INFO] 02:07:10:080 MEM/(7020:7031): Recibido request de WRITE
+[INFO] 02:07:10:692 MEM/(7020:7031): Escribiendo en dirección física 0 data: 1
+[INFO] 02:07:16:647 MEM/(7020:7031): Escribiendo 4 bytes en pos 0
+[INFO] 02:07:23:775 MEM/(7020:7031): Marcando pag 1 de tabla 2do nivel 0 como en uso
+[INFO] 02:07:23:775 MEM/(7020:7031): Marcando pag 1 de tabla 2do nivel 0 como modificada
+[INFO] 02:18:28:861 MEM/(7312:7312): Logger creado!
+[INFO] 02:18:28:861 MEM/(7312:7312): Configuracion cargada correctamente
+[INFO] 02:18:28:861 MEM/(7312:7312): Memoria cargada correctamente!
+[INFO] 02:18:28:861 MEM/(7312:7312): Generando estructuras globales de tablas de paginas...
+[INFO] 02:18:28:861 MEM/(7312:7312): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:18:28:861 MEM/(7312:7312): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:18:28:861 MEM/(7312:7312): El módulo tiene 64 frames disponibles!
+[INFO] 02:18:28:861 MEM/(7312:7312): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:18:28:861 MEM/(7312:7312): Generando lista de archivos swap...
+[INFO] 02:18:28:861 MEM/(7312:7312): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:18:28:861 MEM/(7312:7312): Socket creado y escuchando!
+[INFO] 02:18:47:197 MEM/(7347:7347): Logger creado!
+[INFO] 02:18:47:197 MEM/(7347:7347): Configuracion cargada correctamente
+[INFO] 02:18:47:197 MEM/(7347:7347): Memoria cargada correctamente!
+[INFO] 02:18:47:197 MEM/(7347:7347): Generando estructuras globales de tablas de paginas...
+[INFO] 02:18:47:197 MEM/(7347:7347): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:18:47:197 MEM/(7347:7347): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:18:47:197 MEM/(7347:7347): El módulo tiene 64 frames disponibles!
+[INFO] 02:18:47:197 MEM/(7347:7347): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:18:47:197 MEM/(7347:7347): Generando lista de archivos swap...
+[INFO] 02:18:47:197 MEM/(7347:7347): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:18:47:197 MEM/(7347:7347): Socket creado y escuchando!
+[INFO] 02:19:10:178 MEM/(7379:7379): Logger creado!
+[INFO] 02:19:10:178 MEM/(7379:7379): Configuracion cargada correctamente
+[INFO] 02:19:10:178 MEM/(7379:7379): Memoria cargada correctamente!
+[INFO] 02:19:10:178 MEM/(7379:7379): Generando estructuras globales de tablas de paginas...
+[INFO] 02:19:10:178 MEM/(7379:7379): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:19:10:178 MEM/(7379:7379): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:19:10:178 MEM/(7379:7379): El módulo tiene 64 frames disponibles!
+[INFO] 02:19:10:178 MEM/(7379:7379): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:19:10:178 MEM/(7379:7379): Generando lista de archivos swap...
+[INFO] 02:19:10:178 MEM/(7379:7379): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:19:10:178 MEM/(7379:7379): Socket creado y escuchando!
+[INFO] 02:19:20:388 MEM/(7379:7379): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 02:19:20:395 MEM/(7379:7390): Escuchando mensaje de CPU
+[INFO] 02:19:25:532 MEM/(7379:7379): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 02:19:25:536 MEM/(7379:7394): Escuchando mensaje de KERNEL
+[INFO] 02:19:33:149 MEM/(7379:7394): Inicializando proceso con pcb id 0 y size 330...
+[INFO] 02:19:33:149 MEM/(7379:7394): Inicializando proceso size 330 pid 0
+[INFO] 02:19:33:149 MEM/(7379:7394): Creando tablas de primer nivel para proceso pid 0
+[INFO] 02:19:33:149 MEM/(7379:7394): Tablas de Paginas creadas para proceso pid 0 correctamente!
+[INFO] 02:19:33:150 MEM/(7379:7394): Creando file swap para proceso 0 en /home/utnso/swap/0.swap
+[INFO] 02:19:33:169 MEM/(7379:7394): Espacio swap creado correctamente!
+[INFO] 02:19:33:170 MEM/(7379:7394): Inicializacion finalizada para proceso pid 0!
+[INFO] 02:19:42:175 MEM/(7379:7390): Realizando handshake con CPU
+[INFO] 02:19:42:175 MEM/(7379:7390): Modulo de memoria configurado con paginas de size 64 y entradas x tabla 4
+[INFO] 02:19:42:175 MEM/(7379:7390): Recibido request de GET_PAG_NVL_2
+[INFO] 02:19:42:175 MEM/(7379:7390): Buscando tabla de 2do nivel para tabla 0 y entrada 0
+[INFO] 02:19:42:175 MEM/(7379:7390): Tabla de 2do nivel encontrada: 1!
+[INFO] 02:19:42:176 MEM/(7379:7390): Recibido request de GET_MARCO
+[INFO] 02:19:42:176 MEM/(7379:7390): Buscando nro de marco para pid 1 en tabla de 2nivel 0 y entrada -1220540928
+[INFO] 02:19:42:176 MEM/(7379:7390): Generando lista con paginas con p=1
+[INFO] 02:19:42:176 MEM/(7379:7390): Obteniendo ids paginas del proceso con presencia.
+[INFO] 02:19:42:176 MEM/(7379:7390): Buscando marco disponible...
+[INFO] 02:19:42:176 MEM/(7379:7390): Frame libre encontrado en id 0.
+[INFO] 02:19:42:176 MEM/(7379:7390): Swapping a pag id 0
+[INFO] 02:19:42:176 MEM/(7379:7390): Escribiendo 64 bytes en pos 0
+[INFO] 02:19:42:176 MEM/(7379:7390): Swapping a pag id 0 exitoso!
+[INFO] 02:19:42:178 MEM/(7379:7390): Marco 0 obtenido!
+[INFO] 02:19:42:180 MEM/(7379:7390): Recibido request de WRITE
+[INFO] 02:19:42:180 MEM/(7379:7390): Escribiendo en dirección física 0 data: 1
+[INFO] 02:19:42:180 MEM/(7379:7390): Escribiendo 4 bytes en pos 0
+[INFO] 02:19:42:180 MEM/(7379:7390): Marcando pag 1 de tabla 2do nivel 0 como en uso
+[INFO] 02:19:42:180 MEM/(7379:7390): Marcando pag 1 de tabla 2do nivel 0 como modificada
+[INFO] 02:21:20:539 MEM/(7447:7447): Logger creado!
+[INFO] 02:21:20:540 MEM/(7447:7447): Configuracion cargada correctamente
+[INFO] 02:21:20:540 MEM/(7447:7447): Memoria cargada correctamente!
+[INFO] 02:21:20:540 MEM/(7447:7447): Generando estructuras globales de tablas de paginas...
+[INFO] 02:21:20:540 MEM/(7447:7447): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:21:20:540 MEM/(7447:7447): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:21:20:540 MEM/(7447:7447): El módulo tiene 64 frames disponibles!
+[INFO] 02:21:20:540 MEM/(7447:7447): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:21:20:540 MEM/(7447:7447): Generando lista de archivos swap...
+[INFO] 02:21:20:540 MEM/(7447:7447): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:21:20:540 MEM/(7447:7447): Socket creado y escuchando!
+[INFO] 02:21:46:909 MEM/(7483:7483): Logger creado!
+[INFO] 02:21:46:912 MEM/(7483:7483): Configuracion cargada correctamente
+[INFO] 02:21:46:912 MEM/(7483:7483): Memoria cargada correctamente!
+[INFO] 02:21:46:912 MEM/(7483:7483): Generando estructuras globales de tablas de paginas...
+[INFO] 02:21:46:912 MEM/(7483:7483): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:21:46:912 MEM/(7483:7483): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:21:46:912 MEM/(7483:7483): El módulo tiene 64 frames disponibles!
+[INFO] 02:21:46:912 MEM/(7483:7483): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:21:46:912 MEM/(7483:7483): Generando lista de archivos swap...
+[INFO] 02:21:46:912 MEM/(7483:7483): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:21:46:912 MEM/(7483:7483): Socket creado y escuchando!
+[INFO] 02:22:00:188 MEM/(7516:7516): Logger creado!
+[INFO] 02:22:00:188 MEM/(7516:7516): Configuracion cargada correctamente
+[INFO] 02:22:00:188 MEM/(7516:7516): Memoria cargada correctamente!
+[INFO] 02:22:00:188 MEM/(7516:7516): Generando estructuras globales de tablas de paginas...
+[INFO] 02:22:00:188 MEM/(7516:7516): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:22:00:188 MEM/(7516:7516): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:22:00:188 MEM/(7516:7516): El módulo tiene 64 frames disponibles!
+[INFO] 02:22:00:188 MEM/(7516:7516): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:22:00:188 MEM/(7516:7516): Generando lista de archivos swap...
+[INFO] 02:22:00:188 MEM/(7516:7516): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:22:00:188 MEM/(7516:7516): Socket creado y escuchando!
+[INFO] 02:22:16:903 MEM/(7555:7555): Logger creado!
+[INFO] 02:22:16:904 MEM/(7555:7555): Configuracion cargada correctamente
+[INFO] 02:22:16:904 MEM/(7555:7555): Memoria cargada correctamente!
+[INFO] 02:22:16:904 MEM/(7555:7555): Generando estructuras globales de tablas de paginas...
+[INFO] 02:22:16:904 MEM/(7555:7555): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:22:16:904 MEM/(7555:7555): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:22:16:904 MEM/(7555:7555): El módulo tiene 64 frames disponibles!
+[INFO] 02:22:16:904 MEM/(7555:7555): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:22:16:904 MEM/(7555:7555): Generando lista de archivos swap...
+[INFO] 02:22:16:904 MEM/(7555:7555): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:22:16:904 MEM/(7555:7555): Socket creado y escuchando!
+[INFO] 02:22:21:627 MEM/(7555:7555): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 02:22:21:636 MEM/(7555:7565): Escuchando mensaje de CPU
+[INFO] 02:22:24:195 MEM/(7555:7555): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 02:22:24:202 MEM/(7555:7569): Escuchando mensaje de KERNEL
+[INFO] 02:22:30:093 MEM/(7555:7569): Inicializando proceso con pcb id 0 y size 330...
+[INFO] 02:22:30:093 MEM/(7555:7569): Inicializando proceso size 330 pid 0
+[INFO] 02:22:30:093 MEM/(7555:7569): Creando tablas de primer nivel para proceso pid 0
+[INFO] 02:22:30:093 MEM/(7555:7569): Tablas de Paginas creadas para proceso pid 0 correctamente!
+[INFO] 02:22:30:093 MEM/(7555:7569): Creando file swap para proceso 0 en /home/utnso/swap/0.swap
+[INFO] 02:22:30:206 MEM/(7555:7569): Espacio swap creado correctamente!
+[INFO] 02:22:30:206 MEM/(7555:7569): Inicializacion finalizada para proceso pid 0!
+[INFO] 02:22:39:210 MEM/(7555:7565): Realizando handshake con CPU
+[INFO] 02:22:39:210 MEM/(7555:7565): Modulo de memoria configurado con paginas de size 64 y entradas x tabla 4
+[INFO] 02:22:39:210 MEM/(7555:7565): Recibido request de GET_PAG_NVL_2
+[INFO] 02:22:39:210 MEM/(7555:7565): Buscando tabla de 2do nivel para tabla 0 y entrada 0
+[INFO] 02:22:39:210 MEM/(7555:7565): Tabla de 2do nivel encontrada: 1!
+[INFO] 02:25:35:115 MEM/(7555:7565): Recibido request de GET_MARCO
+[INFO] 02:25:37:061 MEM/(7555:7565): Buscando nro de marco para pid 1 en tabla de 2nivel 0 y entrada -1220540928
+[INFO] 02:25:37:061 MEM/(7555:7565): Generando lista con paginas con p=1
+[INFO] 02:25:37:061 MEM/(7555:7565): Obteniendo ids paginas del proceso con presencia.
+[INFO] 02:25:37:061 MEM/(7555:7565): Buscando marco disponible...
+[INFO] 02:25:37:061 MEM/(7555:7565): Frame libre encontrado en id 0.
+[INFO] 02:25:37:061 MEM/(7555:7565): Swapping a pag id 0
+[INFO] 02:25:37:061 MEM/(7555:7565): Escribiendo 64 bytes en pos 0
+[INFO] 02:25:37:061 MEM/(7555:7565): Swapping a pag id 0 exitoso!
+[INFO] 02:25:37:063 MEM/(7555:7565): Marco 0 obtenido!
+[INFO] 02:25:48:659 MEM/(7555:7565): Recibido request de WRITE
+[INFO] 02:25:49:150 MEM/(7555:7565): Escribiendo en dirección física 0 data: 1
+[INFO] 02:25:49:150 MEM/(7555:7565): Escribiendo 4 bytes en pos 0
+[INFO] 02:25:49:150 MEM/(7555:7565): Marcando pag 1 de tabla 2do nivel 0 como en uso
+[INFO] 02:25:49:150 MEM/(7555:7565): Marcando pag 1 de tabla 2do nivel 0 como modificada
+[INFO] 02:37:06:735 MEM/(7872:7872): Logger creado!
+[INFO] 02:37:06:735 MEM/(7872:7872): Configuracion cargada correctamente
+[INFO] 02:37:06:735 MEM/(7872:7872): Memoria cargada correctamente!
+[INFO] 02:37:06:735 MEM/(7872:7872): Generando estructuras globales de tablas de paginas...
+[INFO] 02:37:06:735 MEM/(7872:7872): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:37:06:735 MEM/(7872:7872): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:37:06:735 MEM/(7872:7872): El módulo tiene 64 frames disponibles!
+[INFO] 02:37:06:735 MEM/(7872:7872): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:37:06:735 MEM/(7872:7872): Generando lista de archivos swap...
+[INFO] 02:37:06:735 MEM/(7872:7872): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:37:06:735 MEM/(7872:7872): Socket creado y escuchando!
+[INFO] 02:37:45:190 MEM/(7919:7919): Logger creado!
+[INFO] 02:37:45:190 MEM/(7919:7919): Configuracion cargada correctamente
+[INFO] 02:37:45:190 MEM/(7919:7919): Memoria cargada correctamente!
+[INFO] 02:37:45:190 MEM/(7919:7919): Generando estructuras globales de tablas de paginas...
+[INFO] 02:37:45:190 MEM/(7919:7919): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:37:45:190 MEM/(7919:7919): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:37:45:190 MEM/(7919:7919): El módulo tiene 64 frames disponibles!
+[INFO] 02:37:45:190 MEM/(7919:7919): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:37:45:190 MEM/(7919:7919): Generando lista de archivos swap...
+[INFO] 02:37:45:190 MEM/(7919:7919): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:37:45:190 MEM/(7919:7919): Socket creado y escuchando!
+[INFO] 02:38:05:671 MEM/(7955:7955): Logger creado!
+[INFO] 02:38:05:671 MEM/(7955:7955): Configuracion cargada correctamente
+[INFO] 02:38:05:671 MEM/(7955:7955): Memoria cargada correctamente!
+[INFO] 02:38:05:671 MEM/(7955:7955): Generando estructuras globales de tablas de paginas...
+[INFO] 02:38:05:671 MEM/(7955:7955): Estructuras globales de tablas de paginas creadas!
+[INFO] 02:38:05:671 MEM/(7955:7955): Generando estructura auxiliar para manejo de frames...
+[INFO] 02:38:05:671 MEM/(7955:7955): El módulo tiene 64 frames disponibles!
+[INFO] 02:38:05:671 MEM/(7955:7955): Estructura auxiliar para manejo de frames creada!
+[INFO] 02:38:05:671 MEM/(7955:7955): Generando lista de archivos swap...
+[INFO] 02:38:05:671 MEM/(7955:7955): Inicializando servidor con ip 127.0.0.1 y puerto 8002... 
+[INFO] 02:38:05:671 MEM/(7955:7955): Socket creado y escuchando!
+[INFO] 02:38:08:142 MEM/(7955:7955): Recibido mensaje de CPU, create y detach thread correspondiente
+[INFO] 02:38:08:148 MEM/(7955:7967): Escuchando mensaje de CPU
+[INFO] 02:38:27:038 MEM/(7955:7955): Recibido mensaje de KERNEL, create y detach thread correspondiente
+[INFO] 02:38:27:047 MEM/(7955:8013): Escuchando mensaje de KERNEL
+[INFO] 02:38:47:087 MEM/(7955:8013): Inicializando proceso con pcb id 0 y size 330...
+[INFO] 02:38:47:087 MEM/(7955:8013): Inicializando proceso size 330 pid 0
+[INFO] 02:38:47:087 MEM/(7955:8013): Creando tablas de primer nivel para proceso pid 0
+[INFO] 02:38:47:087 MEM/(7955:8013): Tablas de Paginas creadas para proceso pid 0 correctamente!
+[INFO] 02:38:47:087 MEM/(7955:8013): Creando file swap para proceso 0 en /home/utnso/swap/0.swap
+[INFO] 02:38:47:111 MEM/(7955:8013): Espacio swap creado correctamente!
+[INFO] 02:38:47:111 MEM/(7955:8013): Inicializacion finalizada para proceso pid 0!
+[INFO] 02:38:56:115 MEM/(7955:7967): Realizando handshake con CPU
+[INFO] 02:38:56:115 MEM/(7955:7967): Modulo de memoria configurado con paginas de size 64 y entradas x tabla 4
+[INFO] 02:39:04:616 MEM/(7955:7967): Recibido request de GET_PAG_NVL_2
+[INFO] 02:39:05:177 MEM/(7955:7967): Buscando tabla de 2do nivel para tabla 0 y entrada 0
+[INFO] 02:39:05:177 MEM/(7955:7967): Tabla de 2do nivel encontrada: 1!
+[INFO] 02:39:11:754 MEM/(7955:7967): Recibido request de GET_MARCO
+[INFO] 02:39:11:754 MEM/(7955:7967): Buscando nro de marco para pid 1 en tabla de 2nivel 0 y entrada -1220540928
+[INFO] 02:39:11:754 MEM/(7955:7967): Generando lista con paginas con p=1
+[INFO] 02:39:11:754 MEM/(7955:7967): Obteniendo ids paginas del proceso con presencia.
+[INFO] 02:39:11:754 MEM/(7955:7967): Buscando marco disponible...
+[INFO] 02:39:11:754 MEM/(7955:7967): Frame libre encontrado en id 0.
+[INFO] 02:39:11:754 MEM/(7955:7967): Swapping a pag id 0
+[INFO] 02:39:11:754 MEM/(7955:7967): Escribiendo 64 bytes en pos 0
+[INFO] 02:39:11:754 MEM/(7955:7967): Swapping a pag id 0 exitoso!
+[INFO] 02:39:13:755 MEM/(7955:7967): Marco 0 obtenido!
+[INFO] 02:39:19:614 MEM/(7955:7967): Recibido request de WRITE
+[INFO] 02:39:19:614 MEM/(7955:7967): Escribiendo en dirección física 0 data: 1
+[INFO] 02:39:19:614 MEM/(7955:7967): Escribiendo 4 bytes en pos 0
+[INFO] 02:39:19:614 MEM/(7955:7967): Marcando pag 1 de tabla 2do nivel 0 como en uso
+[INFO] 02:39:19:614 MEM/(7955:7967): Marcando pag 1 de tabla 2do nivel 0 como modificada
