@@ -92,7 +92,7 @@ t_config_tabla* obtener_tamanioPag_Entradas()
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) 1);
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) tamanioStream);
 
-	send(socket_memoria, buffer, tamanioBuffer, 0);
+	send(socket_memoria, buffer, tamanioBuffer, MSG_NOSIGNAL);
 
 	log_info(loggerCpu, "ESPERANDO RECIBIR RESPUESTA DE MEMORIA");
 
@@ -123,7 +123,7 @@ uint32_t obtener_tabla_2do_nivel(int tabla_paginas_1er_nivel, int entrada_pagina
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) tabla_paginas_1er_nivel);
 	concatenarInt32(buffer, &desplazamiento, (uint32_t) entrada_pagina_1er_nivel);
 
-	send(socket_memoria, buffer, tamanioBuffer, 0);
+	send(socket_memoria, buffer, tamanioBuffer, MSG_NOSIGNAL);
 
 	log_info(loggerCpu, "ESPERANDO RECIBIR id tabla 2do Nivel DE MEMORIA");
 
@@ -151,7 +151,7 @@ uint32_t obtener_marco(uint32_t tabla_1er_nivel, uint32_t tabla_2do_nivel, uint3
 	concatenarInt32(buffer, &desplazamiento, tabla_2do_nivel);
 	concatenarInt32(buffer, &desplazamiento, entrada_2do_nivel);
 
-	send(socket_memoria, buffer, tamanioBuffer, 0);
+	send(socket_memoria, buffer, tamanioBuffer, MSG_NOSIGNAL);
 
 	log_info(loggerCpu, "ESPERANDO RECIBIR Marco DE MEMORIA");
 

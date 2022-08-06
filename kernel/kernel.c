@@ -189,7 +189,7 @@ void atender_consola(int consola) {
 	} else {
 		log_error(loggerKernel,"No se pudo completar el handshake :C");
 		op_code cod = ERROR;
-		send(consola,&cod,sizeof(op_code),0);
+		send(consola,&cod,sizeof(op_code),MSG_NOSIGNAL);
 	}
 	proceso_destroyer(proceso);
 }
@@ -212,7 +212,7 @@ bool se_pudo_recibir_el_proceso(int consola, t_proceso* proceso) {
 void enviar_confirmacion(int consola) {
 
 	op_code cod = CONFIRMACION;
-	send(consola,&cod,sizeof(op_code),0);
+	send(consola,&cod,sizeof(op_code),MSG_NOSIGNAL);
 	log_info(loggerKernel,"Envie confirmacion :D");
 }
 
