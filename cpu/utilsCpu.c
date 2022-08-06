@@ -42,7 +42,7 @@ int iniciar_servidor_interrupt(void)
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE;
 
-	getaddrinfo(IP_CPU, config_cpu.puerto_cpu_interrupt, &hints, &servinfo);
+	getaddrinfo(config_cpu.ip, config_cpu.puerto_cpu_interrupt, &hints, &servinfo);
 
 	// Creamos el socket de escucha del servidor
 	socket_servidor = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
@@ -59,7 +59,6 @@ int iniciar_servidor_interrupt(void)
 	freeaddrinfo(servinfo);
 	log_info(loggerCpu, "Listo para escuchar a KERNEL - Interrupt");
 
-	perror("error create socket interrupt");
 	return socket_servidor;
 }
 
