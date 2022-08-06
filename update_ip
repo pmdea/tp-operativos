@@ -1,0 +1,3 @@
+#!/bin/bash
+args=("$@")
+find ./configs -type f -exec sed -i "s/IP=127.0.0.1/IP=${args[0]}/g" {} \;
