@@ -17,7 +17,7 @@ void decode(t_instruccion* instruccion, PCB* unPCB)
 {
     if(instruccion->identificador == COPY)
     {
-    	t_direccion_logica* direccion_logica = malloc(sizeof(direccion_logica));
+    	t_direccion_logica* direccion_logica = malloc(sizeof(t_direccion_logica));
         int direccion = list_remove(instruccion -> parametros -> elements, 1);
         t_config_tabla config = obtener_direccion_logica(direccion, direccion_logica);
 
