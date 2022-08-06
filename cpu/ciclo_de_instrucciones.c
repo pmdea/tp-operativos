@@ -23,7 +23,7 @@ void decode(t_instruccion* instruccion, PCB* unPCB)
 
         int valor = fetchOperands(direccion_logica, *unPCB, config);
         list_add(instruccion->parametros->elements, valor);
-        free(direccion_logica);
+        //free(direccion_logica);
     }
 }
 
