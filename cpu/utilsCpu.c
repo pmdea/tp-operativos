@@ -11,7 +11,7 @@ int iniciar_servidor_dispatch(void)
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE;
 
-	getaddrinfo(IP_CPU, config_cpu.puerto_cpu_dispatch, &hints, &servinfo);
+	getaddrinfo(config_cpu.ip, config_cpu.puerto_cpu_dispatch, &hints, &servinfo);
 
 	// Creamos el socket de escucha del servidor
 	socket_servidor = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
